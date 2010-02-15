@@ -2,9 +2,9 @@ This project is an attempt to create some sort of parser for boost test. So inst
 
 As of writing, I'm focusing on the parsing and not on the display aspect. I plan to design it in such a way that the display module can be held seperate from the parsing, and therefore be interchanged with whatever the user wants to use. The two things that spring to mind are plain OOP and Strategy Pattern.
 
-I should mention that this is my first Python project (serious coding with an final application in mind.) I've worked heavily in C++, so assume that I'll make mistakes similar to anyone who starting a new language. In particular the use of packages in python (why the init.py?) I've used Java in college, so I'll assume Python's package system serves a similar purpose and functions in a similar fashion.
+I should mention that this is my first Python project (serious coding with an final application in mind.) I've worked heavily in C++, so assume that I'll make mistakes similar to anyone whose not sure how to do something in a new language (i.e: do something un-pythonic). In particular the use of packages in python (why the init.py?) I've used Java in college, so I'll assume Python's package system serves a similar purpose and functions in a similar fashion.
 
-Also, please give feedback. If you find something that bugs you enough to complain about it, its important enough to send me an email. Same goes for positive aspects as well. If I get no feedback, I have no clue how well this software functions in the user's perspective (and as a developer, I can't function as a true user b/c I know too much about how it functions and therefore know how to get it to work.)
+Also, please give feedback. If you find something that bugs you enough to complain about it, its important enough to send me an email. Same goes for positive aspects as well. If I get no feedback, I have no clue how well this software functions in the user's perspective. As a developer, I can't function as a true user b/c I know too much about how it functions and therefore know how to get it to work.
 
 Matthew A. Todd
 
