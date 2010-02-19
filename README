@@ -18,12 +18,7 @@ Modules:
 
 Road Map:
 
-From this moment,there are several ways to proceed:
- Parsing:
- - We can parse test cases and separate into passing and failing.
- - Keep sequential
- - Define some sort of data structure so that once xml is parsed, we can pass said data structure to display module.
- 
+From this moment,there are several ways to proceed: 
  Display:
  - We can build some sort of GUI, which would allow us to user colors.
  - We can write into html, using colors as well
