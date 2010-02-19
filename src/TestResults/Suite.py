@@ -26,6 +26,9 @@ class Suite:
         
         self._testCases.add(test)
         
+    def getTestCases(self):
+        return self._testCases
+        
     def testCount(self):
         '''
         Returns number of tests cases contained in this suite

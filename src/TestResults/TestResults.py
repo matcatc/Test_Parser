@@ -34,6 +34,9 @@ class TestResults:
         
         self._suites.add(suite)
         
+    def getSuites(self):
+        return self._suites
+        
     def suiteCount(self):
         '''
         Returns the number of suites contained

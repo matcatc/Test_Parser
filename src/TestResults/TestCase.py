@@ -11,8 +11,6 @@ class TestCase:
     '''
     A single test. Which may have multiple errors (asserts).
     
-    TODO: getters
-    
     Messages and errors are contained in one list, so that the order in which
     they occurred is not lost. This is why they both inherit INotice.
     
@@ -44,6 +42,9 @@ class TestCase:
             raise ValueError("time is negative")
         
         self._timeTaken = time
+        
+    def getTimeTaken(self):
+        return self._timeTaken    
     
     
     def addError(self, error):
@@ -54,6 +55,20 @@ class TestCase:
         
         self._bError = True
         self._notices.append(error)
+        
+    def getErrors(self):
+        '''
+        parses the list looking for errors
+        @return list of errors or empty list
+        '''
+        if not self.hasError():
+            return []
+        
+        ret = []
+        for notice in self._notices:
+            if isinstance(notice, Error):
+                ret.append(notice)
+        return ret
     
     
     def addMessage(self, message):
@@ -64,3 +79,13 @@ class TestCase:
         
         self._notices.append(message)
         
+    def getMessages(self):
+        '''
+        parses the list looking for messages
+        @return list of messages or empty list
+        '''
+        ret = []
+        for notice in self._notices:
+            if isinstance(notice, Message):
+                ret.append(notice)
+        return ret
