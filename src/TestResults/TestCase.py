@@ -1,8 +1,10 @@
 '''
 Created on Feb 17, 2010
 
-@author: matcat
+@author: Matthew A. Todd
 '''
+import Error, Message
+
 
 class TestCase:
     '''
@@ -18,9 +20,9 @@ class TestCase:
     True
     '''
 
-    errors = ([])
-    timeTaken = 0
-    messages = []
+    _bError = False      # whether TestCase contains error
+    _notices = []
+    _timeTaken = 0
 
     def __init__(self):
         '''
@@ -28,21 +30,32 @@ class TestCase:
         '''
     
     def hasError(self):
-        if len(self.errors) > 0:
-            return True
-        else:
-            return False
+        return self._bError
         
     def setTimeTaken(self, time):
-        self.timeTaken = time
+        if time is None:
+            raise ValueError("time is None")
+        if time < 0:
+            raise ValueError("time is negative")
         
+        self._timeTaken = time
+    
+    
     def addError(self, error):
-        self.errors.append(error)
+        if error is None:
+            raise ValueError("error is None")
+        if not isinstance(error, Error):
+            raise TypeError("error is not of type Error")
         
+        self._bError = True
+        self._notices.append(error)
+    
+    
     def addMessage(self, message):
-        '''
-        appends the error message to the list,
-         so that the messages are kept in order
-        '''
-        self.messages.append(message)
+        if message is None:
+            raise ValueError("message is None")
+        if not isinstance(message, Message):
+            raise TypeError("message is not of type Message")
+        
+        self._notices.append(message)
         

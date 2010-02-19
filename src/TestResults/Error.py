@@ -1,27 +1,51 @@
 '''
 Created on Feb 17, 2010
 
-@author: matcat
+@author: Matthew A. Todd
 '''
+import INotice
 
-class Error:
+class Error(INotice):
     '''
-    classdocs
+    An error
+    @see INotice
     '''
 
-    file = ""
-    line = 0
-    prob = ""
+    _file = ""
+    _line = 0
+    _error = ""     # can be empty, but should be noted
 
-    def __init__(self, file, line, prob):
+    def __init__(self, file, line, error):
         '''
-        file and prob are of type String
+        file and error are of type String
         line is an int
-        '''
-        self.file = file
-        self.line = line
-        self.prob = prob
         
+        error can be an empty string, but a warning will be sent if it is
+        '''
+        if file is None or line is None or error is None:
+            raise ValueError("parameter to Error was None")
+        
+        if file is "":
+            raise ValueError("file name is empty")
+        
+        if error is "":
+            raise Warning("error is empty string")
+        
+        if line < 0:
+            raise ValueError("line number is negative")
+        
+        self._file = file
+        self._line = line
+        self._error = error
+
+    def getFile(self):
+        return self._file
+    
+    def getLine(self):
+        return self._line
+    
+    def getError(self):
+        return self._error
         
     def toString(self):
-        return "in %s at line %d: %s" % (self.file, self.line, self.prob)
+        return "in %s at line %d: %s" % (self.getFile(), self.getLine(), self.getError())

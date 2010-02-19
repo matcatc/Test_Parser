@@ -1,28 +1,33 @@
 '''
 Created on Feb 17, 2010
 
-@author: matcat
+@author: Matthew A. Todd
 '''
+import TestCase
 
 class Suite:
     '''
     classdocs
     '''
 
-    testCases = set([])
+    _testCases = set([])
 
-    def __init__(self, testCases):
+    def __init__(self):
         '''
         Constructor
         '''
-        self.testCases = set(testCases)
     
     def addTest(self, test):
-        self.testCases.add(test)
+        if test is None:
+            raise ValueError("test is None")
+        if not isinstance(test, TestCase):
+            raise TypeError("test is not of type TestCase")
+        
+        self._testCases.add(test)
         
     def testCount(self):
         '''
         Returns number of tests cases contained in this suite
         '''
-        return len(self.testCases)
+        return len(self._testCases)
         

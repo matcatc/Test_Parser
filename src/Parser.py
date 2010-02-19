@@ -1,7 +1,7 @@
 '''
 Created on Feb 14, 2010
 
-@author: matcat
+@author: Matthew A. Todd
 '''
 
 #
