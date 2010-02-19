@@ -1,13 +1,22 @@
 '''
-Created on Feb 17, 2010
+Contain the entire results from a run of tests.
 
+Structured as follows:
+TestResults
+    Suite
+        TestCase
+            INotice (Error / Message)
+see doc/TestResults.dia for more information
+            
+    
+@date Feb 17, 2010
 @author: Matthew A. Todd
 '''
 import Suite
 
 class TestResults:
     '''
-    classdocs
+    Contains the entire results from a run of tests. Organized into suites.
     '''
     
     _suites = set([])

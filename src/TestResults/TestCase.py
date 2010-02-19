@@ -1,6 +1,7 @@
 '''
-Created on Feb 17, 2010
+A single test case
 
+@date Feb 17, 2010
 @author: Matthew A. Todd
 '''
 import Error, Message
@@ -8,8 +9,12 @@ import Error, Message
 
 class TestCase:
     '''
-    issue: if messages and errors are stored in separate data structures,
-    the individual order will be lost
+    A single test. Which may have multiple errors (asserts).
+    
+    TODO: getters
+    
+    Messages and errors are contained in one list, so that the order in which
+    they occurred is not lost. This is why they both inherit INotice.
     
     >>> testCase = TestCase()
     >>> testCase.hasError()

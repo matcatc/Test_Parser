@@ -1,6 +1,5 @@
 '''
-Created on Feb 19, 2010
-
+@date Feb 19, 2010
 @author: Matthew A. Todd
 '''
 import INotice
@@ -9,6 +8,9 @@ class Message(INotice):
     '''
     contains a simple string message.
     @see INotice
+    
+    @date Feb 19,2010
+    @author Matthew A. Todd
     '''
 
     _message = ""

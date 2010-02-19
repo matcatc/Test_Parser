@@ -1,6 +1,5 @@
 '''
-Created on Feb 17, 2010
-
+@date Feb 17, 2010
 @author: Matthew A. Todd
 '''
 import INotice
@@ -9,6 +8,9 @@ class Error(INotice):
     '''
     An error
     @see INotice
+    
+    @date Feb 17, 2010
+    @date Matthew A. Todd
     '''
 
     _file = ""

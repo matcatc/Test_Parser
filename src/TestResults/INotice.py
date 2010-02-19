@@ -1,6 +1,7 @@
 '''
-Created on Feb 19, 2010
+Interface for Errors and Message types.
 
+@date Feb 19, 2010
 @author: Matthew A. Todd
 '''
 
@@ -11,8 +12,10 @@ class INotice():
     Errors and Messages in the order they occurred.
     The other option would be to keep them separate,
     thereby loosing information (the order they occurred.)
-    2/19/2010
-    Matthew A. Todd
+    @see TestCase
+    
+    @date Feb 19, 2010
+    @author Matthew A. Todd
     '''
 
     def __init__(self):

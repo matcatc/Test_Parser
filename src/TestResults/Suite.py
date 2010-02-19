@@ -1,13 +1,14 @@
 '''
-Created on Feb 17, 2010
+An entire suite of tests.
 
+@date Feb 17, 2010
 @author: Matthew A. Todd
 '''
 import TestCase
 
 class Suite:
     '''
-    classdocs
+    Contains an entire suite of tests. Organized into test cases.
     '''
 
     _testCases = set([])
