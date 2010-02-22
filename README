@@ -25,3 +25,6 @@ From this moment,there are several ways to proceed:
     - no different than xslt, but with the ability to change into something else later
     - requires a browser
     	- user then has to run python, then browser == annoying
+
+
+Design using MVC pattern
