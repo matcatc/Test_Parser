@@ -31,6 +31,9 @@ def print_TestCase(testCase):
         print indent, "line:", error.get("line")
         print indent, error.text
         
+        
+    # TODO: messages
+    
     return
 
 def print_TestSuite(testSuite):

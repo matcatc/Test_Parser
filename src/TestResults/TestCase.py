@@ -26,6 +26,7 @@ class TestCase:
     _bError = False      # whether TestCase contains error
     _notices = []
     _timeTaken = 0
+    _name = ""
 
     def __init__(self):
         '''
@@ -46,6 +47,11 @@ class TestCase:
     def getTimeTaken(self):
         return self._timeTaken    
     
+    def setName(self, name):
+        self._name = name
+        
+    def getName(self):
+        return self._name
     
     def addError(self, error):
         if error is None:
