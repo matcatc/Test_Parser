@@ -3,7 +3,7 @@
 @author: Matthew A. Todd
 '''
 import IParse
-import BoostTestParser.TestResults as TestResults
+from BoostTestParser.TestResults import TestResults, Suite, Error, Message, TestCase
 
 class BasicParser(IParse.IParse):
     '''
@@ -30,13 +30,13 @@ class BasicParser(IParse.IParse):
         
         
     def _parseSuite(self, suiteTree):
-        suite = TestResults.Suite()
+        suite = Suite.Suite()
         # go through all the tests, parsing and adding
         
         return suite
     
     def _parseTestCase(self, testTree):
-        test = TestResults.TestCase()
+        test = TestCase.TestCase()
         
         test.setTimeTaken(testTree.get("name"))
         
@@ -49,11 +49,8 @@ class BasicParser(IParse.IParse):
             text = element.text
             
             if element.tag is "Error":
-                test.addError(TestResults.Error(file, line, text))
+                test.addError(Error.Error(file, line, text))
             elif element.tag is "Message":
-                test.addMessage(TestResults.Message(file, line, text))
-
-            
-
+                test.addMessage(Message.Message(file, line, text))
         
         return test
