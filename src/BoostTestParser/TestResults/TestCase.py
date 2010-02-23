@@ -15,6 +15,7 @@ class TestCase:
     
     getMessages() and getErrors() isn't really needed. Just use getNotices()
     then check type of notice when displaying.
+    TODO: check whether they are or not
     
     >>> testCase = TestCase()
     >>> testCase.hasError()
