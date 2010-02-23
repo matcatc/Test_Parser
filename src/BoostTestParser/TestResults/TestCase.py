@@ -13,6 +13,9 @@ class TestCase:
     Messages and errors are contained in one list, so that the order in which
     they occurred is not lost. This is why they both inherit INotice.
     
+    getMessages() and getErrors() isn't really needed. Just use getNotices()
+    then check type of notice when displaying.
+    
     >>> testCase = TestCase()
     >>> testCase.hasError()
     False
@@ -26,8 +29,6 @@ class TestCase:
     _notices = []
     _timeTaken = 0
     _name = ""
-    ERROR = 1
-    MESSAGE = 2
 
     def __init__(self):
         '''
@@ -54,12 +55,24 @@ class TestCase:
     def getName(self):
         return self._name
     
-    def addError(self, error):
-        if error is None:
-            raise NoneError("error")
+    def add(self, notice):
+        if notice is None:
+            raise NoneError("notice")
         
+        if notice.isError():
+            self._addError(notice)
+        elif notice.isMessage(notice):
+            self._addMessage(notice)
+        # unknown data type
+        else:
+            self._addUnknown(notice)
+            
+    def _addUnknown(self, notice):
+        self._notices.append(notice)        
+    
+    def _addError(self, error):        
         self._bError = True
-        self._notices.append( (self.ERROR, error))
+        self._notices.append(error)
         
     def getErrors(self):
         '''
@@ -70,17 +83,14 @@ class TestCase:
             return []
         
         ret = []
-        for noticeTup in self._notices:
-            if noticeTup[0] is self.ERROR:
-                ret.append(noticeTup[1])
+        for notice in self._notices:
+            if notice.isError():
+                ret.append(notice)
         return ret
     
     
-    def addMessage(self, message):
-        if message is None:
-            raise NoneError("message")
-        
-        self._notices.append( (self.MESSAGE, message))
+    def _addMessage(self, message):       
+        self._notices.append(message)
         
     def getMessages(self):
         '''
@@ -88,7 +98,10 @@ class TestCase:
         @return list of messages or empty list
         '''
         ret = []
-        for noticeTup in self._notices:
-            if noticeTup[0] is self.MESSAGE:
-                ret.append(noticeTup[1])
+        for notice in self._notices:
+            if notice.isMessage():
+                ret.append(notice)
         return ret
+    
+    def getNotices(self):
+        return self._notices
