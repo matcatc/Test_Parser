@@ -5,6 +5,7 @@ An entire suite of tests.
 @author: Matthew A. Todd
 '''
 import TestCase
+from BoostTestParser.Exception import NoneError
 
 class Suite:
     '''
@@ -20,7 +21,7 @@ class Suite:
     
     def addTest(self, test):
         if test is None:
-            raise ValueError("test is None")
+            raise NoneError("test")
         if not isinstance(test, TestCase):
             raise TypeError("test is not of type TestCase")
         

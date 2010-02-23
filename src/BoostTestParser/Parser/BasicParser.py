@@ -31,7 +31,7 @@ class BasicParser(IParse.IParse):
         
     def _parseSuite(self, suiteTree):
         suite = Suite.Suite()
-        # go through all the tests, parsing and adding
+        # TODO go through all the tests, parsing and adding
         
         return suite
     

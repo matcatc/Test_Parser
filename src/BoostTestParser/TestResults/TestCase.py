@@ -4,8 +4,7 @@ A single test case
 @date Feb 17, 2010
 @author: Matthew A. Todd
 '''
-import Error, Message
-
+from BoostTestParser.Exception import NoneError
 
 class TestCase:
     '''
@@ -27,6 +26,8 @@ class TestCase:
     _notices = []
     _timeTaken = 0
     _name = ""
+    ERROR = 1
+    MESSAGE = 2
 
     def __init__(self):
         '''
@@ -38,7 +39,7 @@ class TestCase:
         
     def setTimeTaken(self, time):
         if time is None:
-            raise ValueError("time is None")
+            raise NoneError("time")
         if time < 0:
             raise ValueError("time is negative")
         
@@ -55,12 +56,10 @@ class TestCase:
     
     def addError(self, error):
         if error is None:
-            raise ValueError("error is None")
-        if not isinstance(error, Error):
-            raise TypeError("error is not of type Error")
+            raise NoneError("error")
         
         self._bError = True
-        self._notices.append(error)
+        self._notices.append( (self.ERROR, error))
         
     def getErrors(self):
         '''
@@ -71,19 +70,17 @@ class TestCase:
             return []
         
         ret = []
-        for notice in self._notices:
-            if isinstance(notice, Error):
-                ret.append(notice)
+        for noticeTup in self._notices:
+            if noticeTup[0] is self.ERROR:
+                ret.append(noticeTup[1])
         return ret
     
     
     def addMessage(self, message):
         if message is None:
-            raise ValueError("message is None")
-        if not isinstance(message, Message):
-            raise TypeError("message is not of type Message")
+            raise NoneError("message")
         
-        self._notices.append(message)
+        self._notices.append( (self.MESSAGE, message))
         
     def getMessages(self):
         '''
@@ -91,7 +88,7 @@ class TestCase:
         @return list of messages or empty list
         '''
         ret = []
-        for notice in self._notices:
-            if isinstance(notice, Message):
-                ret.append(notice)
+        for noticeTup in self._notices:
+            if noticeTup[0] is self.MESSAGE:
+                ret.append(noticeTup[1])
         return ret

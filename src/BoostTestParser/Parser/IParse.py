@@ -30,12 +30,13 @@ class IParse():
         '''
         tree = None
         
+        # TODO: pythonic way of doing this
         if isinstance(input, file):
             tree = ET.parse(input)
         elif isinstance(input, str):
             tree = ET.fromstring(input)
         else:
-            raise TypeError("trying to parse unknown type")
+            tree = ET.parse(input)
         
         return self._parseData(tree)
         
