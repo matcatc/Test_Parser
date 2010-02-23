@@ -4,7 +4,7 @@
 '''
 import INotice
 
-class Error(INotice):
+class Error(INotice.INotice):
     '''
     An error
     @see INotice

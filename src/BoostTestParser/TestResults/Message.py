@@ -4,7 +4,7 @@
 '''
 import INotice
 
-class Message(INotice):
+class Message(INotice.INotice):
     '''
     contains a simple string message.
     @see INotice

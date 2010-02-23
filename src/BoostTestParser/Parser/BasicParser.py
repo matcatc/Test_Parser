@@ -3,9 +3,9 @@
 @author: Matthew A. Todd
 '''
 import IParse
-import TestResults
+import BoostTestParser.TestResults as TestResults
 
-class BasicParser(IParse):
+class BasicParser(IParse.IParse):
     '''
     Our basic parser
     
