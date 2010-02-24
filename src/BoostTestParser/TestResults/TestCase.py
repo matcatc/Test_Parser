@@ -41,6 +41,9 @@ class TestCase:
         whether test case has a given type of notice
         '''
         return type in self._types
+    
+    def getTypes(self):
+        return self._types
         
     def setTimeTaken(self, time):
         if time is None:
