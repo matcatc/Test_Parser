@@ -3,7 +3,7 @@
 @author: Matthew A. Todd
 '''
 import IParse
-from BoostTestParser.TestResults import TestResults, Suite, Error, Message, TestCase
+from BoostTestParser.TestResults import TestResults, Suite, TestCase
 
 class BasicParser(IParse.IParse):
     '''
@@ -48,6 +48,7 @@ class BasicParser(IParse.IParse):
             line = element.get("line")
             text = element.text
             
+            # FIX: change to new scheme
             if element.tag is "Error":
                 test.addError(Error.Error(file, line, text))
             elif element.tag is "Message":
