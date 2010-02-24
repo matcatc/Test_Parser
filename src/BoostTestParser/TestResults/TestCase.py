@@ -26,8 +26,8 @@ class TestCase:
     True
     '''
 
-    _bError = False      # whether TestCase contains error
     _notices = []
+    _types = set()          # set of known types (of notices added)
     _timeTaken = 0
     _name = ""
 
@@ -36,8 +36,11 @@ class TestCase:
         Constructor
         '''
     
-    def hasError(self):
-        return self._bError
+    def hasType(self, type):
+        '''
+        whether test case has a given type of notice
+        '''
+        return type in self._types
         
     def setTimeTaken(self, time):
         if time is None:
@@ -56,53 +59,31 @@ class TestCase:
     def getName(self):
         return self._name
     
-    def add(self, notice):
+    def add(self, notice, type):
+        '''
+        @param notice: notice to add
+        @param type: type of notice which we're adding
+        '''
         if notice is None:
             raise NoneError("notice")
-        
-        if notice.isError():
-            self._addError(notice)
-        elif notice.isMessage(notice):
-            self._addMessage(notice)
-        # unknown data type
-        else:
-            self._addUnknown(notice)
             
-    def _addUnknown(self, notice):
+        self._addNotice(notice, type)
+            
+    def _addNotice(self, notice, type):
+        self._types.add(type)
         self._notices.append(notice)        
-    
-    def _addError(self, error):        
-        self._bError = True
-        self._notices.append(error)
-        
-    def getErrors(self):
-        '''
-        parses the list looking for errors
-        @return list of errors or empty list
-        '''
-        if not self.hasError():
-            return []
-        
-        ret = []
-        for notice in self._notices:
-            if notice.isError():
-                ret.append(notice)
-        return ret
-    
-    
-    def _addMessage(self, message):       
-        self._notices.append(message)
-        
-    def getMessages(self):
-        '''
-        parses the list looking for messages
-        @return list of messages or empty list
-        '''
-        ret = []
-        for notice in self._notices:
-            if notice.isMessage():
-                ret.append(notice)
-        return ret
     
     def getNotices(self):
         return self._notices
+    
+    def getNoticesOfType(self, type):
+        '''
+        parses the list of notices, looking for those of a given type
+        @param type type of notices to return
+        @return list of notices of type type
+        '''
+        ret = []
+        for notice in self.getNotices():
+            if notice.getType() is type:
+                ret.append(notice)
+        return ret

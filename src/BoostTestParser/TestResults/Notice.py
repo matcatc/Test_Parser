@@ -63,12 +63,6 @@ class Notice():
     
     def getType(self):
         return self._type
-    
-    def isError(self):
-        return self.getType() is "error"
-    
-    def isMessage(self):
-        return self.getType() is "message"
         
     def toString(self):
-        return "in %s at line %d: %s" % (self.getFile(), self.getLine(), self.getInfo())
+        return "%s in %s at line %d: %s" % (self.getType(), self.getFile(), self.getLine(), self.getInfo())
