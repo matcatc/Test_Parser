@@ -3,11 +3,15 @@
 @author: Matthew A. Todd
 '''
 import IParse
-from BoostTestParser.TestResults import TestResults, Suite, TestCase
+from BoostTestParser.TestResults import TestResults, Suite, TestCase, Notice
 
 class BasicParser(IParse.IParse):
     '''
-    Our basic parser
+    Our basic parser.
+    
+    Notice types:
+        - error
+        - message
     
     @date Feb 22, 2010
     @author: Matthew A. Todd
@@ -48,10 +52,9 @@ class BasicParser(IParse.IParse):
             line = element.get("line")
             text = element.text
             
-            # FIX: change to new scheme
             if element.tag is "Error":
-                test.addError(Error.Error(file, line, text))
+                test.add(Notice.Notice(file, line, text, "error"))
             elif element.tag is "Message":
-                test.addMessage(Message.Message(file, line, text))
+                test.add(Notice.Notice(file, line, text, "message"))
         
         return test
