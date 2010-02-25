@@ -27,7 +27,10 @@ class BasicParser(IParse.IParse):
         @see IParse._parseData
         '''
         results = TestResults.TestResults()
-        # TODO go through all the suites, parsing and adding
+        
+        # VERIFY go through all the suites, parsing and adding
+        for suite in tree.getiterator():
+            results.addSuite(self._parseSuite(suite))
         
         
         return results
@@ -35,7 +38,11 @@ class BasicParser(IParse.IParse):
         
     def _parseSuite(self, suiteTree):
         suite = Suite.Suite()
-        # TODO go through all the tests, parsing and adding
+        suite.setName(suiteTree.get("name"))
+        
+        # VERIFY go through all the tests, parsing and adding
+        for test in suiteTree.getiterator():
+            suite.addTest(self._parseTestCase(test)) 
         
         return suite
     
@@ -46,8 +53,8 @@ class BasicParser(IParse.IParse):
         
         test.setName(testTree.find("TestingTime").text)
     
-        iter = testTree.getiterator()
-        for element in iter:
+        # VERIFY
+        for element in testTree.getiterator():
             file = element.get("file")
             line = element.get("line")
             text = element.text
