@@ -13,11 +13,18 @@ class Suite:
     '''
 
     _testCases = set([])
+    _name = ""
 
     def __init__(self):
         '''
         Constructor
         '''
+        
+    def getName(self):
+        return self._name
+    
+    def setName(self, name):
+        self._name = name
     
     def addTest(self, test):
         if test is None:
