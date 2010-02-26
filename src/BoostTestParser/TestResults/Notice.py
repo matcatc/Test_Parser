@@ -38,13 +38,13 @@ class Notice():
         if file is None or line is None or info is None or type is None:
             raise NoneError("some parameter")
         
-        if file is "":
+        if file == "":
             raise ValueError("file name is empty")
         
-        if info is "":
+        if info == "":
             raise Warning("info is empty string")
         
-        if type is "":
+        if type == "":
             raise Warning("type is empty string")
         
         if line < 0:
