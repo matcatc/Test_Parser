@@ -18,11 +18,11 @@ class TestCase:
     TODO: check whether they are or not
     
     >>> testCase = TestCase()
-    >>> testCase.hasError()
+    >>> testCase.hasType("error")
     False
         
-    >>> testCase.addError(0)    # not real error type, but works for test
-    >>> testCase.hasError()
+    >>> testCase.add(0, "error")    # not real error type, but works for test
+    >>> testCase.hasType("error")
     True
     '''
 
