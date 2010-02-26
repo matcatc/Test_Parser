@@ -44,6 +44,9 @@ class Notice():
         if info is "":
             raise Warning("info is empty string")
         
+        if type is "":
+            raise Warning("type is empty string")
+        
         if line < 0:
             raise ValueError("line number is negative")
         
