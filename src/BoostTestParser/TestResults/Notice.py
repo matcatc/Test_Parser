@@ -5,7 +5,7 @@ Interface for Errors and Message types.
 @author: Matthew A. Todd
 '''
 
-from BoostTestParser.Exception import NoneError
+from BoostTestParser.Exception.NoneError import NoneError
 
 class Notice():
     '''
@@ -62,7 +62,7 @@ class Notice():
         return self._line
     
     def getInfo(self):
-        return self._error
+        return self._info
     
     def getType(self):
         return self._type
