@@ -4,7 +4,7 @@ A single test case
 @date Feb 17, 2010
 @author: Matthew A. Todd
 '''
-from BoostTestParser.Exception import NoneError
+from BoostTestParser.Exception.NoneError import NoneError
 
 class TestCase:
     '''
@@ -12,10 +12,6 @@ class TestCase:
     
     Messages and errors are contained in one list, so that the order in which
     they occurred is not lost. This is why they both inherit INotice.
-    
-    getMessages() and getErrors() isn't really needed. Just use getNotices()
-    then check type of notice when displaying.
-    TODO: check whether they are or not
     
     >>> testCase = TestCase()
     >>> testCase.hasType("error")
@@ -40,7 +36,7 @@ class TestCase:
         '''
         whether test case has a given type of notice
         '''
-        return type in self._types
+        return type in self.getTypes()
     
     def getTypes(self):
         return self._types
@@ -67,8 +63,8 @@ class TestCase:
         @param notice: notice to add
         @param type: type of notice which we're adding
         '''
-        if notice is None:
-            raise NoneError("notice")
+        if notice is None or type is None:
+            raise NoneError("add parameter")
             
         self._addNotice(notice, type)
             
@@ -87,6 +83,6 @@ class TestCase:
         '''
         ret = []
         for notice in self.getNotices():
-            if notice.getType() is type:
+            if notice.getType() == type:
                 ret.append(notice)
         return ret

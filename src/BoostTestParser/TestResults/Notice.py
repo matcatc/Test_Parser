@@ -53,7 +53,7 @@ class Notice():
         self._file = file
         self._line = line
         self._info = info
-        self._type = type.lower()
+        self._type = type
 
     def getFile(self):
         return self._file
