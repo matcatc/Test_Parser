@@ -1,16 +1,20 @@
 '''
-Created on Feb 26, 2010
-
-@author: matcat
+@date Feb 26, 2010
+@author Matthew A. Todd
 '''
 import unittest
 from BoostTestParser.TestResults.TestCase import TestCase
 from BoostTestParser.TestResults.Notice import Notice
 
 from BoostTestParser.Exception.NoneError import NoneError
-#TODO
 
-class Test(unittest.TestCase):
+
+class TestCase_Test(unittest.TestCase):
+    '''
+    Test BoostTestParser.TestResults.TestCase
+    @date Feb 26, 2010
+    @author Matthew A. Todd
+    '''
     type = "error"
     file = "main.cpp"
     line = 0
