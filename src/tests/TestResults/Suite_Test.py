@@ -28,7 +28,7 @@ class Suite_Test(unittest.TestCase):
     
 
     def tearDown(self):
-        del self.suite._testCases[:]
+        self.suite._testCases.clear()
         del self.suite
         del self.test
 
@@ -41,7 +41,8 @@ class Suite_Test(unittest.TestCase):
         amount = 4
         
         for i in range(amount):
-            self.suite.addTest(self.test)
+            test = TestCase()
+            self.suite.addTest(test)
         
         self.assertEqual(self.suite.testCount(), amount)
         
@@ -49,12 +50,8 @@ class Suite_Test(unittest.TestCase):
         self.assertRaises(NoneError, self.suite.addTest, None)
 
     def testGetTestCases(self):
-        amount = 12
-        for i in range(amount):
-            self.suite.addTest(self.test)
-            
+        self.suite.addTest(self.test)
         self.assertTrue(self.test in self.suite.getTestCases())
-        self.assertEqual(len(self.suite.getTestCases()), amount)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

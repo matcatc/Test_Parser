@@ -12,8 +12,8 @@ see doc/TestResults.dia for more information
 @date Feb 17, 2010
 @author: Matthew A. Todd
 '''
-import Suite
-from BoostTestParser.Exception import NoneError
+#import Suite
+from BoostTestParser.Exception.NoneError import NoneError
 
 class TestResults:
     '''
@@ -30,8 +30,9 @@ class TestResults:
     def addSuite(self,suite):
         if suite is None:
             raise NoneError("suite")
-        if not isinstance(suite, Suite):
-            raise TypeError("suite is not of type Suite")
+        # TODO: do we want isinstance?
+        #if not isinstance(suite, Suite):
+        #    raise TypeError("suite is not of type Suite")
         
         self._suites.add(suite)
         

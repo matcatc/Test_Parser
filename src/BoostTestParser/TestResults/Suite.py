@@ -12,8 +12,8 @@ class Suite:
     Contains an entire suite of tests. Organized into test cases.
     '''
     # TODO: should _testCases be a set or a list?
-    #_testCases = set([])
-    _testCases = []
+    _testCases = set([])
+    #_testCases = []
     _name = ""
 
     def __init__(self):
@@ -34,8 +34,8 @@ class Suite:
         #if not isinstance(test, TestCase.TestCase):
         #    raise TypeError("test is not of type TestCase")
         
-        #self._testCases.add(test)
-        self._testCases.append(test)
+        self._testCases.add(test)
+        #self._testCases.append(test)
         
     def getTestCases(self):
         return self._testCases
