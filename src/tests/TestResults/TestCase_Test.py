@@ -72,6 +72,8 @@ class TestCase_Test(unittest.TestCase):
         self.test.add(self.notice, self.type)
         self.assertTrue(self.notice in self.test.getNotices())
         
+        # TODO: add check for amount returned 
+        
     def testGetNoticesOfType(self):
         '''
         check that getNoticesOfType returns the correct amount of the correct type
