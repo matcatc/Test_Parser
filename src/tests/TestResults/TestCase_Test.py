@@ -27,7 +27,7 @@ class TestCase_Test(unittest.TestCase):
 
     def tearDown(self):
         self.test._types.clear()        # shouldn't have to have this line
-        #del self.test._notices[:]
+        del self.test._notices[:]
         self.test = None
 
 
@@ -69,10 +69,14 @@ class TestCase_Test(unittest.TestCase):
         self.assertRaises(NoneError, self.test.add, self.notice, None)
         
     def testGetNotices(self):
-        self.test.add(self.notice, self.type)
-        self.assertTrue(self.notice in self.test.getNotices())
+        amount = 4
         
-        # TODO: add check for amount returned 
+        for i in range(amount):
+            self.test.add(self.notice, self.type)
+            
+        self.assertTrue(self.notice in self.test.getNotices())
+        self.assertEqual(len(self.test.getNotices()), amount)
+
         
     def testGetNoticesOfType(self):
         '''
