@@ -28,7 +28,7 @@ class TestCase_Test(unittest.TestCase):
     def tearDown(self):
         self.test._types.clear()        # shouldn't have to have this line
         del self.test._notices[:]
-        self.test = None
+        del self.test
 
 
     def testHasType(self):

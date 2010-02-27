@@ -29,8 +29,8 @@ class Suite_Test(unittest.TestCase):
 
     def tearDown(self):
         del self.suite._testCases[:]
-        self.suite = None
-        self.test = None
+        del self.suite
+        del self.test
 
 
     def testName(self):

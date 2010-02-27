@@ -23,7 +23,7 @@ class Notice_Test(unittest.TestCase):
 
 
     def tearDown(self):
-        self.notice = None
+        del self.notice
 
 
     def testNone(self):
