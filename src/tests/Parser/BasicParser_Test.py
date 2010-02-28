@@ -17,6 +17,11 @@ class BasicParser_Test(unittest.TestCase):
     def tearDown(self):
         del self.parser
 
+    def testParseData(self):
+        self.fail("test not implemented")
+
+    def testParseSuite(self):
+        self.fail("test not implemented")
 
     def testParseTestCase(self):        
         name = "sampleTestCase"
