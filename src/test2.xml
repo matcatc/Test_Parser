@@ -1,0 +1,12 @@
+<TestLog>
+	<TestSuite name="test">
+		<TestCase name="Float_test">
+			<Message file="../Test1.h" line="10">starting Float_test</Message>
+			<TestingTime>0</TestingTime>
+		</TestCase>
+		<TestCase name="Contrived_Failure">
+			<Error file="../Test2.h" line="10">check false failed</Error>
+			<TestingTime>0</TestingTime>
+		</TestCase>
+	</TestSuite>
+</TestLog>

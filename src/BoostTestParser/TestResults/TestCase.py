@@ -58,15 +58,15 @@ class TestCase:
     def getName(self):
         return self._name
     
-    def add(self, notice, type):
+    def add(self, notice):
         '''
         @param notice: notice to add
-        @param type: type of notice which we're adding
         '''
-        if notice is None or type is None:
-            raise NoneError("add parameter")
-            
-        self._addNotice(notice, type)
+        if notice is None:
+            raise NoneError("notice")
+        
+        self._addNotice(notice, notice.getType())           
+        
             
     def _addNotice(self, notice, type):
         self._types.add(type)

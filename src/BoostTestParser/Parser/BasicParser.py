@@ -49,19 +49,22 @@ class BasicParser(IParse.IParse):
     def _parseTestCase(self, testTree):
         test = TestCase.TestCase()
         
-        test.setTimeTaken(testTree.get("name"))
-        
-        test.setName(testTree.find("TestingTime").text)
+        if testTree.get("name") is not None:
+            test.setName(testTree.get("name"))
+            
+        if testTree.find("TestingTime") is not None:
+            test.setTimeTaken(int(testTree.find("TestingTime").text))
     
         # VERIFY
         for element in testTree.getiterator():
             file = element.get("file")
-            line = element.get("line")
+            if element.get("line") is not None:
+                line = int(element.get("line"))
             text = element.text
             
-            if element.tag is "Error":
+            if element.tag == "Error":
                 test.add(Notice.Notice(file, line, text, "error"))
-            elif element.tag is "Message":
+            elif element.tag == "Message":
                 test.add(Notice.Notice(file, line, text, "message"))
         
         return test

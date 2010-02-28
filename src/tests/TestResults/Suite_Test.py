@@ -24,7 +24,7 @@ class Suite_Test(unittest.TestCase):
         self.suite = Suite()
 
         self.test = TestCase()
-        self.test.add(self.notice, self.notice)
+        self.test.add(self.notice)
     
 
     def tearDown(self):

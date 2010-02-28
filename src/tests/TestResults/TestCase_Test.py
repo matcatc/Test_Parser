@@ -38,7 +38,7 @@ class TestCase_Test(unittest.TestCase):
         '''
         self.assertFalse(self.test.hasType(self.type))
         
-        self.test.add(self.notice, self.type)
+        self.test.add(self.notice)
         self.assertTrue(self.test.hasType(self.type))
         
     def testName(self):
@@ -65,14 +65,13 @@ class TestCase_Test(unittest.TestCase):
     
     def testAdd(self):
         # bogus input
-        self.assertRaises(NoneError, self.test.add, None, self.type)
-        self.assertRaises(NoneError, self.test.add, self.notice, None)
+        self.assertRaises(NoneError, self.test.add, None)
         
     def testGetNotices(self):
         amount = 4
         
         for i in range(amount):
-            self.test.add(self.notice, self.type)
+            self.test.add(self.notice)
             
         self.assertTrue(self.notice in self.test.getNotices())
         self.assertEqual(len(self.test.getNotices()), amount)
@@ -87,9 +86,9 @@ class TestCase_Test(unittest.TestCase):
         notice2 = Notice("file", 0, "newNotice", type)
         
         for i in range(3):
-            self.test.add(self.notice, self.type)
+            self.test.add(self.notice)
         for i in range(amount):
-            self.test.add(notice2, type)
+            self.test.add(notice2)
         
         self.assertEquals(len(self.test.getNoticesOfType(type)), amount)
         self.assertTrue(notice2 in self.test.getNoticesOfType(type))
