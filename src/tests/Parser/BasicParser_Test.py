@@ -42,9 +42,11 @@ class BasicParser_Test(unittest.TestCase):
             self.assertEqual(notice.getLine(), line)
             self.assertEqual(notice.getFile(), file)
 
-        # TODO: check order of notices
-        # check type and info at same time
-        
+        # check order and type of notices
+        first = test.getNotices()[0]
+        self.assertEqual(first.getInfo(), message)
+        second = test.getNotices()[1]
+        self.assertEqual(second.getInfo(), error)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
