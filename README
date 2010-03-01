@@ -9,10 +9,12 @@ Also, please give feedback. If you find something that bugs you enough to compla
 Matthew A. Todd
 
 
-Modules:
-	-parsing
-	-displaying
+Design using MVC pattern:
+ 	- model
+		-parsing
+	- displaying
 		- COLORS!!!
+		- show/hide tests and other information
 
 ----------------------------
 
@@ -20,11 +22,19 @@ Road Map:
 
 From this moment,there are several ways to proceed: 
  Display:
- - We can build some sort of GUI, which would allow us to user colors.
- - We can write into html, using colors as well
-    - no different than xslt, but with the ability to change into something else later
-    - requires a browser
-    	- user then has to run python, then browser == annoying
+ 	becuase we're using MVC, and thus strategies, we can build up our designs w/o getting rid of old ones.
+ 	- console display
+ 		- not going to be much different that Boost::Test's original output. But its a good start. Plus it can be useful and we can make it look better if we want.
+ 	- simple gui
+ 		- simple as in it displays the output with some colors, but doesn't interact with user. This means we don't need much of an controller
+ 	- interactive gui
+ 		- same as simple, but accepts user interaction. I.e: swap in a different controller.
+ 			- directory tree structure for tests
+ 				- open and close certain directories, hiding test we aren't interested in.
+ 			- rerun tests?
+ 				- this would require executing a process
+ 					- need a reference to the test runner
+* 						- we could make our gui wrap the test runner. So instead of just parsing output, it can run the tests. E.g: Alleyoop
 
 
-Design using MVC pattern
+
