@@ -11,15 +11,14 @@ class Suite:
     '''
     Contains an entire suite of tests. Organized into test cases.
     '''
-    # TODO: should _testCases be a set or a list?
-    _testCases = set([])
-    #_testCases = []
-    _name = ""
 
     def __init__(self):
         '''
         Constructor
         '''
+        self._testCases = set([])
+        self._name = ""
+
         
     def getName(self):
         return self._name

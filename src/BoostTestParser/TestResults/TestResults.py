@@ -19,13 +19,12 @@ class TestResults:
     '''
     Contains the entire results from a run of tests. Organized into suites.
     '''
-    
-    _suites = set([])
 
     def __init__(self):
         '''
         Constructor
         '''
+        self._suites = set([])
     
     def addSuite(self,suite):
         if suite is None:

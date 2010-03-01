@@ -22,15 +22,14 @@ class TestCase:
     True
     '''
 
-    _notices = []
-    _types = set()          # set of known types (of notices added)
-    _timeTaken = 0
-    _name = ""
-
     def __init__(self):
         '''
         Constructor
         '''
+        self._notices = []
+        self._types = set()          # set of known types (of notices added)
+        self._timeTaken = 0
+        self._name = ""
     
     def hasType(self, type):
         '''

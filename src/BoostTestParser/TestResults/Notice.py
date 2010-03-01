@@ -20,12 +20,6 @@ class Notice():
     @author Matthew A. Todd
     '''
 
-
-    _file = ""
-    _line = 0
-    _info = ""     # can be empty, but should be noted
-    _type = ""
-
     def __init__(self, file, line, info, type):
         '''
         file, info, and type are of type String
