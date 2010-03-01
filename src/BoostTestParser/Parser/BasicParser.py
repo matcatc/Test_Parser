@@ -2,7 +2,7 @@
 @date Feb 22, 2010
 @author: Matthew A. Todd
 '''
-import IParse
+from BoostTestParser.Parser import IParse
 from BoostTestParser.TestResults import TestResults, Suite, TestCase, Notice
 
 class BasicParser(IParse.IParse):
