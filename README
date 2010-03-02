@@ -22,7 +22,7 @@ Road Map:
 
 From this moment,there are several ways to proceed: 
  Display:
- 	becuase we're using MVC, and thus strategies, we can build up our designs w/o getting rid of old ones.
+ 	because we're using MVC, and thus strategies, we can build up our designs w/o getting rid of old ones.
  	- console display
  		- not going to be much different that Boost::Test's original output. But its a good start. Plus it can be useful and we can make it look better if we want.
  	- simple gui
