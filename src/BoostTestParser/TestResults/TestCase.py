@@ -4,9 +4,8 @@ A single test case
 @date Feb 17, 2010
 @author: Matthew A. Todd
 '''
-from BoostTestParser.Exception.NoneError import NoneError
 
-class TestCase:
+class TestCase(object):
     '''
     A single test. Which may have multiple errors (asserts).
     
@@ -26,53 +25,40 @@ class TestCase:
         '''
         Constructor
         '''
-        self._notices = []
-        self._types = set()          # set of known types (of notices added)
+        self.notices = []
+        self.types = set()          # set of known types (of notices added)
         self._timeTaken = 0
-        self._name = ""
+        self.name = ""
     
     def hasType(self, type):
         '''
         whether test case has a given type of notice
         '''
-        return type in self.getTypes()
+        return type in self.types
     
-    def getTypes(self):
-        return self._types
-        
-    def setTimeTaken(self, time):
-        if time is None:
-            raise NoneError("time")
+    @property
+    def timeTaken(self):
+        return self._timeTaken
+    
+    @timeTaken.setter
+    def timeTaken(self, time): #@DuplicatedSignature
         if time < 0:
             raise ValueError("time is negative")
-        
         self._timeTaken = time
         
-    def getTimeTaken(self):
-        return self._timeTaken    
+    @timeTaken.deleter
+    def timeTaken(self): #@DuplicatedSignature
+        del self._timeTaken
     
-    def setName(self, name):
-        self._name = name
-        
-    def getName(self):
-        return self._name
+    #timeTaken = property(timeTaken_get, timeTaken_set, timeTaken_del)
     
-    def add(self, notice):
+    # TODO: property?
+    def addNotice(self, notice):
         '''
         @param notice: notice to add
-        '''
-        if notice is None:
-            raise NoneError("notice")
-        
-        self._addNotice(notice, notice.getType())           
-        
-            
-    def _addNotice(self, notice, type):
-        self._types.add(type)
-        self._notices.append(notice)        
-    
-    def getNotices(self):
-        return self._notices
+        '''          
+        self.types.add(notice.getType())
+        self.notices.append(notice)
     
     def getNoticesOfType(self, type):
         '''
@@ -81,7 +67,7 @@ class TestCase:
         @return list of notices of type type
         '''
         ret = []
-        for notice in self.getNotices():
+        for notice in self.notices:
             if notice.getType() == type:
                 ret.append(notice)
         return ret

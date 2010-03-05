@@ -29,9 +29,7 @@ class Notice():
         
         info can be an empty string, but a warning will be sent if it is
         '''
-        if file is None or line is None or info is None or type is None:
-            raise NoneError("some parameter")
-        
+        #TODO: change to use properties
         if file == "":
             raise ValueError("file name is empty")
         
@@ -44,22 +42,10 @@ class Notice():
         if line < 0:
             raise ValueError("line number is negative")
         
-        self._file = file
-        self._line = line
-        self._info = info
-        self._type = type
-
-    def getFile(self):
-        return self._file
-    
-    def getLine(self):
-        return self._line
-    
-    def getInfo(self):
-        return self._info
-    
-    def getType(self):
-        return self._type
+        self.file = file
+        self.line = line
+        self.info = info
+        self.type = type
         
     def toString(self):
         return "%s in %s at line %d: %s" % (self.getType(), self.getFile(), self.getLine(), self.getInfo())

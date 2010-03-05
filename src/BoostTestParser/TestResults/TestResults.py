@@ -13,7 +13,7 @@ see doc/TestResults.dia for more information
 @author: Matthew A. Todd
 '''
 #import Suite
-from BoostTestParser.Exception.NoneError import NoneError
+#from BoostTestParser.Exception.NoneError import NoneError
 
 class TestResults:
     '''
@@ -24,25 +24,13 @@ class TestResults:
         '''
         Constructor
         '''
-        self._suites = set([])
-    
-    def addSuite(self,suite):
-        if suite is None:
-            raise NoneError("suite")
-        # TODO: do we want isinstance?
-        #if not isinstance(suite, Suite):
-        #    raise TypeError("suite is not of type Suite")
-        
-        self._suites.add(suite)
-        
-    def getSuites(self):
-        return self._suites
+        self.suites = set([])
         
     def suiteCount(self):
         '''
         Returns the number of suites contained
         '''
-        return len(self._suites)
+        return len(self.suites)
         
         
     

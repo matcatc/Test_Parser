@@ -26,8 +26,8 @@ class TestCase_Test(unittest.TestCase):
 
 
     def tearDown(self):
-        self.test._types.clear()        # shouldn't have to have this line
-        del self.test._notices[:]
+        self.test.types.clear()        # shouldn't have to have this line
+        del self.test.notices[:]
         del self.test
 
 
@@ -38,7 +38,7 @@ class TestCase_Test(unittest.TestCase):
         '''
         self.assertFalse(self.test.hasType(self.type))
         
-        self.test.add(self.notice)
+        self.test.addNotice(self.notice)
         self.assertTrue(self.test.hasType(self.type))
         
     def testName(self):
@@ -46,8 +46,8 @@ class TestCase_Test(unittest.TestCase):
         test name setting and getting
         '''
         name = "testName"
-        self.test.setName(name)
-        self.assertEqual(self.test.getName(), name)
+        self.test.name = name
+        self.assertEqual(self.test.name, name)
         
     def testTime(self):
         '''
@@ -55,26 +55,34 @@ class TestCase_Test(unittest.TestCase):
         '''
         time = 123
         
+        # TODO: better way
         # bogus input
-        self.assertRaises(NoneError, self.test.setTimeTaken, None)    
-        self.assertRaises(ValueError, self.test.setTimeTaken, -1)
+        try:
+            self.test.timeTaken = -1
+        except ValueError:
+            passes = True
+        finally:
+            if not passes:
+                self.fail("self.test.timeTaken = -1 did not throw an exception")
+
         
         # get/set equivalence
-        self.test.setTimeTaken(time)
-        self.assertEqual(self.test.getTimeTaken(), time)
+        self.test.timeTaken = time
+        self.assertEqual(self.test.timeTaken, time)
     
     def testAdd(self):
         # bogus input
-        self.assertRaises(NoneError, self.test.add, None)
+        #self.assertRaises(NoneError, self.test.addNotice, None)
+        pass
         
     def testGetNotices(self):
         amount = 4
         
         for i in range(amount):
-            self.test.add(self.notice)
+            self.test.addNotice(self.notice)
             
-        self.assertTrue(self.notice in self.test.getNotices())
-        self.assertEqual(len(self.test.getNotices()), amount)
+        self.assertTrue(self.notice in self.test.notices)
+        self.assertEqual(len(self.test.notices), amount)
 
         
     def testGetNoticesOfType(self):
@@ -86,9 +94,9 @@ class TestCase_Test(unittest.TestCase):
         notice2 = Notice("file", 0, "newNotice", type)
         
         for i in range(3):
-            self.test.add(self.notice)
+            self.test.addNotice(self.notice)
         for i in range(amount):
-            self.test.add(notice2)
+            self.test.addNotice(notice2)
         
         self.assertEquals(len(self.test.getNoticesOfType(type)), amount)
         self.assertTrue(notice2 in self.test.getNoticesOfType(type))
