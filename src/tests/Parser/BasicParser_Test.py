@@ -18,10 +18,33 @@ class BasicParser_Test(unittest.TestCase):
         del self.parser
 
     def testParseData(self):
-        self.fail("test not implemented")
+        suite = '<TestSuite name="Expression_Solver_Unit_Tests">\
+                <TestCase name="Compute_Addition_Subtraction">\
+                    <TestingTime>0</TestingTime>\
+                </TestCase>\
+            </TestSuite>'
+        data = '<TestLog>' + suite +'</TestLog>'
+        
+        xml = ET.fromstring(data)
+        results = self.parser._parseData(xml)
+        
+        self.assertEquals(results.suiteCount(), 1)
 
     def testParseSuite(self):
-        self.fail("test not implemented")
+        name = "Sample_Test_Suite"
+        test = '<TestCase name="Compute_Addition_Subtraction">\
+            <TestingTime>0</TestingTime>\
+        </TestCase>'
+        
+        testSuite = '<TestSuite name="' + name + '">'\
+            + test\
+            + '</TestSuite>'
+        xml = ET.fromstring(testSuite)
+        suite = self.parser._parseSuite(xml)
+        
+        self.assertEqual(suite.getName(), name)
+        self.assertEqual(suite.testCount(), 1)
+        
 
     def testParseTestCase(self):        
         name = "sampleTestCase"

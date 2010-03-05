@@ -30,7 +30,8 @@ class BasicParser(IParse.IParse):
         
         # VERIFY go through all the suites, parsing and adding
         for suite in tree.getiterator():
-            results.addSuite(self._parseSuite(suite))
+            if suite.tag == "TestLog":
+                results.addSuite(self._parseSuite(suite))
         
         
         return results
@@ -42,7 +43,8 @@ class BasicParser(IParse.IParse):
         
         # VERIFY go through all the tests, parsing and adding
         for test in suiteTree.getiterator():
-            suite.addTest(self._parseTestCase(test)) 
+            if test.tag == "TestSuite":
+                suite.addTest(self._parseTestCase(test)) 
         
         return suite
     
@@ -55,7 +57,6 @@ class BasicParser(IParse.IParse):
         if testTree.find("TestingTime") is not None:
             test.setTimeTaken(int(testTree.find("TestingTime").text))
     
-        # VERIFY
         for element in testTree.getiterator():
             file = element.get("file")
             if element.get("line") is not None:
