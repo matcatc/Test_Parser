@@ -39,20 +39,16 @@ class TestCase(object):
     @property
     def timeTaken(self):
         return self._timeTaken
-    
     @timeTaken.setter
     def timeTaken(self, time): #@DuplicatedSignature
         if time < 0:
             raise ValueError("time is negative")
-        self._timeTaken = time
-        
+        self._timeTaken = time        
     @timeTaken.deleter
     def timeTaken(self): #@DuplicatedSignature
         del self._timeTaken
+
     
-    #timeTaken = property(timeTaken_get, timeTaken_set, timeTaken_del)
-    
-    # TODO: property?
     def addNotice(self, notice):
         '''
         @param notice: notice to add
