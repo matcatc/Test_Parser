@@ -4,7 +4,6 @@
 '''
 import unittest
 from BoostTestParser.TestResults.Notice import Notice
-from BoostTestParser.Exception.NoneError import NoneError
 
 class Notice_Test(unittest.TestCase):
     '''

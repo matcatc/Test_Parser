@@ -12,8 +12,6 @@ see doc/TestResults.dia for more information
 @date Feb 17, 2010
 @author: Matthew A. Todd
 '''
-#import Suite
-#from BoostTestParser.Exception.NoneError import NoneError
 
 class TestResults:
     '''

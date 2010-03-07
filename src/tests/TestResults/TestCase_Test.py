@@ -6,9 +6,6 @@ import unittest
 from BoostTestParser.TestResults.TestCase import TestCase
 from BoostTestParser.TestResults.Notice import Notice
 
-from BoostTestParser.Exception.NoneError import NoneError
-
-
 class TestCase_Test(unittest.TestCase):
     '''
     Test BoostTestParser.TestResults.TestCase
@@ -65,16 +62,10 @@ class TestCase_Test(unittest.TestCase):
             if not passes:
                 self.fail("self.test.timeTaken = -1 did not throw an exception")
 
-        
         # get/set equivalence
         self.test.timeTaken = time
         self.assertEqual(self.test.timeTaken, time)
     
-    def testAdd(self):
-        # bogus input
-        #self.assertRaises(NoneError, self.test.addNotice, None)
-        pass
-        
     def testGetNotices(self):
         amount = 4
         
