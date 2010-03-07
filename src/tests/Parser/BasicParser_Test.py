@@ -67,14 +67,14 @@ class BasicParser_Test(unittest.TestCase):
         self.assertEqual(len(test.notices), 2)
         
         for notice in test.notices:
-            self.assertEqual(notice.getLine(), line)
-            self.assertEqual(notice.getFile(), file)
+            self.assertEqual(notice.line, line)
+            self.assertEqual(notice.file, file)
 
         # check order and type of notices
         first = test.notices[0]
-        self.assertEqual(first.getInfo(), message)
+        self.assertEqual(first.info, message)
         second = test.notices[1]
-        self.assertEqual(second.getInfo(), error)
+        self.assertEqual(second.info, error)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

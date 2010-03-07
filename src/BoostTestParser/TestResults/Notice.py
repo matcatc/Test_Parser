@@ -48,4 +48,4 @@ class Notice():
         self.type = type
         
     def toString(self):
-        return "%s in %s at line %d: %s" % (self.getType(), self.getFile(), self.getLine(), self.getInfo())
+        return "%s in %s at line %d: %s" % (self.type, self.file, self.line, self.info)

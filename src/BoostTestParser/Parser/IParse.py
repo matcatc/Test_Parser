@@ -25,18 +25,10 @@ class IParse():
         '''
         delegates to _parseData(), which is to be implemented in a subclass.
         
-        @param input: input can be of type string or a file
-         If its a string, it contains all of the data (i.e: its not a filename)
+        @param input: input to parse
+        # TODO: verify this works for possible input types
         '''
-        tree = None
-        
-        # TODO: pythonic way of doing this
-        if isinstance(input, file):
-            tree = ET.parse(input)
-        elif isinstance(input, str):
-            tree = ET.fromstring(input)
-        else:
-            tree = ET.parse(input)
+        tree = ET.parse(input)
         
         return self._parseData(tree)
         

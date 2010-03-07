@@ -57,7 +57,7 @@ class TestCase(object):
         '''
         @param notice: notice to add
         '''          
-        self.types.add(notice.getType())
+        self.types.add(notice.type)
         self.notices.append(notice)
     
     def getNoticesOfType(self, type):
@@ -68,6 +68,6 @@ class TestCase(object):
         '''
         ret = []
         for notice in self.notices:
-            if notice.getType() == type:
+            if notice.type == type:
                 ret.append(notice)
         return ret

@@ -26,14 +26,14 @@ class Notice_Test(unittest.TestCase):
         del self.notice
 
 
-    def testNone(self):
-        '''
-        Test valid input: None
-        '''
-        self.assertRaises(NoneError, Notice, None, self.line, self.info, self.type)
-        self.assertRaises(NoneError, Notice, self.file, None, self.info, self.type)
-        self.assertRaises(NoneError, Notice, self.file, self.line, None, self.type)
-        self.assertRaises(NoneError, Notice, self.file, self.line, self.info, None)
+    #def testNone(self):
+        #'''
+        #Test valid input: None
+        #'''
+        #self.assertRaises(NoneError, Notice, None, self.line, self.info, self.type)
+        #self.assertRaises(NoneError, Notice, self.file, None, self.info, self.type)
+        #self.assertRaises(NoneError, Notice, self.file, self.line, None, self.type)
+        #self.assertRaises(NoneError, Notice, self.file, self.line, self.info, None)
         
         
     def testValue(self):
@@ -50,10 +50,10 @@ class Notice_Test(unittest.TestCase):
         test that getters return proper values.
         I know this is trivial, but I've already caught one mistake with it.
         '''
-        self.assertEqual(self.notice.getFile(), self.file)
-        self.assertEqual(self.notice.getLine(), self.line)
-        self.assertEqual(self.notice.getInfo(), self.info)
-        self.assertEqual(self.notice.getType(), self.type)
+        self.assertEqual(self.notice.file, self.file)
+        self.assertEqual(self.notice.line, self.line)
+        self.assertEqual(self.notice.info, self.info)
+        self.assertEqual(self.notice.type, self.type)
 
     def testToString(self):
         '''
