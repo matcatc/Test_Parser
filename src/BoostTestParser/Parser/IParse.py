@@ -26,6 +26,7 @@ class IParse():
         delegates to _parseData(), which is to be implemented in a subclass.
         
         @param input: input to parse
+        @return TestResults containing the parsed results
         # TODO: verify this works for possible input types
         '''
         tree = ET.parse(input)

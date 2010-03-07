@@ -64,7 +64,7 @@ class Notice():
     @info.setter
     def info(self, info): #@DuplicatedSignature
         if info =="":
-            sys.stderr.write("Warning: info is empty")
+            print("Warning: info is empty", file=sys.stderr)
         self._info = info
     @info.deleter
     def info(self): #@DuplicatedSignature
@@ -76,7 +76,7 @@ class Notice():
     @type.setter
     def type(self, type): #@DuplicatedSignature
         if type == "":
-            sys.stderr.write("Warning: type is empty")
+            print("Warning: type is empty", file=sys.stderr)
         self._type = type
     @type.deleter
     def type(self): #@DuplicatedSignature
