@@ -1,6 +1,8 @@
 This project is an attempt to create some sort of parser for boost test. So instead of having some horrendous command line output, a developer could have something a little easier on the eyes.
 
-As of writing, I'm focusing on the parsing and not on the display aspect. I plan to design it in such a way that the display module can be held seperate from the parsing, and therefore be interchanged with whatever the user wants to use. The two things that spring to mind are plain OOP and Strategy Pattern.
+I should mention that I'm trying to design it so that the program can work with any test framework. One would just have to switch out for a different parser and runner. 
+
+As of writing, I'm focusing on the parsing and not on the display aspect. I plan to design it in such a way that the display module can be held separate from the parsing, and therefore be interchanged with whatever the user wants to use. The two things that spring to mind are plain OOP and Strategy Pattern.
 
 I should mention that this is my first Python project (serious coding with an final application in mind.) I've worked heavily in C++, so assume that I'll make mistakes similar to anyone whose not sure how to do something in a new language (i.e: do something un-pythonic). In particular the use of packages in python (why the init.py?) I've used Java in college, so I'll assume Python's package system serves a similar purpose and functions in a similar fashion.
 
