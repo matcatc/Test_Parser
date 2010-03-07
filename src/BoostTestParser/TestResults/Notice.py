@@ -42,7 +42,7 @@ class Notice():
         if file == "":
             raise ValueError("file name is empty")
         self._file = file
-    @file.deletter
+    @file.deleter
     def file(self): #@DuplicatedSignature
         del self._file
        
@@ -54,7 +54,7 @@ class Notice():
         if line < 0:
             raise ValueError("line number is negative")
         self._line = line
-    @line.deletter
+    @line.deleter
     def line(self): #@DuplicatedSignature
         del self._line
         
@@ -66,7 +66,7 @@ class Notice():
         if info =="":
             sys.stderr.write("Warning: info is empty")
         self._info = info
-    @info.deletter
+    @info.deleter
     def info(self): #@DuplicatedSignature
         del self._info
     
@@ -78,7 +78,7 @@ class Notice():
         if type == "":
             sys.stderr.write("Warning: type is empty")
         self._type = type
-    @type.deletter
+    @type.deleter
     def type(self): #@DuplicatedSignature
         del self._type
         

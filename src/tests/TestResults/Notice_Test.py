@@ -42,8 +42,6 @@ class Notice_Test(unittest.TestCase):
         '''
         self.assertRaises(ValueError, Notice, "", self.line, self.info, self.type)
         self.assertRaises(ValueError, Notice, self.file, -1, self.info, self.type)
-        self.assertRaises(Warning, Notice, self.file, self.line, "", self.type)
-        self.assertRaises(Warning, Notice, self.file, self.line, self.info, "")
 
     def testGetters(self):
         '''
