@@ -11,7 +11,9 @@ Matthew A. Todd
 
 Design using MVC pattern:
  	- model
-		-parsing
+ 		- contains an object which allows to rerun tests
+ 			- think Alleyoop
+		- parsing
 	- displaying
 		- COLORS!!!
 		- show/hide tests and other information
@@ -36,5 +38,16 @@ From this moment,there are several ways to proceed:
  					- need a reference to the test runner
 * 						- we could make our gui wrap the test runner. So instead of just parsing output, it can run the tests. E.g: Alleyoop
 
+Views:
+Here are the order of views to build. Do text first, then build a Gui.
+Text:
+1) just display result
+2) allow user to run tests
 
-
+Gui:
+1) just display data
+2) allow user to hide/show data
+	- most likely just part of Gui framework. We won't need to implement a controller for this.
+3) allow user to interact with test runner
+	- run all tests
+	- run certain tests
