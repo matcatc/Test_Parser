@@ -24,17 +24,7 @@ class Notice_Test(unittest.TestCase):
 
     def tearDown(self):
         del self.notice
-
-
-    #def testNone(self):
-        #'''
-        #Test valid input: None
-        #'''
-        #self.assertRaises(NoneError, Notice, None, self.line, self.info, self.type)
-        #self.assertRaises(NoneError, Notice, self.file, None, self.info, self.type)
-        #self.assertRaises(NoneError, Notice, self.file, self.line, None, self.type)
-        #self.assertRaises(NoneError, Notice, self.file, self.line, self.info, None)
-        
+               
         
     def testValue(self):
         '''
