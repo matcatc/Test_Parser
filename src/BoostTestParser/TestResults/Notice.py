@@ -4,8 +4,7 @@ Interface for Errors and Message types.
 @date Feb 19, 2010
 @author: Matthew A. Todd
 '''
-
-from BoostTestParser.Exception.NoneError import NoneError
+import sys
 
 class Notice():
     '''
@@ -27,25 +26,61 @@ class Notice():
         
         @param type: the type of notice (i.e: Error, Message, or similar)
         
-        info can be an empty string, but a warning will be sent if it is
+        info can be an empty string, but a warning will be printed if it is.
+        same for type.
         '''
-        #TODO: change to use properties
-        if file == "":
-            raise ValueError("file name is empty")
-        
-        if info == "":
-            raise Warning("info is empty string")
-        
-        if type == "":
-            raise Warning("type is empty string")
-        
-        if line < 0:
-            raise ValueError("line number is negative")
-        
         self.file = file
         self.line = line
         self.info = info
         self.type = type
+        
+    @property
+    def file(self):
+        return self._file
+    @file.setter
+    def file(self, file): #@DuplicatedSignature
+        if file == "":
+            raise ValueError("file name is empty")
+        self._file = file
+    @file.deletter
+    def file(self): #@DuplicatedSignature
+        del self._file
+       
+    @property 
+    def line(self):
+        return self._line
+    @line.setter
+    def line(self, line): #@DuplicatedSignature
+        if line < 0:
+            raise ValueError("line number is negative")
+        self._line = line
+    @line.deletter
+    def line(self): #@DuplicatedSignature
+        del self._line
+        
+    @property
+    def info(self):
+        return self._info
+    @info.setter
+    def info(self, info): #@DuplicatedSignature
+        if info =="":
+            sys.stderr.write("Warning: info is empty")
+        self._info = info
+    @info.deletter
+    def info(self): #@DuplicatedSignature
+        del self._info
+    
+    @property
+    def type(self):
+        return self._type
+    @type.setter
+    def type(self, type): #@DuplicatedSignature
+        if type == "":
+            sys.stderr.write("Warning: type is empty")
+        self._type = type
+    @type.deletter
+    def type(self): #@DuplicatedSignature
+        del self._type
         
     def toString(self):
         return "%s in %s at line %d: %s" % (self.type, self.file, self.line, self.info)
