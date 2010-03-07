@@ -37,18 +37,35 @@ class TestRunner(object):
         @return stdout from the test program
         '''
         try:
-            # TODO: make sure cmd is correct
-            # os.join()?
+            # TODO: os.join()?
             cmd = copy.deepcopy(params)
             cmd.insert(0, self.runner)
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
             print("Failed to execute unit test program", file=sys.stderr)
+            # TODO: raise?
             return None
 
         stdout, stderr = p.communicate()
         if not stderr == "":
             print(stderr.decode("utf-8"), file=sys.stderr)      
         return stdout
+    
+    def runAll(self):
+        return self.run([])
+    
+    def runTest(self, tests):
+        '''
+        assuming tests is a list or similar
         
+        --run_test=testA,testB
+        '''
+        param = "--run_test=" + ",".join(tests)
+        return self.run([param])
 
+    def runSuite(self, suites):
+        '''
+        according to: http://www.boost.org/doc/libs/1_42_0/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html
+        running suites and tests is the same
+        '''
+        return self.runTest(suites)
