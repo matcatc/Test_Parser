@@ -4,22 +4,29 @@ Created on Mar 5, 2010
 @author: matcat
 '''
 import unittest
+from BoostTestParser.Parser import IParse
 
-# TODO: IParse unit tests
 class IParse_Test(unittest.TestCase):
 
 
     def setUp(self):
-        self.fail("Not implemented")
-        pass
-
+        self.parser = IParse.IParse
 
     def tearDown(self):
-        pass
+        del self.parser
 
+    def testParse(self):
+        '''
+        TODO: test parse()'s ability to handle different input.
+        '''
+        self.fail("Not implemented")
 
-    def testName(self):
-        pass
+    def testparseData(self):
+        '''
+        IParse's parseData should be undefined.
+        '''
+        self.assertRaises(NotImplementedError, self.parser._parseData, None, None)
+        
 
 
 if __name__ == "__main__":
