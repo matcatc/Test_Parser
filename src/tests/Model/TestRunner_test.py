@@ -1,7 +1,6 @@
 '''
-Created on Mar 6, 2010
-
-@author: matcat
+@date Mar 6, 2010
+@author: Matthew A. Todd
 '''
 import unittest
 from BoostTestParser.Model.TestRunner import TestRunner
@@ -11,6 +10,18 @@ from BoostTestParser.Model.TestRunner import TestRunner
 # http://www.boost.org/doc/libs/1_42_0/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html
 
 class TestRunner_Test(unittest.TestCase):
+    '''
+    For the tests that use Boost_Test, I'm not sure if
+    they will work on Windows because the file is a linux
+    compiled file. But the changes necessary aren't that
+    difficult to make. If you come up with a better way
+    of implementing the test, such that its easier to
+    switch binaries, or you want me to, please let me
+    know.
+    
+    @date Mar 6, 2010
+    @author: Matthew A. Todd
+    '''
 
 
     def setUp(self):
