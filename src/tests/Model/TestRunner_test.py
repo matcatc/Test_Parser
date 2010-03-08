@@ -5,9 +5,6 @@
 import unittest
 from BoostTestParser.Model.TestRunner import TestRunner
 
-# TODO: test with real input
-# need to have a test program, so use one from:
-# http://www.boost.org/doc/libs/1_42_0/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html
 
 class TestRunner_Test(unittest.TestCase):
     '''
@@ -18,6 +15,10 @@ class TestRunner_Test(unittest.TestCase):
     of implementing the test, such that its easier to
     switch binaries, or you want me to, please let me
     know.
+    
+    Boost_Test is just a compiled version of the source
+    code found here:
+    http://www.boost.org/doc/libs/1_42_0/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html
     
     @date Mar 6, 2010
     @author: Matthew A. Todd
