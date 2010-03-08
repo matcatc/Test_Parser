@@ -3,7 +3,7 @@
 @author: Matthew A. Todd
 '''
 from subprocess import Popen, PIPE
-import sys, copy
+import sys, copy, os.path
 
 class TestRunner(object):
     '''
@@ -21,6 +21,9 @@ class TestRunner(object):
     lvl_message = "message"
     lvl_warning = "warning"
     lvl_error = "error"
+    
+    # BoostTest format
+    format = "--log_format=XML"
 
     def __init__(self):
         '''
@@ -28,8 +31,31 @@ class TestRunner(object):
         '''
         self.runner = None
         self.logLevel = TestRunner.lvl_test_suite
-        
-        
+    
+    @property
+    def runner(self):
+        return self._runner
+    @runner.setter
+    def runner(self, runner): #@DuplicatedSignature
+        '''
+        This automatically deals with path names.
+        If None: None
+        If valid for cwd: use cwd
+        else: global path
+        '''
+        if runner is None:
+            self._runner = None
+        # working directory   
+        elif os.path.exists(os.path.abspath(runner)):            
+            self._runner = os.path.abspath(runner)
+        # global path
+        else:
+            self._runner = runner
+    @runner.deleter
+    def runner(self): #@DuplicatedSignature
+        del self._runner
+    
+    
     def run(self, params):
         '''
         runs just with the given params. Concatenates runner and params.
@@ -37,9 +63,9 @@ class TestRunner(object):
         @return stdout from the test program
         '''
         try:
-            # TODO: os.join()?
             cmd = copy.deepcopy(params)
-            cmd.insert(0, self.runner)
+            cmd.insert(0, self.runner)                
+            cmd.insert(1, TestRunner.format)
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
             print("Failed to execute unit test program", file=sys.stderr)

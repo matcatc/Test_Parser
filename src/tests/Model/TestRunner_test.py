@@ -6,8 +6,9 @@ Created on Mar 6, 2010
 import unittest
 from BoostTestParser.Model.TestRunner import TestRunner
 
-# TODO: delete if not needed
-#import sys
+# TODO: test with real input
+# need to have a test program, so use one from:
+# http://www.boost.org/doc/libs/1_42_0/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html
 
 class TestRunner_Test(unittest.TestCase):
 
@@ -23,9 +24,10 @@ class TestRunner_Test(unittest.TestCase):
         test run() using echo.
         the "-n" option tells echo not to return a newline
         '''
-        output = "echo test output"
+        input = "echo test output"
+        output = TestRunner.format + " " + input + "\n"
         self.runner.runner = "echo"
-        stdout = self.runner.run(["-n", output])
+        stdout = self.runner.run([input])
         self.assertEqual(stdout.decode("utf-8"), output)
         
     def testRunAll_echo(self):
@@ -33,10 +35,19 @@ class TestRunner_Test(unittest.TestCase):
         test runAll() using echo.
         output = "\n" b/c echo return a new line after printing (nothing in this case) 
         '''
-        output = "\n"
+        output = TestRunner.format + "\n"
         self.runner.runner = "echo"
         stdout = self.runner.runAll()
         self.assertEqual(stdout.decode("utf-8"), output)
+        
+    def testRunAll(self):
+        '''
+        test runAll() with real input
+        this test depends on the the filesystem location from which we are running this test
+        '''
+        self.runner.runner = "tests/Model/Boost_Test"
+        stdout = self.runner.runAll()
+        self.assertNotEqual(stdout, None)
 
     def testRunTest_echo(self):
         '''
@@ -45,18 +56,25 @@ class TestRunner_Test(unittest.TestCase):
         self.runner.runner = "echo"
         
         input = "echo test output"
-        output = "--run_test=" + input + "\n"
+        output = TestRunner.format + " --run_test=" + input + "\n"
         stdout = self.runner.runTest([input])
         self.assertEqual(stdout.decode("utf-8"), output)
         
         input1 = "test1"
         input2 = "test2"
-        output = "--run_test=" + input1 + "," + input2 + "\n"
+        output = TestRunner.format + " --run_test=" + input1 + "," + input2 + "\n"
         stdout = self.runner.runTest([input1, input2])
         self.assertEqual(stdout.decode("utf-8"), output)
         
+    def testRunTest(self):
+        '''
+        test runTest() with real input
+        '''
+        self.runner.runner = "tests/Model/Boost_Test"
+        stdout = self.runner.runTest(["testA", "testB"])
+        self.assertNotEqual(stdout, None)
         
-
+        
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
