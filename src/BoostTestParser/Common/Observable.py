@@ -3,6 +3,8 @@
 @author: Matthew A. Tod
 '''
 
+# TODO: write test for Observable
+# use a mock object for Observer (so we can check if it received a notification)
 class Observable(object):
     '''
     for observer pattern
