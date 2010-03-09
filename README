@@ -67,3 +67,5 @@ Program Options
  		- check
  		- let run_() throw
  			- catch print move on 	
+ - xml file:
+	- open up an xml file to parse and display
