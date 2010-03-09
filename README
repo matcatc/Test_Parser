@@ -53,3 +53,17 @@ Gui:
 3) allow user to interact with test runner
 	- run all tests
 	- run certain tests
+	
+	
+	
+Program Options
+ - test runner:
+ 	- assigns/selects the test runner
+ 	- should go ahead and automatically run, parse, and display
+ - specific tests/suites:
+ 	- run specific tests on startup
+ 	- only valid if test runner selected
+ 		possibile ways to handle
+ 		- check
+ 		- let run_() throw
+ 			- catch print move on 	
