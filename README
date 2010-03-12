@@ -44,7 +44,6 @@ Views:
 Here are the order of views to build. Do text first, then build a Gui.
 Text:
 1) just display result
-2) allow user to run tests
 
 Gui:
 1) just display data
