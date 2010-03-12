@@ -87,17 +87,17 @@
  <connections>
   <connection>
    <sender>buttonBox</sender>
-   <signal>accepted()</signal>
+   <signal>clicked(QAbstractButton*)</signal>
    <receiver>AboutDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>339</x>
-     <y>246</y>
+     <x>298</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>205</y>
+     <x>180</x>
+     <y>183</y>
     </hint>
    </hints>
   </connection>
