@@ -34,6 +34,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="Script_Button">
+        <property name="text">
+         <string>Script...</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>
@@ -91,12 +98,6 @@
       </attribute>
       <attribute name="headerCascadingSectionResizes">
        <bool>false</bool>
-      </attribute>
-      <attribute name="headerCascadingSectionResizes">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="headerVisible">
-       <bool>true</bool>
       </attribute>
       <column>
        <property name="text">
@@ -228,6 +229,7 @@
     </property>
     <addaction name="action_Run"/>
     <addaction name="actionSet_Runner"/>
+    <addaction name="actionScript"/>
     <addaction name="action_Open"/>
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
@@ -265,6 +267,11 @@
   <action name="actionSet_Runner">
    <property name="text">
     <string>&amp;Set Runner</string>
+   </property>
+  </action>
+  <action name="actionScript">
+   <property name="text">
+    <string>Script...</string>
    </property>
   </action>
  </widget>

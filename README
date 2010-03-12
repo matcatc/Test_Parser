@@ -53,7 +53,7 @@ Gui:
 3) allow user to interact with test runner
 	- run all tests
 	- run certain tests
-	
+
 	
 	
 Program Options
@@ -69,3 +69,6 @@ Program Options
  			- catch print move on 	
  - xml file:
 	- open up an xml file to parse and display
+
+	
+It would be nice if the GUI could run arbitrary Python scripts. The idea being that an user could run a script which compiles the test runner then calls run on it. I'm assumming we're going to want to pass in something into it the script call so that scripts will have a reference to some of the data. Possibly the model (which would use Observer pattern to notify the display should the script change the model's data somehow.) I guess a question is whether the script would ever want to do something to the gui. I suppose its possible, so we should allow for it, meaning we need to give a reference to the Gui as well. If we have a containing class which contains all the particpating objects in the running program, it would be a good option to pass in. 
