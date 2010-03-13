@@ -17,6 +17,7 @@ class Model(Observable.Observable):
         '''
         Constructor
         '''
+        super(Model, self).__init__()
         self.results = None
         self.testRunner = None
         self.parser = None
@@ -36,7 +37,7 @@ class Model(Observable.Observable):
     def results(self): #@DuplicatedSignature
         del self._results
         
-    def _parse(self):
+    def parse(self):
         raise NotImplementedError
         #TODO: implement
         # get information to parse from testRunner
