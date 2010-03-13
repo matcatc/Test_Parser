@@ -51,14 +51,14 @@ class TextView(Observer.Observer):
             self._displaySuite(suite)
             
     def _displaySuite(self, suite):
-        print("suite: " + suite.name)
-        for test in suite:
+        print("suite: ", suite.name)
+        for test in suite.testCases:
             self._displayTest(test)
             
     def _displayTest(self, test):
-        print("test: " + test.name)
-        print("time: " + test.timeTaken)
-        for notice in test:
+        print("test: ", test.name)
+        print("time: ", test.timeTaken)
+        for notice in test.notices:
             self._displayNotice(notice)
             
     def _displayNotice(self, notice):

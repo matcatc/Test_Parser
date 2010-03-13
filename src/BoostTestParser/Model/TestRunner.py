@@ -66,6 +66,7 @@ class TestRunner(object):
             cmd = copy.deepcopy(params)
             cmd.insert(0, self.runner)                
             cmd.insert(1, TestRunner.format)
+            cmd.insert(2, "--log_level="+self.logLevel)
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
             print("Failed to execute unit test program", file=sys.stderr)

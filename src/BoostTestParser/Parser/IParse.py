@@ -28,10 +28,21 @@ class IParse():
         @param input: input to parse
         @return TestResults containing the parsed results
         # TODO: verify this works for possible input types
+        
+        string: filename
+        @see parseString()
         '''
         tree = ET.parse(input)
         
         return self._parseData(tree)
+    
+    def parseString(self, input):
+        '''
+        @param input: string containing the xml data
+        '''
+        tree = ET.fromstring(input)
+        return self._parseData(tree)
+    
         
     def _parseData(self, tree):
         '''        

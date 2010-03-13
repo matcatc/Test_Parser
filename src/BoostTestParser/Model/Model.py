@@ -4,6 +4,7 @@ Created on Mar 6, 2010
 @author: matcat
 '''
 from BoostTestParser.Common import Observable
+import copy
 
 class Model(Observable.Observable):
     '''
@@ -30,15 +31,14 @@ class Model(Observable.Observable):
         '''
         Notify observers that results has changed. Will not notify if None.
         '''
+        self._results = copy.deepcopy(results)
         if results is not None:
             self.notifyObservers()
-        self._results = results
     @results.deleter
     def results(self): #@DuplicatedSignature
         del self._results
-        
+           
     def parse(self):
-        raise NotImplementedError
-        #TODO: implement
-        # get information to parse from testRunner
-#        self.results = self.parser.parse()
+        # TODO: params?
+        data = self.testRunner.runAll()
+        self.results = self.parser.parseString(data.decode("utf-8"))
