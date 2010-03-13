@@ -56,13 +56,13 @@ class TextView(Observer.Observer):
             self._displayTest(test)
             
     def _displayTest(self, test):
-        print("test: ", test.name)
-        print("time: ", test.timeTaken)
+        print("\ttest: ", test.name)
+        print("\t\t time: ", test.timeTaken)
         for notice in test.notices:
             self._displayNotice(notice)
             
     def _displayNotice(self, notice):
-        print(notice.type, "file: ", notice.file, "line: ", notice.line, notice.info)
+        print("\t\t", notice.type, "\tfile:", notice.file, "\tline:", notice.line, "\t", notice.info)
         
 
 def main():

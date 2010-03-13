@@ -39,6 +39,7 @@ class Model(Observable.Observable):
         del self._results
            
     def parse(self):
-        # TODO: params?
+        # TODO: which run?
+        # how do we allow user to use particular runs?
         data = self.testRunner.runAll()
         self.results = self.parser.parseString(data.decode("utf-8"))
