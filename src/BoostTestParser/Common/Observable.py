@@ -3,8 +3,8 @@
 @author: Matthew A. Tod
 '''
 
-# TODO: write test for Observable
-# use a mock object for Observer (so we can check if it received a notification)
+import UpdateThread
+
 class Observable(object):
     '''
     for observer pattern
@@ -26,6 +26,17 @@ class Observable(object):
         self.observers.discard(observer)
     
     def notifyObservers(self):
+        '''
+        uses threading
+        '''
         for observer in self.observers:
-            observer.update()
+            thread = UpdateThread.UpdateThread(observer)
+            thread.start()
+            
+#    def notifyObservers(self):
+#        '''
+#        doesn't use threading
+#        '''
+#        for observer in self.observers:
+#            observer.update()
         
