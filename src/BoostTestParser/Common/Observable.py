@@ -3,7 +3,7 @@
 @author: Matthew A. Tod
 '''
 
-import UpdateThread
+from  BoostTestParser.Common import UpdateThread
 
 class Observable(object):
     '''
