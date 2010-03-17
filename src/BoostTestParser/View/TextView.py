@@ -66,6 +66,9 @@ class TextView(Observer.Observer):
         
 
 def main():
+    # TODO: add controller
+    # we shouldn't be calling any of model's methods, aside from getters
+    # go ahead and make the controller use a thread pool of 1
     model = Model.Model()
     runner = TestRunner.TestRunner()
     if len(sys.argv) < 2:

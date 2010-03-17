@@ -39,6 +39,13 @@ class Model(Observable.Observable):
         del self._results
            
     def parse(self):
+        '''
+        # TODO: We should lock this function
+        b/c it runs an algorithm before assigning
+        Plus we have to worry about messing w/ data.
+        We could always make data a thread local variable,
+        but I think locking the entire function seems reasonable.
+        '''
         # TODO: which run?
         # how do we allow user to use particular runs?
         data = self.testRunner.runAll()

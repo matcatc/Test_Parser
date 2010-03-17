@@ -3,7 +3,7 @@
 @author: Matthew A. Tod
 '''
 
-from  BoostTestParser.Common import UpdateThread
+from . import UpdateThread
 
 class Observable(object):
     '''
@@ -18,6 +18,7 @@ class Observable(object):
         Constructor
         '''
         self.observers = set([])
+        UpdateThread.UpdateThread.createPool(2)
         
     def registerObserver(self, observer):
         self.observers.add(observer)
@@ -28,10 +29,11 @@ class Observable(object):
     def notifyObservers(self):
         '''
         uses threading
+        
+        TODO: use a thread pool
         '''
         for observer in self.observers:
-            thread = UpdateThread.UpdateThread(observer)
-            thread.start()
+            UpdateThread.UpdateThread.addJob(observer)
             
 #    def notifyObservers(self):
 #        '''
