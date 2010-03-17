@@ -3,8 +3,6 @@ Created on Mar 14, 2010
 
 @author: matcat
 '''
-#TODO: thread pool
-# see pyThreadPoolTest.py (pnotes)
 import threading, queue
 import sys
 
