@@ -75,7 +75,7 @@ class UpdateThread ( threading.Thread ):
             else:
                 print("cannot process non-existent observer")
                 
-            # TODO: does this do anything?
+            # notify queue that job is done
             UpdateThread.jobPool.task_done()
 
             # whether thread should die off (in order to remove threads)
