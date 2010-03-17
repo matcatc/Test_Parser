@@ -2,8 +2,8 @@
 @date Feb 22, 2010
 @author: Matthew A. Todd
 '''
-from BoostTestParser.Parser import IParse
-from BoostTestParser.TestResults import TestResults, Suite, TestCase, Notice
+from . import IParse
+from ..TestResults import TestResults, Suite, TestCase, Notice
 
 class BasicParser(IParse.IParse):
     '''

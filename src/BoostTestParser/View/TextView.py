@@ -4,10 +4,10 @@ Created on Mar 12, 2010
 @author: matcat
 '''
 
-from BoostTestParser.Model import Model
-from BoostTestParser.Parser import BasicParser
-from BoostTestParser.Model import TestRunner
-from BoostTestParser.Common import Observer
+from ..Model import Model
+from ..Parser import BasicParser
+from ..Model import TestRunner
+from ..Common import Observer
 import sys
 
 class TextView(Observer.Observer):
@@ -78,7 +78,7 @@ def main():
     model.testRunner = runner
     model.parser = BasicParser.BasicParser()
     view = TextView(model)
-    model.parse()
+    model.parse()       # this should be called on a controller
     view.display()
     
 if __name__ == "__main__":

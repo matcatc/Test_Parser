@@ -3,7 +3,7 @@ Created on Mar 6, 2010
 
 @author: matcat
 '''
-from BoostTestParser.Common import Observable
+from ..Common import Observable
 import copy
 
 class Model(Observable.Observable):

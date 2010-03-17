@@ -4,7 +4,6 @@ An entire suite of tests.
 @date Feb 17, 2010
 @author: Matthew A. Todd
 '''
-#import TestCase
 
 class Suite:
     '''
