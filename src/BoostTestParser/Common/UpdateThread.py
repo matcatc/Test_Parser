@@ -6,7 +6,7 @@ Created on Mar 14, 2010
 #TODO: thread pool
 # see pyThreadPoolTest.py (pnotes)
 import threading, queue
-
+import sys
 
 class UpdateThread ( threading.Thread ):
     '''
@@ -43,7 +43,7 @@ class UpdateThread ( threading.Thread ):
         for x in range(numThreads):
             UpdateThread._threadCount += 1
             thread = UpdateThread()
-            thread.daemon = True
+            #thread.daemon = True
             thread.start()
 
     @staticmethod
@@ -59,6 +59,7 @@ class UpdateThread ( threading.Thread ):
     @staticmethod
     def addJob(observer):
         UpdateThread.jobPool.put(observer)
+        
 
     def run ( self ):
         '''
@@ -66,13 +67,17 @@ class UpdateThread ( threading.Thread ):
         '''
         while True:
             observer = UpdateThread.jobPool.get()
+            print("DEBUG: got observer:", observer)
 
             # job processing
             if observer != None:
-                #print("DEBUG: updating target:" , observer, file=sys.stderr)
+                print("DEBUG: updating target:" , observer, file=sys.stderr)
                 observer.update()
             else:
                 print("cannot process non-existent observer")
+                
+            # TODO: does this do anything?
+            UpdateThread.jobPool.task_done()
 
             # whether thread should die off (in order to remove threads)
             with UpdateThread.lock:

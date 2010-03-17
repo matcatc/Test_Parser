@@ -34,6 +34,7 @@ class TextView(Observer.Observer):
         
         display automatically pulls results, so we can just rely on display
         '''
+        print("updating TextView")
         self.display()
         
     def display(self):
@@ -65,21 +66,47 @@ class TextView(Observer.Observer):
         print("\t\t", notice.type, "\tfile:", notice.file, "\tline:", notice.line, "\t", notice.info)
         
 
+class TextViewController(Observer.Observer):
+    def __init__(self, model):
+        '''
+        Constructor
+        '''
+        self.model = model
+        self.model.registerObserver(self)
+    
+    def update(self):
+        '''
+        Nothing for our controller to do when model updates us
+        '''
+        pass
+    
+    def parse(self):
+        '''
+        TODO: think of better method name
+        
+        Simply tells the model to parse
+        '''
+        self.model.parse()
+    
+
 def main():
-    # TODO: add controller
-    # we shouldn't be calling any of model's methods, aside from getters
-    # go ahead and make the controller use a thread pool of 1
-    model = Model.Model()
-    runner = TestRunner.TestRunner()
     if len(sys.argv) < 2:
         print("Usage: test parser <test_runner>")
         return
+    
+    # setup model
+    model = Model.Model()
+    runner = TestRunner.TestRunner()
     runner.runner = sys.argv[1]
     model.testRunner = runner
     model.parser = BasicParser.BasicParser()
+    
+    # setup view and controller
     view = TextView(model)
-    model.parse()       # this should be called on a controller
-    view.display()
+    controller = TextViewController(model)
+
+    # parse (and implicitly display)
+    controller.parse()
     
 if __name__ == "__main__":
     main()
