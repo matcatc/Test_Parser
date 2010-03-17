@@ -34,7 +34,6 @@ class TextView(Observer.Observer):
         
         display automatically pulls results, so we can just rely on display
         '''
-        print("updating TextView")
         self.display()
         
     def display(self):

@@ -43,7 +43,7 @@ class UpdateThread ( threading.Thread ):
         for x in range(numThreads):
             UpdateThread._threadCount += 1
             thread = UpdateThread()
-            #thread.daemon = True
+            thread.daemon = True
             thread.start()
 
     @staticmethod
@@ -67,11 +67,10 @@ class UpdateThread ( threading.Thread ):
         '''
         while True:
             observer = UpdateThread.jobPool.get()
-            print("DEBUG: got observer:", observer)
 
             # job processing
             if observer != None:
-                print("DEBUG: updating target:" , observer, file=sys.stderr)
+                #print("DEBUG: updating target:" , observer, file=sys.stderr)
                 observer.update()
             else:
                 print("cannot process non-existent observer")

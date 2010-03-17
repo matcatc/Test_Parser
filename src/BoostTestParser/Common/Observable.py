@@ -3,7 +3,7 @@
 @author: Matthew A. Tod
 '''
 
-from . import UpdateThread
+from .UpdateThread import UpdateThread
 
 class Observable(object):
     '''
@@ -18,7 +18,7 @@ class Observable(object):
         Constructor
         '''
         self.observers = set([])
-        UpdateThread.UpdateThread.createPool(2)
+        UpdateThread.createPool(2)
         
     def registerObserver(self, observer):
         self.observers.add(observer)
@@ -28,17 +28,16 @@ class Observable(object):
     
     def notifyObservers(self):
         '''
-        uses threading
+        uses a thread pool
         
-        TODO: use a thread pool
+        Won't return till all observers notified. This way we can ensure
+        all the observer work is done before the program tries to quit.
+        Note: this won't work if this code is in an deamonic thread
+        as well.
         '''
         for observer in self.observers:
-            UpdateThread.UpdateThread.addJob(observer)
+            UpdateThread.addJob(observer)
             
-#    def notifyObservers(self):
-#        '''
-#        doesn't use threading
-#        '''
-#        for observer in self.observers:
-#            observer.update()
+        # don't return until all jobs processed
+        UpdateThread.jobPool.join()
         
