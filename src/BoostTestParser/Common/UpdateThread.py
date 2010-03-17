@@ -4,7 +4,7 @@ Created on Mar 14, 2010
 @author: matcat
 '''
 import threading, queue
-import sys
+#import sys     # for debug statement
 
 class UpdateThread ( threading.Thread ):
     '''
