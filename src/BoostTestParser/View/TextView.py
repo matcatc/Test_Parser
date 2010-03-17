@@ -66,6 +66,15 @@ class TextView(Observer.Observer):
         
 
 class TextViewController(Observer.Observer):
+    '''
+    A simple controller for TextView.
+    
+    Doesn't do anything with updates.
+    Doesn't use any threading.
+    If we were to use threading, we'd have to make sure to
+    spawn a non daemonic thread.
+    @see BoostTestParser.Observable.notifyObservers.__doc__
+    '''
     def __init__(self, model):
         '''
         Constructor
