@@ -12,7 +12,11 @@ import sys
 
 class TextView(Observer.Observer):
     '''
-    classdocs
+    A simple view for our test runner / parser program.
+    
+    Simply displays the data to the console.
+    Has indenting. Otherwise, basically the same as the output from
+    Boost's test runner.
     '''
 
     def __init__(self, model):
@@ -25,6 +29,7 @@ class TextView(Observer.Observer):
     def _retrieveTestResults(self):
         '''
         get the test results from the model
+        @return test results
         '''
         return self.model.results
     
@@ -91,6 +96,7 @@ class TextViewController(Observer.Observer):
     def parse(self):
         '''
         TODO: think of better method name
+        @see Model.parse
         
         Simply tells the model to parse
         '''
@@ -98,6 +104,10 @@ class TextViewController(Observer.Observer):
     
 
 def main():
+    '''
+    Run the entire program using our TextView and its associated controller
+    Will run tests, parse, display, and finally exit the program 
+    '''
     if len(sys.argv) < 2:
         print("Usage: test parser <test_runner>")
         return

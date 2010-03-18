@@ -11,14 +11,6 @@ class TestCase(object):
     
     Messages and errors are contained in one list, so that the order in which
     they occurred is not lost. This is why they both inherit INotice.
-    
-    >>> testCase = TestCase()
-    >>> testCase.hasType("error")
-    False
-        
-    >>> testCase.add(0, "error")    # not real error type, but works for test
-    >>> testCase.hasType("error")
-    True
     '''
 
     def __init__(self):

@@ -4,13 +4,19 @@ Created on Mar 6, 2010
 @author: matcat
 '''
 from ..Common import Observable
-import copy
+import copy, threading
 
 class Model(Observable.Observable):
     '''
     Model in MVC.
     
     Notifies observers whenever results changes (is assigned to).
+    @see results.setter
+    
+    Data contained:
+        test runner
+        test results
+        parser
     '''
 
 
@@ -40,13 +46,21 @@ class Model(Observable.Observable):
            
     def parse(self):
         '''
-        # TODO: We should lock this function
+        # TODO: determine whether we should keep lock
+        We should lock this function (should we?)
         b/c it runs an algorithm before assigning
         Plus we have to worry about messing w/ data.
         We could always make data a thread local variable,
         but I think locking the entire function seems reasonable.
+        
+        TODO: which run?
+        how do we allow user to use particular runs?
+         - different parse funtions. I.e: parseAll, parseSuites, parseTests
+             - TODO: it becomes really obvious that we a better name than parse()
+         - pass in parameter that specifies
+             - we have to parse
         '''
-        # TODO: which run?
-        # how do we allow user to use particular runs?
-        data = self.testRunner.runAll()
-        self.results = self.parser.parseString(data.decode("utf-8"))
+        lock = threading.Lock()
+        with lock:
+            data = self.testRunner.runAll()
+            self.results = self.parser.parseString(data.decode("utf-8"))

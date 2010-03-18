@@ -60,7 +60,9 @@ class TestRunner(object):
         '''
         runs just with the given params. Concatenates runner and params.
         
-        @return stdout from the test program
+        @params list of params to be passed to the test runner.
+            The same params you would use if running on the command line.
+        @return stdout from the test program. Or None if program execution failed.
         '''
         try:
             cmd = copy.deepcopy(params)
@@ -70,7 +72,6 @@ class TestRunner(object):
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
             print("Failed to execute unit test program", file=sys.stderr)
-            # TODO: raise?
             return None
 
         stdout, stderr = p.communicate()
@@ -79,12 +80,16 @@ class TestRunner(object):
         return stdout
     
     def runAll(self):
+        '''
+        runs all tests in the test program
+        @return return from run()
+        '''
         return self.run([])
     
     def runTest(self, tests):
         '''
-        assuming tests is a list or similar
-        
+        @param tests A list (something iterable) of names of tests to be run
+        @return return from run() 
         --run_test=testA,testB
         '''
         param = "--run_test=" + ",".join(tests)
@@ -94,5 +99,8 @@ class TestRunner(object):
         '''
         according to: http://www.boost.org/doc/libs/1_42_0/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html
         running suites and tests is the same
+        
+        @param suites A list (something iterable) of names of suites to be run
+        @return return from runTest()
         '''
         return self.runTest(suites)
