@@ -61,6 +61,18 @@ class UpdateThread (threading.Thread):
         '''
         UpdateThread.jobPool.put(observer)
 
+    def _dieOff(self):
+        '''
+        requires that client function actually kills the thread (itself).
+        
+        @return True if thread should die off.
+        '''
+        if UpdateThread._removeCount > 0:
+            UpdateThread._removeCount -= 1
+            return True
+        return False
+
+
     def run (self):
         '''
         will only return (die off) if _removeCount > 0
@@ -77,11 +89,9 @@ class UpdateThread (threading.Thread):
             # notify queue that job is done
             UpdateThread.jobPool.task_done()
             
-            # whether thread should die off (in order to remove threads)
+            # die off here
             lock = threading.Lock()
             with lock:
-                #TODO: helper function?
-                if UpdateThread._removeCount > 0:
-                    UpdateThread._removeCount -= 1
+                if self.dieOff():
                     print("Removing thread")
                     return
