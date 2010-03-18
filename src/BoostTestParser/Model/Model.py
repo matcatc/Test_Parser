@@ -57,6 +57,7 @@ class Model(Observable.Observable):
         how do we allow user to use particular runs?
          - different parse funtions. I.e: parseAll, parseSuites, parseTests
              - TODO: it becomes really obvious that we a better name than parse()
+                 or parse should just parse, and clients should call another function
          - pass in parameter that specifies
              - we have to parse
         '''
