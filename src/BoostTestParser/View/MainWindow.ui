@@ -19,64 +19,6 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="Run_Button">
-        <property name="text">
-         <string>Run</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="SetTestRunner_Button">
-        <property name="text">
-         <string>Set Test Runner</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="Script_Button">
-        <property name="text">
-         <string>Script...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QComboBox" name="comboBox">
-        <item>
-         <property name="text">
-          <string>All</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Passed</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Failed</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="ClearFilter_Button">
-        <property name="text">
-         <string>Clear</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
      <widget class="QTreeWidget" name="treeWidget">
       <property name="autoFillBackground">
        <bool>true</bool>
@@ -124,92 +66,6 @@
         <string>Info</string>
        </property>
       </column>
-      <item>
-       <property name="text">
-        <string>Suite</string>
-       </property>
-       <property name="text">
-        <string>s</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <item>
-        <property name="text">
-         <string>Test</string>
-        </property>
-        <property name="text">
-         <string>test1</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <item>
-         <property name="text">
-          <string>Message</string>
-         </property>
-         <property name="text">
-          <string>msg1</string>
-         </property>
-         <property name="text">
-          <string>main.cpp</string>
-         </property>
-         <property name="text">
-          <string>23</string>
-         </property>
-         <property name="text">
-          <string>Retrieved User Input</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Error</string>
-         </property>
-         <property name="background">
-          <brush brushstyle="NoBrush">
-           <color alpha="255">
-            <red>0</red>
-            <green>0</green>
-            <blue>0</blue>
-           </color>
-          </brush>
-         </property>
-         <property name="foreground">
-          <brush brushstyle="NoBrush">
-           <color alpha="255">
-            <red>0</red>
-            <green>0</green>
-            <blue>0</blue>
-           </color>
-          </brush>
-         </property>
-         <property name="text">
-          <string>error1</string>
-         </property>
-         <property name="text">
-          <string>main.cpp</string>
-         </property>
-         <property name="text">
-          <string>67</string>
-         </property>
-         <property name="text">
-          <string>The sky is falling!</string>
-         </property>
-        </item>
-       </item>
-      </item>
      </widget>
     </item>
    </layout>
@@ -223,25 +79,6 @@
      <height>25</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="action_Run"/>
-    <addaction name="actionSet_Runner"/>
-    <addaction name="actionScript"/>
-    <addaction name="action_Open"/>
-    <addaction name="separator"/>
-    <addaction name="action_Quit"/>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
-    <addaction name="action_About"/>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_About">
