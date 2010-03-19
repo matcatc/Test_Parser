@@ -43,8 +43,11 @@ class Model(Observable.Observable):
     @results.deleter
     def results(self): #@DuplicatedSignature
         del self._results
+        
+    def _doParse(self, data):
+        self.results = self.parser.parseString(data.decode("utf-8"))
            
-    def parse(self):
+    def run(self):
         '''
         # TODO: determine whether we should keep lock
         We should lock this function (should we?)
@@ -55,13 +58,13 @@ class Model(Observable.Observable):
         
         TODO: which run?
         how do we allow user to use particular runs?
-         - different parse funtions. I.e: parseAll, parseSuites, parseTests
-             - TODO: it becomes really obvious that we a better name than parse()
-                 or parse should just parse, and clients should call another function
+         - different run funtions. I.e: parseAll, parseSuites, parseTests
+             - TODO: it becomes really obvious that we a better name than run()
+                 or run should just run, and clients should call another function
          - pass in parameter that specifies
-             - we have to parse
+             - we have to run
         '''
         lock = threading.Lock()
         with lock:
             data = self.testRunner.runAll()
-            self.results = self.parser.parseString(data.decode("utf-8"))
+            self._doParse(data)

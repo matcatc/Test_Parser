@@ -100,7 +100,7 @@ class TextViewController(Observer.Observer):
         
         Simply tells the model to parse
         '''
-        self.model.parse()
+        self.model.run()
     
 
 def main():
