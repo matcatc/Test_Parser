@@ -45,5 +45,5 @@ class Observable(object):
             UpdateThread.addJob(observer)
             
         # don't return until all jobs processed
-        UpdateThread.jobPool.join()
+        UpdateThread.jobQueue.join()
         

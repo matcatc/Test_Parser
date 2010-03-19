@@ -7,14 +7,14 @@ import threading, queue
 
 class UpdateThread (threading.Thread):
     '''
-    Job is to update a given target. So jobPool contains observers.
+    Job is to update a given target. So jobQueue contains observers.
     '''
     # Note that these are static variables
     
-    # TODO restrict access to jobPool
+    # TODO restrict access to jobQueue
     #  property: read only
     #  or make private and provide helper function for join()
-    jobPool = queue.Queue(0)
+    jobQueue = queue.Queue(0)
 
     _bPoolCreated = False
     
@@ -57,9 +57,9 @@ class UpdateThread (threading.Thread):
     @staticmethod
     def addJob(observer):
         '''
-        add a job to the jobPool
+        add a job to the jobQueue
         '''
-        UpdateThread.jobPool.put(observer)
+        UpdateThread.jobQueue.put(observer)
 
     def _dieOff(self):
         '''
@@ -78,7 +78,7 @@ class UpdateThread (threading.Thread):
         will only return (die off) if _removeCount > 0
         '''
         while True:
-            observer = UpdateThread.jobPool.get()
+            observer = UpdateThread.jobQueue.get()
 
             # job processing
             if observer != None:
@@ -87,7 +87,7 @@ class UpdateThread (threading.Thread):
                 print("cannot process non-existent observer")
                 
             # notify queue that job is done
-            UpdateThread.jobPool.task_done()
+            UpdateThread.jobQueue.task_done()
             
             # die off here
             lock = threading.Lock()
