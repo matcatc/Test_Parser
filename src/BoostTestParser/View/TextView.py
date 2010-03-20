@@ -93,14 +93,14 @@ class TextViewController(Observer.Observer):
         '''
         pass
     
-    def parse(self):
+    def run(self):
         '''
         TODO: think of better method name
         @see Model.parse
         
         Simply tells the model to parse
         '''
-        self.model.run()
+        self.model.runAll()
     
 
 def main():
@@ -123,8 +123,8 @@ def main():
     view = TextView(model)
     controller = TextViewController(model)
 
-    # parse (and implicitly display)
-    controller.parse()
+    # run (and implicitly display)
+    controller.run()
     
 if __name__ == "__main__":
     main()

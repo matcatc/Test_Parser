@@ -47,24 +47,18 @@ class Model(Observable.Observable):
     def _doParse(self, data):
         self.results = self.parser.parseString(data.decode("utf-8"))
            
-    def run(self):
+    def runAll(self):
         '''
-        # TODO: determine whether we should keep lock
+        We should keep lock.
         We should lock this function (should we?)
         b/c it runs an algorithm before assigning
         Plus we have to worry about messing w/ data.
         We could always make data a thread local variable,
         but I think locking the entire function seems reasonable.
-        
-        TODO: which run?
-        how do we allow user to use particular runs?
-         - different run funtions. I.e: parseAll, parseSuites, parseTests
-             - TODO: it becomes really obvious that we a better name than run()
-                 or run should just run, and clients should call another function
-         - pass in parameter that specifies
-             - we have to run
         '''
         lock = threading.Lock()
         with lock:
             data = self.testRunner.runAll()
             self._doParse(data)
+
+    # TODO: other runs (as needed)

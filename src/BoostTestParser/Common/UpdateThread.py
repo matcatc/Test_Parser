@@ -92,6 +92,6 @@ class UpdateThread (threading.Thread):
             # die off here
             lock = threading.Lock()
             with lock:
-                if self.dieOff():
+                if self._dieOff():
                     print("Removing thread")
                     return
