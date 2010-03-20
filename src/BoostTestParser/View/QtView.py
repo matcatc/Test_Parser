@@ -27,7 +27,6 @@ class QtView(UiClass, WidgetClass):
         '''
         WidgetClass.__init__(self)
         self.setupUi(self)
-        self.treeView.setModel(QtGui.QStandardItemModel())
         
         self.model = model
         self.model.registerObserver(self)
@@ -52,20 +51,16 @@ class QtView(UiClass, WidgetClass):
         '''
         Actually updated the GUI treeView widget
         '''
-        treeModel = self.treeView.model()
-        print (treeModel)
-        treeModel.clear()
+        tree = self.treeWidget
+        tree.clear()
         
-        
-        #item = QtGui.QStandardItem("test")
-        #item2 = QtGui.QStandardItem("test2")
-        #treeModel.appendRow([item, item2])
-        
+        # suite name is null for some reason
         for suite in results.suites:
-            suiteItem = QtGui.QStandardItem(suite.name)
-            treeModel.appendRow(suiteItem)
+            print ("suite name =", suite.name)
+            suiteItem = QtGui.QTreeWidgetItem(suite.name)
             for test in suite.testCases:
                 pass
+            tree.addTopLevelItem(suiteItem)
         
 
 
