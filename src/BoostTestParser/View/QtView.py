@@ -4,27 +4,35 @@ Created on Mar 12, 2010
 @author: matcat
 '''
 
+from PyQt4 import uic #@UnresolvedImport
+from PyQt4 import QtGui #@UnresolvedImport
+from PyQt4 import QtCore
+import sys
+
 from ..Model import Model
 from ..Parser import BasicParser
 from ..Model import TestRunner
 from ..Common import Observer
-import sys
 
-class TextView(Observer.Observer):
+UiClass, WidgetClass = uic.loadUiType("./BoostTestParser/View/MainWindow.ui")
+
+class QtView(UiClass, WidgetClass):
     '''
-    A simple view for our test runner / parser program.
-    
-    Simply displays the data to the console.
-    Has indenting. Otherwise, basically the same as the output from
-    Boost's test runner.
+    classdocs
     '''
 
     def __init__(self, model):
         '''
         Constructor
         '''
+        WidgetClass.__init__(self)
+        self.setupUi(self)
+        self.treeView.setModel(QtGui.QStandardItemModel())
+        
         self.model = model
         self.model.registerObserver(self)
+        
+        
         
     def _retrieveTestResults(self):
         '''
@@ -32,53 +40,49 @@ class TextView(Observer.Observer):
         @return test results
         '''
         return self.model.results
-    
+        
     def update(self):
         '''
         For observer.
-        
-        display automatically pulls results, so we can just rely on display
         '''
-        self.display()
+        print("Updating QtView")
+        self._updateTreeWidget(self._retrieveTestResults())
         
-    def display(self):
-        results = self._retrieveTestResults()
-        if results is None:
-            print("No test results to display")
-            return
-        self._display(results)
+    def _updateTreeWidget(self, results):
+        '''
+        Actually updated the GUI treeView widget
+        '''
+        treeModel = self.treeView.model()
+        print (treeModel)
+        treeModel.clear()
         
-    def _display(self, results):
-        '''
-        display the test results to stdout
-        '''
+        
+        #item = QtGui.QStandardItem("test")
+        #item2 = QtGui.QStandardItem("test2")
+        #treeModel.appendRow([item, item2])
+        
         for suite in results.suites:
-            self._displaySuite(suite)
-            
-    def _displaySuite(self, suite):
-        print("suite: ", suite.name)
-        for test in suite.testCases:
-            self._displayTest(test)
-            
-    def _displayTest(self, test):
-        print("\ttest: ", test.name)
-        print("\t\t time: ", test.timeTaken)
-        for notice in test.notices:
-            self._displayNotice(notice)
-            
-    def _displayNotice(self, notice):
-        print("\t\t", notice.type, "\tfile:", notice.file, "\tline:", notice.line, "\t", notice.info)
+            suiteItem = QtGui.QStandardItem(suite.name)
+            treeModel.appendRow(suiteItem)
+            for test in suite.testCases:
+                pass
         
 
-class TextViewController(Observer.Observer):
+
+class QtViewController(Observer.Observer):
     '''
-    A simple controller for TextView.
+    A simple controller for QtView.
     
     Doesn't do anything with updates.
     Doesn't use any threading.
     If we were to use threading, we'd have to make sure to
     spawn a non daemonic thread.
     @see BoostTestParser.Observable.notifyObservers.__doc__
+    
+    TODO: do we need this controller?
+    
+    TODO: create controller parent class
+     this was a copy and past of TextViewController
     '''
     def __init__(self, model):
         '''
@@ -91,7 +95,7 @@ class TextViewController(Observer.Observer):
         '''
         Nothing for our controller to do when model updates us
         '''
-        pass
+        print("Updating QtViewController")
     
     def run(self):
         '''
@@ -100,13 +104,9 @@ class TextViewController(Observer.Observer):
         Simply tells the model to parse
         '''
         self.model.runAll()
-    
+
 
 def main():
-    '''
-    Run the entire program using our TextView and its associated controller
-    Will run tests, parse, display, and finally exit the program 
-    '''
     if len(sys.argv) < 2:
         print("Usage: test parser <test_runner>")
         return
@@ -118,12 +118,17 @@ def main():
     model.testRunner = runner
     model.parser = BasicParser.BasicParser()
     
-    # setup view and controller
-    view = TextView(model)
-    controller = TextViewController(model)
-
-    # run (and implicitly display)
+    # setup view
+    app = QtGui.QApplication(sys.argv)
+    widget = QtView(model)
+    widget.show()
+    
+    # setup controller
+    controller = QtViewController(model)
+    
+    # run
     controller.run()
+    sys.exit(app.exec_())
     
 if __name__ == "__main__":
     main()
