@@ -105,7 +105,7 @@ def main():
     '''
     Run the qt view based program.
     
-    @see BoostTestParser.main.main()
+    @see main.main()
     '''
     if len(sys.argv) < 2:
         print("Usage: test parser <test_runner>")

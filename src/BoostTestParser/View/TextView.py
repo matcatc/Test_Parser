@@ -110,7 +110,7 @@ def main():
     Run the entire program using our TextView and its associated controller
     Will run tests, parse, display, and finally exit the program
     
-    @see BoostTestParser.main.main()
+    @see main.main()
     '''
     if len(sys.argv) < 2:
         print("Usage: test parser <test_runner>")
