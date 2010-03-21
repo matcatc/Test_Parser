@@ -8,12 +8,12 @@ import sys, copy, os.path
 class TestRunner(object):
     '''
     This object exists in order to run the external test
-    program (BoostTest in the default case.) It contains
+    program (BoostTest in the default case). It contains
     information that allows it to spawn a subprocess
     (the test program.)
     
     @date Mar 6, 2010
-    @author: Matthew A. Todd
+    @author Matthew A. Todd
     '''
     # BoostTest log_level options
     lvl_success = "success"
@@ -29,6 +29,7 @@ class TestRunner(object):
         '''
         Constructor
         '''
+        ## name / path of the test program to be run 
         self.runner = None
         self.logLevel = TestRunner.lvl_test_suite
     
@@ -60,7 +61,7 @@ class TestRunner(object):
         '''
         runs just with the given params. Concatenates runner and params.
         
-        @params list of params to be passed to the test runner.
+        @param params list of params to be passed to the test runner.
             The same params you would use if running on the command line.
         @return stdout from the test program. Or None if program execution failed.
         '''

@@ -11,7 +11,7 @@ class UpdateThread (threading.Thread):
     '''
     # Note that these are static variables
     
-    # TODO restrict access to jobQueue
+    ## TODO restrict access to jobQueue
     #  property: read only
     #  or make private and provide helper function for join()
     jobQueue = queue.Queue(0)
@@ -19,6 +19,7 @@ class UpdateThread (threading.Thread):
     _bPoolCreated = False
     
     _threadCount = 0
+    ## number of threads to be removed
     _removeCount = 0
 
     @staticmethod
@@ -63,7 +64,9 @@ class UpdateThread (threading.Thread):
 
     def _dieOff(self):
         '''
-        requires that client function actually kills the thread (itself).
+        Compute whether calling thread should die off.
+        
+        @warning requires that client function actually kills the thread (itself).
         
         @return True if thread should die off.
         '''
@@ -75,6 +78,9 @@ class UpdateThread (threading.Thread):
 
     def run (self):
         '''
+        Actual work is done here. Gets job (observer) from queue,
+        and calls update on it. 
+        
         will only return (die off) if _removeCount > 0
         '''
         while True:

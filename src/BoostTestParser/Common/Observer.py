@@ -1,8 +1,3 @@
-'''
-@date Mar 6, 2010
-@author: Matthew A. Todd
-'''
-
 class Observer(object):
     '''
     For observer pattern.

@@ -49,6 +49,8 @@ class Model(Observable.Observable):
            
     def runAll(self):
         '''
+        Runs all tests avaiable in testRunner
+        
         We should keep lock.
         We should lock this function (should we?)
         b/c it runs an algorithm before assigning

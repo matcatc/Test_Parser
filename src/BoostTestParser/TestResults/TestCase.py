@@ -1,16 +1,12 @@
-'''
-A single test case
-
-@date Feb 17, 2010
-@author: Matthew A. Todd
-'''
-
 class TestCase(object):
     '''
     A single test. Which may have multiple errors (asserts).
     
     Messages and errors are contained in one list, so that the order in which
     they occurred is not lost. This is why they both inherit INotice.
+    
+    @date Feb 17, 2010
+    @author Matthew A. Todd
     '''
 
     def __init__(self):
@@ -18,13 +14,15 @@ class TestCase(object):
         Constructor
         '''
         self.notices = []
-        self.types = set()          # set of known types (of notices added)
+        ## set of known types (of notices added)
+        self.types = set()          
         self._timeTaken = 0
         self.name = ""
     
     def hasType(self, type):
         '''
-        whether test case has a given type of notice
+        Whether test case has a given type of notice
+        @return True if notice of type type contained in list of notices
         '''
         return type in self.types
     
@@ -43,7 +41,7 @@ class TestCase(object):
     
     def addNotice(self, notice):
         '''
-        @param notice: notice to add
+        @param notice notice to add
         '''          
         self.types.add(notice.type)
         self.notices.append(notice)

@@ -12,7 +12,7 @@ class BasicParser(IParse.IParse):
     Notice types: @see _parseTestCase()
     
     @date Feb 22, 2010
-    @author: Matthew A. Todd
+    @author Matthew A. Todd
     '''
 
     def __init__(self):

@@ -1,7 +1,6 @@
 '''
-Created on Mar 12, 2010
-
-@author: matcat
+@date Mar 12, 2010
+@author: Matthew A. Todd
 '''
 
 from PyQt4 import uic #@UnresolvedImport
@@ -17,7 +16,7 @@ UiClass, WidgetClass = uic.loadUiType("./BoostTestParser/View/MainWindow.ui")
 
 class QtView(UiClass, WidgetClass):
     '''
-    classdocs
+    Main window for our Qt implemented view.
     '''
 
     def __init__(self, model):
@@ -73,7 +72,7 @@ class QtViewController(Observer.Observer):
     Doesn't use any threading.
     If we were to use threading, we'd have to make sure to
     spawn a non daemonic thread.
-    @see BoostTestParser.Observable.notifyObservers.__doc__
+    @see BoostTestParser.Observable.notifyObservers()
     
     TODO: do we need this controller?
     
@@ -103,6 +102,11 @@ class QtViewController(Observer.Observer):
 
 
 def main():
+    '''
+    Run the qt view based program.
+    
+    @see BoostTestParser.main.main()
+    '''
     if len(sys.argv) < 2:
         print("Usage: test parser <test_runner>")
         return

@@ -1,8 +1,4 @@
-'''
-Created on Mar 13, 2010
 
-@author: matcat
-'''
 
 from PyQt4 import uic #@UnresolvedImport
 from PyQt4 import QtGui #@UnresolvedImport
@@ -13,7 +9,10 @@ UiClass, WidgetClass = uic.loadUiType("./About.ui")
 
 class About(UiClass, WidgetClass):
     '''
-    classdocs
+    About box.
+
+    @date Mar 13, 2010
+    @author Matthew A. Todd
     '''
 
     def __init__(self):
@@ -24,8 +23,15 @@ class About(UiClass, WidgetClass):
         self.setupUi(self)
         
         
-if __name__ == "__main__":
+
+def main():
+    '''
+    Way to run the about box for testing.
+    '''
     app = QtGui.QApplication(sys.argv)
     widget = About()
     widget.show()
     sys.exit(app.exec_())
+    
+if __name__ == "__main__":
+    main()

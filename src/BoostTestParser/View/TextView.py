@@ -37,11 +37,14 @@ class TextView(Observer.Observer):
         '''
         For observer.
         
-        display automatically pulls results, so we can just rely on display
+        display() automatically pulls results, so we can just rely on display()
         '''
         self.display()
         
     def display(self):
+        '''
+        delegates to _display()
+        '''
         results = self._retrieveTestResults()
         if results is None:
             print("No test results to display")
@@ -78,7 +81,7 @@ class TextViewController(Observer.Observer):
     Doesn't use any threading.
     If we were to use threading, we'd have to make sure to
     spawn a non daemonic thread.
-    @see BoostTestParser.Observable.notifyObservers.__doc__
+    @see BoostTestParser.Observable.notifyObservers()
     '''
     def __init__(self, model):
         '''
@@ -95,9 +98,9 @@ class TextViewController(Observer.Observer):
     
     def run(self):
         '''
-        @see Model.runAll()
-        
         Simply tells the model to parse
+        
+        @see Model.runAll()
         '''
         self.model.runAll()
     
@@ -105,7 +108,9 @@ class TextViewController(Observer.Observer):
 def main():
     '''
     Run the entire program using our TextView and its associated controller
-    Will run tests, parse, display, and finally exit the program 
+    Will run tests, parse, display, and finally exit the program
+    
+    @see BoostTestParser.main.main()
     '''
     if len(sys.argv) < 2:
         print("Usage: test parser <test_runner>")
