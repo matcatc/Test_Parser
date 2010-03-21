@@ -15,16 +15,17 @@ class Observable(object):
     notifyObservers(), where appropriate.
     
     @date Mar 6, 2010
-    @author: Matthew A. Todd
+    @author Matthew A. Todd
     '''
 
+    NUMBER_THREADS = 2
 
     def __init__(self):
         '''
         Constructor
         '''
         self.observers = set([])
-        UpdateThread.createPool(2)
+        UpdateThread.createPool(Observable.NUMBER_THREADS)
         
     def registerObserver(self, observer):
         self.observers.add(observer)
@@ -38,8 +39,9 @@ class Observable(object):
         
         Won't return till all observers notified. This way we can ensure
         all the observer work is done before the program tries to quit.
-        Note: this won't work if this code is in an daemonic thread
-        as well.
+        
+        @warning this won't work if this code is being run in a daemonic
+        thread as well.
         '''
         for observer in self.observers:
             UpdateThread.addJob(observer)
