@@ -21,38 +21,25 @@ class IParse():
         Constructor
         '''
         
-    def parse(self, input):
+    def parse(self, filename=None, stringData=None):
         '''
         Delegates to _parseData()
-        
-        If a string is passed in, its a filename of a file to open for the data.
-        If you want to pass in a string containing the actual xml data, use parseString()        
-        @see parseString()
         @see _parseData()
         
         TODO: verify this works for possible input types
         
-        @param input input to parse
+        @param stringData a string containing the xml data. If this is not None,
+            then this will be used, regardless of what other data types are
+            available.
+        @param filename a string containing the filename to be parsed.
         @return TestResults containing the parsed results
         '''
-        tree = ET.parse(input)
-        
-        return self._parseData(tree)
-    
-    def parseString(self, input):
-        '''
-        Similar to parse(), except that works on a string with xml data in it.
-        
-        Delegates to _parseData()
-        
-        @see _parseData()
-        @see parse
-        @param input string containing the xml data
-        @return TestResults containing the parsed results
-        '''
-        tree = ET.fromstring(input)
-        return self._parseData(tree)
-    
+        if stringData is not None:
+            tree = ET.fromstring(stringData)
+            return self._parseData(tree)
+        else:
+            tree = ET.parse(filename)
+            return self._parseData(tree)    
         
     def _parseData(self, tree):
         '''
