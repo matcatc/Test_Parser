@@ -1512,3 +1512,13 @@ GENERATE_LEGEND = YES
 # the various graphs.
 
 DOT_CLEANUP = YES
+
+
+
+# ----------------------------------------------------------------------
+# for python
+# Mar 20, 2010
+# --------------------------------------------------------------------
+
+FILTER_SOURCE_FILES = YES
+INPUT_FILTER = "python /usr/local/bin/doxypy.py"
