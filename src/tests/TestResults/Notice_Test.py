@@ -42,12 +42,6 @@ class Notice_Test(unittest.TestCase):
         self.assertEqual(self.notice.info, self.info)
         self.assertEqual(self.notice.type, self.type)
 
-    def testToString(self):
-        '''
-        not much to test, so just make sure it returns a string
-        '''
-        self.assertTrue(isinstance(self.notice.toString(), str))
-
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
