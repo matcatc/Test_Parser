@@ -1,0 +1,5 @@
+<TestSuite name="test suite">
+	<TestCase name="test testCase">
+    	<TestingTime>0</TestingTime>
+	</TestCase>
+</TestSuite>

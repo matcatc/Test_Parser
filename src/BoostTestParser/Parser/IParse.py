@@ -21,7 +21,7 @@ class IParse():
         Constructor
         '''
         
-    def parse(self, filename=None, stringData=None):
+    def parse(self, file=None, stringData=None):
         '''
         Delegates to _parseData()
         @see _parseData()
@@ -31,14 +31,14 @@ class IParse():
         @param stringData a string containing the xml data. If this is not None,
             then this will be used, regardless of what other data types are
             available.
-        @param filename a string containing the filename to be parsed.
+        @param file a filename or file object.
         @return TestResults containing the parsed results
         '''
         if stringData is not None:
             tree = ET.fromstring(stringData)
             return self._parseData(tree)
         else:
-            tree = ET.parse(filename)
+            tree = ET.parse(file)
             return self._parseData(tree)    
         
     def _parseData(self, tree):
