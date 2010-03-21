@@ -6,7 +6,6 @@ Created on Mar 12, 2010
 
 from PyQt4 import uic #@UnresolvedImport
 from PyQt4 import QtGui #@UnresolvedImport
-from PyQt4 import QtCore
 import sys
 
 from ..Model import Model
@@ -50,6 +49,8 @@ class QtView(UiClass, WidgetClass):
     def _updateTreeWidget(self, results):
         '''
         Actually updated the GUI treeView widget
+        
+        TODO: finish implementing
         '''
         tree = self.treeWidget
         tree.clear()
