@@ -94,10 +94,10 @@ class QtViewController(Observer.Observer):
         print("Updating QtViewController")
     
     def run(self):
-        '''
-        @see Model.runAll()
-        
+        '''        
         Simply tells the model to parse
+        
+        @see Model.runAll()
         '''
         self.model.runAll()
 
