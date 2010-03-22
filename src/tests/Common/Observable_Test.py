@@ -1,7 +1,6 @@
 '''
-Created on Mar 21, 2010
-
-@author: matcat
+@date Mar 21, 2010
+@author Matthew A. Todd
 '''
 import unittest
 from BoostTestParser.Common.Observable import Observable
