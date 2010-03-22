@@ -43,7 +43,6 @@ class IParse_Test(unittest.TestCase):
         
         tree = self.mockParser.tree
         self.assertTrue(tree is not None)
-        self.assertTrue(isinstance(tree, xml.etree.ElementTree._Element))
         
         
         
@@ -59,7 +58,6 @@ class IParse_Test(unittest.TestCase):
         
         tree = self.mockParser.tree
         self.assertTrue(tree is not None)
-        self.assertTrue(isinstance(tree, xml.etree.ElementTree.ElementTree))
 
     def testparseData(self):
         '''
