@@ -7,10 +7,7 @@ from PyQt4 import uic #@UnresolvedImport
 from PyQt4 import QtGui #@UnresolvedImport
 import sys
 
-from ..Model import Model
-from ..Parser import BasicParser
-from ..Model import TestRunner
-from ..Common import Observer
+from . import Controller
 
 UiClass, WidgetClass = uic.loadUiType("./BoostTestParser/View/MainWindow.ui")
 
@@ -64,41 +61,13 @@ class QtView(UiClass, WidgetClass):
         
 
 
-class QtViewController(Observer.Observer):
+class QtViewController(Controller.Controller):
     '''
     A simple controller for QtView.
     
-    Doesn't do anything with updates.
-    Doesn't use any threading.
-    If we were to use threading, we'd have to make sure to
-    spawn a non daemonic thread.
-    @see BoostTestParser.Observable.notifyObservers()
-    
-    TODO: do we need this controller?
-    
-    TODO: create controller parent class
-     this was a copy and past of TextViewController
+    Nothing to override
+    @see Controller.Controller
     '''
-    def __init__(self, model):
-        '''
-        Constructor
-        '''
-        self.model = model
-        self.model.registerObserver(self)
-    
-    def update(self):
-        '''
-        Nothing for our controller to do when model updates us
-        '''
-        print("Updating QtViewController")
-    
-    def run(self):
-        '''        
-        Simply tells the model to parse
-        
-        @see Model.runAll()
-        '''
-        self.model.runAll()
         
 def qtViewMain(model):
     '''
