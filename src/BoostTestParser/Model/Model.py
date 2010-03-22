@@ -45,7 +45,7 @@ class Model(Observable.Observable):
         del self._results
         
     def _doParse(self, data):
-        self.results = self.parser.parseString(data.decode("utf-8"))
+        self.results = self.parser.parse(stringData=data.decode("utf-8"))
            
     def runAll(self):
         '''

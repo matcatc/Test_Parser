@@ -99,25 +99,13 @@ class QtViewController(Observer.Observer):
         @see Model.runAll()
         '''
         self.model.runAll()
-
-
-def main():
+        
+def qtViewMain(model):
     '''
     Run the qt view based program.
     
     @see main.main()
-    '''
-    if len(sys.argv) < 2:
-        print("Usage: test parser <test_runner>")
-        return
-    
-    # setup model
-    model = Model.Model()
-    runner = TestRunner.TestRunner()
-    runner.runner = sys.argv[1]
-    model.testRunner = runner
-    model.parser = BasicParser.BasicParser()
-    
+    '''    
     # setup view
     app = QtGui.QApplication(sys.argv)
     widget = QtView(model)
@@ -129,6 +117,3 @@ def main():
     # run
     controller.run()
     sys.exit(app.exec_())
-    
-if __name__ == "__main__":
-    main()

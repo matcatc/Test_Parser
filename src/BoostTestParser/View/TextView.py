@@ -103,32 +103,18 @@ class TextViewController(Observer.Observer):
         @see Model.runAll()
         '''
         self.model.runAll()
-    
-
-def main():
+        
+        
+def textViewMain(model):
     '''
     Run the entire program using our TextView and its associated controller
     Will run tests, parse, display, and finally exit the program
     
     @see main.main()
-    '''
-    if len(sys.argv) < 2:
-        print("Usage: test parser <test_runner>")
-        return
-    
-    # setup model
-    model = Model.Model()
-    runner = TestRunner.TestRunner()
-    runner.runner = sys.argv[1]
-    model.testRunner = runner
-    model.parser = BasicParser.BasicParser()
-    
+    '''   
     # setup view and controller
     view = TextView(model)
     controller = TextViewController(model)
 
     # run (and implicitly display)
     controller.run()
-    
-if __name__ == "__main__":
-    main()
