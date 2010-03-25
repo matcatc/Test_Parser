@@ -39,7 +39,7 @@ class IParse():
             return self._parseData(tree)
         else:
             tree = ET.parse(file)
-            return self._parseData(tree)    
+            return self._parseData(tree.getroot())
         
     def _parseData(self, tree):
         '''

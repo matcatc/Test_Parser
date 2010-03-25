@@ -4,7 +4,6 @@ Created on Mar 5, 2010
 @author: matcat
 '''
 import unittest
-import xml.etree
 import os.path
 from BoostTestParser.Parser import IParse
 
@@ -44,6 +43,13 @@ class IParse_Test(unittest.TestCase):
         tree = self.mockParser.tree
         self.assertTrue(tree is not None)
         
+        # call some functions to see if they end up working
+        self.assertTrue(tree.tag is not None)
+        self.assertTrue(tree.get("name") is not None)
+        self.assertTrue(tree.find("TestCase") is not None)
+        self.assertTrue(tree.find("TestCase").find("TestingTime") is not None)
+        
+        
         
         
     def testParseFilename(self):
@@ -58,6 +64,12 @@ class IParse_Test(unittest.TestCase):
         
         tree = self.mockParser.tree
         self.assertTrue(tree is not None)
+        
+        # call some functions to see if they end up working
+        self.assertTrue(tree.tag is not None)
+        self.assertTrue(tree.get("name") is not None)
+        self.assertTrue(tree.find("TestCase") is not None)
+        self.assertTrue(tree.find("TestCase").find("TestingTime") is not None)
 
     def testparseData(self):
         '''
