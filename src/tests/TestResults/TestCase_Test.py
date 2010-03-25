@@ -27,6 +27,12 @@ class TestCase_Test(unittest.TestCase):
         del self.test.notices[:]
         del self.test
 
+    def test_timeTakenDeleter(self):
+        '''
+        b/c the deleter isn't being run, we're going to just run it here.
+        '''
+        self.test.timeTaken = 0
+        del self.test.timeTaken
 
     def testHasType(self):
         '''

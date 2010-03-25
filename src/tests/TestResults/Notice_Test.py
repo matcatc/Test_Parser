@@ -23,7 +23,34 @@ class Notice_Test(unittest.TestCase):
 
     def tearDown(self):
         del self.notice
-               
+
+    def test_fileDeleter(self):
+        '''
+        b/c the deleter isn't being run, we're going to just run it here.
+        '''
+        self.notice.file = "blah"
+        del self.notice.file
+        
+    def test_lineDeleter(self):
+        '''
+        b/c the deleter isn't being run, we're going to just run it here.
+        '''
+        self.notice.line = 0
+        del self.notice.line
+        
+    def test_infoDeleter(self):
+        '''
+        b/c the deleter isn't being run, we're going to just run it here.
+        '''
+        self.notice.info = "blah"
+        del self.notice.info
+        
+    def test_typeDeleter(self):
+        '''
+        b/c the deleter isn't being run, we're going to just run it here.
+        '''
+        self.notice.type = "blah"
+        del self.notice.type
         
     def testValue(self):
         '''
