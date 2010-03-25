@@ -8,7 +8,7 @@ import unittest
 from BoostTestParser.TestResults.TestResults import TestResults
 from BoostTestParser.TestResults.Suite import Suite
 
-class Test(unittest.TestCase):
+class TestResults_Test(unittest.TestCase):
     suite = Suite()
 
     def setUp(self):
