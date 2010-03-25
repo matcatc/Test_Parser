@@ -10,6 +10,16 @@ class Model(Observable.Observable):
     '''
     Model in MVC.
     
+    TODO: None issues
+    Test Runner and Parser need to be set before calling methods.
+    If they are None, and need to be used, there are two possibilities,
+    based on how I end up implementing.
+    1) testResults set to None or not changed, which doesn't result in
+        an observer notification being sent out. I.e: Model lies silent.
+    2) an exception is thrown notifying the client that the method failed.
+        Not sure what exception should be thrown. Might just rethrow
+        original None exception.
+    
     Notifies observers whenever results changes (is assigned to).
     @see results.setter
     
@@ -45,11 +55,16 @@ class Model(Observable.Observable):
         del self._results
         
     def _doParse(self, data):
+        '''
+        TODO: What if parser is None?
+        '''
         self.results = self.parser.parse(stringData=data.decode("utf-8"))
            
     def runAll(self):
         '''
-        Runs all tests avaiable in testRunner
+        Runs all tests available in testRunner
+        
+        TODO: what if testRunner is None?
         
         We should keep lock.
         We should lock this function (should we?)
