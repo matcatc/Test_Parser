@@ -57,7 +57,7 @@ class TestRunner(object):
         del self._runner
     
     
-    def run(self, params):
+    def run(self, params, errStream=sys.stderr):
         '''
         runs just with the given params. Concatenates runner and params.
         
@@ -79,7 +79,7 @@ class TestRunner(object):
 
         stdout, stderr = p.communicate()
         if not stderr == "":
-            print(stderr.decode("utf-8"), file=sys.stderr)      
+            print(stderr.decode("utf-8"), file=errStream)      
         return stdout
     
     def runAll(self):
