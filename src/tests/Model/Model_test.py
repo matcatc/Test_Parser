@@ -4,11 +4,22 @@
 '''
 import unittest
 from BoostTestParser.Model import Model
+from BoostTestParser.Model import TestRunner
+from BoostTestParser.Parser import BasicParser
 from ..Common.Observable_Test import Mock_Observer
 
+
 class Model_test(unittest.TestCase):
-    # TODO: static testRunner
-    # TODO: static parser
+    
+    runner = TestRunner.TestRunner()
+    runner.runner = "tests/Model/Boost_Test"
+    parser = BasicParser.BasicParser()
+    
+    data = '<TestSuite name="test suite">\
+                <TestCase name="test testCase">\
+                    <TestingTime>0</TestingTime>\
+                </TestCase>\
+            </TestSuite>'
 
     def setUp(self):
         self.model = Model.Model()
@@ -17,22 +28,17 @@ class Model_test(unittest.TestCase):
     def tearDown(self):
         del self.model
 
-    # TODO: test what happens when no runner and/or parser is None
     def test_NoneParser(self):
         '''
         test what happens when parser is None and method(s) are called
-        
-        TODO: implement
         '''
-        raise NotImplementedError
+        self.assertRaises(AttributeError, self.model._doParse, Model_test.data)
         
     def test_NoneTestRunner(self):
         '''
-        test what happends when testRunner is None and method(s) are called
-        
-        TODO: implement
+        test what happens when testRunner is None and method(s) are called
         '''
-        raise NotImplementedError
+        self.assertRaises(AttributeError, self.model.runAll)
 
     def test_ResultsNotification(self):
         '''
@@ -51,21 +57,32 @@ class Model_test(unittest.TestCase):
     
     def test_doParse(self):
         '''
-        TODO: implement
-        
         test that results change, are not None
         test that nothing is thrown, etc with some real data (typos, etc)
         '''
-        raise NotImplementedError
+        self.model.parser = Model_test.parser
+        
+        oldResults = self.model.results
+        self.model._doParse(Model_test.data)
+        
+        self.assertTrue(self.model.results is not None)
+        self.assertNotEqual(self.model.results, oldResults)
     
     def test_runAll(self):
         '''
-        TODO: implement
-        
         test that results change, are not None
         test that runAll doesn't throw anything when given real data (typos, etc.)
         '''
-        raise NotImplementedError
+        self.model.testRunner = Model_test.runner
+        self.model.parser = Model_test.parser
+        
+        oldResults = self.model.results
+        
+        self.model.runAll()
+        
+        self.assertTrue(self.model.results is not None)
+        self.assertNotEqual(self.model.results, oldResults)
+        
 
 
 if __name__ == "__main__":

@@ -20,6 +20,9 @@ class TestRunner_Test(unittest.TestCase):
     code found here:
     http://www.boost.org/doc/libs/1_42_0/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html
     
+    
+    TODO: add test when runner is None
+    
     @date Mar 6, 2010
     @author: Matthew A. Todd
     '''

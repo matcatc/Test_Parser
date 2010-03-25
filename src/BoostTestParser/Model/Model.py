@@ -5,6 +5,7 @@ Created on Mar 6, 2010
 '''
 from ..Common import Observable
 import copy, threading
+import sys
 
 class Model(Observable.Observable):
     '''
@@ -58,7 +59,13 @@ class Model(Observable.Observable):
         '''
         TODO: What if parser is None?
         '''
-        self.results = self.parser.parse(stringData=data.decode("utf-8"))
+        
+        try:
+            decodedData = data.decode("utf-8")
+        except AttributeError:
+            decodedData = data
+        
+        self.results = self.parser.parse(stringData=decodedData)
            
     def runAll(self):
         '''
@@ -75,7 +82,7 @@ class Model(Observable.Observable):
         '''
         lock = threading.Lock()
         with lock:
-            data = self.testRunner.runAll()
-            self._doParse(data)
+                data = self.testRunner.runAll()
+                self._doParse(data)
 
     # TODO: other runs (as needed)

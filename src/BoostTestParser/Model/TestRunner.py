@@ -61,6 +61,8 @@ class TestRunner(object):
         '''
         runs just with the given params. Concatenates runner and params.
         
+        TODO: check that self.runner is not None?
+        
         @param params list of params to be passed to the test runner.
             The same params you would use if running on the command line.
         @return stdout from the test program. Or None if program execution failed.
