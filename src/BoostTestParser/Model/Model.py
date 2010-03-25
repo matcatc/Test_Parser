@@ -46,7 +46,8 @@ class Model(Observable.Observable):
     @results.setter
     def results(self, results): #@DuplicatedSignature
         '''
-        Notify observers that results has changed. Will not notify if None.
+        Notify observers that results has changed.
+        Will not notify if new value is None.
         '''
         self._results = copy.deepcopy(results)
         if results is not None:
@@ -58,6 +59,10 @@ class Model(Observable.Observable):
     def _doParse(self, data):
         '''
         TODO: What if parser is None?
+        Currently, if parser is None, an AttributeError will be thrown by
+        trying to access parse()
+        
+        @throws AttributeError when parser is None
         '''
         
         try:
@@ -72,6 +77,10 @@ class Model(Observable.Observable):
         Runs all tests available in testRunner
         
         TODO: what if testRunner is None?
+        Currently, if testRunner is None, an AttributeError will be thrown
+        by trying to access runAll()
+        
+        @throws AttributeError when testRunner is None
         
         We should keep lock.
         We should lock this function (should we?)
