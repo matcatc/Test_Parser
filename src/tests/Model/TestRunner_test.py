@@ -33,6 +33,13 @@ class TestRunner_Test(unittest.TestCase):
 
     def tearDown(self):
         del self.runner
+        
+    def test_runnerDeleter(self):
+        '''
+        b/c the deleter isn't being run, we're going to just run it here.
+        '''
+        self.runner.runner = "blah"
+        del self.runner.runner
 
     def testRun_echo(self):
         '''
@@ -88,6 +95,25 @@ class TestRunner_Test(unittest.TestCase):
         self.runner.runner = "tests/Model/Boost_Test"
         stdout = self.runner.runTest(["testA", "testB"])
         self.assertNotEqual(stdout, None)
+        
+    def testRunSuite(self):
+        '''
+        test runSuite() with real input
+        '''
+        self.runner.runner = "tests/Model/Boost_Test"
+        stdout = self.runner.runSuite([])
+        self.assertNotEqual(stdout, None)
+        
+    def test_InvalidRunner(self):
+        '''
+        test what happens when trying to run an invalid runner. i.e: we want
+        an OSError to be thrown in run().
+        
+        None should be returned.
+        An error message should be printed out to a given err stream.
+        '''
+        raise NotImplementedError
+    
         
         
 if __name__ == "__main__":

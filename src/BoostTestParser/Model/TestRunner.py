@@ -29,7 +29,7 @@ class TestRunner(object):
         '''
         Constructor
         '''
-        ## name / path of the test program to be run 
+        ## string containing name / path of the test program to be run 
         self.runner = None
         self.logLevel = TestRunner.lvl_test_suite
     
@@ -74,7 +74,7 @@ class TestRunner(object):
             cmd.insert(2, "--log_level="+self.logLevel)
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
-            print("Failed to execute unit test program", file=sys.stderr)
+            print("Failed to execute unit test program", file=errStream)
             return None
 
         stdout, stderr = p.communicate()

@@ -24,9 +24,15 @@ class Model_test(unittest.TestCase):
     def setUp(self):
         self.model = Model.Model()
 
-
     def tearDown(self):
         del self.model
+        
+    def test_resultsDeleter(self):
+        '''
+        b/c the deleter isn't being run, we're going to just run it here.
+        '''
+        self.model.results = "blah"
+        del self.model.results
 
     def test_NoneParser(self):
         '''

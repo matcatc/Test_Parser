@@ -68,6 +68,20 @@ class Notice_Test(unittest.TestCase):
         self.assertEqual(self.notice.line, self.line)
         self.assertEqual(self.notice.info, self.info)
         self.assertEqual(self.notice.type, self.type)
+        
+    def test_emptyInfo(self):
+        '''
+        test that a warning is output when info is an empty string 
+        '''
+        raise NotImplementedError
+    
+    def test_emptyType(self):
+        '''
+        test that a warning is output when type string is empty 
+        '''
+        raise NotImplementedError
+    
+    
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
