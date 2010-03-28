@@ -16,14 +16,17 @@ class TestRunner(object):
     @author Matthew A. Todd
     '''
     # BoostTest log_level options
-    lvl_success = "success"
-    lvl_test_suite = "test_suite"
-    lvl_message = "message"
-    lvl_warning = "warning"
-    lvl_error = "error"
+    LOG_LVL_SUCCESS = "success"
+    LOG_LVL_TESTSUITE = "test_suite"
+    LOG_LVL_MESSAGE = "message"
+    LOG_LVL_WARNING = "warning"
+    LOG_LVL_ERROR = "error"
     
-    # BoostTest format
-    format = "--log_format=XML"
+    ## BoostTest format
+    LOG_FORMAT = "--log_format=XML"
+
+    ## message that is displayed when testRunner isn't run successfully
+    EXECUTION_FAILURE_MESSAGE = "Failed to execute unit test program"
 
     def __init__(self):
         '''
@@ -31,7 +34,7 @@ class TestRunner(object):
         '''
         ## string containing name / path of the test program to be run 
         self.runner = None
-        self.logLevel = TestRunner.lvl_test_suite
+        self.logLevel = TestRunner.LOG_LVL_TESTSUITE
     
     @property
     def runner(self):
@@ -67,14 +70,16 @@ class TestRunner(object):
             The same params you would use if running on the command line.
         @return stdout from the test program. Or None if program execution failed.
         '''
+        
+        
         try:
             cmd = copy.deepcopy(params)
             cmd.insert(0, self.runner)                
-            cmd.insert(1, TestRunner.format)
+            cmd.insert(1, TestRunner.LOG_FORMAT)
             cmd.insert(2, "--log_level="+self.logLevel)
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
-            print("Failed to execute unit test program", file=errStream)
+            print(TestRunner.EXECUTION_FAILURE_MESSAGE, file=errStream)
             return None
 
         stdout, stderr = p.communicate()
