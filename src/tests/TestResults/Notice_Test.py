@@ -76,6 +76,8 @@ class Notice_Test(unittest.TestCase):
         we need to wait until the errStream issue has been handled.
         @see http://github.com/matcatc/BoostTest-Log-Parser/issues/#issue/20
         
+        Constants.errStream
+        
         once implemented, coverage should increase 
         '''
         raise NotImplementedError
@@ -86,6 +88,8 @@ class Notice_Test(unittest.TestCase):
         
         we need to wait until the errStream issue has been handled.
         @see http://github.com/matcatc/BoostTest-Log-Parser/issues/#issue/20
+        
+        Constants.errStream
         
         once implemented, coverage should increase.
         '''

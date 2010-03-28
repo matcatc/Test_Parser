@@ -4,6 +4,7 @@
 '''
 import unittest
 from BoostTestParser.Model.TestRunner import TestRunner
+from BoostTestParser.Common.Constants import Constants
 import io
 
 class TestRunner_Test(unittest.TestCase):
@@ -29,9 +30,11 @@ class TestRunner_Test(unittest.TestCase):
 
 
     def setUp(self):
+        Constants.errStream = io.StringIO()
         self.runner = TestRunner()
 
     def tearDown(self):
+        Constants.reset()
         del self.runner
         
     def test_runnerDeleter(self):
@@ -113,11 +116,10 @@ class TestRunner_Test(unittest.TestCase):
         An error message should be printed out to a given err stream.
         '''
         self.runner.runner = "invalid_runner_ALSKFJEOIJFDFLKJakjdflakjdfaedf"
-        errStream = io.StringIO()       # TODO: with statement?
-        stdout = self.runner.run([], errStream)
+        stdout = self.runner.run([])
         
         self.assertEqual(stdout, None)
-        self.assertEqual(errStream.getvalue(), TestRunner.EXECUTION_FAILURE_MESSAGE + "\n")
+        self.assertEqual(Constants.errStream.getvalue(), TestRunner.EXECUTION_FAILURE_MESSAGE + "\n")
     
         
         

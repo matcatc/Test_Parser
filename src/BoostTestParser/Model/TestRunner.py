@@ -2,8 +2,9 @@
 @date Mar 6, 2010
 @author: Matthew A. Todd
 '''
+from BoostTestParser.Common.Constants import Constants
 from subprocess import Popen, PIPE
-import sys, copy, os.path
+import copy, os.path
 
 class TestRunner(object):
     '''
@@ -60,7 +61,7 @@ class TestRunner(object):
         del self._runner
     
     
-    def run(self, params, errStream=sys.stderr):
+    def run(self, params):
         '''
         runs just with the given params. Concatenates runner and params.
         
@@ -79,12 +80,12 @@ class TestRunner(object):
             cmd.insert(2, "--log_level="+self.logLevel)
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
-            print(TestRunner.EXECUTION_FAILURE_MESSAGE, file=errStream)
+            print(TestRunner.EXECUTION_FAILURE_MESSAGE, file=Constants.errStream)
             return None
 
         stdout, stderr = p.communicate()
         if not stderr == "":
-            print(stderr.decode("utf-8"), file=errStream)      
+            print(stderr.decode("utf-8"), file=Constants.errStream)      
         return stdout
     
     def runAll(self):

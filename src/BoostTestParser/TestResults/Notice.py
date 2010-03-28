@@ -4,7 +4,7 @@ Interface for Errors and Message types.
 @date Feb 19, 2010
 @author: Matthew A. Todd
 '''
-import sys
+from BoostTestParser.Common.Constants import Constants
 
 class Notice():
     '''
@@ -81,7 +81,7 @@ class Notice():
         Will print warning to stderr if empty string
         '''
         if info == "":
-            print("Warning: info is empty", file=sys.stderr)
+            print("Warning: info is empty", file=Constants.errStream)
         self._info = info
     @info.deleter
     def info(self): #@DuplicatedSignature
@@ -96,7 +96,7 @@ class Notice():
         Will print warning to stderr if empty string
         '''
         if type == "":
-            print("Warning: type is empty", file=sys.stderr)
+            print("Warning: type is empty", file=Constants.errStream)
         self._type = type
     @type.deleter
     def type(self): #@DuplicatedSignature
