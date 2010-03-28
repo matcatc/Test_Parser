@@ -4,6 +4,9 @@
 '''
 import unittest
 from BoostTestParser.TestResults.Notice import Notice
+from BoostTestParser.Common.Constants import Constants
+
+import io
 
 class Notice_Test(unittest.TestCase):
     '''
@@ -18,10 +21,12 @@ class Notice_Test(unittest.TestCase):
     type = "error"
 
     def setUp(self):
+        Constants.errStream = io.StringIO()
         self.notice = Notice(self.file, self.line, self.info, self.type)
 
 
     def tearDown(self):
+        Constants.reset()
         del self.notice
 
     def test_fileDeleter(self):
@@ -72,28 +77,16 @@ class Notice_Test(unittest.TestCase):
     def test_emptyInfo(self):
         '''
         test that a warning is output when info is an empty string
-        
-        we need to wait until the errStream issue has been handled.
-        @see http://github.com/matcatc/BoostTest-Log-Parser/issues/#issue/20
-        
-        Constants.errStream
-        
-        once implemented, coverage should increase 
         '''
-        raise NotImplementedError
+        self.notice.info = ""
+        self.assertEqual(Constants.errStream.getvalue(), Notice.EMPTY_INFO + "\n")
 
     def test_emptyType(self):
         '''
-        test that a warning is output when type string is empty 
-        
-        we need to wait until the errStream issue has been handled.
-        @see http://github.com/matcatc/BoostTest-Log-Parser/issues/#issue/20
-        
-        Constants.errStream
-        
-        once implemented, coverage should increase.
+        test that a warning is output when type string is empty
         '''
-        raise NotImplementedError
+        self.notice.type = ""
+        self.assertEqual(Constants.errStream.getvalue(), Notice.EMPTY_TYPE + "\n")
 
 
 

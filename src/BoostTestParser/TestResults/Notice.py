@@ -18,6 +18,9 @@ class Notice():
     @date Feb 19, 2010
     @author Matthew A. Todd
     '''
+    
+    EMPTY_INFO = "Warning: info is empty"
+    EMPTY_TYPE = "Warning: type is empty"
 
     def __init__(self, file, line, info, type):
         '''
@@ -81,7 +84,7 @@ class Notice():
         Will print warning to stderr if empty string
         '''
         if info == "":
-            print("Warning: info is empty", file=Constants.errStream)
+            print(Notice.EMPTY_INFO, file=Constants.errStream)
         self._info = info
     @info.deleter
     def info(self): #@DuplicatedSignature
@@ -96,7 +99,7 @@ class Notice():
         Will print warning to stderr if empty string
         '''
         if type == "":
-            print("Warning: type is empty", file=Constants.errStream)
+            print(Notice.EMPTY_TYPE, file=Constants.errStream)
         self._type = type
     @type.deleter
     def type(self): #@DuplicatedSignature
