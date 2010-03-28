@@ -78,7 +78,7 @@ class Notice():
     @info.setter
     def info(self, info): #@DuplicatedSignature
         '''
-        Will print error to stderr if empty string
+        Will print warning to stderr if empty string
         '''
         if info == "":
             print("Warning: info is empty", file=sys.stderr)
@@ -93,7 +93,7 @@ class Notice():
     @type.setter
     def type(self, type): #@DuplicatedSignature
         '''
-        Will print error to stderr if empty string
+        Will print warning to stderr if empty string
         '''
         if type == "":
             print("Warning: type is empty", file=sys.stderr)

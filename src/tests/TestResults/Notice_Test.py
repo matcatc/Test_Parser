@@ -30,28 +30,28 @@ class Notice_Test(unittest.TestCase):
         '''
         self.notice.file = "blah"
         del self.notice.file
-        
+
     def test_lineDeleter(self):
         '''
         b/c the deleter isn't being run, we're going to just run it here.
         '''
         self.notice.line = 0
         del self.notice.line
-        
+
     def test_infoDeleter(self):
         '''
         b/c the deleter isn't being run, we're going to just run it here.
         '''
         self.notice.info = "blah"
         del self.notice.info
-        
+
     def test_typeDeleter(self):
         '''
         b/c the deleter isn't being run, we're going to just run it here.
         '''
         self.notice.type = "blah"
         del self.notice.type
-        
+
     def testValue(self):
         '''
         Test valid input: empty strings, negative numbers
@@ -68,20 +68,30 @@ class Notice_Test(unittest.TestCase):
         self.assertEqual(self.notice.line, self.line)
         self.assertEqual(self.notice.info, self.info)
         self.assertEqual(self.notice.type, self.type)
-        
+
     def test_emptyInfo(self):
         '''
-        test that a warning is output when info is an empty string 
+        test that a warning is output when info is an empty string
+        
+        we need to wait until the errStream issue has been handled.
+        @see http://github.com/matcatc/BoostTest-Log-Parser/issues/#issue/20
+        
+        once implemented, coverage should increase 
         '''
         raise NotImplementedError
-    
+
     def test_emptyType(self):
         '''
         test that a warning is output when type string is empty 
+        
+        we need to wait until the errStream issue has been handled.
+        @see http://github.com/matcatc/BoostTest-Log-Parser/issues/#issue/20
+        
+        once implemented, coverage should increase.
         '''
         raise NotImplementedError
-    
-    
+
+
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
