@@ -6,7 +6,7 @@ Created on Mar 25, 2010
 import unittest
 import sys
 
-from tests.Common import Observable_Test, Observer_Test
+from tests.Common import Observable_Test, Observer_Test, UpdateJobPool_Test, UpdateThread_Test
 from tests.Model import Model_test, TestRunner_test
 from tests.Parser import BasicParser_Test, IParse_Test 
 from tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test
@@ -23,14 +23,16 @@ def runTestSuites(testClasses):
 def main():
     runTestSuites([Observable_Test.Observable_Test, \
                    Observer_Test.Observer_Test, \
-                    Model_test.Model_test, \
-                     TestRunner_test.TestRunner_Test, \
-                      BasicParser_Test.BasicParser_Test, \
-                       IParse_Test.IParse_Test, \
-                        Notice_Test.Notice_Test, \
-                         Suite_Test.Suite_Test, \
-                          TestCase_Test.TestCase_Test, \
-                           TestResults_Test.TestResults_Test])
+                    UpdateJobPool_Test.UpdateJobPool_Test, \
+                     UpdateThread_Test.UpdateThread_Test, \
+                      Model_test.Model_test, \
+                       TestRunner_test.TestRunner_Test, \
+                        BasicParser_Test.BasicParser_Test, \
+                         IParse_Test.IParse_Test, \
+                          Notice_Test.Notice_Test, \
+                           Suite_Test.Suite_Test, \
+                            TestCase_Test.TestCase_Test, \
+                             TestResults_Test.TestResults_Test])
 
 if __name__ == '__main__':
     main()

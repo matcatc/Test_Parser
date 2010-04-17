@@ -3,7 +3,7 @@
 @author: Matthew A. Tod
 '''
 
-from .UpdateThread import UpdateThread
+from .UpdateJobPool import UpdateJobPool
 
 class Observable(object):
     '''
@@ -18,14 +18,15 @@ class Observable(object):
     @author Matthew A. Todd
     '''
 
-    NUMBER_THREADS = 2
+    _NUMBER_THREADS = 2
+    _updateJobPool = UpdateJobPool()
 
     def __init__(self):
         '''
         Constructor
         '''
         self.observers = set([])
-        UpdateThread.createPool(Observable.NUMBER_THREADS)
+        Observable._updateJobPool.createPool(Observable._NUMBER_THREADS)
         
     def registerObserver(self, observer):
         self.observers.add(observer)
@@ -44,8 +45,8 @@ class Observable(object):
         thread as well.
         '''
         for observer in self.observers:
-            UpdateThread.addJob(observer)
+            Observable._updateJobPool.addJob(observer)
             
         # don't return until all jobs processed
-        UpdateThread.jobQueue.join()
+        Observable._updateJobPool.jobQueue.join()
         
