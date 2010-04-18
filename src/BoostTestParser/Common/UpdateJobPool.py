@@ -90,7 +90,6 @@ class UpdateThread (threading.Thread):
     def __init__ (self, jobPool):
         threading.Thread.__init__(self)
         self.jobPool = jobPool
-        pass
 
     def _dieOff(self):
         '''
@@ -102,6 +101,7 @@ class UpdateThread (threading.Thread):
         '''
         if self.jobPool._removeCount > 0:
             self.jobPool._removeCount -= 1
+            self.jobPool._threadCount -= 1
             return True
         return False
 
