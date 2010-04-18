@@ -10,12 +10,14 @@ class UpdateThread_Test(unittest.TestCase):
 
 
     def setUp(self):
-        raise NotImplementedError
         pass
-
 
     def tearDown(self):
         pass
+    
+    
+    def test(self):
+        raise NotImplementedError
 
 
 if __name__ == "__main__":

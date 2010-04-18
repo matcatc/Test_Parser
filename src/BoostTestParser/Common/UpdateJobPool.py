@@ -4,7 +4,8 @@
 '''
 import queue, threading
 
-
+class NonExistentJobPool_Exception(Exception):
+    pass
 
 class UpdateJobPool(object):
     '''
@@ -48,9 +49,8 @@ class UpdateJobPool(object):
         Add threads to those currently running.
         '''
         if self._bPoolCreated == False:
-            # TODO: raise
             print("cannot add threads to a job pool that hasn't been created")
-            return
+            raise NonExistentJobPool_Exception
         
         print("adding threads:", numThreads)
         for x in range(numThreads):

@@ -3,7 +3,7 @@
 @author: Matthew A. Todd
 '''
 import unittest
-from BoostTestParser.Common.UpdateJobPool import UpdateJobPool
+from BoostTestParser.Common.UpdateJobPool import UpdateJobPool, NonExistentJobPool_Exception
 
 
 class UpdateJobPool_Test(unittest.TestCase):
@@ -36,9 +36,10 @@ class UpdateJobPool_Test(unittest.TestCase):
     def test_addThreadsToNonexistentJobPool(self):
         '''
         Trying to add threads to a pool that hasn't been created yet should
-        result in an exception.
+        result in an exception (NonExistentJobPool_Exception).
         '''
-        raise NotImplementedError
+        self.assertRaises(NonExistentJobPool_Exception, self.jobPool.addThreads, 0)
+
 
     def test_removeThreads(self):
         '''
@@ -50,7 +51,6 @@ class UpdateJobPool_Test(unittest.TestCase):
         num = 2
         self.jobPool.removeThreads(num)
         self.assertEqual(self.jobPool._removeCount, num)
-
         
         for i in range(num):
             self.jobPool.addJob(None)
@@ -61,6 +61,10 @@ class UpdateJobPool_Test(unittest.TestCase):
         self.assertEqual(self.jobPool._threadCount, UpdateJobPool_Test.cThreads - num)
 
     def test_addJob(self):
+        '''
+        test that jobs are run. use mock object.
+        '''
+        # TODO: use mock object
         raise NotImplementedError
 
 
