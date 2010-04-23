@@ -16,7 +16,11 @@ class UpdateThread_Test(unittest.TestCase):
         pass
     
     
-    def test(self):
+    def test_runNone(self):
+        '''
+        test that an error message is printed out when trying to process a
+        job that is None
+        '''
         raise NotImplementedError
 
 

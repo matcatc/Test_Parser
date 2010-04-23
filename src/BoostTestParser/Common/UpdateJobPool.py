@@ -3,12 +3,15 @@
 @author Matthew A. Todd
 '''
 import queue, threading
+from BoostTestParser.Common.Constants import Constants
 
 class NonExistentJobPool_Exception(Exception):
     '''
     Exception. No JobPool in existence.
     
     There are no threads currently running to process jobs.
+    
+    TODO: anything to implement?
     '''
     pass
 
@@ -120,8 +123,13 @@ class UpdateThread (threading.Thread):
     worker thread that updates observers.
     
     To only be used by UpdateThreadPool.
-    @see UpdateJobPool
+    Since its so closely intertwined with UpdateThreadPool, I'm going to allow
+    it to access its private members instead of creating special functions.
+    Since creating functions would expose the data to the entire world, when
+    we just want this class to access it. If I can think of a good way to make
+    this cleaner, I'll go ahead and do so.
     
+    @see UpdateJobPool
     @date Mar 14, 2010
     @author Matthew A. Todd
     '''
@@ -147,7 +155,10 @@ class UpdateThread (threading.Thread):
     def run (self):
         '''
         Actual work is done here. Gets job (observer) from queue,
-        and calls update on it. 
+        and calls update on it.
+        
+        Will print out an error message to Constants.errStream if
+        a job is None.
         
         will only return (die off) if _removeCount > 0
         '''
@@ -158,7 +169,7 @@ class UpdateThread (threading.Thread):
             if observer != None:
                 observer.update()
             else:
-                print("cannot process non-existent observer")
+                print("cannot process non-existent observer", Constants.errStream)
 
             # notify queue that job is done
             self.jobPool._jobQueue.task_done()
