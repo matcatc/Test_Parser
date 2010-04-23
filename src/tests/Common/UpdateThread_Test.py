@@ -7,7 +7,11 @@ import unittest
 from BoostTestParser.Common.UpdateJobPool import UpdateThread
 
 class UpdateThread_Test(unittest.TestCase):
-
+    '''
+    Since UpdateThread is something of a private/helper class, which
+    isn't to be used by the outside world, we're going to test most
+    of its functionality through UpdateThreadPool
+    '''
 
     def setUp(self):
         pass

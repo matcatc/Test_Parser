@@ -29,7 +29,6 @@ class UpdateJobPool(object):
         '''
         Constructor
         '''
-        # TODO: make private
         self._jobQueue = queue.Queue(0)
     
         self._bPoolCreated = False

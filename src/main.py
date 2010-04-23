@@ -9,11 +9,7 @@ from BoostTestParser.Parser import BasicParser
 
 
 def main():
-    '''
-    TODO: deal with duplication
-    There is a lot of repetition between QtView and TextView's main.
-    I.e: make this function do all the work.
-    
+    '''    
     TODO: allow user to choose Gui or Text output
     '''
     

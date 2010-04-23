@@ -54,11 +54,12 @@ class TestCase_Test(unittest.TestCase):
         
     def testTime(self):
         '''
-        test time bogus input, setting and getting
+        test time bogus input, setting and getting.
+        
+        We can't use assertRaises b/c its a property (as far as I know.)
         '''
         time = 123
         
-        # TODO: better way
         # bogus input
         try:
             self.test.timeTaken = -1
