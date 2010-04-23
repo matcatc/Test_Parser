@@ -121,7 +121,7 @@ class TestRunner_Test(unittest.TestCase):
 
     #TODO: add test when runner is None    
     def test_NoneRunner(self):
-        raise NotImplemented
+        raise NotImplementedError
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
