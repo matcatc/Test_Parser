@@ -4,15 +4,8 @@
 '''
 import unittest
 from BoostTestParser.Common.Observable import Observable
-from BoostTestParser.Common.Observer import Observer
+from .Mock_Observer import Mock_Observer
 
-class Mock_Observer(Observer):
-    
-    def __init__(self):
-        self.notified = False
-    
-    def update(self):
-        self.notified = True
 
 class Observable_Test(unittest.TestCase):
     '''

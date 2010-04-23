@@ -5,6 +5,11 @@
 import queue, threading
 
 class NonExistentJobPool_Exception(Exception):
+    '''
+    Exception. No JobPool in existence.
+    
+    There are no threads currently running to process jobs.
+    '''
     pass
 
 class UpdateJobPool(object):
@@ -21,10 +26,8 @@ class UpdateJobPool(object):
         '''
         Constructor
         '''
-        ## TODO restrict access to jobQueue
-        #  property: read only
-        #  or make private and provide helper function for join()
-        self.jobQueue = queue.Queue(0)
+        # TODO: make private
+        self._jobQueue = queue.Queue(0)
     
         self._bPoolCreated = False
         
@@ -72,9 +75,44 @@ class UpdateJobPool(object):
         '''
         add a job to the jobQueue
         '''
-        self.jobQueue.put(observer)
+        self._jobQueue.put(observer)
         
+    def waitUntilJobsFinished(self):
+        '''
+        wait until all the jobs are finished
         
+        i.e: join()
+        
+        If there are no threads to run the jobs, this function will wait
+        indefinitely. Although another thread may add threads, which would
+        then allow this function to complete. If you want a version which
+        will throw if there are no threads currently, use
+        waitUntilJobsFinished_Raise().
+        
+        I'm not sure if its better to just call it join(), as that seems to
+        be standard (threading.join() and queue.join().) But I don't like
+        how ambiguous it is.
+        
+        @see waitUntilJobsFinished_Raise()
+        @date Apr 23, 2010
+        @author Matthew A. Todd
+        '''
+        self._jobQueue.join()
+    
+    def waitUntilJobsFinished_Raise(self):
+        '''
+        same as waitUntilJobsFinished(), but will raise an exception if there
+        are not threads (in existence) to process jobs.
+
+        @see waitUntilJobsFinished()        
+        @throw NonExistentJobPool_Exception
+        @date Apr 23, 2010
+        @author Matthew A. Todd
+        '''
+        if self._threadCount == 0:
+            raise NonExistentJobPool_Exception()
+        
+        self._jobQueue.join()
         
 
 class UpdateThread (threading.Thread):
@@ -114,7 +152,7 @@ class UpdateThread (threading.Thread):
         will only return (die off) if _removeCount > 0
         '''
         while True:
-            observer = self.jobPool.jobQueue.get()
+            observer = self.jobPool._jobQueue.get()
 
             # job processing
             if observer != None:
@@ -123,7 +161,7 @@ class UpdateThread (threading.Thread):
                 print("cannot process non-existent observer")
 
             # notify queue that job is done
-            self.jobPool.jobQueue.task_done()
+            self.jobPool._jobQueue.task_done()
 
             # die off here
             lock = threading.Lock()

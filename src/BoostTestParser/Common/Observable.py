@@ -48,5 +48,5 @@ class Observable(object):
             Observable._updateJobPool.addJob(observer)
             
         # don't return until all jobs processed
-        Observable._updateJobPool.jobQueue.join()
+        Observable._updateJobPool.waitUntilJobsFinished()
         

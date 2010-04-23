@@ -4,7 +4,7 @@
 '''
 import unittest
 from BoostTestParser.Common.UpdateJobPool import UpdateJobPool, NonExistentJobPool_Exception
-
+from .Mock_Observer import Mock_Observer
 
 class UpdateJobPool_Test(unittest.TestCase):
     '''
@@ -55,7 +55,7 @@ class UpdateJobPool_Test(unittest.TestCase):
         for i in range(num):
             self.jobPool.addJob(None)
             
-        self.jobPool.jobQueue.join()
+        self.jobPool.waitUntilJobsFinished_Raise()
 
         self.assertEqual(self.jobPool._removeCount, 0)
         self.assertEqual(self.jobPool._threadCount, UpdateJobPool_Test.cThreads - num)
@@ -64,9 +64,20 @@ class UpdateJobPool_Test(unittest.TestCase):
         '''
         test that jobs are run. use mock object.
         '''
-        # TODO: use mock object
-        raise NotImplementedError
-
+        self.jobPool.createPool(UpdateJobPool_Test.cThreads)
+        
+        observer = Mock_Observer()
+        self.jobPool.addJob(observer)
+        
+        self.jobPool.waitUntilJobsFinished_Raise()
+        
+        self.assertTrue(observer.notified)
+        
+    def test_waitUntilJobsFinished_Raise(self):
+        '''
+        test that exception thrown when there are no threads
+        '''
+        self.assertRaises(NonExistentJobPool_Exception, self.jobPool.waitUntilJobsFinished_Raise)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
