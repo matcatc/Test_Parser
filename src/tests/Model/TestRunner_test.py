@@ -119,9 +119,16 @@ class TestRunner_Test(unittest.TestCase):
         self.assertEqual(stdout, None)
         self.assertEqual(Constants.errStream.getvalue(), TestRunner.EXECUTION_FAILURE_MESSAGE + "\n")
 
-    #TODO: add test when runner is None    
     def test_NoneRunner(self):
-        raise NotImplementedError
+        '''
+        Test that return value is None when runner is None.
+        
+        Do we want run() to raise an exception instead?
+        '''
+        self.runner.runner = None
+        stdout = self.runner.run([])
+        
+        self.assertEqual(stdout, None)
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
