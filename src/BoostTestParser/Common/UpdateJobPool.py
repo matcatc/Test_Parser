@@ -30,14 +30,14 @@ class UpdateJobPool(object):
         Constructor
         '''
         self._jobQueue = queue.Queue(0)
-    
+
         self._bPoolCreated = False
-        
+
         self._threadCount = 0
         ## number of threads to be removed
         self._removeCount = 0
 
-    
+
     def createPool(self, numThreads):
         '''
         Creates the initial pool of threads.
@@ -54,9 +54,8 @@ class UpdateJobPool(object):
         Add threads to those currently running.
         '''
         if self._bPoolCreated == False:
-            print("cannot add threads to a job pool that hasn't been created")
-            raise NonExistentJobPool_Exception
-        
+            raise NonExistentJobPool_Exception("cannot add threads to a job pool that hasn't been created")
+
         print("adding threads:", numThreads)
         for x in range(numThreads):
             self._threadCount += 1
@@ -69,16 +68,16 @@ class UpdateJobPool(object):
         Removes threads from those that are currently running.
 
         Works by having threads check to see if they should die off after they're done
-        with a job. This way we don't interupt any work that is occuring.
+        with a job. This way we don't interrupt any work that is occuring.
         '''
         self._removeCount += numThreads
-        
+
     def addJob(self, observer):
         '''
         add a job to the jobQueue
         '''
         self._jobQueue.put(observer)
-        
+
     def waitUntilJobsFinished(self):
         '''
         wait until all the jobs are finished
@@ -100,7 +99,7 @@ class UpdateJobPool(object):
         @author Matthew A. Todd
         '''
         self._jobQueue.join()
-    
+
     def waitUntilJobsFinished_Raise(self):
         '''
         same as waitUntilJobsFinished(), but will raise an exception if there
@@ -113,9 +112,9 @@ class UpdateJobPool(object):
         '''
         if self._threadCount == 0:
             raise NonExistentJobPool_Exception()
-        
+
         self._jobQueue.join()
-        
+
 
 class UpdateThread (threading.Thread):
     '''   
@@ -132,6 +131,8 @@ class UpdateThread (threading.Thread):
     @date Mar 14, 2010
     @author Matthew A. Todd
     '''
+    NON_EXISTENT_OBSERVER_MSG = "cannot process non-existent observer"
+
     def __init__ (self, jobPool):
         threading.Thread.__init__(self)
         self.jobPool = jobPool
@@ -168,7 +169,7 @@ class UpdateThread (threading.Thread):
             if observer != None:
                 observer.update()
             else:
-                print("cannot process non-existent observer", Constants.errStream)
+                print(UpdateThread.NON_EXISTENT_OBSERVER_MSG, file=Constants.errStream)
 
             # notify queue that job is done
             self.jobPool._jobQueue.task_done()
