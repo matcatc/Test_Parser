@@ -25,6 +25,7 @@ class Observable(object):
         '''
         Constructor
         '''
+        # TODO: make observers a property so that outside classes can't modify it?
         self.observers = set([])
         Observable._updateJobPool.createPool(Observable._NUMBER_THREADS)
         
