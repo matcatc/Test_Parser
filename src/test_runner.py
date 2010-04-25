@@ -10,7 +10,7 @@ from tests.Common import Observable_Test, Observer_Test, UpdateJobPool_Test, Upd
 from tests.Model import Model_test, TestRunner_test
 from tests.Parser import BasicParser_Test, IParse_Test 
 from tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test
-from tests.View import Controller_Test
+from tests.View import Controller_Test, TextView_Test, QtView_Test
 
 def runTestSuites(testClasses):
     suites = []
@@ -34,7 +34,9 @@ def main():
                            Suite_Test.Suite_Test, \
                             TestCase_Test.TestCase_Test, \
                              TestResults_Test.TestResults_Test, \
-                              Controller_Test.ControllerTest])
+                              Controller_Test.ControllerTest, \
+                               TextView_Test.TextView_Test, \
+                                QtView_Test.QtView_Test])
 
 if __name__ == '__main__':
     main()
