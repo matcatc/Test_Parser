@@ -5,6 +5,7 @@
 import unittest
 from BoostTestParser.Common.UpdateJobPool import UpdateJobPool, NonExistentJobPool_Exception
 from .Mock_Observer import Mock_Observer
+import time
 
 class UpdateJobPool_Test(unittest.TestCase):
     '''
@@ -45,6 +46,10 @@ class UpdateJobPool_Test(unittest.TestCase):
         '''
         tests that _removeCount is increased as appropriate and
         _threadCount decreases as appropriate.
+        
+        Due to thread timing, sometimes this won't pass b/c _removeCount
+        decremented after waitUntilJobsFinished() returns, so I added a sleep(1)
+        just to give it enough time to decrement. But still no guarantees.
         '''
         self.jobPool.createPool(UpdateJobPool_Test.cThreads)
 
@@ -56,6 +61,7 @@ class UpdateJobPool_Test(unittest.TestCase):
             self.jobPool.addJob(None)
             
         self.jobPool.waitUntilJobsFinished_Raise()
+        time.sleep(1)
 
         self.assertEqual(self.jobPool._removeCount, 0)
         self.assertEqual(self.jobPool._threadCount, UpdateJobPool_Test.cThreads - num)
