@@ -48,7 +48,7 @@ class UpdateJobPool_Test(unittest.TestCase):
         _threadCount decreases as appropriate.
         
         Due to thread timing, sometimes this won't pass b/c _removeCount
-        decremented after waitUntilJobsFinished() returns, so I added a sleep(1)
+        decremented after waitUntilJobsFinished() returns, so I added a sleep()
         just to give it enough time to decrement. But still no guarantees.
         '''
         self.jobPool.createPool(UpdateJobPool_Test.cThreads)
@@ -61,7 +61,7 @@ class UpdateJobPool_Test(unittest.TestCase):
             self.jobPool.addJob(None)
             
         self.jobPool.waitUntilJobsFinished_Raise()
-        time.sleep(1)
+        time.sleep(.2)
 
         self.assertEqual(self.jobPool._removeCount, 0)
         self.assertEqual(self.jobPool._threadCount, UpdateJobPool_Test.cThreads - num)
