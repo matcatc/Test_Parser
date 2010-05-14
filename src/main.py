@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from BoostTestParser.View import TextView
 from BoostTestParser.View import QtView
 import sys
