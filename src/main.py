@@ -26,9 +26,9 @@ def main():
     model.parser = BasicParser.BasicParser()
     
     if len(sys.argv) > 2 and sys.argv[2] == "--text":
-        TextView.textViewMain(model)
+        TextView.TextView.startView(model)
     else:
-        QtView.qtViewMain(model)
+        QtView.QtView.startView(model)
 
     
 if __name__ == "__main__":

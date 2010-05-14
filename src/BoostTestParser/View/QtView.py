@@ -15,6 +15,26 @@ class QtView(UiClass, WidgetClass):
     '''
     Main window for our Qt implemented view.
     '''
+    
+    @staticmethod
+    def startView(model):
+        '''
+        Run the qt view based program.
+        
+        @see main.main()
+        '''    
+        # setup view
+        app = QtGui.QApplication(sys.argv)
+        widget = QtView(model)
+        widget.show()
+        
+        # setup controller
+        controller = QtViewController(model)
+        
+        # run
+        controller.run()
+        sys.exit(app.exec_())
+        
 
     def __init__(self, model):
         '''
@@ -69,20 +89,4 @@ class QtViewController(Controller.Controller):
     @see Controller.Controller
     '''
         
-def qtViewMain(model):
-    '''
-    Run the qt view based program.
-    
-    @see main.main()
-    '''    
-    # setup view
-    app = QtGui.QApplication(sys.argv)
-    widget = QtView(model)
-    widget.show()
-    
-    # setup controller
-    controller = QtViewController(model)
-    
-    # run
-    controller.run()
-    sys.exit(app.exec_())
+
