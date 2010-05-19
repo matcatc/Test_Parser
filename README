@@ -1,3 +1,9 @@
+This file is a dump of random things I need to keep track of or might need later.
+
+For documentation, please see manual.dbk (docbook.)
+
+--------------------
+
 This project is an attempt to create some sort of parser for boost test. So instead of having some horrendous command line output, a developer could have something a little easier on the eyes.
 
 I'm trying to design it so that the program can work with any test framework. One would just have to switch out for a different parser and runner. 
