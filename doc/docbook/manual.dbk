@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.docbook.org/xml/4.5/docbookx.dtd">
+
 <refentry>
 	<refnamediv>
 		<refname>Test Parser</refname>
 		<refpurpose>Displays the results of a test runner.</refpurpose>
 	</refnamediv>
+	
 	<refsect1>
 		<title>History</title>
 		<para>I built Test Parser to help me visualize/read the test
 			results from Boost's Test framework. Before I realized that it
 			could easily be extended to other frameworks, I called it Boost
-			Test Parser. But there is no affiliation with Boost, so I've since
-			changed the name.</para>
+			Test Parser. But there is no affiliation with Boost, so I've
+			since changed the name.</para>
 	</refsect1>
 	<refsect1>
 		<title>Technical Details</title>
-		<para>On a high level, Test Parser simply runs the tests, parses
-			them, and displays the results. There is more to it than this,
-			mostly because I structured the code so that it is modular and can
-			easily be extended, using MVC and similar patterns. Of course this
-			complicates the details, but the overall idea is the same.</para>
+		<para>On a high level, Test Parser simply runs the tests,
+			parses them, and displays the results. There is more to it than
+			this, mostly because I structured the code so that it is
+			modular and can easily be extended, using MVC and similar
+			patterns. Of course this complicates the details, but the
+			overall idea is the same.</para>
 		<refsect2>
 			<title>Threading</title>
-			<para>For most situations, the use of threading serves no benefit.
-				I added threading for the following reasons</para>
+			<para>For most situations, the use of threading serves no
+				benefit. I added threading for the following reasons</para>
 			<itemizedlist>
 				<listitem>
 					<para>GUI responsiveness</para>
@@ -33,15 +36,16 @@
 					<para>Desire to experiment</para>
 				</listitem>
 			</itemizedlist>
-			<para>Clearly the second is a personal reason and has nothing to do
-				with the product. But the only way to learn to is to do. The first
-				is a reasonable concern. While running tests and parsing the
-				results, we don't want the GUI to hang.</para>
+			<para>Clearly the second is a personal reason and has nothing
+				to do with the product. But the only way to learn to is to
+				do. The first is a reasonable concern. While running tests
+				and parsing the results, we don't want the GUI to
+				hang.</para>
 			<para>Nevertheless, I worry that threading is an unnecessary
-				complication. But it is always possible to simply just remove it.
-				Of course we could always have a threading branch and rebase it.
-				That way we could easily switch to threading, without having to
-				commit to it.</para>
+				complication. But it is always possible to simply just remove
+				it. Of course we could always have a threading branch and
+				rebase it. That way we could easily switch to threading,
+				without having to commit to it.</para>
 		</refsect2>
 	</refsect1>
 </refentry>
