@@ -5,7 +5,6 @@
 <refentry>
 	<refentryinfo>
 		<author>
-		<honorific>Mr.</honorific>
 		<firstname>Matthew</firstname>
 		<lineage>Todd</lineage>
 		</author>
@@ -16,7 +15,7 @@
 	
 	<refnamediv>
 		<refname>Test Parser</refname>
-		<refpurpose>Displays the results of a test runner.</refpurpose>
+		<refpurpose>Visualizes a test framework's results.</refpurpose>
 	</refnamediv>
 
 	<refsect1>
@@ -27,7 +26,7 @@
 		</para>
 		<refsect2>
 			<title>Options</title>
-			<para></para>
+			<para>TODO</para>
 		</refsect2>
 		<refsect2>
 			<title>Supported Test Formats</title>
@@ -97,13 +96,14 @@
 			</itemizedlist>
 			<para>Clearly the second is a personal reason and has nothing
 				to do with the product. But the only way to learn to is to
-				do. The first is a reasonable concern. While running tests
+				do. The first is a reasonable concern: while running tests
 				and parsing the results, we don't want the GUI to
 				hang.</para>
 			<para>Nevertheless, I worry that threading is an unnecessary
-				complication. But it is always possible to simply just remove
-				it. Of course we could always have a threading branch and
-				rebase it. That way we could easily switch to threading,
+				complication (in the vein of YAGNI.) But it is always
+				possible to simply just remove it. Of course we could
+				always just maintain a separate threading branch.
+				That way we could easily switch to threading,
 				without having to commit to it.</para>
 		</refsect2>
 	</refsect1>
@@ -119,9 +119,9 @@
 	
 	<refsect1>
 		<title>Licensing</title>
-		<para> Test Parser is going to be licensed under GNU GPL v.3.0.
-			I just haven't gotten around to adding the necessary
-			licensing information. 
+		<para> Test Parser is licensed under
+			<ulink url="http://www.gnu.org/licenses/gpl.html">
+			GNU GPL v.3.0</ulink>.
 		</para>
 	</refsect1>
 	
