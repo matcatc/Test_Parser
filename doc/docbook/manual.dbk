@@ -1,19 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.docbook.org/xml/4.5/docbookx.dtd">
+
 <refentry>
+	<refentryinfo>
+		<author>
+		<honorific>Mr.</honorific>
+		<firstname>Matthew</firstname>
+		<lineage>Todd</lineage>
+		</author>
+		<date>May 2010</date>
+	</refentryinfo>
+
+	<refmeta><refentrytitle>Test Parser</refentrytitle></refmeta>
+	
 	<refnamediv>
 		<refname>Test Parser</refname>
 		<refpurpose>Displays the results of a test runner.</refpurpose>
 	</refnamediv>
+
+	<refsect1>
+		<title>Description</title>
+		<para> Since Test Parser is currently in "active" development, there
+			is not much to say about usage. But I plan on releasing the
+			first beta version once I've implemented a GUI display.			
+		</para>
+		<refsect2>
+			<title>Options</title>
+			<para></para>
+		</refsect2>
+		<refsect2>
+			<title>Supported Test Formats</title>
+			<itemizedlist>
+				<listitem><para>Boost Test</para></listitem>
+			</itemizedlist>
+			<para> I have no plans to support other test formats, unless asked 
+				or I find the need. So if you desire a particular format,
+				either notify me with the relevant information or feel free to
+				implement yourself (fork the github repository.)
+			</para>
+		</refsect2>
+		<refsect2>
+			<title>Displays / Views</title>
+			<para> Test Parser will eventually have multiple display views
+				available to the user. Even when I complete more complicated
+				views, I still plan to keep the older ones available so that
+				there is something to fall back on in case of a bug.
+				Of course if the more advanced views provide features that
+				aren't of interest, then you can use the basic ones.
+			</para>
+			<para> The simplest display format, but the least useful/appetizing
+				is simple console/text output. Similar to the output the test
+				runner might output, the text output is useful for formatting
+				it and making it easier to read. Nonetheless, I personally
+				would only use it when I didn't have access to a GUI for some
+				reason or another.  
+			</para>
+			<para> There are several GUI stages currently planned. The first
+				is a simple non-interactive display. For the most part, this
+				will serve most if not all uses. The latter stage(s) is to
+				incorporate user interaction, allowing the user to rerun some
+				or all of the tests from the GUI. For an idea of what I hope
+				to achieve with the GUI's, see Alleyoop (valgrind front end.) 
+			</para>
+		</refsect2>
+	</refsect1>
+	
 	<refsect1>
 		<title>History</title>
 		<para>I built Test Parser to help me visualize/read the test
 			results from Boost's Test framework. Before I realized that it
 			could easily be extended to other frameworks, I called it Boost
-			Test Parser. But there is no affiliation with Boost, so I've
+			Test Parser. But since there is no affiliation with Boost, I've
 			since changed the name.</para>
 	</refsect1>
+	
 	<refsect1>
 		<title>Technical Details</title>
 		<para>On a high level, Test Parser simply runs the tests,
@@ -46,8 +107,43 @@
 				without having to commit to it.</para>
 		</refsect2>
 	</refsect1>
+	
+	<refsect1 id="download_links">
+		<title>Download / Links</title>
+		<para> Test Parser is hosted on github
+			<ulink url="http://github.com/matcatc/Test_Parser">here</ulink>.
+			I will likely upload packaged versions to Sourceforge at some
+			point.
+		</para>
+	</refsect1>
+	
+	<refsect1>
+		<title>Licensing</title>
+		<para> Test Parser is going to be licensed under GNU GPL v.3.0.
+			I just haven't gotten around to adding the necessary
+			licensing information. 
+		</para>
+	</refsect1>
+	
 	<refsect1>
 		<title>Road map</title>
-		<para></para>
+		<para> I'm currently working on a simple non-interactive GUI.
+			But at the same time, I'm working on making the system more
+			robust by adding tests, documentation, and such. But once
+			I finish the GUI, I plan to release the first version. This
+			way I *might* get some feedback before starting/finishing
+			the next GUI (an user interactive version.) I will likely
+			have to iterate several times before the interactive version
+			is completely finished, so there will be several other minor
+			releases.
+		</para>
+	</refsect1>
+	
+	<refsect1>
+		<title> Other</title>
+		<para>This file is written in docbook, which is why it may appear
+			somewhat strange. Its available in the repository, mentioned 
+			<link linkend="download_links">above</link>.
+		</para>
 	</refsect1>
 </refentry>
