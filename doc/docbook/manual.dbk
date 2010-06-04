@@ -141,6 +141,9 @@
 	
 	<refsect1>
 		<title> Other</title>
+		<para> This page is currently under construction. Don't expect me to
+			finalize and spifify it until I finally have a released version.
+		</para>
 		<para>This file is written in docbook, which is why it may appear
 			somewhat strange. Its available in the repository, mentioned 
 			<link linkend="download_links">above</link>.
