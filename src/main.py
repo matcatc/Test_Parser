@@ -34,7 +34,9 @@ def main():
     TODO: allow user to choose Gui or Text output
     '''
     
-    
+    print("DEBUG: argv:" ,file=sys.stderr)
+    for x in sys.argv:
+        print("\t", x, file=sys.stderr)
     if len(sys.argv) < 2:
         print("Usage: test parser <test_runner>")
         return
