@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from BoostTestParser.View.Controller import Controller
+from TestParser.View.Controller import Controller
 
 class Mock_Model(object):
     '''

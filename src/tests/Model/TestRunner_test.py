@@ -20,8 +20,8 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import unittest
-from BoostTestParser.Model.TestRunner import TestRunner
-from BoostTestParser.Common.Constants import Constants
+from TestParser.Model.TestRunner import TestRunner
+from TestParser.Common.Constants import Constants
 import io
 
 class TestRunner_Test(unittest.TestCase):

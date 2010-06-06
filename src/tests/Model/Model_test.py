@@ -20,9 +20,9 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import unittest
-from BoostTestParser.Model import Model
-from BoostTestParser.Model import TestRunner
-from BoostTestParser.Parser import BasicParser
+from TestParser.Model import Model
+from TestParser.Model import TestRunner
+from TestParser.Parser import BasicParser
 from ..Common.Observable_Test import Mock_Observer
 
 

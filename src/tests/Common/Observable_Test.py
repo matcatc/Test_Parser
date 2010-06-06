@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 import unittest
-from BoostTestParser.Common.Observable import Observable
+from TestParser.Common.Observable import Observable
 from .Mock_Observer import Mock_Observer
 
 
@@ -27,7 +27,7 @@ class Observable_Test(unittest.TestCase):
     '''
     Test Observable.
     
-    @see BoostTestParser.Common.Observable
+    @see TestParser.Common.Observable
     '''
 
     subscriber = Mock_Observer()

@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
-from BoostTestParser.Common.Observer import Observer
+from TestParser.Common.Observer import Observer
 
 
 class Mock_Observer(Observer):

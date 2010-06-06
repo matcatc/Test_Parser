@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import unittest
-from BoostTestParser.Parser.BasicParser import BasicParser
+from TestParser.Parser.BasicParser import BasicParser
 from xml.etree import ElementTree as ET
 
 class BasicParser_Test(unittest.TestCase):

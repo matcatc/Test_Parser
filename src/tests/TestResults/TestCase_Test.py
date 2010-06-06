@@ -20,12 +20,12 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import unittest
-from BoostTestParser.TestResults.TestCase import TestCase
-from BoostTestParser.TestResults.Notice import Notice
+from TestParser.TestResults.TestCase import TestCase
+from TestParser.TestResults.Notice import Notice
 
 class TestCase_Test(unittest.TestCase):
     '''
-    Test BoostTestParser.TestResults.TestCase
+    Test TestParser.TestResults.TestCase
     @date Feb 26, 2010
     @author Matthew A. Todd
     '''

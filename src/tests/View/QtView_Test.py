@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from BoostTestParser.View.QtView import QtView
+from TestParser.View.QtView import QtView
 
 class QtView_Test(unittest.TestCase):
 

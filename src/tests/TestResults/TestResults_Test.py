@@ -21,8 +21,8 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from BoostTestParser.TestResults.TestResults import TestResults
-from BoostTestParser.TestResults.Suite import Suite
+from TestParser.TestResults.TestResults import TestResults
+from TestParser.TestResults.Suite import Suite
 
 class TestResults_Test(unittest.TestCase):
     suite = Suite()

@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import unittest
-from BoostTestParser.Common import Observer
+from TestParser.Common import Observer
 
 class Observer_Test(unittest.TestCase):
 

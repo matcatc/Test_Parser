@@ -20,14 +20,14 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import unittest
-from BoostTestParser.TestResults.Notice import Notice
-from BoostTestParser.Common.Constants import Constants
+from TestParser.TestResults.Notice import Notice
+from TestParser.Common.Constants import Constants
 
 import io
 
 class Notice_Test(unittest.TestCase):
     '''
-    test: BoostTestParser.TestResults.Notice
+    test: TestParser.TestResults.Notice
     
     @date Feb, 28, 2010
     @author: Matthew A. Todd

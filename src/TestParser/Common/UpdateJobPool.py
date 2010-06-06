@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 import queue, threading
-from BoostTestParser.Common.Constants import Constants
+from TestParser.Common.Constants import Constants
 
 class NonExistentJobPool_Exception(Exception):
     '''

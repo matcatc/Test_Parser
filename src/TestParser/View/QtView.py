@@ -25,7 +25,7 @@ import sys
 
 from . import Controller
 
-UiClass, WidgetClass = uic.loadUiType("./BoostTestParser/View/MainWindow.ui")
+UiClass, WidgetClass = uic.loadUiType("./TestParser/View/MainWindow.ui")
 
 class QtView(UiClass, WidgetClass):
     '''

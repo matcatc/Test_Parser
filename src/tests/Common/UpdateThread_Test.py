@@ -20,8 +20,8 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 import unittest
 
-from BoostTestParser.Common.UpdateJobPool import UpdateThread, UpdateJobPool
-from BoostTestParser.Common.Constants import Constants
+from TestParser.Common.UpdateJobPool import UpdateThread, UpdateJobPool
+from TestParser.Common.Constants import Constants
 
 import io
 

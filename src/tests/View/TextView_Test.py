@@ -21,9 +21,9 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from BoostTestParser.View import TextView
-from BoostTestParser.Model import Model, TestRunner
-from BoostTestParser.Parser import BasicParser
+from TestParser.View import TextView
+from TestParser.Model import Model, TestRunner
+from TestParser.Parser import BasicParser
 
 
 

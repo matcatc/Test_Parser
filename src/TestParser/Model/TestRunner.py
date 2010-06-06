@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>
 '''
-from BoostTestParser.Common.Constants import Constants
+from TestParser.Common.Constants import Constants
 from subprocess import Popen, PIPE
 import copy, os.path
 

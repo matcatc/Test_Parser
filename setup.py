@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 '''
 @date Jun 4, 2010
 @author Matthew A. Todd
@@ -7,12 +8,12 @@ from distutils.core import setup
 
 setup(name='Test Parser',
         version='0.1',
-        packages=['src/BoostTestParser',
-                'src/BoostTestParser.Common',
-                'src/BoostTestParser.Model',
-                'src/BoostTestParser.Parser',
-                'src/BoostTestParser.TestResults',
-                'src/BoostTestParser.View',
+        packages=['src/TestParser',
+                'src/TestParser.Common',
+                'src/TestParser.Model',
+                'src/TestParser.Parser',
+                'src/TestParser.TestResults',
+                'src/TestParser.View',
                 'src/tests',
                 'src/tests.Common',
                 'src/tests.Model',

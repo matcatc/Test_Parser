@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 import os.path
-from BoostTestParser.Parser import IParse
+from TestParser.Parser import IParse
 
 class Mock_Parser(IParse.IParse):
     '''

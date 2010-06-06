@@ -29,7 +29,7 @@ class Controller(Observer.Observer):
     Doesn't use any threading.
     If we were to use threading, we'd have to make sure to
     spawn a non daemonic thread.
-    @see BoostTestParser.Observable.Observable.notifyObservers()
+    @see TestParser.Observable.Observable.notifyObservers()
     '''
     def __init__(self, model):
         '''
