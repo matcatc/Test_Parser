@@ -1,0 +1,6 @@
+TestLog
+	TestSuite name
+		TestCase name
+			Message
+			Error file line text
+			TestingTime text(int)
