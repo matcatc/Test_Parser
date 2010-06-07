@@ -31,7 +31,9 @@ setup(name='Test Parser',
 #        packages = find_packages(),
         scripts=['src/main.py', 'src/test_runner.py'],
         
-        package_data = {'TestParser.View' : ['*.ui']}
+        package_data = {'TestParser.View' : ['*.ui'],
+                        'tests.Model': ['Boost_Test'],
+                        'tests.Parser': ['xml']}
         # TODO: data files (docs)
         )
 
