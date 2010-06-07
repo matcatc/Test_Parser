@@ -23,13 +23,14 @@ import unittest
 from TestParser.Model import Model
 from TestParser.Model import TestRunner
 from TestParser.Parser import BasicParser
+from TestParser.Common.computeDataFilepath import computeDataFilepath
 from ..Common.Observable_Test import Mock_Observer
 
 
 class Model_test(unittest.TestCase):
     
     runner = TestRunner.TestRunner()
-    runner.runner = "tests/Model/Boost_Test"
+    runner.runner = computeDataFilepath("Boost_Test", __file__)
     parser = BasicParser.BasicParser()
     
     data = '<TestSuite name="test suite">\
