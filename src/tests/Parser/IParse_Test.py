@@ -22,6 +22,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 import os.path
 from TestParser.Parser import IParse
+from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 class Mock_Parser(IParse.IParse):
     '''
@@ -75,8 +76,7 @@ class IParse_Test(unittest.TestCase):
         Use Mock_Parser so that we can have access to tree,
         which is the data that is passed into _parseData()
         '''
-        filename = "tests/Parser/xml"
-        self.mockParser.parse(file=os.path.abspath(filename))
+        self.mockParser.parse(computeDataFilepath("xml", __file__))
         
         tree = self.mockParser.tree
         self.assertTrue(tree is not None)
