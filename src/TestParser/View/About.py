@@ -20,9 +20,11 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 from PyQt4 import uic #@UnresolvedImport
 from PyQt4 import QtGui #@UnresolvedImport
+from TestParser.Common.computeDataFilepath import computeDataFilepath
 import sys
 
-UiClass, WidgetClass = uic.loadUiType("./About.ui")
+
+UiClass, WidgetClass = uic.loadUiType(computeDataFilepath("./About.ui", __file__))
 
 
 class About(UiClass, WidgetClass):

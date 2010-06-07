@@ -22,6 +22,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 from TestParser.Model.TestRunner import TestRunner
 from TestParser.Common.Constants import Constants
+from TestParser.Common.computeDataFilepath import computeDataFilepath
 import io
 
 class TestRunner_Test(unittest.TestCase):
@@ -85,7 +86,7 @@ class TestRunner_Test(unittest.TestCase):
         test runAll() with real input
         this test depends on the the filesystem location from which we are running this test
         '''
-        self.runner.runner = "tests/Model/Boost_Test"
+        self.runner.runner = computeDataFilepath("Boost_Test", __file__)
         stdout = self.runner.runAll()
         self.assertNotEqual(stdout, None)
 
@@ -110,7 +111,7 @@ class TestRunner_Test(unittest.TestCase):
         '''
         test runTest() with real input
         '''
-        self.runner.runner = "tests/Model/Boost_Test"
+        self.runner.runner = computeDataFilepath("Boost_Test", __file__)
         stdout = self.runner.runTest(["testA", "testB"])
         self.assertNotEqual(stdout, None)
         
@@ -118,7 +119,7 @@ class TestRunner_Test(unittest.TestCase):
         '''
         test runSuite() with real input
         '''
-        self.runner.runner = "tests/Model/Boost_Test"
+        self.runner.runner = computeDataFilepath("Boost_Test", __file__)
         stdout = self.runner.runSuite([])
         self.assertNotEqual(stdout, None)
         

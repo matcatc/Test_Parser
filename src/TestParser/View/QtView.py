@@ -21,19 +21,14 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 from PyQt4 import uic #@UnresolvedImport
 from PyQt4 import QtGui #@UnresolvedImport
-import sys, os.path
+import sys
+from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 from . import Controller
 
-# TODO: finalize this
-# @see http://stackoverflow.com/questions/2985755/accessing-files-after-setup-py-install
-# we can't use __file__ if with py2exe
-file = "TestParser/View/MainWindow.ui"              # required to be relative to main.py
-cwd = os.getcwd()
-argv_path = os.path.dirname(sys.argv[0])
-file_path = os.path.join(cwd, argv_path, file)
+filename = "MainWindow.ui"
 
-UiClass, WidgetClass = uic.loadUiType(file_path)
+UiClass, WidgetClass = uic.loadUiType(computeDataFilepath(filename, __file__))
 
 class QtView(UiClass, WidgetClass):
     '''

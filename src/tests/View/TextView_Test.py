@@ -24,7 +24,7 @@ import unittest
 from TestParser.View import TextView
 from TestParser.Model import Model, TestRunner
 from TestParser.Parser import BasicParser
-
+from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 
 class TextView_Test(unittest.TestCase):
@@ -65,13 +65,10 @@ class TextView_Test(unittest.TestCase):
         
         Run twice just to see any problems occur (not actually looking
         for though.)
-        
-        Will fail if "tests/Model/Boost_Test" doesn't point to a real
-        test runner.
         '''
         model = Model.Model()
         runner = TestRunner.TestRunner()
-        runner.runner = "tests/Model/Boost_Test"
+        runner.runner = computeDataFilepath("../Model/Boost_Test", __file__)
         model.testRunner = runner
         model.parser = BasicParser.BasicParser()
 
