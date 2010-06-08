@@ -126,6 +126,36 @@
 	</refsect1>
 	
 	<refsect1>
+		<title>Tests</title>
+		<para> The tests used to test this product are packaged along with
+			 it. This way anyone, including users, can run them on their
+			 machine. To run all of the tests, run test_runner.py.
+		</para>
+		<para> Possible reasons for a test to fail even though the code
+			is fine:
+			<itemizedlist>
+				<listitem><bridgehead>Data files</bridgehead>
+					<para>One of the data files used in testing (e.g: 
+					Boost_Test, xml) is missing or cannot be accessed.
+					If its missing, its probably b/c we accidentally
+					forgot to package it up with everything else. The
+					latter, can happen and isn't really worth fixing.
+					For instance, Boost_Test cannot be accessed when
+					the application has been installed in a virtualenv.
+					I haven't tried yet, but its also possible/likely
+					that the same is true for a normal installation.
+				</para></listitem>
+				<listitem><bridgehead>Threading</bridgehead>
+					<para>This is self explanatory.
+					Test cases that fail randomly <emphasis>might
+					</emphasis> be because of timing between
+					threads. Naturally we've tried to reduce all
+					threading issues.</para></listitem>
+			</itemizedlist>
+		</para>
+	</refsect1>
+	
+	<refsect1>
 		<title>Road map</title>
 		<para> I'm currently working on a simple non-interactive GUI.
 			But at the same time, I'm working on making the system more
