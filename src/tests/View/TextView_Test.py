@@ -35,6 +35,9 @@ class TextView_Test(unittest.TestCase):
     The only thing to really test with the display() methods is
     that there are no misspellings. But that would require feeding
     in data that would cause the methods to be completely executed.
+    
+    @see TestRunner_test for information regarding how Boost_Test may
+    cause tests that use it to fail.
     '''
 
     def setUp(self):

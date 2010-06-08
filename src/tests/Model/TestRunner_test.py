@@ -39,6 +39,9 @@ class TestRunner_Test(unittest.TestCase):
     code found here:
     http://www.boost.org/doc/libs/1_42_0/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html
     
+    @warning The tests that use Boost_Test will fail if access to
+        Boost_Test is denied by the OS. This happens when TestParser has
+        been installed in a virtualenv, for instance.
     
     @date Mar 6, 2010
     @author: Matthew A. Todd
