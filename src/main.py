@@ -19,13 +19,13 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from BoostTestParser.View import TextView
-from BoostTestParser.View import QtView
+from TestParser.View import TextView
+from TestParser.View import QtView
 import sys
 
-from BoostTestParser.Model import Model
-from BoostTestParser.Model import TestRunner
-from BoostTestParser.Parser import BasicParser
+from TestParser.Model import Model
+from TestParser.Model import TestRunner
+from TestParser.Parser import BasicParser
 
 
 
@@ -34,7 +34,9 @@ def main():
     TODO: allow user to choose Gui or Text output
     '''
     
-    
+    print("DEBUG: argv:" ,file=sys.stderr)
+    for x in sys.argv:
+        print("\t", x, file=sys.stderr)
     if len(sys.argv) < 2:
         print("Usage: test parser <test_runner>")
         return
@@ -43,6 +45,7 @@ def main():
     model = Model.Model()
     runner = TestRunner.TestRunner()
     runner.runner = sys.argv[1]
+    print("DEBUG: runner.runner = ", runner.runner, file=sys.stderr)
     model.testRunner = runner
     model.parser = BasicParser.BasicParser()
     
