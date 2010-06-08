@@ -23,11 +23,11 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 import sys
 
-from tests.Common import Observable_Test, Observer_Test, UpdateJobPool_Test, UpdateThread_Test
-from tests.Model import Model_test, TestRunner_test
-from tests.Parser import BasicParser_Test, IParse_Test 
-from tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test
-from tests.View import Controller_Test, TextView_Test, QtView_Test
+from TestParser_tests.Common import Observable_Test, Observer_Test, UpdateJobPool_Test, UpdateThread_Test
+from TestParser_tests.Model import Model_test, TestRunner_test
+from TestParser_tests.Parser import BasicParser_Test, IParse_Test 
+from TestParser_tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test
+from TestParser_tests.View import Controller_Test, TextView_Test, QtView_Test
 
 def runTestSuites(testClasses):
     suites = []
