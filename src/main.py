@@ -45,6 +45,7 @@ def main():
     model = Model.Model()
     runner = TestRunner.TestRunner()
     runner.runner = sys.argv[1]
+    print("DEBUG: runner.runner = ", runner.runner, file=sys.stderr)
     model.testRunner = runner
     model.parser = BasicParser.BasicParser()
     

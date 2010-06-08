@@ -24,6 +24,11 @@ import unittest
 from TestParser.View.QtView import QtView
 
 class QtView_Test(unittest.TestCase):
+    '''
+    
+    @see TestRunner_test for information regarding how Boost_Test may
+    cause tests that use it to fail.
+    '''
 
 
     def setUp(self):
