@@ -45,8 +45,8 @@ setup(name='Test Parser',
         scripts=['src/main.py', 'src/test_runner.py'],
         
         package_data = {'TestParser.View' : ['*.ui'],
-                        'tests.Model': ['Boost_Test'],
-                        'tests.Parser': ['xml']}
+                        'TestParser_tests.Model': ['Boost_Test'],
+                        'TestParser_tests.Parser': ['xml']}
         
         # TODO: data files (docs)
         # will want to build docbook and doxygen first
