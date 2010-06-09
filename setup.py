@@ -20,7 +20,6 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from distutils.core import setup
-#from setuptools import setup, find_packages
 
 setup(name='Test Parser',
         version='0.1',
@@ -43,12 +42,13 @@ setup(name='Test Parser',
                 'TestParser_tests.TestResults',
                 'TestParser_tests.View',
                 ],
-#        packages = find_packages(),
         scripts=['src/main.py', 'src/test_runner.py'],
         
         package_data = {'TestParser.View' : ['*.ui'],
                         'tests.Model': ['Boost_Test'],
                         'tests.Parser': ['xml']}
+        
         # TODO: data files (docs)
+        # will want to build docbook and doxygen first
         )
 
