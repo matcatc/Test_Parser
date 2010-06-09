@@ -21,35 +21,43 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 from TestParser.View import TextView
 from TestParser.View import QtView
-import sys
-
 from TestParser.Model import Model
 from TestParser.Model import TestRunner
 from TestParser.Parser import BasicParser
 
+from optparse import OptionParser
 
 
 def main():
     '''    
     TODO: allow user to choose Gui or Text output
     '''
+    usage = "usage: %prog [options] test_runner"
+    gui_choices = ("Simple (Default)",)
+    gui_help = "use specified gui: " + ", ".join(gui_choices)
     
-    print("DEBUG: argv:" ,file=sys.stderr)
-    for x in sys.argv:
-        print("\t", x, file=sys.stderr)
-    if len(sys.argv) < 2:
-        print("Usage: test parser <test_runner>")
-        return
+    parser = OptionParser(usage)
+    parser.add_option("--text", dest="ui", const="text",
+                      action="store_const",
+                      help="use text/console output")
+    parser.add_option("--gui", dest="gui",
+                      action="store", choices=gui_choices,
+                      help=gui_help)
+    
+    (options, args) = parser.parse_args()    
+
+    # should only have the test_runner
+    if len(args) != 1:
+        parser.error("incorrect number of arguments")
     
     # setup model
     model = Model.Model()
     runner = TestRunner.TestRunner()
-    runner.runner = sys.argv[1]
-    print("DEBUG: runner.runner = ", runner.runner, file=sys.stderr)
+    runner.runner = args[0]
     model.testRunner = runner
     model.parser = BasicParser.BasicParser()
     
-    if len(sys.argv) > 2 and sys.argv[2] == "--text":
+    if options.ui == "text":
         TextView.TextView.startView(model)
     else:
         QtView.QtView.startView(model)
