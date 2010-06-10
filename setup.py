@@ -20,6 +20,26 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from distutils.core import setup
+from distutils.command.sdist import sdist as _sdist
+import subprocess, os.path
+
+
+def pre_sdist():
+    print("building documentation")
+    subprocess.check_call("./build_documentation.sh")
+    
+def post_sdist():
+    print("DEBUG: post_sdist()")
+
+
+class my_sdist(_sdist):
+    '''
+    customizing sdist so that we can have it compile the documentation
+    '''
+    def run(self):
+        pre_sdist()
+        _sdist.run(self)
+        post_sdist()
 
 setup(name='Test Parser',
         version='0.1',
@@ -27,6 +47,8 @@ setup(name='Test Parser',
         author='Matthew A. Todd',
         author_email='matcatprg@yahoo.com',
         url='http://github.com/matcatc/Test_Parser',
+        
+        cmdclass={'sdist': my_sdist},
         
         package_dir = {"": "src"},
         packages=['TestParser',
