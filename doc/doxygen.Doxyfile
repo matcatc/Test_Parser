@@ -568,7 +568,7 @@ WARN_LOGFILE =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT = /media/Storage/workspace/BoostTest_parser/src
+INPUT = /media/Storage/workspace/Test_parser/src 
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
