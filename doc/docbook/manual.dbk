@@ -126,6 +126,35 @@
 	</refsect1>
 	
 	<refsect1>
+		<title>Documentation</title>
+		<para>There are two parts to the documentation:</para>
+		<itemizedlist>
+			<listitem><para>doxygen</para></listitem>
+			<listitem><para>docbook</para></listitem>
+		</itemizedlist>
+		<para>The doxygen output is built from the documentation
+			inlined in the code. Its more for developers than
+			end users.
+		</para>
+		<para> The docbook is more to end-users, but still contains
+			information for developers. This file is built from
+			said docbook.
+		</para>
+		<para> A script was provided in order to build the documentation
+			and is aptly named: <command>build_documentation.sh</command>.
+			While this script can be invoked directly, it is mainly for
+			use by setup.py. Setup.py has been customized so that when
+			sdist is invoked, it will call <command>build_documentation.sh
+			</command> and thus build all the documentation prior to packaging.
+			As of June 10, 2010, all of the documentation is entirely rebuilt
+			on each sdist invocation. Although I plan on designing it (probably
+			through make or similar) so that it will only rebuild necessary
+			files. At least if it gets to the point where it wastes too much
+			time.
+		</para>
+	</refsect1>
+	
+	<refsect1>
 		<title>Tests</title>
 		<para> The tests used to test this product are packaged along with
 			 it. This way anyone, including users, can run them on their
