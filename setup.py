@@ -29,7 +29,7 @@ def pre_sdist():
     subprocess.check_call("./build_documentation.sh")
     
 def post_sdist():
-    print("DEBUG: post_sdist()")
+    pass
 
 
 class my_sdist(_sdist):
@@ -40,6 +40,35 @@ class my_sdist(_sdist):
         pre_sdist()
         _sdist.run(self)
         post_sdist()
+
+
+
+def find_data_files(directory):
+    '''
+    Searches through a given directory using os.walk() and includes
+    ALL files found.
+    
+    Based of code I found here: http://github.com/django/django/blob/master/setup.py
+    Which is part of the django project, licensed under BSD license.
+    I simply cut out stuff I found useless and restructured files.append(...)
+    
+    @date June 10, 2010
+    @author Matthew A. Todd
+    '''
+    files = []
+    for dirpath, dirnames, filenames in os.walk(directory):
+        # Ignore dirnames that start with '.'
+        for i, dirname in enumerate(dirnames):
+            if dirname.startswith('.'): del dirnames[i]
+        if filenames:
+            for f in filenames:
+                files.append(os.path.join(dirpath, f))
+    return files
+
+data_files = find_data_files('doc/doxygen/html')
+data_files += find_data_files('doc/docbook')
+#print("DEBUG: data_files:" + "\n".join(data_files) + "\n\n")
+
 
 setup(name='Test Parser',
         version='0.1',
@@ -68,9 +97,9 @@ setup(name='Test Parser',
         
         package_data = {'TestParser.View' : ['*.ui'],
                         'TestParser_tests.Model': ['Boost_Test'],
-                        'TestParser_tests.Parser': ['xml']}
+                        'TestParser_tests.Parser': ['xml']},
         
         # TODO: data files (docs)
-        # will want to build docbook and doxygen first
+        data_files = data_files
         )
 
