@@ -58,6 +58,8 @@ class UpdateJobPool(object):
         '''
         Creates the initial pool of threads.
         If called more than once, it doesn't do anything subsequent times.
+        
+        @pre see addThreads() regarding numThreads
         '''
         if not self._bPoolCreated:
             print("creating thread pool")
@@ -68,6 +70,9 @@ class UpdateJobPool(object):
     def addThreads(self, numThreads):
         '''
         Add threads to those currently running.
+        
+        @pre numThreads >= 0. If negative,
+            nothing will happen.
         '''
         if self._bPoolCreated == False:
             raise NonExistentJobPool_Exception("cannot add threads to a job pool that hasn't been created")
@@ -85,6 +90,9 @@ class UpdateJobPool(object):
 
         Works by having threads check to see if they should die off after they're done
         with a job. This way we don't interrupt any work that is occurring.
+        
+        @pre numThreads >= 0. If negative, could have unexpected
+            consequences.
         '''
         self._removeCount += numThreads
 
@@ -101,7 +109,7 @@ class UpdateJobPool(object):
         i.e: join()
         
         If there are no threads to run the jobs, this function will wait
-        indefinitely. Although another thread may add threads, which would
+        indefinitely. Although another thread may add threads, which COULD
         then allow this function to complete. If you want a version which
         will throw if there are no threads currently, use
         waitUntilJobsFinished_Raise().
