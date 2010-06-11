@@ -165,7 +165,8 @@ class UpdateThread (threading.Thread):
         '''
         Compute whether calling thread should die off.
         
-        @warning requires that client function actually kills the thread (itself).
+        @warning requires that client function (run()) actually
+        kills the thread (itself).
         
         @return True if thread should die off.
         '''
@@ -184,7 +185,7 @@ class UpdateThread (threading.Thread):
         Will print out an error message to Constants.errStream if
         a job is None.
         
-        will only return (die off) if _removeCount > 0
+        @see dieOff() for die off conditions
         '''
         while True:
             observer = self.jobPool._jobQueue.get()
