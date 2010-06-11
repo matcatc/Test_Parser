@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 class Observer(object):
     '''
-    For observer pattern.
+    For observer pattern. An interface.
     
     Subclasses need to implement notify()
     
