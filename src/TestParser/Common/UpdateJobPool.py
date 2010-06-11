@@ -84,7 +84,7 @@ class UpdateJobPool(object):
         Removes threads from those that are currently running.
 
         Works by having threads check to see if they should die off after they're done
-        with a job. This way we don't interrupt any work that is occuring.
+        with a job. This way we don't interrupt any work that is occurring.
         '''
         self._removeCount += numThreads
 

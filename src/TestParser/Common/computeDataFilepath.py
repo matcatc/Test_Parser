@@ -25,7 +25,7 @@ def computeDataFilepath(filename, calling_file):
     compute the abs path of a file (filename) in same directory as calling_file
     
     @param filename the filename of the interesting file relative to the calling_file
-    @param the file that is calling (pass in __file__)
+    @param calling_file the file that is calling (pass in __file__)
     @warning we can't use __file__ if with py2exe
     @see http://stackoverflow.com/questions/2985755/accessing-files-after-setup-py-install
     """
