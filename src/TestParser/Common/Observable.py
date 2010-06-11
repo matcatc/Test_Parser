@@ -56,7 +56,8 @@ class Observable(object):
         uses a thread pool
         
         Won't return till all observers notified. This way we can ensure
-        all the observer work is done before the program tries to quit.
+        all the observer work is done before the program tries to quit
+        (provided the running thread is not daemonic.)
         
         @warning this won't work if this code is being run in a daemonic
         thread as well.
