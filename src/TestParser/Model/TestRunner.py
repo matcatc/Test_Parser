@@ -29,6 +29,10 @@ class TestRunner(object):
     information that allows it to spawn a subprocess
     (the test program.)
     
+    @note this is currently setup for Boost's Test framework. If we
+    want to add other frameworks later, we're probably going to have to
+    use some sort of pattern.
+    
     @date Mar 6, 2010
     @author Matthew A. Todd
     '''
@@ -63,6 +67,9 @@ class TestRunner(object):
         If None: None
         If valid for cwd: use cwd
         else: global path
+        
+        @pre runner is present in working directory or global path
+        @param runner filename/path to the test runner
         '''
         if runner is None:
             self._runner = None
