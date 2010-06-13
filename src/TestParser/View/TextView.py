@@ -74,7 +74,9 @@ class TextView(Observer.Observer):
         
     def display(self):
         '''
-        delegates to _display()
+        pulls latest information and displays it.
+        
+        delegates to _display() for displaying
         '''
         results = self._retrieveTestResults()
         if results is None:
@@ -85,22 +87,33 @@ class TextView(Observer.Observer):
     def _display(self, results):
         '''
         display the test results to stdout
+        
+        @pre results is of type TestResults (or equivalent)
         '''
         for suite in results.suites:
             self._displaySuite(suite)
             
     def _displaySuite(self, suite):
+        '''
+        @pre suite is of type Suite (or equivalent)
+        '''
         print("suite: ", suite.name)
         for test in suite.testCases:
             self._displayTest(test)
             
     def _displayTest(self, test):
+        '''
+        @pre test is of type Test (or equivalent)
+        '''
         print("\ttest: ", test.name)
         print("\t\t time: ", test.timeTaken)
         for notice in test.notices:
             self._displayNotice(notice)
             
     def _displayNotice(self, notice):
+        '''
+        @pre notice is of type Notice (or equivalent)
+        '''
         print("\t\t", notice.type, "\tfile:", notice.file, "\tline:", notice.line, "\t", notice.info)
         
 
