@@ -29,7 +29,7 @@ class TestCase(object):
     @author Matthew A. Todd
     '''
 
-    def __init__(self):
+    def __init__(self, name = ""):
         '''
         Constructor
         '''
@@ -37,11 +37,12 @@ class TestCase(object):
         ## set of known types (of notices added)
         self.types = set()          
         self._timeTaken = 0
-        self.name = ""
+        self.name = name
     
     def hasType(self, type):
         '''
         Whether test case has a given type of notice
+        
         @return True if notice of type type contained in list of notices
         '''
         return type in self.types
@@ -68,7 +69,9 @@ class TestCase(object):
     
     def getNoticesOfType(self, type):
         '''
-        parses the list of notices, looking for those of a given type
+        Parses the list of notices, looking for those of a given type.
+        Returns list of all of those found (in order they were found.)
+        
         @param type type of notices to return
         @return list of notices of type type
         '''
