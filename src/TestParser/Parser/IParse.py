@@ -45,9 +45,13 @@ class IParse():
         
         TODO: verify this works for possible input types
         
-        @param stringData a string containing the xml data. If this is not None,
-            then this will be used, regardless of what other data types are
-            available.
+        stringData has a higher priority than file. So if both are provided,
+        stringData will be used.
+        
+        @pre stringData or the data contained in file need to be xml parsable
+        by xml.etree.ElementTree. I assume any well formed xml will be fine.
+        
+        @param stringData a string containing the xml data.
         @param file a filename or file object.
         @return TestResults containing the parsed results
         '''
