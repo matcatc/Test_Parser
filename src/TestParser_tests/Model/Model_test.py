@@ -22,7 +22,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 from TestParser.Model import Model
 from TestParser.Model import TestRunner
-from TestParser.Parser import BasicParser
+from TestParser.Parser import BoostParser
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 from ..Common.Observable_Test import Mock_Observer
 
@@ -31,7 +31,7 @@ class Model_test(unittest.TestCase):
     
     runner = TestRunner.TestRunner()
     runner.runner = computeDataFilepath("Boost_Test", __file__)
-    parser = BasicParser.BasicParser()
+    parser = BoostParser.BoostParser()
     
     data = '<TestSuite name="test suite">\
                 <TestCase name="test testCase">\

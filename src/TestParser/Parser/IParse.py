@@ -64,6 +64,8 @@ class IParse():
         
     def _parseData(self, tree):
         '''
+        Builds up a TestResults with the given xml data.
+        
         Is to be implemented in subclass
         
         @param tree an ElementTree with all of the xml data

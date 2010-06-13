@@ -20,14 +20,14 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import unittest
-from TestParser.Parser.BasicParser import BasicParser
+from TestParser.Parser.BoostParser import BoostParser
 from xml.etree import ElementTree as ET
 
 class BasicParser_Test(unittest.TestCase):
 
 
     def setUp(self):
-        self.parser = BasicParser()
+        self.parser = BoostParser()
 
 
     def tearDown(self):
