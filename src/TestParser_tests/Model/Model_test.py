@@ -108,7 +108,6 @@ class Model_test(unittest.TestCase):
         self.assertNotEqual(self.model.results, oldResults)
         
 
-
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
