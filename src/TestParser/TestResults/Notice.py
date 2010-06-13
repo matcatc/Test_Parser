@@ -26,6 +26,7 @@ from TestParser.Common.Constants import Constants
 class Notice():
     '''
     Interface for Errors and Message types.
+    
     Used in TestCase. This way, a single list can hold
     Errors and Messages in the order they occurred.
     The other option would be to keep them separate,
@@ -45,7 +46,7 @@ class Notice():
         
         @param file String containing the filename of where
             the notice occurred.
-        @param line An int of which line the notice occurred.
+        @param line An integer of which line the notice occurred.
         @param type String describing the type of notice
             (i.e: Error, Message, or similar). If empty
             string, warning will be printed.
@@ -98,7 +99,7 @@ class Notice():
     @info.setter
     def info(self, info): #@DuplicatedSignature
         '''
-        Will print warning to stderr if empty string
+        Will print warning to errStream if empty string
         '''
         if info == "":
             print(Notice.EMPTY_INFO, file=Constants.errStream)
@@ -113,7 +114,7 @@ class Notice():
     @type.setter
     def type(self, type): #@DuplicatedSignature
         '''
-        Will print warning to stderr if empty string
+        Will print warning to errStream if empty string
         '''
         if type == "":
             print(Notice.EMPTY_TYPE, file=Constants.errStream)
