@@ -30,6 +30,10 @@ from TestParser_tests.TestResults import Notice_Test, Suite_Test, TestCase_Test,
 from TestParser_tests.View import Controller_Test, TextView_Test, QtView_Test
 
 def runTestSuites(testClasses):
+    '''
+    helper function that takes an iterable container of test suites
+    and runs them all.
+    '''
     suites = []
     for testClass in testClasses:
         suite = unittest.TestLoader().loadTestsFromTestCase(testClass)

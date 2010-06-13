@@ -23,15 +23,15 @@ from TestParser.View import TextView
 from TestParser.View import QtView
 from TestParser.Model import Model
 from TestParser.Model import TestRunner
-from TestParser.Parser import BasicParser
+from TestParser.Parser import BoostParser
 
 from optparse import OptionParser
 
 
 def main():
     '''    
-    TODO: allow user to choose Gui or Text output
     '''
+    
     usage = "usage: %prog [options] test_runner"
     gui_choices = ("Simple (Default)",)
     gui_help = "use specified gui: " + ", ".join(gui_choices)
@@ -55,7 +55,7 @@ def main():
     runner = TestRunner.TestRunner()
     runner.runner = args[0]
     model.testRunner = runner
-    model.parser = BasicParser.BasicParser()
+    model.parser = BoostParser.BoostParser()
     
     if options.ui == "text":
         TextView.TextView.startView(model)
