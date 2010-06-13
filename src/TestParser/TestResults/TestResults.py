@@ -21,6 +21,8 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 class TestResults:
     '''
     Contains the entire results from a run of tests. Organized into suites.
+    
+    Basically a glorified set.
 
     @verbatim
     Structured as follows:
@@ -30,8 +32,7 @@ class TestResults:
                 Notice (Error / Message)
     @endverbatim
                 
-    @see TestResults.dia for more information  
-                
+    @see TestResults.dia for more information (doc folder)
         
     @date Feb 17, 2010
     @author Matthew A. Todd
