@@ -62,7 +62,8 @@ def find_data_files(directory):
             if dirname.startswith('.'): del dirnames[i]
         if filenames:
             for f in filenames:
-                files.append(os.path.join(dirpath, f))
+                if not f.startswith('.'):           # ignore hidden files (.abc)
+                    files.append(os.path.join(dirpath, f))
     return files
 
 data_files = find_data_files('doc/doxygen/html')
