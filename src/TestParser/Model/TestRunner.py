@@ -87,7 +87,7 @@ class TestRunner(object):
         del self._runner
     
     
-    def run(self, params, givenCmd = None):
+    def run(self, params = None, givenCmd = None):
         '''
         runs just with the given params. Concatenates runner and params.
         
@@ -130,9 +130,8 @@ class TestRunner(object):
         if self.previousCmd is None:
             # error/raise etc
             print(TestRunner.NO_PREVIOUS_CMD_MESSAGE, file=Constants.errStream)
-            self.runAll()
-            return
-        self.run(previous = self.previousCmd)
+            return self.runAll()
+        return self.run(givenCmd = self.previousCmd)
             
         
             

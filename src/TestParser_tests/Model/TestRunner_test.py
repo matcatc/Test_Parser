@@ -74,6 +74,21 @@ class TestRunner_Test(unittest.TestCase):
         stdout = self.runner.run([input])
         self.assertEqual(stdout.decode("utf-8"), output)
         
+    def testRunPrevious_echo(self):
+        '''
+        test runPrevious() using echo.
+        
+        if runPrevious() actually executes same cmd, then the output should be
+        the same.
+        '''
+        input = "echo test output"
+        self.runner.runner = "echo"
+        output1 = self.runner.run([input])
+        
+        output2 = self.runner.runPrevious()
+        
+        self.assertEqual(output1.decode("utf-8"), output2.decode("utf-8"))
+        
     def testRunAll_echo(self):
         '''
         test runAll() using echo.
