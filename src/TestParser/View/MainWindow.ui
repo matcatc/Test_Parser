@@ -70,9 +70,16 @@
      <x>0</x>
      <y>0</y>
      <width>556</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="action_Quit"/>
+   </widget>
+   <addaction name="menuMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_About">
@@ -90,11 +97,6 @@
     <string>&amp;Open</string>
    </property>
   </action>
-  <action name="action_Quit">
-   <property name="text">
-    <string>&amp;Quit</string>
-   </property>
-  </action>
   <action name="actionSet_Runner">
    <property name="text">
     <string>&amp;Set Runner</string>
@@ -105,7 +107,32 @@
     <string>Script...</string>
    </property>
   </action>
+  <action name="action_Quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>action_Quit</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>277</x>
+     <y>164</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
