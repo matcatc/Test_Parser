@@ -48,6 +48,9 @@ class TestRunner(object):
 
     ## message that is displayed when testRunner isn't run successfully
     EXECUTION_FAILURE_MESSAGE = "Failed to execute unit test program"
+    
+    ## message for when no previous cmd to rerun
+    NO_PREVIOUS_CMD_MESSAGE = "No previous cmd to rerun. Running all."
 
     def __init__(self):
         '''
@@ -84,12 +87,15 @@ class TestRunner(object):
         del self._runner
     
     
-    def run(self, params):
+    def run(self, params, givenCmd = None):
         '''
         runs just with the given params. Concatenates runner and params.
         
         @param params list of params to be passed to the test runner.
             The same params you would use if running on the command line.
+        @param givenCmd a string explicitly stating the cmd to be executed.
+            Used by runPrevious(). Could also be called by client or others
+            if they wanted to execute a specific cmd.
         @return stdout from the test program. Or None if program execution failed.
         '''
         if self.runner is None:
@@ -97,10 +103,14 @@ class TestRunner(object):
             return None
         
         try:
-            cmd = copy.deepcopy(params)
-            cmd.insert(0, self.runner)                
-            cmd.insert(1, TestRunner.LOG_FORMAT)
-            cmd.insert(2, "--log_level="+self.logLevel)
+            if givenCmd:
+                cmd = givenCmd
+            else:
+                cmd = copy.deepcopy(params)
+                cmd.insert(0, self.runner)                
+                cmd.insert(1, TestRunner.LOG_FORMAT)
+                cmd.insert(2, "--log_level="+self.logLevel)
+                self.previousCmd = cmd
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
             print(TestRunner.EXECUTION_FAILURE_MESSAGE, file=Constants.errStream)
@@ -110,6 +120,22 @@ class TestRunner(object):
         if not stderr == "":
             print(stderr.decode("utf-8"), file=Constants.errStream)      
         return stdout
+    
+    def runPrevious(self):
+        '''
+        runs using the same settings/configuration as the previous run.
+        
+        @date Jun 16, 2010
+        '''
+        if self.previousCmd is None:
+            # error/raise etc
+            print(TestRunner.NO_PREVIOUS_CMD_MESSAGE, file=Constants.errStream)
+            self.runAll()
+            return
+        self.run(previous = self.previousCmd)
+            
+        
+            
     
     def runAll(self):
         '''
