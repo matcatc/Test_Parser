@@ -23,7 +23,6 @@ from PyQt4 import uic #@UnresolvedImport
 from PyQt4 import QtGui #@UnresolvedImport
 import sys
 from TestParser.Common.computeDataFilepath import computeDataFilepath
-from TestParser.Common.Constants import Constants
 
 from . import Controller
 
@@ -90,15 +89,29 @@ class QtView(UiClass, WidgetClass):
         tree = self.treeWidget
         tree.clear()
 
+        red = QtGui.QColor("red")
+        green = QtGui.QColor("green")
+        redBrush = QtGui.QBrush(red)
+        greenBrush = QtGui.QBrush(green)
+        
+        numCols = tree.columnCount()
+
         for suite in results.suites:
             suiteItem = QtGui.QTreeWidgetItem(tree)
             suiteItem.setText(0, "Suite")
             suiteItem.setText(1, suite.name)
+            
+            for i in range(numCols):
+                suiteItem.setBackground(i, greenBrush)
+            
 
             for test in suite.testCases:
                 testItem = QtGui.QTreeWidgetItem(suiteItem)
                 testItem.setText(0, "Test")
                 testItem.setText(1, test.name)
+                
+                for i in range(numCols):
+                    testItem.setBackground(i, greenBrush)
 
                 for notice in test.notices:
                     noticeItem = QtGui.QTreeWidgetItem(testItem)
@@ -106,6 +119,17 @@ class QtView(UiClass, WidgetClass):
                     noticeItem.setText(2, notice.file)
                     noticeItem.setText(3, str(notice.line))
                     noticeItem.setText(4, notice.info)
+                    
+                    # TODO: this is somewhat hardcoded
+                    #  better: static/const list of items to color red
+                    if notice.type == "error":
+                        for i in range(numCols):
+                            noticeItem.setBackground(i, redBrush)
+                            testItem.setBackground(i, redBrush)
+                            suiteItem.setBackground(i, redBrush)
+                    else:
+                        for i in range(numCols):
+                            noticeItem.setBackground(i, greenBrush)
 
 
 
