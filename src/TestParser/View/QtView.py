@@ -23,6 +23,7 @@ from PyQt4 import uic #@UnresolvedImport
 from PyQt4 import QtGui #@UnresolvedImport
 import sys
 from TestParser.Common.computeDataFilepath import computeDataFilepath
+from TestParser.Common.Constants import Constants
 
 from . import Controller
 
@@ -34,26 +35,26 @@ class QtView(UiClass, WidgetClass):
     '''
     Main window for our Qt implemented view.
     '''
-    
+
     @staticmethod
     def startView(model):
         '''
         Run the qt view based program.
         
         @see main.main()
-        '''    
+        '''
         # setup view
         app = QtGui.QApplication(sys.argv)
         widget = QtView(model)
         widget.show()
-        
+
         # setup controller
         controller = QtViewController(model)
-        
+
         # run
         controller.run()
         sys.exit(app.exec_())
-        
+
 
     def __init__(self, model):
         '''
@@ -61,43 +62,52 @@ class QtView(UiClass, WidgetClass):
         '''
         WidgetClass.__init__(self)
         self.setupUi(self)
-        
+
         self.model = model
         self.model.registerObserver(self)
-        
-        
-        
+
+
+
     def _retrieveTestResults(self):
         '''
         get the test results from the model
         @return test results
         '''
         return self.model.results
-        
+
     def update(self):
         '''
         For observer.
         '''
         print("Updating QtView")
         self._updateTreeWidget(self._retrieveTestResults())
-        
+
     def _updateTreeWidget(self, results):
         '''
         Actually updated the GUI treeView widget
-        
-        TODO: finish implementing
         '''
+        
         tree = self.treeWidget
         tree.clear()
-        
-        # suite name is null for some reason
+
         for suite in results.suites:
-            print ("suite name =", suite.name)
-            suiteItem = QtGui.QTreeWidgetItem(suite.name)
+            suiteItem = QtGui.QTreeWidgetItem(tree)
+            suiteItem.setText(0, "Suite")
+            suiteItem.setText(1, suite.name)
+
             for test in suite.testCases:
-                pass
-            tree.addTopLevelItem(suiteItem)
-        
+                testItem = QtGui.QTreeWidgetItem(suiteItem)
+                testItem.setText(0, "Test")
+                testItem.setText(1, test.name)
+
+                for notice in test.notices:
+                    noticeItem = QtGui.QTreeWidgetItem(testItem)
+                    noticeItem.setText(0, notice.type)
+                    noticeItem.setText(2, notice.file)
+                    noticeItem.setText(3, str(notice.line))
+                    noticeItem.setText(4, notice.info)
+
+
 
 
 class QtViewController(Controller.Controller):
@@ -107,5 +117,5 @@ class QtViewController(Controller.Controller):
     Nothing to override
     @see Controller.Controller
     '''
-        
+
 
