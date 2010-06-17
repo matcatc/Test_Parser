@@ -25,6 +25,7 @@ import sys
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 from . import Controller
+from . import About
 
 filename = "MainWindow.ui"
 
@@ -65,6 +66,15 @@ class QtView(UiClass, WidgetClass):
         self.model = model
         self.model.registerObserver(self)
 
+    def aboutDialog(self):
+        '''
+        Display about dialog.
+        
+        Modal.
+        @date Jun 17, 2010
+        '''
+        widget = About.About()
+        widget.exec()
 
 
     def _retrieveTestResults(self):

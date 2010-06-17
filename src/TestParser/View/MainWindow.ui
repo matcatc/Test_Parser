@@ -124,5 +124,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAbout</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>aboutDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>384</x>
+     <y>164</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>aboutDialog()</slot>
+ </slots>
 </ui>
