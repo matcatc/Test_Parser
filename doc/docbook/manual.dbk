@@ -109,6 +109,25 @@
 				That way we could easily switch to threading,
 				without having to commit to it.</para>
 		</refsect2>
+		<refsect2>
+			<title>TestResults</title>
+			<para>TestResults is currently "hard-coded," in that the hierarchy
+				is predetermined. We should consider
+				changing TestResults to use the Composite Pattern. This
+				would allow for a more flexible hierarchy, although we
+				might have unusual instances (e.g: test containing a suite.)
+				But even if that's what the test runner outputs, we shouldn't
+				worry about it.
+			</para>
+			<para> Also, the code to run through the
+				TestResults and display it could be changed to a more flexible
+				recursion routine, that isn't aware of the hierarchy. This
+				is the main reason I'd want to change to the Composite Pattern:
+				greater orthogonality and simpler code.
+			</para>
+			<para> See TestResults.dia for more information.
+			</para>
+		</refsect2>
 	</refsect1>
 	
 	<refsect1 id="download_links">
