@@ -85,7 +85,14 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuRun">
+    <property name="title">
+     <string>Run</string>
+    </property>
+    <addaction name="actionRerun"/>
+   </widget>
    <addaction name="menuMenu"/>
+   <addaction name="menuRun"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -103,6 +110,11 @@
    </property>
    <property name="shortcut">
     <string>F1</string>
+   </property>
+  </action>
+  <action name="actionRerun">
+   <property name="text">
+    <string>Rerun</string>
    </property>
   </action>
  </widget>
@@ -140,8 +152,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionRerun</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>reRun()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>384</x>
+     <y>164</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>aboutDialog()</slot>
+  <slot>reRun()</slot>
  </slots>
 </ui>

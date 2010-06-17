@@ -68,13 +68,22 @@ class QtView(UiClass, WidgetClass):
 
     def aboutDialog(self):
         '''
-        Display about dialog.
+        Menu Cmd. Display about dialog.
         
         Modal.
         @date Jun 17, 2010
         '''
         widget = About.About()
         widget.exec()
+        
+    def reRun(self):
+        '''
+        Menu Cmd. Rerun previous test configuration.
+        
+        @date Jun 17, 2010
+        '''
+        self.model.runPrevious()
+        print("DEBUG: done w/ runPrevious()", file=sys.stderr)
 
 
     def _retrieveTestResults(self):
@@ -88,13 +97,15 @@ class QtView(UiClass, WidgetClass):
         '''
         For observer.
         '''
-        print("Updating QtView")
+        print("DEBUG: Updating QtView", file=sys.stderr)
         self._updateTreeWidget(self._retrieveTestResults())
 
     def _updateTreeWidget(self, results):
         '''
-        Actually updated the GUI treeView widget
+        Actually update the GUI treeView widget
         '''
+        
+        print("DEBUG: _updateTreeWidget()", file=sys.stderr)
         
         tree = self.treeWidget
         tree.clear()
@@ -114,7 +125,6 @@ class QtView(UiClass, WidgetClass):
             for i in range(numCols):
                 suiteItem.setBackground(i, greenBrush)
             
-
             for test in suite.testCases:
                 testItem = QtGui.QTreeWidgetItem(suiteItem)
                 testItem.setText(0, "Test")
@@ -141,7 +151,7 @@ class QtView(UiClass, WidgetClass):
                         for i in range(numCols):
                             noticeItem.setBackground(i, greenBrush)
 
-
+        print("DEBUG: end _updateTreeWidget()", file=sys.stderr)
 
 
 class QtViewController(Controller.Controller):
