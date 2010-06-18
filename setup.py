@@ -100,7 +100,8 @@ setup(name='Test Parser',
                         'TestParser_tests.Model': ['Boost_Test'],
                         'TestParser_tests.Parser': ['xml']},
         
-        # TODO: data files (docs)
-        data_files = data_files
+        data_files = data_files,
+        
+        requires=['PyQt (>=4.0)']       # TODO: does this work?
         )
 
