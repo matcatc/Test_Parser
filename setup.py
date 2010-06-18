@@ -42,9 +42,6 @@ class my_sdist(_sdist):
         _sdist.run(self)
         post_sdist()
 
-## location where doc files should be installed
-doc_dir = "/usr/share/doc/Test_Parser"      # TODO: currently hard-coded
-
 def find_data_files(directory):
     '''
     Searches through a given directory using os.walk() and includes
@@ -53,6 +50,10 @@ def find_data_files(directory):
     Based of code I found here: http://github.com/django/django/blob/master/setup.py
     Which is part of the django project, licensed under BSD license.
     I simply cut out stuff I found useless and restructured files.append(...)
+    
+    Allows the install directory to be changed through setup.cfg and
+    install parameter --install-data. Still maintains original directory
+    structure.
     
     @date June 10, 2010
     @author Matthew A. Todd
@@ -65,7 +66,7 @@ def find_data_files(directory):
         if filenames:
             for f in filenames:
                 if not f.startswith('.'):           # ignore hidden files (.abc)
-                    files.append( (os.path.join(doc_dir, dirpath), [os.path.join(dirpath, f)]))
+                    files.append( (dirpath, [os.path.join(dirpath, f)]))
     return files
 
 data_files = find_data_files('doc/doxygen/html')
