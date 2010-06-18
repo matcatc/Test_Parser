@@ -36,6 +36,11 @@ class QtView(UiClass, WidgetClass):
     Main window for our Qt implemented view.
     '''
 
+    red = QtGui.QColor("red")
+    green = QtGui.QColor("green")
+    redBrush = QtGui.QBrush(red)
+    greenBrush = QtGui.QBrush(green)
+
     @staticmethod
     def startView(model):
         '''
@@ -66,6 +71,8 @@ class QtView(UiClass, WidgetClass):
         self.model = model
         self.model.registerObserver(self)
 
+        self.run = False
+
     def aboutDialog(self):
         '''
         Menu Cmd. Display about dialog.
@@ -75,7 +82,7 @@ class QtView(UiClass, WidgetClass):
         '''
         widget = About.About()
         widget.exec()
-        
+
     def reRun(self):
         '''
         Menu Cmd. Rerun previous test configuration.
@@ -83,7 +90,6 @@ class QtView(UiClass, WidgetClass):
         @date Jun 17, 2010
         '''
         self.model.runPrevious()
-        print("DEBUG: done w/ runPrevious()", file=sys.stderr)
 
 
     def _retrieveTestResults(self):
@@ -97,41 +103,47 @@ class QtView(UiClass, WidgetClass):
         '''
         For observer.
         '''
-        print("DEBUG: Updating QtView", file=sys.stderr)
         self._updateTreeWidget(self._retrieveTestResults())
+
+    def _clearTreeWidget(self):
+        '''
+        Clear out the TreeWidget.
+        
+        We have this function b/c treeWidget.clear() has some nasty side
+        effects (seg-fault.) So we simply remove all the items and
+        delete them by hand. We let the gc do all the clean up work.
+        
+        @date Jun 18, 2010
+        '''
+        while(self.treeWidget.takeTopLevelItem(0) is not None):
+            pass
+
 
     def _updateTreeWidget(self, results):
         '''
         Actually update the GUI treeView widget
         '''
-        
-        print("DEBUG: _updateTreeWidget()", file=sys.stderr)
-        
-        tree = self.treeWidget
-        tree.clear()
 
-        red = QtGui.QColor("red")
-        green = QtGui.QColor("green")
-        redBrush = QtGui.QBrush(red)
-        greenBrush = QtGui.QBrush(green)
-        
+        self._clearTreeWidget()
+        tree = self.treeWidget
+
         numCols = tree.columnCount()
 
         for suite in results.suites:
             suiteItem = QtGui.QTreeWidgetItem(tree)
             suiteItem.setText(0, "Suite")
             suiteItem.setText(1, suite.name)
-            
+
             for i in range(numCols):
-                suiteItem.setBackground(i, greenBrush)
-            
+                suiteItem.setBackground(i, QtView.greenBrush)
+
             for test in suite.testCases:
                 testItem = QtGui.QTreeWidgetItem(suiteItem)
                 testItem.setText(0, "Test")
                 testItem.setText(1, test.name)
-                
+
                 for i in range(numCols):
-                    testItem.setBackground(i, greenBrush)
+                    testItem.setBackground(i, QtView.greenBrush)
 
                 for notice in test.notices:
                     noticeItem = QtGui.QTreeWidgetItem(testItem)
@@ -139,19 +151,17 @@ class QtView(UiClass, WidgetClass):
                     noticeItem.setText(2, notice.file)
                     noticeItem.setText(3, str(notice.line))
                     noticeItem.setText(4, notice.info)
-                    
+
                     # TODO: this is somewhat hardcoded
                     #  better: static/const list of items to color red
                     if notice.type == "error":
                         for i in range(numCols):
-                            noticeItem.setBackground(i, redBrush)
-                            testItem.setBackground(i, redBrush)
-                            suiteItem.setBackground(i, redBrush)
+                            noticeItem.setBackground(i, QtView.redBrush)
+                            testItem.setBackground(i, QtView.redBrush)
+                            suiteItem.setBackground(i, QtView.redBrush)
                     else:
                         for i in range(numCols):
-                            noticeItem.setBackground(i, greenBrush)
-
-        print("DEBUG: end _updateTreeWidget()", file=sys.stderr)
+                            noticeItem.setBackground(i, QtView.greenBrush)
 
 
 class QtViewController(Controller.Controller):
