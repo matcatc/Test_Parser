@@ -78,6 +78,27 @@
 	</refsect1>
 	
 	<refsect1>
+		<title>Installation</title>
+		<para>Test Parser is packaged via distutils. I was unable to get
+			setuptools to work, so I doubt I'll be trying anything more
+			complicated any time soon.
+		</para>
+		<para> To install, run <literal>setup.py install</literal>.
+			I'm not currently using py2exe, py2app, or similar.
+		</para>
+		<refsect2>
+			<title>Requirements</title>
+			<para>Test Parser uses pyQt4. The package I use in Ubuntu is
+				python-qt4.
+			</para>
+			<para>Its unclear if I'll be able to get distutils to be able
+				to install pyQt4 during the installation. So users will
+				likely have to install it by hand. 
+			</para>
+		</refsect2>
+	</refsect1>
+	
+	<refsect1>
 		<title>Technical Details</title>
 		<para>On a high level, Test Parser simply runs the tests,
 			parses them, and displays the results. There is more to it than
