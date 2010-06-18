@@ -107,8 +107,8 @@ class Model(Observable.Observable):
         but I think locking the entire function seems reasonable.
         '''
         with self.runLock:
-                data = self.testRunner.runAll()
-                self._doParse(data)
+            data = self.testRunner.runAll()
+            self._doParse(data)
 
     def runPrevious(self):
         '''
@@ -118,7 +118,6 @@ class Model(Observable.Observable):
         '''
         with self.runLock:
             data = self.testRunner.runPrevious()
-            print("DEBUG: got data", file=sys.stderr)
             self._doParse(data)
             
     # TODO: other runs (as needed)
