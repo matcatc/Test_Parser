@@ -23,11 +23,12 @@ from distutils.core import setup
 from distutils.command.sdist import sdist as _sdist
 import subprocess, os.path
 
+import sys
 
 def pre_sdist():
     print("building documentation")
     subprocess.check_call("./build_documentation.sh")
-    
+
 def post_sdist():
     pass
 
@@ -41,7 +42,8 @@ class my_sdist(_sdist):
         _sdist.run(self)
         post_sdist()
 
-
+## location where doc files should be installed
+doc_dir = "/usr/share/doc/Test_Parser"      # TODO: currently hard-coded
 
 def find_data_files(directory):
     '''
@@ -63,7 +65,7 @@ def find_data_files(directory):
         if filenames:
             for f in filenames:
                 if not f.startswith('.'):           # ignore hidden files (.abc)
-                    files.append(os.path.join(dirpath, f))
+                    files.append( (os.path.join(doc_dir, dirpath), [os.path.join(dirpath, f)]))
     return files
 
 data_files = find_data_files('doc/doxygen/html')
@@ -77,10 +79,10 @@ setup(name='Test Parser',
         author='Matthew A. Todd',
         author_email='matcatprg@yahoo.com',
         url='http://github.com/matcatc/Test_Parser',
-        
+
         cmdclass={'sdist': my_sdist},
-        
-        package_dir = {"": "src"},
+
+        package_dir={"": "src"},
         packages=['TestParser',
                 'TestParser.Common',
                 'TestParser.Model',
@@ -95,13 +97,13 @@ setup(name='Test Parser',
                 'TestParser_tests.View',
                 ],
         scripts=['src/main.py', 'src/test_runner.py'],
-        
-        package_data = {'TestParser.View' : ['*.ui'],
+
+        package_data={'TestParser.View' : ['*.ui'],
                         'TestParser_tests.Model': ['Boost_Test'],
                         'TestParser_tests.Parser': ['xml']},
-        
-        data_files = data_files,
-        
+
+        data_files=data_files,
+
         requires=['PyQt (>=4.0)']       # TODO: does this work?
         )
 
