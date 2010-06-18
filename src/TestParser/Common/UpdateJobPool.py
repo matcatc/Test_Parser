@@ -62,7 +62,7 @@ class UpdateJobPool(object):
         @pre see addThreads() regarding numThreads
         '''
         if not self._bPoolCreated:
-            print("creating thread pool")
+            print("creating thread pool", file=Constants.errStream)     # TODO: should be a log
             self._bPoolCreated = True
             self.addThreads(numThreads)
 
@@ -77,7 +77,7 @@ class UpdateJobPool(object):
         if self._bPoolCreated == False:
             raise NonExistentJobPool_Exception("cannot add threads to a job pool that hasn't been created")
 
-        print("adding threads:", numThreads)
+        print("adding threads:", numThreads, file=Constants.errStream)  # TODO: should be a log
         for x in range(numThreads):
             self._threadCount += 1
             thread = UpdateThread(self)
