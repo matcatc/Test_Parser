@@ -71,6 +71,7 @@ def find_data_files(directory):
 
 data_files = find_data_files('doc/doxygen/html')
 data_files += find_data_files('doc/docbook')
+data_files.append(('.' ,['COPYING', 'build_documentation.sh']))
 #print("DEBUG: data_files:" + "\n".join(data_files) + "\n\n")
 
 
