@@ -32,7 +32,7 @@ def main():
     '''    
     '''
     
-    usage = "usage: %prog [options] test_runner"
+    usage = "usage: %prog [options] <test_runner>"
     gui_choices = ("Simple (Default)",)
     gui_help = "use specified gui: " + ", ".join(gui_choices)
     
