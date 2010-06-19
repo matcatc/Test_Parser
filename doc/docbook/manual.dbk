@@ -79,22 +79,49 @@
 	
 	<refsect1>
 		<title>Installation</title>
-		<para>Test Parser is packaged via distutils. I was unable to get
-			setuptools to work, so I doubt I'll be trying anything more
-			complicated any time soon.
-		</para>
-		<para> To install, run <literal>setup.py install</literal>.
-			I'm not currently using py2exe, py2app, or similar.
+		<para>Test Parser is packaged via distutils.  To install,
+			run <literal>setup.py install</literal>.
+			I'm currently only using source distributions. I'll try
+			to add installers/packages later (maybe.)
 		</para>
 		<refsect2>
 			<title>Requirements</title>
-			<para>Test Parser uses pyQt4. The package I use in Ubuntu is
-				python-qt4.
-			</para>
-			<para>Its unclear if I'll be able to get distutils to be able
-				to install pyQt4 during the installation. So users will
-				likely have to install it by hand. 
-			</para>
+			<itemizedlist>
+				<listitem><para>python 3.x</para></listitem>
+				<listitem><para>PyQt4</para></listitem>
+			</itemizedlist>
+			<refsect3>
+				<title>PyQt4 installation</title>
+				<para>I followed the instructions found
+					<ulink url="http://osdir.com/ml/leo-editor/2009-12/msg00033.html">
+					here</ulink>. To quote:
+				</para>
+				<blockquote>
+					<attribution>Edward</attribution>
+					<para>
+						Download sip and pyqt from ... the links on the website:
+						<ulink url="http://www.riverbankcomputing.co.uk/news">
+						http://www.riverbankcomputing.co.uk/news</ulink>
+					</para>
+					<para>
+						Extract the .tar.gz files to, say, your home folder,
+						yielding the following folders:
+					</para>
+					<itemizedlist>
+						<listitem><para>PyQt-x11-gpl-4.6.2</para></listitem>
+						<listitem><para>sip-4.9.3</para></listitem>
+					</itemizedlist>
+					<para>
+						Follow the install directions. That is, in each folder,
+						run:
+					</para>
+					<screen>
+python3.1 configure.py
+make
+sudo make install
+					</screen>
+				</blockquote>
+			</refsect3>
 		</refsect2>
 	</refsect1>
 	
