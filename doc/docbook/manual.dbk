@@ -209,8 +209,8 @@ sudo make install
 		</itemizedlist>
 		<para>The doxygen output is built from the documentation
 			inlined in the code. Its more for developers than
-			end users. I setup doxygen to use doxypy from
-			<ulink url="http://code.foosel.org/doxypy">here</ulink>
+			end users. I setup doxygen to use
+			<ulink url="http://code.foosel.org/doxypy">doxypy</ulink>
 			according to instructions I found
 			<ulink url="http://www.joshuascotton.com/main/archives/80">
 			here</ulink> and
