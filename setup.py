@@ -97,7 +97,7 @@ setup(name='Test Parser',
                 'TestParser_tests.TestResults',
                 'TestParser_tests.View',
                 ],
-        scripts=['src/main.py', 'src/test_runner.py'],
+        scripts=['src/TestParser.py', 'src/TestParser_tests.py'],
 
         package_data={'TestParser.View' : ['*.ui'],
                         'TestParser_tests.Model': ['Boost_Test'],
