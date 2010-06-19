@@ -76,11 +76,30 @@ data_files.append(('.' ,['COPYING', 'build_documentation.sh']))
 
 
 setup(name='Test Parser',
-        version='0.1',
+        version='0.1.0',
         description='Test Parser displays the results from a given test run',
         author='Matthew A. Todd',
         author_email='matcatprg@yahoo.com',
         url='http://github.com/matcatc/Test_Parser',
+        license='GNU GPL v. 3.0',
+        platforms=['any that support the requirements'],
+        classifiers=[
+            'Development Status :: 2 - Pre-Alpha',
+            'Environment :: Console',
+            'Environment :: X11 Applications :: Qt',
+            'Intended Audience :: Developers',
+            'License :: OSI Approved :: GNU General Public License (GPL)',
+            'Natural Language :: English',
+            'Operating System :: OS Independent',
+            'Programming Language :: Python :: 3',
+            'Topic :: Software Development :: Testing',
+            'Topic :: Utilities'
+            ],
+        # TODO: does this work?
+        requires=[
+            'python (>=3.0)',
+            'PyQt (>=4.0)'
+            ],
 
         cmdclass={'sdist': my_sdist},
 
@@ -104,8 +123,6 @@ setup(name='Test Parser',
                         'TestParser_tests.Model': ['Boost_Test'],
                         'TestParser_tests.Parser': ['xml']},
 
-        data_files=data_files,
-
-        requires=['PyQt (>=4.0)']       # TODO: does this work?
+        data_files=data_files
         )
 
