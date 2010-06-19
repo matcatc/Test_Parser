@@ -35,11 +35,16 @@
 			<title>Supported Test Formats</title>
 			<itemizedlist>
 				<listitem><para>Boost Test</para></listitem>
+				<listitem><para>python unittest (in planning)</para></listitem>
 			</itemizedlist>
 			<para> I have no plans to support other test formats, unless asked 
 				or I find the need. So if you desire a particular format,
 				either notify me with the relevant information or feel free to
-				implement yourself (fork the github repository.)
+				implement yourself (fork the github repository.) If you plan
+				on implementing yourself, you might want to check github issues
+				to see if I have any plans on implementing that framework
+				already or if I plan on making any changes that'll complicate
+				matters / break your code.
 			</para>
 		</refsect2>
 		<refsect2>
