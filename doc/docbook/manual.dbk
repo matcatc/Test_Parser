@@ -29,7 +29,20 @@
 		</para>
 		<refsect2>
 			<title>Options</title>
-			<para>TODO</para>
+			<variablelist>
+				<varlistentry>
+					<term><option>--help</option></term>
+					<listitem><para>Display help information.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term><option>--text</option></term>
+					<listitem><para>Use console/text output.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term><option>--gui <replaceable>&lt;GUI&gt;</replaceable></option></term>
+					<listitem><para>Use specified gui.</para></listitem>
+				</varlistentry>
+			</variablelist>
 		</refsect2>
 		<refsect2>
 			<title>Supported Test Formats</title>
