@@ -45,7 +45,12 @@
 				</varlistentry>
 				<varlistentry>
 					<term><option>--gui <replaceable>&lt;GUI&gt;</replaceable></option></term>
-					<listitem><para>Use specified gui.</para></listitem>
+					<listitem>
+						<para>Use specified gui.</para>
+						<itemizedlist>
+							<listitem><para>Simple (default)</para></listitem>
+						</itemizedlist>
+					</listitem>
 				</varlistentry>
 			</variablelist>
 		</refsect2>
