@@ -23,9 +23,14 @@
 
 	<refsect1>
 		<title>Description</title>
-		<para> Since Test Parser is currently in "active" development, there
-			is not much to say about usage. But I plan on releasing the
-			first beta version once I've implemented a GUI display.			
+		<para> I built Test Parser to help me visualize test results. I
+			designed it to be extensible so that I or someone else could
+			later add new test frameworks and/or user interfaces. This way,
+			whenever you end up working with a new framework that does not
+			provide a nice-clean interface, you only have to write a parser
+			to utilize what has been already written previously.
+			Test Parser is intended for a primarily developer audience,
+			but I can see it being used in other situations.
 		</para>
 		<refsect2>
 			<title>Options</title>
