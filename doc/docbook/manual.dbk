@@ -125,10 +125,10 @@
 						Extract the .tar.gz files to, say, your home folder,
 						yielding the following folders:
 					</para>
-					<itemizedlist>
-						<listitem><para>PyQt-x11-gpl-4.6.2</para></listitem>
-						<listitem><para>sip-4.9.3</para></listitem>
-					</itemizedlist>
+					<simplelist>
+						<member>PyQt-x11-gpl-4.6.2</member>
+						<member>sip-4.9.3</member>
+					</simplelist>
 					<para>
 						Follow the install directions. That is, in each folder,
 						run:
