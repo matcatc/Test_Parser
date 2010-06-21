@@ -224,6 +224,21 @@ sudo make install
 	</refsect1>
 	
 	<refsect1>
+		<title>Change Log</title>
+		<itemizedlist>
+			<listitem>
+				<bridgehead>v 0.1.0</bridgehead>
+				<para>Pre-alpha. No packaged-release.</para>
+				<itemizedlist>
+					<listitem><para>Boost Test Framework</para></listitem>
+					<listitem><para>Text output</para></listitem>
+					<listitem><para>Simple GUI</para></listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</refsect1>
+	
+	<refsect1>
 		<title>Documentation</title>
 		<para>There are two parts to the documentation:</para>
 		<itemizedlist>
