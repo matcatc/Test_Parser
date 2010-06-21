@@ -33,6 +33,14 @@
 			but I can see it being used in other situations.
 		</para>
 		<refsect2>
+			<title>History</title>
+			<para>I built Test Parser to help me visualize/read the test
+				results from Boost's Test framework. Before I realized that it
+				could easily be extended to other frameworks, I called it Boost
+				Test Parser. But since there is no affiliation with Boost, I've
+				since changed the name.</para>
+		</refsect2>
+		<refsect2>
 			<title>Options</title>
 			<variablelist>
 				<varlistentry>
@@ -96,14 +104,6 @@
 		</refsect2>
 	</refsect1>
 	
-	<refsect1>
-		<title>History</title>
-		<para>I built Test Parser to help me visualize/read the test
-			results from Boost's Test framework. Before I realized that it
-			could easily be extended to other frameworks, I called it Boost
-			Test Parser. But since there is no affiliation with Boost, I've
-			since changed the name.</para>
-	</refsect1>
 	
 	<refsect1>
 		<title>Installation</title>
