@@ -109,7 +109,7 @@
 		<title>Installation</title>
 		<para>Test Parser is packaged via distutils.  To install,
 			run <literal>setup.py install</literal>.
-			I'm currently only using source distributions. I'll try
+			I'm currently only using source distributions, but I'll try
 			to add installers/packages later (maybe.)
 		</para>
 		<refsect2>
