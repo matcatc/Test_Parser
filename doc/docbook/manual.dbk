@@ -65,7 +65,11 @@
 		<refsect2>
 			<title>Supported Test Formats</title>
 			<itemizedlist>
-				<listitem><para>Boost Test</para></listitem>
+				<listitem><para> Boost Test</para>
+					<simplelist>
+						<member>v0.1.0 - boost 1.40</member>
+					</simplelist>
+				</listitem>
 				<listitem><para>python unittest (in planning)</para></listitem>
 			</itemizedlist>
 			<para> I have no plans to support other test formats, unless asked 
