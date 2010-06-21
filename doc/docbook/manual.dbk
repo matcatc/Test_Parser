@@ -153,59 +153,6 @@ sudo make install
 		</refsect2>
 	</refsect1>
 	
-	<refsect1>
-		<title>Technical Details</title>
-		<para>On a high level, Test Parser simply runs the tests,
-			parses them, and displays the results. There is more to it than
-			this, mostly because I structured the code so that it is
-			modular and can easily be extended, using MVC and similar
-			patterns. Of course this complicates the details, but the
-			overall idea is the same.</para>
-		<refsect2>
-			<title>Threading</title>
-			<para>For most situations, the use of threading serves no
-				benefit. I added threading for the following reasons</para>
-			<itemizedlist>
-				<listitem>
-					<para>GUI responsiveness</para>
-				</listitem>
-				<listitem>
-					<para>Desire to experiment</para>
-				</listitem>
-			</itemizedlist>
-			<para>Clearly the second is a personal reason and has nothing
-				to do with the product. But the only way to learn to is to
-				do. The first is a reasonable concern: while running tests
-				and parsing the results, we don't want the GUI to
-				hang.</para>
-			<para>Nevertheless, I worry that threading is an unnecessary
-				complication (in the vein of YAGNI.) But it is always
-				possible to simply just remove it. Of course we could
-				always just maintain a separate threading branch.
-				That way we could easily switch to threading,
-				without having to commit to it.</para>
-		</refsect2>
-		<refsect2>
-			<title>TestResults</title>
-			<para>TestResults is currently "hard-coded," in that the hierarchy
-				is predetermined. We should consider
-				changing TestResults to use the Composite Pattern. This
-				would allow for a more flexible hierarchy, although we
-				might have unusual instances (e.g: test containing a suite.)
-				But even if that's what the test runner outputs, we shouldn't
-				worry about it.
-			</para>
-			<para> Also, the code to run through the
-				TestResults and display it could be changed to a more flexible
-				recursion routine, that isn't aware of the hierarchy. This
-				is the main reason I'd want to change to the Composite Pattern:
-				greater orthogonality and simpler code.
-			</para>
-			<para> See TestResults.dia for more information.
-			</para>
-		</refsect2>
-	</refsect1>
-	
 	<refsect1 id="download_links">
 		<title>Download / Links</title>
 		<para> Test Parser is hosted on github
@@ -239,71 +186,6 @@ sudo make install
 	</refsect1>
 	
 	<refsect1>
-		<title>Documentation</title>
-		<para>There are two parts to the documentation:</para>
-		<itemizedlist>
-			<listitem><para>doxygen</para></listitem>
-			<listitem><para>docbook</para></listitem>
-		</itemizedlist>
-		<para>The doxygen output is built from the documentation
-			inlined in the code. Its more for developers than
-			end users. I setup doxygen to use
-			<ulink url="http://code.foosel.org/doxypy">doxypy</ulink>
-			according to instructions I found
-			<ulink url="http://www.joshuascotton.com/main/archives/80">
-			here</ulink> and
-			<ulink url="http://www.joshuascotton.com/main/archives/64">
-			here</ulink>.
-		</para>
-		<para> The docbook is more to end-users, but still contains
-			information for developers. This file is built from
-			said docbook.
-		</para>
-		<para> A script was provided in order to build the documentation
-			and is aptly named: <command>build_documentation.sh</command>.
-			While this script can be invoked directly, it is mainly for
-			use by setup.py. Setup.py has been customized so that when
-			sdist is invoked, it will call <command>build_documentation.sh
-			</command> and thus build all the documentation prior to packaging.
-			As of June 10, 2010, all of the documentation is entirely rebuilt
-			on each sdist invocation. Although I plan on designing it (probably
-			through make or similar) so that it will only rebuild necessary
-			files. At least if it gets to the point where it wastes too much
-			time.
-		</para>
-	</refsect1>
-	
-	<refsect1>
-		<title>Tests</title>
-		<para> The tests used to test this product are packaged along with
-			 it. This way anyone, including users, can run them on their
-			 machine. To run all of the tests, run test_runner.py.
-		</para>
-		<para> Possible reasons for a test to fail even though the code
-			is fine:
-			<itemizedlist>
-				<listitem><bridgehead>Data files</bridgehead>
-					<para>One of the data files used in testing (e.g: 
-					Boost_Test, xml) is missing or cannot be accessed.
-					If its missing, its probably b/c we accidentally
-					forgot to package it up with everything else. The
-					latter, can happen and isn't really worth fixing.
-					For instance, Boost_Test cannot be accessed when
-					the application has been installed in a virtualenv.
-					I haven't tried yet, but its also possible/likely
-					that the same is true for a normal installation.
-				</para></listitem>
-				<listitem><bridgehead>Threading</bridgehead>
-					<para>This is self explanatory.
-					Test cases that fail randomly <emphasis>might
-					</emphasis> be because of timing between
-					threads. Naturally we've tried to reduce all
-					threading issues.</para></listitem>
-			</itemizedlist>
-		</para>
-	</refsect1>
-	
-	<refsect1>
 		<title>Road map</title>
 		<para> I'm currently working on a simple non-interactive GUI.
 			But at the same time, I'm working on making the system more
@@ -314,6 +196,12 @@ sudo make install
 			have to iterate several times before the interactive version
 			is completely finished, so there will be several other minor
 			releases.
+		</para>
+	</refsect1>
+	
+	<refsect1>
+		<title>Technical Documentation</title>
+		<para>Go <ulink url="./technical.html">here</ulink> for the technical documentation.
 		</para>
 	</refsect1>
 	

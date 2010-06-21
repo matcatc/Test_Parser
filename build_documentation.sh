@@ -10,3 +10,7 @@ doxygen doxygen.Doxyfile
 echo "building docbook documentation"
 cd docbook
 xmlto html -m config.xsl manual.dbk
+mv index.html manual.html
+
+xmlto html -m config.xsl technical.dbk
+mv index.html technical.html
