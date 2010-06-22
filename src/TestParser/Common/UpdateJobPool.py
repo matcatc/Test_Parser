@@ -62,7 +62,7 @@ class UpdateJobPool(object):
         @pre see addThreads() regarding numThreads
         '''
         if not self._bPoolCreated:
-            print("creating thread pool", file=Constants.errStream)     # TODO: should be a log
+            Constants.logger.info("Creating thread pool")
             self._bPoolCreated = True
             self.addThreads(numThreads)
 
@@ -77,7 +77,7 @@ class UpdateJobPool(object):
         if self._bPoolCreated == False:
             raise NonExistentJobPool_Exception("cannot add threads to a job pool that hasn't been created")
 
-        print("adding threads:", numThreads, file=Constants.errStream)  # TODO: should be a log
+        Constants.logger.info("adding threads:" + str(numThreads))
         for x in range(numThreads):
             self._threadCount += 1
             thread = UpdateThread(self)
@@ -194,6 +194,7 @@ class UpdateThread (threading.Thread):
             if observer != None:
                 observer.update()
             else:
+                Constants.logger.warning(UpdateThread.NON_EXISTENT_OBSERVER_MSG)
                 print(UpdateThread.NON_EXISTENT_OBSERVER_MSG, file=Constants.errStream)
 
             # notify queue that job is done
@@ -203,5 +204,5 @@ class UpdateThread (threading.Thread):
             lock = threading.Lock()
             with lock:
                 if self._dieOff():
-                    print("Removing thread")
+                    Constants.logger.info("Removing thread")
                     return

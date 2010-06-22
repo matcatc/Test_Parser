@@ -26,7 +26,7 @@ from TestParser.Model import Model, TestRunner
 from TestParser.Parser import BoostParser
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
-import sys
+from TestParser.Common.Constants import Constants
 
 class TextView_Test(unittest.TestCase):
     '''
@@ -73,7 +73,7 @@ class TextView_Test(unittest.TestCase):
         model = Model.Model()
         runner = TestRunner.TestRunner()
         filepath = computeDataFilepath("../Model/Boost_Test", __file__)
-        print("filepath = ", filepath, file=sys.stderr)
+        Constants.logger.debug("filepath = " + filepath)
         runner.runner = filepath
         model.testRunner = runner
         model.parser = BoostParser.BoostParser()

@@ -21,6 +21,10 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
 
+import logging
+import logging.handlers
+
+
 class Constants_class(object):
     '''
     contains project wide constants.
@@ -32,13 +36,20 @@ class Constants_class(object):
      This way programs can use the error/warning that would be otherwise
      output strait to the console. Also very useful for testing purposes.
     
+    logger: logging instance
+     
+    
     @date Mar 28, 2010
     @author Matthew A. Todd
     '''
     
+    LOG_FILENAME = './TestParser.log'
+
+    
     def __init__(self):
         '''
         '''
+        self.handler = logging.FileHandler(Constants_class.LOG_FILENAME, 'w')
         self.reset()
     
     def reset(self):
@@ -46,6 +57,12 @@ class Constants_class(object):
         reset all the values to their default values
         '''
         self.errStream = sys.stderr
+        
+        # Set up a specific logger with our desired output level
+        self.logger = logging.getLogger('TestParser_Logger')
+        self.logger.setLevel(logging.DEBUG)
+        self.logger.addHandler(self.handler)
+
         
         
 Constants = Constants_class()
