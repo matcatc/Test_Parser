@@ -41,15 +41,14 @@ class Observable(object):
         '''
         Constructor
         '''
-        # TODO: make observers a property so that outside classes can't modify it?
-        self.observers = set([])
+        self._observers = set([])
         Observable._updateJobPool.createPool(Observable._NUMBER_THREADS)
         
     def registerObserver(self, observer):
-        self.observers.add(observer)
+        self._observers.add(observer)
     
     def removeObserver(self, observer):
-        self.observers.discard(observer)
+        self._observers.discard(observer)
     
     def notifyObservers(self):
         '''
@@ -62,7 +61,7 @@ class Observable(object):
         @warning this won't work if this code is being run in a daemonic
         thread as well.
         '''
-        for observer in self.observers:
+        for observer in self._observers:
             Observable._updateJobPool.addJob(observer)
             
         # don't return until all jobs processed

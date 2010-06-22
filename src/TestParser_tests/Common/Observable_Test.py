@@ -41,17 +41,17 @@ class Observable_Test(unittest.TestCase):
 
     def testRegister(self):
         self.subject.registerObserver(Observable_Test.subscriber)
-        self.assertEqual(len(self.subject.observers), 1)
+        self.assertEqual(len(self.subject._observers), 1)
     
     def testRemove(self):
         self.subject.registerObserver(Observable_Test.subscriber)
         self.subject.registerObserver(Observable_Test.subscriber2)
         
         self.subject.removeObserver(Observable_Test.subscriber)
-        self.assertEqual(len(self.subject.observers), 1)
+        self.assertEqual(len(self.subject._observers), 1)
 
         self.subject.removeObserver(Observable_Test.subscriber2)
-        self.assertEqual(len(self.subject.observers), 0)        
+        self.assertEqual(len(self.subject._observers), 0)        
         
 
     def testNotify(self):

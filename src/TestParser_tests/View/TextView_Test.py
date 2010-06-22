@@ -54,7 +54,7 @@ class TextView_Test(unittest.TestCase):
         '''
         Test that the view registers itself with the model on creation
         '''
-        self.assertTrue(self.view in self.model.observers)
+        self.assertTrue(self.view in self.model._observers)
 
     def test_update(self):
         '''
