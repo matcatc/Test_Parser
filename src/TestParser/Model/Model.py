@@ -119,5 +119,3 @@ class Model(Observable.Observable):
         with self.runLock:
             data = self.testRunner.runPrevious()
             self._doParse(data)
-            
-    # TODO: other runs (as needed)

@@ -122,6 +122,9 @@ class QtView(UiClass, WidgetClass):
     def _updateTreeWidget(self, results):
         '''
         Actually update the GUI treeView widget
+        
+        TODO: consider using a dictionary for colors. That we can just
+        change the dictionary to change colors.
         '''
 
         self._clearTreeWidget()

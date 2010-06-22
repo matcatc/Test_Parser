@@ -43,8 +43,6 @@ class IParse():
         Delegates to _parseData()
         @see _parseData()
         
-        TODO: verify this works for possible input types
-        
         stringData has a higher priority than file. So if both are provided,
         stringData will be used.
         
