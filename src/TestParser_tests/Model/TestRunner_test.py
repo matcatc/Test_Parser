@@ -89,6 +89,13 @@ class TestRunner_Test(unittest.TestCase):
         
         self.assertEqual(output1.decode("utf-8"), output2.decode("utf-8"))
         
+    def testRunPrevious_Invalid(self):
+        '''
+        Test what happens when rerunning w/o a previous run. Should output
+        to log and execute runAll().
+        '''
+        raise NotImplementedError
+        
     def testRunAll_echo(self):
         '''
         test runAll() using echo.

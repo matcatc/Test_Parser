@@ -107,6 +107,13 @@ class Model_test(unittest.TestCase):
         self.assertTrue(self.model.results is not None)
         self.assertNotEqual(self.model.results, oldResults)
         
+    def test_runPrevious(self):
+        '''
+        test that runPrevious returns same results (as it should when
+        running same exact tests.)
+        '''
+        raise NotImplementedError
+        
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
