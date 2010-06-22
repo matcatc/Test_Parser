@@ -129,7 +129,7 @@ class TestRunner(object):
         '''
         if self.previousCmd is None:
             # error/raise etc
-            print(TestRunner.NO_PREVIOUS_CMD_MESSAGE, file=Constants.errStream)
+            Constants.logger.warning(TestRunner.NO_PREVIOUS_CMD_MESSAGE)
             return self.runAll()
         return self.run(givenCmd = self.previousCmd)
             
