@@ -23,6 +23,8 @@ import unittest
 from TestParser.Common.UpdateJobPool import UpdateThread, UpdateJobPool
 from TestParser.Common.Constants import Constants
 
+import sys
+
 import io
 
 class UpdateThread_Test(unittest.TestCase):
@@ -33,9 +35,15 @@ class UpdateThread_Test(unittest.TestCase):
     '''
 
     def setUp(self):
-        Constants.errStream = io.StringIO()
+        '''
+        Setup errStream last so that no garbage gets in during
+        other initialization procedures.
+        '''
         self.jobPool = UpdateJobPool()
         self.jobPool.createPool(1)
+        
+        Constants.errStream = io.StringIO()        
+
 
     def tearDown(self):
         Constants.reset()
@@ -44,12 +52,15 @@ class UpdateThread_Test(unittest.TestCase):
     
     def test_runNone(self):
         '''
-        test that an error message is printed out when trying to process a
-        job that is None
+        Test that an error message is printed out when trying to process a
+        job that is None.
+        
+        Use MSG in stream so that if other stuff gets into the stream,
+        we don't fail.
         '''
         self.jobPool.addJob(None)
         self.jobPool.waitUntilJobsFinished_Raise()
-        self.assertEqual(Constants.errStream.getvalue(), UpdateThread.NON_EXISTENT_OBSERVER_MSG + "\n")
+        self.assertTrue(UpdateThread.NON_EXISTENT_OBSERVER_MSG + "\n" in Constants.errStream.getvalue())
 
 
 if __name__ == "__main__":
