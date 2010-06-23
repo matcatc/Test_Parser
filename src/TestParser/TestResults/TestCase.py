@@ -61,9 +61,6 @@ class TestCase(TestComponent.TestComponent):
         return self._timeTaken
     @timeTaken.setter
     def timeTaken(self, time): #@DuplicatedSignature
-        if time is None:
-            self._timeTaken = None
-            return
         if time < 0:
             raise ValueError("time is negative")
         self._timeTaken = time        

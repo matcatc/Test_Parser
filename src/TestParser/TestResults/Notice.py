@@ -63,7 +63,6 @@ class Notice(TestComponent.TestComponent):
         self.file = file
         self.line = line
         self.info = info
-#        self.type = type
 
     def getChildren(self):
         return []
@@ -82,7 +81,7 @@ class Notice(TestComponent.TestComponent):
         @throw ValueError if file name is empty
         '''
         if file == "":
-            raise ValueError("file name is empty")
+            raise ValueError("file name is empty")  # TODO: log?
         self._file = file
     @file.deleter
     def file(self): #@DuplicatedSignature
@@ -96,11 +95,8 @@ class Notice(TestComponent.TestComponent):
         '''
         @throw ValueError if line number is negative
         '''
-        if line is None:
-            self._line = None
-            return
         if line < 0:
-            raise ValueError("line number is negative")
+            raise ValueError("line number is negative")  # TODO: log?
         self._line = line
     @line.deleter
     def line(self): #@DuplicatedSignature
@@ -115,7 +111,7 @@ class Notice(TestComponent.TestComponent):
         Will print warning to errStream if empty string
         '''
         if info == "":
-            print(Notice.EMPTY_INFO, file=Constants.errStream)
+            print(Notice.EMPTY_INFO, file=Constants.errStream)  # TODO: log
         self._info = info
     @info.deleter
     def info(self): #@DuplicatedSignature
@@ -130,7 +126,7 @@ class Notice(TestComponent.TestComponent):
         Will print warning to errStream if empty string
         '''
         if type == "":
-            print(Notice.EMPTY_TYPE, file=Constants.errStream)
+            print(Notice.EMPTY_TYPE, file=Constants.errStream) # TODO: log
         self._type = type
     @type.deleter
     def type(self): #@DuplicatedSignature
