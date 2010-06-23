@@ -36,11 +36,14 @@ class TestComponent(object):
         where infotype is line, file, name, etc and data is a string.
         
         Views can then use this information to display how they please.
-        They can just output strait, using infotype to explain what data
+        They can just output it strait, using infotype to explain what data
         is (TextView.) Or they can check infotype to see what to do with
         the data (QtView.)
         
         Note: because type is already provided in this class here
          (TestComponent,) I'm not packaging it in subclasses.
+         
+        Note: the order of the tuples MAY have an effect upon the order
+        the data is displayed. If the data isn't parsed, for instance.
         '''
         raise NotImplementedError
