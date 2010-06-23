@@ -33,6 +33,11 @@ class TestComponent(object):
     def getRelevantDisplayData(self):
         '''
         Returns all the data to be displayed as a list of tuples: (infotype, data)
-        where infotype is line, file, name, etc.
+        where infotype is line, file, name, etc and data is a string.
+        
+        Views can then use this information to display how they please.
+        They can just output strait, using infotype to explain what data
+        is (TextView.) Or they can check infotype to see what to do with
+        the data (QtView.)
         '''
         raise NotImplementedError
