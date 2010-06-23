@@ -142,27 +142,37 @@ class QtView(UiClass, WidgetClass):
         
         @date Jun 23, 2010
         '''
+        TYPE = 0
+        NAME = 1
+        FILE = 2
+        LINE = 3
+        INFO = 4
+        TIME = 4
         numCols = self.treeWidget.columnCount()
         
         resultItem = QtGui.QTreeWidgetItem(parent)
         
-        resultItem.setText(0, result.type)
-        resultItem.setText(1, result.name)
-        resultItem.setText(2, result.file)
-        line = result.line if result.line is not None else "" 
-        resultItem.setText(3, str(line))
-        resultItem.setText(4, result.info)
+        resultItem.setText(TYPE, result.type)
+        
+        for infotype, data in result.getRelevantDisplayData():
+            if infotype == "name":
+                resultItem.setText(NAME, data)
+            elif infotype == "file":
+                resultItem.setText(FILE, data)
+            elif infotype == "line":
+                resultItem.setText(LINE, data)
+            elif infotype == "info":
+                resultItem.setText(INFO, data)
+            elif infotype == "time":
+                resultItem.setText(TIME, "time: " + data)
 
-        if result.type == "error":
-            self._colorRow(resultItem, numCols, QtView.redBrush)
-            return True
-
-        bRed = False
+        bRedChild = False
         for child in result.getChildren():
             if self._displayResults(resultItem, child) == True:
-                bRed = True
+                bRedChild = True
 
-        if bRed == True:
+        # if this is an error or we have a red colored child
+        if result.type == "error" or bRedChild == True:
             self._colorRow(resultItem, numCols, QtView.redBrush)
             return True
         else:
