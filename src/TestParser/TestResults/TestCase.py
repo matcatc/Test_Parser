@@ -17,8 +17,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from . import TestComponent
 
-class TestCase(object):
+class TestCase(TestComponent.TestComponent):
     '''
     A single test. Which may have multiple errors (asserts).
     
@@ -33,11 +34,15 @@ class TestCase(object):
         '''
         Constructor
         '''
+        super().__init__("TestCase")
         self.notices = []
         ## set of known types (of notices added)
         self.types = set()          
         self._timeTaken = 0
         self.name = name
+        
+    def getChildren(self):
+        return self.notices
     
     def hasType(self, type):
         '''

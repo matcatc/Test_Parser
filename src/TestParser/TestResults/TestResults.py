@@ -18,7 +18,9 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-class TestResults:
+from  . import TestComponent
+
+class TestResults(TestComponent.TestComponent):
     '''
     Contains the entire results from a run of tests. Organized into suites.
     
@@ -42,6 +44,7 @@ class TestResults:
         '''
         Constructor
         '''
+        super().__init__("TestResults")
         self.suites = set([])
         
     def suiteCount(self):
@@ -49,6 +52,8 @@ class TestResults:
         @Return the number of suites contained
         '''
         return len(self.suites)
-        
+    
+    def getChildren(self):
+        return self.suites
         
     

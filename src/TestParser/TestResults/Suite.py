@@ -17,8 +17,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from . import TestComponent
 
-class Suite:
+class Suite(TestComponent.TestComponent):
     '''
     Contains an entire suite of tests. Organized into test cases.
     
@@ -33,6 +34,7 @@ class Suite:
         '''
         Constructor
         '''
+        super().__init__("Suite")
         self.testCases = set([])
         self.name = name
         
@@ -44,3 +46,5 @@ class Suite:
         '''
         return len(self.testCases)
         
+    def getChildren(self):
+        return self.testCases

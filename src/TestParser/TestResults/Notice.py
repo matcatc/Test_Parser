@@ -22,8 +22,9 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from TestParser.Common.Constants import Constants
+from . import TestComponent
 
-class Notice():
+class Notice(TestComponent.TestComponent):
     '''
     Interface for Errors and Message types.
     
@@ -58,10 +59,14 @@ class Notice():
         @see type.setter
         @see info.setter
         '''
+        super().__init__(type)
         self.file = file
         self.line = line
         self.info = info
-        self.type = type
+#        self.type = type
+
+    def getChildren(self):
+        return []
         
     @property
     def file(self):
