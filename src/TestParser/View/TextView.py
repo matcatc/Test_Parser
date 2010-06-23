@@ -84,38 +84,32 @@ class TextView(Observer.Observer):
             return
         self._display(results)
         
-    def _display(self, results):
+    def _display(self, results, indentLevel = 0):
         '''
         display the test results to stdout
         
-        @pre results is of type TestResults (or equivalent)
-        '''
-        for suite in results.suites:
-            self._displaySuite(suite)
-            
-    def _displaySuite(self, suite):
-        '''
-        @pre suite is of type Suite (or equivalent)
-        '''
-        print("suite: ", suite.name)
-        for test in suite.testCases:
-            self._displayTest(test)
-            
-    def _displayTest(self, test):
-        '''
-        @pre test is of type Test (or equivalent)
-        '''
-        print("\ttest: ", test.name)
-        print("\t\t time: ", test.timeTaken)
-        for notice in test.notices:
-            self._displayNotice(notice)
-            
-    def _displayNotice(self, notice):
-        '''
-        @pre notice is of type Notice (or equivalent)
-        '''
-        print("\t\t", notice.type, "\tfile:", notice.file, "\tline:", notice.line, "\t", notice.info)
+        @pre results is of type TestComposite (or equivalent)
         
+        @param results is TestComposite
+        @param indentLevel is how many tabs to indent (how far down in levels
+            we are
+        '''
+        for result in results.getChildren():
+            printData = ""
+            if(result.name is not None):
+                printData += result.name
+            if(result.timeTaken is not None):
+                printData += "\ttime: " + str(result.timeTaken)
+            if(result.file is not None):
+                printData += "\tfile: " + result.file
+            if(result.line is not None):
+                printData += "\tline: " + str(result.line)
+            if(result.info is not None):
+                printData += "\tinfo: " + result.info
+                
+            print("\t"*indentLevel + result.type + ": " + printData)
+            self._display(result, indentLevel+1 )
+   
 
 class TextViewController(Controller.Controller):
     '''

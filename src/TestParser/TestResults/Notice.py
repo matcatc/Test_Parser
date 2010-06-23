@@ -91,6 +91,9 @@ class Notice(TestComponent.TestComponent):
         '''
         @throw ValueError if line number is negative
         '''
+        if line is None:
+            self._line = None
+            return
         if line < 0:
             raise ValueError("line number is negative")
         self._line = line

@@ -129,43 +129,56 @@ class QtView(UiClass, WidgetClass):
 
         self._clearTreeWidget()
         tree = self.treeWidget
+        
+        self._displayResults(tree, results)
 
-        numCols = tree.columnCount()
 
-        for suite in results.suites:
-            suiteItem = QtGui.QTreeWidgetItem(tree)
-            suiteItem.setText(0, "Suite")
-            suiteItem.setText(1, suite.name)
+    def _displayResults(self, parent, result):
+        '''
+        @param parent is the parent item in the tree
+        @param results results is all the Test Results data we want to 
+            display below given parent item
+        @return returns True if parent should be Red
+        
+        @date Jun 23, 2010
+        '''
+        numCols = self.treeWidget.columnCount()
+        
+        resultItem = QtGui.QTreeWidgetItem(parent)
+        
+        resultItem.setText(0, result.type)
+        resultItem.setText(1, result.name)
+        resultItem.setText(2, result.file)
+        line = result.line if result.line is not None else "" 
+        resultItem.setText(3, str(line))
+        resultItem.setText(4, result.info)
 
-            for i in range(numCols):
-                suiteItem.setBackground(i, QtView.greenBrush)
+        if result.type == "error":
+            self._colorRow(resultItem, numCols, QtView.redBrush)
+            return True
 
-            for test in suite.testCases:
-                testItem = QtGui.QTreeWidgetItem(suiteItem)
-                testItem.setText(0, "Test")
-                testItem.setText(1, test.name)
+        bRed = False
+        for child in result.getChildren():
+            if self._displayResults(resultItem, child) == True:
+                bRed = True
 
-                for i in range(numCols):
-                    testItem.setBackground(i, QtView.greenBrush)
-
-                for notice in test.notices:
-                    noticeItem = QtGui.QTreeWidgetItem(testItem)
-                    noticeItem.setText(0, notice.type)
-                    noticeItem.setText(2, notice.file)
-                    noticeItem.setText(3, str(notice.line))
-                    noticeItem.setText(4, notice.info)
-
-                    # TODO: this is somewhat hardcoded
-                    #  better: static/const list of items to color red
-                    if notice.type == "error":
-                        for i in range(numCols):
-                            noticeItem.setBackground(i, QtView.redBrush)
-                            testItem.setBackground(i, QtView.redBrush)
-                            suiteItem.setBackground(i, QtView.redBrush)
-                    else:
-                        for i in range(numCols):
-                            noticeItem.setBackground(i, QtView.greenBrush)
-
+        if bRed == True:
+            self._colorRow(resultItem, numCols, QtView.redBrush)
+            return True
+        else:
+            self._colorRow(resultItem, numCols, QtView.greenBrush)
+            return False
+        
+    def _colorRow(self, item, numCols, brush):
+        '''
+        Colors a given item across all cols (the entire row)
+        with the given brush.
+        
+        @date Jun 23, 2010
+        '''
+        for i in range(numCols):
+            item.setBackground(i, brush)
+        
 
 class QtViewController(Controller.Controller):
     '''
