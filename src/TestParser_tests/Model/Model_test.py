@@ -109,10 +109,15 @@ class Model_test(unittest.TestCase):
         
     def test_runPrevious(self):
         '''
-        test that runPrevious returns same results (as it should when
-        running same exact tests.)
+        Check for typos.
+        
+        Would like to compare results from runPrevious() with a previous
+        run(), but don't know how to compare results and that's already
+        checked in TestRunner_test
         '''
-        raise NotImplementedError
+        self.model.testRunner = self.runner
+        self.model.parser = Model_test.parser
+        self.model.runPrevious()
         
 
 if __name__ == "__main__":
