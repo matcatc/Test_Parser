@@ -153,6 +153,7 @@ class QtView(UiClass, WidgetClass):
         
         resultItem.setText(QtView.TYPE_COL, result.type)
         
+        # parse and display data
         for infotype, data in result.getRelevantDisplayData():
             if infotype == "name":
                 resultItem.setText(QtView.NAME_COL, data)
@@ -165,13 +166,12 @@ class QtView(UiClass, WidgetClass):
             elif infotype == "time":
                 resultItem.setText(QtView.TIME_COL, "time: " + data)
 
-        bRedChild = False
+        haveRedChild = False
         for child in result.getChildren():
             if self._displayResults(resultItem, child) == True:
-                bRedChild = True
+                haveRedChild = True
 
-        # if this is an error or we have a red colored child
-        if result.type == "error" or bRedChild == True:
+        if result.type == "error" or haveRedChild == True:
             self._colorRow(resultItem, numCols, QtView.redBrush)
             return True
         else:
