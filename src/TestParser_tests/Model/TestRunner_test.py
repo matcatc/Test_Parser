@@ -94,7 +94,15 @@ class TestRunner_Test(unittest.TestCase):
         Test what happens when rerunning w/o a previous run. Should output
         to log and execute runAll().
         '''
-        raise NotImplementedError
+        input = "echo test output"
+        self.runner.runner = "echo"
+        
+        output1 = self.runner.runPrevious()
+        
+        output2 = self.runner.runAll()
+        
+        self.assertEqual(output1.decode("utf-8"), output2.decode("utf-8"))
+        
         
     def testRunAll_echo(self):
         '''

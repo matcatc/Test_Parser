@@ -59,6 +59,7 @@ class TestRunner(object):
         ## string containing name / path of the test program to be run 
         self.runner = None
         self.logLevel = TestRunner.LOG_LVL_TESTSUITE
+        self.previousCmd = None
     
     @property
     def runner(self):
