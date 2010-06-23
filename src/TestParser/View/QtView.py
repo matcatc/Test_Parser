@@ -40,6 +40,14 @@ class QtView(UiClass, WidgetClass):
     green = QtGui.QColor("green")
     redBrush = QtGui.QBrush(red)
     greenBrush = QtGui.QBrush(green)
+    
+    
+    TYPE_COL = 0
+    NAME_COL = 1
+    FILE_COL = 2
+    LINE_COL = 3
+    INFO_COL = 4
+    TIME_COL = 4
 
     @staticmethod
     def startView(model):
@@ -142,29 +150,23 @@ class QtView(UiClass, WidgetClass):
         
         @date Jun 23, 2010
         '''
-        TYPE = 0
-        NAME = 1
-        FILE = 2
-        LINE = 3
-        INFO = 4
-        TIME = 4
         numCols = self.treeWidget.columnCount()
         
         resultItem = QtGui.QTreeWidgetItem(parent)
         
-        resultItem.setText(TYPE, result.type)
+        resultItem.setText(QtView.TYPE_COL, result.type)
         
         for infotype, data in result.getRelevantDisplayData():
             if infotype == "name":
-                resultItem.setText(NAME, data)
+                resultItem.setText(QtView.NAME_COL, data)
             elif infotype == "file":
-                resultItem.setText(FILE, data)
+                resultItem.setText(QtView.FILE_COL, data)
             elif infotype == "line":
-                resultItem.setText(LINE, data)
+                resultItem.setText(QtView.LINE_COL, data)
             elif infotype == "info":
-                resultItem.setText(INFO, data)
+                resultItem.setText(QtView.INFO_COL, data)
             elif infotype == "time":
-                resultItem.setText(TIME, "time: " + data)
+                resultItem.setText(QtView.TIME_COL, "time: " + data)
 
         bRedChild = False
         for child in result.getChildren():

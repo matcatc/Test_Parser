@@ -39,5 +39,8 @@ class TestComponent(object):
         They can just output strait, using infotype to explain what data
         is (TextView.) Or they can check infotype to see what to do with
         the data (QtView.)
+        
+        Note: because type is already provided in this class here
+         (TestComponent,) I'm not packaging it in subclasses.
         '''
         raise NotImplementedError
