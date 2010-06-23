@@ -55,7 +55,7 @@ class Model(Observable.Observable):
         self.results = None
         self.testRunner = None
         self.parser = None
-        self.runLock = threading.Lock()
+        self._runLock = threading.Lock()
     
     @property
     def results(self):
@@ -106,7 +106,7 @@ class Model(Observable.Observable):
         We could always make data a thread local variable,
         but I think locking the entire function seems reasonable.
         '''
-        with self.runLock:
+        with self._runLock:
             data = self.testRunner.runAll()
             self._doParse(data)
 
@@ -116,6 +116,6 @@ class Model(Observable.Observable):
         
         @see TestRunner.runPrevious()
         '''
-        with self.runLock:
+        with self._runLock:
             data = self.testRunner.runPrevious()
             self._doParse(data)
