@@ -21,16 +21,18 @@ class TestComponent(object):
         Constructor
         '''
         self.type = type
-        self.name = None
-        self.timeTaken = None
-        self.file = None
-        self.line = None
-        self.info = None
         
     def getChildren(self):
         '''
         Get all children/composed items.
         
         To be implemented in subclasses.
+        '''
+        raise NotImplementedError
+    
+    def getRelevantDisplayData(self):
+        '''
+        Returns all the data to be displayed as a list of tuples: (infotype, data)
+        where infotype is line, file, name, etc.
         '''
         raise NotImplementedError

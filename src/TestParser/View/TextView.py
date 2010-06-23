@@ -96,16 +96,9 @@ class TextView(Observer.Observer):
         '''
         for result in results.getChildren():
             printData = ""
-            if(result.name is not None):
-                printData += result.name
-            if(result.timeTaken is not None):
-                printData += "\ttime: " + str(result.timeTaken)
-            if(result.file is not None):
-                printData += "\tfile: " + result.file
-            if(result.line is not None):
-                printData += "\tline: " + str(result.line)
-            if(result.info is not None):
-                printData += "\tinfo: " + result.info
+            for infotype, data in result.getRelevantDisplayData():
+                if infotype is not None and data is not None:
+                    printData += "\t" + infotype + ": " + data
                 
             print("\t"*indentLevel + result.type + ": " + printData)
             self._display(result, indentLevel+1 )

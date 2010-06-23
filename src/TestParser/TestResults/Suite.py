@@ -48,3 +48,6 @@ class Suite(TestComponent.TestComponent):
         
     def getChildren(self):
         return self.testCases
+    
+    def getRelevantDisplayData(self):
+        return [("name", self.name)]

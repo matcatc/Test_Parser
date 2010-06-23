@@ -55,5 +55,8 @@ class TestResults(TestComponent.TestComponent):
     
     def getChildren(self):
         return self.suites
+    
+    def getRelevantDisplayData(self):
+        return []
         
     

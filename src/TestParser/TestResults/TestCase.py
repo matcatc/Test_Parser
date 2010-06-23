@@ -44,6 +44,10 @@ class TestCase(TestComponent.TestComponent):
     def getChildren(self):
         return self.notices
     
+    def getRelevantDisplayData(self):
+        return [("name", self.name),
+                 ("time", str(self.timeTaken))]
+    
     def hasType(self, type):
         '''
         Whether test case has a given type of notice

@@ -67,6 +67,11 @@ class Notice(TestComponent.TestComponent):
 
     def getChildren(self):
         return []
+    
+    def getRelevantDisplayData(self):
+        return [("file", self.file),
+                ("line", str(self.line)),
+                ("info", self.info)]
         
     @property
     def file(self):
