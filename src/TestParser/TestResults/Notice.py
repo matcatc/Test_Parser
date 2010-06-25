@@ -28,6 +28,8 @@ class Notice(TestComponent.TestComponent):
     '''
     Interface for Errors and Message types.
     
+    Composite.
+    
     Used in TestCase. This way, a single list can hold
     Errors and Messages in the order they occurred.
     The other option would be to keep them separate,
