@@ -37,7 +37,7 @@ class Suite(TestComponent.TestComponent):
         Constructor
         '''
         super().__init__("Suite")
-        self.testCases = set([])
+        self.testCases = []
         self.name = name
         
     def testCount(self):

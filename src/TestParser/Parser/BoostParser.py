@@ -64,7 +64,7 @@ class BoostParser(IParse.IParse):
         
         for test in suiteTree.getiterator():
             if test.tag == "TestSuite":
-                suite.testCases.add(self._parseTestCase(test)) 
+                suite.testCases.append(self._parseTestCase(test)) 
         
         return suite
     
