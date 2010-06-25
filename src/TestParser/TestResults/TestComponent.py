@@ -5,11 +5,19 @@
 
 class TestComponent(object):
     '''
-    Abstract class for Test Results Composite pattern.
+    Abstract class for Test Results Composite pattern (Component.)
     
-    Currently we have to set variables that could be set to None here,
-    so that we don't get attribute errors.
-    TODO: find better solution
+    
+    @verbatim
+    Example:
+    TestResults
+        Suite
+            TestCase
+                Notice (Error / Message)
+    @endverbatim
+    
+                    
+    @see TestResults.dia for more information (doc folder)
     
     @date Jun 23, 2010
     @author Matthew A. Todd

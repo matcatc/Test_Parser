@@ -24,17 +24,9 @@ class TestResults(TestComponent.TestComponent):
     '''
     Contains the entire results from a run of tests. Organized into suites.
     
-    Basically a glorified set.
-
-    @verbatim
-    Structured as follows:
-    TestResults
-        Suite
-            TestCase
-                Notice (Error / Message)
-    @endverbatim
-                
-    @see TestResults.dia for more information (doc folder)
+    A composite.
+    
+    Basically a glorified container.
         
     @date Feb 17, 2010
     @author Matthew A. Todd
