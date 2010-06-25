@@ -116,6 +116,21 @@ class TestCase_Test(unittest.TestCase):
         self.assertEquals(len(self.test.getNoticesOfType(type)), amount)
         self.assertTrue(notice2 in self.test.getNoticesOfType(type))
         
+        
+    def test_getChildren(self):
+        '''
+        test for typos and that function overridden
+        '''
+        self.test.getChildren()
+        
+    def test_getRelevantDisplayData(self):
+        '''
+        test that name and time data returned
+        '''
+        data = self.test.getRelevantDisplayData()
+        types = [typeinfo for typeinfo, x in data]
+        self.assertTrue("name" in types)
+        self.assertTrue("time" in types)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
