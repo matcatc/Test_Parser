@@ -23,7 +23,9 @@ class Suite(TestComponent.TestComponent):
     '''
     Contains an entire suite of tests. Organized into test cases.
     
-    Basically just a glorified set.
+    Composite.
+    
+    Basically just a glorified container.
     
 
     @date Feb 17, 2010

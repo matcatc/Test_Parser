@@ -23,6 +23,8 @@ class TestCase(TestComponent.TestComponent):
     '''
     A single test. Which may have multiple errors (asserts).
     
+    Composite.
+    
     Messages and errors are contained in one list, so that the order in which
     they occurred is not lost. This is why they both inherit INotice.
     
