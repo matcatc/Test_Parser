@@ -32,20 +32,20 @@ class TestResults_Test(unittest.TestCase):
 
 
     def tearDown(self):
-        self.results.suites.clear()
+        del self.results.suites[:]
         del self.results
         
     def testSuiteCount(self):
         amount = 18
         for i in range(amount):
             suite = Suite()
-            self.results.suites.add(suite)
+            self.results.suites.append(suite)
             
         self.assertEqual(self.results.suiteCount(), amount)
         self.assertFalse(self.suite in self.results.suites)
         
     def testGetSuites(self):
-        self.results.suites.add(self.suite)
+        self.results.suites.append(self.suite)
         self.assertTrue(self.suite in self.results.suites)
         self.assertFalse(Suite() in self.results.suites)
         

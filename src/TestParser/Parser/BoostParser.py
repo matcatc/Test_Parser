@@ -52,7 +52,7 @@ class BoostParser(IParse.IParse):
         
         for suite in tree.getiterator():
             if suite.tag == "TestLog":
-                results.suites.add(self._parseSuite(suite))
+                results.suites.append(self._parseSuite(suite))
         
         
         return results
