@@ -56,6 +56,7 @@ class TestResults_Test(unittest.TestCase):
     def test_getChildren(self):
         '''
         just check for typos
+        and function is overridden
         '''
         self.results.getChildren()
 
