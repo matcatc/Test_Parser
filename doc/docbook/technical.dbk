@@ -54,20 +54,19 @@
 				without having to commit to it.</para>
 		</refsect2>
 		<refsect2>
-			<title>TestResults</title>
-			<para>TestResults is currently "hard-coded," in that the hierarchy
-				is predetermined. We should consider
-				changing TestResults to use the Composite Pattern. This
-				would allow for a more flexible hierarchy, although we
-				might have unusual instances (e.g: test containing a suite.)
-				But even if that's what the test runner outputs, we shouldn't
-				worry about it.
+			<title>Test Results</title>
+			<para> Test Results is now structured using the Composite Pattern.
+				Parsing code hasn't changed, and I don't think the parsing
+				code will ever deal with the more abstract/generic info.
+				But the ui code is now more generalized, thus allowing it
+				to handle changes that may occur in Test Results in the future
+				without having to change. Ui code just takes an abstract
+				object, and asks for its data and children. It then parses/
+				displays the data and recurses on the children.
 			</para>
-			<para> Also, the code to run through the
-				TestResults and display it could be changed to a more flexible
-				recursion routine, that isn't aware of the hierarchy. This
-				is the main reason I'd want to change to the Composite Pattern:
-				greater orthogonality and simpler code.
+			<para> The net result is that Ui code does not make any assumptions
+				about the type of object and thus more Test Result classes can
+				be added later without breaking Ui code.
 			</para>
 			<para> See TestResults.dia for more information.
 			</para>
