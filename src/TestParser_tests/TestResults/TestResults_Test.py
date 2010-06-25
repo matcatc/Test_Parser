@@ -48,6 +48,16 @@ class TestResults_Test(unittest.TestCase):
         self.results.suites.add(self.suite)
         self.assertTrue(self.suite in self.results.suites)
         self.assertFalse(Suite() in self.results.suites)
+        
+    def test_getRelevantDisplayData(self):
+        length = len(self.results.getRelevantDisplayData())
+        self.assertEqual(length, 0)
+        
+    def test_getChildren(self):
+        '''
+        just check for typos
+        '''
+        self.results.getChildren()
 
 
 if __name__ == "__main__":
