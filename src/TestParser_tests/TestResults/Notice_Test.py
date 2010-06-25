@@ -105,6 +105,19 @@ class Notice_Test(unittest.TestCase):
         self.notice.type = ""
         self.assertEqual(Constants.errStream.getvalue(), Notice.EMPTY_TYPE + "\n")
 
+    def test_getChildren(self):
+        length = len(self.notice.getChildren())
+        self.assertEqual(length, 0)
+        
+    def test_getRelevantDisplayData(self):
+        '''
+        test that file, line, and info data is returned
+        '''
+        data = self.notice.getRelevantDisplayData()
+        types = [infotype for infotype, x in data]
+        self.assertTrue("file" in types)
+        self.assertTrue("line" in types)
+        self.assertTrue("info" in types)
 
 
 if __name__ == "__main__":
