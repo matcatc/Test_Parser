@@ -42,6 +42,8 @@ class Notice(TestComponent.TestComponent):
     
     EMPTY_INFO = "Warning: info is empty"
     EMPTY_TYPE = "Warning: type is empty"
+    EMPTY_FILE = "Warning: file is empty"
+    NEGATIVE_LINE = "Error: line number is negative"
 
     def __init__(self, file, line, info, type):
         '''
@@ -81,9 +83,11 @@ class Notice(TestComponent.TestComponent):
     def file(self, file): #@DuplicatedSignature
         '''
         @throw ValueError if file name is empty
+        # TODO: should we really raise an exception here?
         '''
         if file == "":
-            raise ValueError("file name is empty")  # TODO: log?
+            Constants.logger.warning(Notice.EMPTY_FILE)
+            raise ValueError("file name is empty")
         self._file = file
     @file.deleter
     def file(self): #@DuplicatedSignature
@@ -98,7 +102,8 @@ class Notice(TestComponent.TestComponent):
         @throw ValueError if line number is negative
         '''
         if line < 0:
-            raise ValueError("line number is negative")  # TODO: log?
+            Constants.logger.error(Notice.NEGATIVE_LINE)
+            raise ValueError("line number is negative")
         self._line = line
     @line.deleter
     def line(self): #@DuplicatedSignature
@@ -110,10 +115,10 @@ class Notice(TestComponent.TestComponent):
     @info.setter
     def info(self, info): #@DuplicatedSignature
         '''
-        Will print warning to errStream if empty string
+        Will print warning to log if empty string
         '''
         if info == "":
-            print(Notice.EMPTY_INFO, file=Constants.errStream)  # TODO: log
+            Constants.logger.warning(Notice.EMPTY_INFO)
         self._info = info
     @info.deleter
     def info(self): #@DuplicatedSignature
@@ -125,10 +130,10 @@ class Notice(TestComponent.TestComponent):
     @type.setter
     def type(self, type): #@DuplicatedSignature
         '''
-        Will print warning to errStream if empty string
+        Will print warning to log if empty string
         '''
         if type == "":
-            print(Notice.EMPTY_TYPE, file=Constants.errStream) # TODO: log
+            Constants.logger.warning(Notice.EMPTY_TYPE)
         self._type = type
     @type.deleter
     def type(self): #@DuplicatedSignature

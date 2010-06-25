@@ -19,6 +19,8 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 from . import TestComponent
 
+from ..Common.Constants import Constants
+
 class TestCase(TestComponent.TestComponent):
     '''
     A single test. Which may have multiple errors (asserts).
@@ -31,6 +33,8 @@ class TestCase(TestComponent.TestComponent):
     @date Feb 17, 2010
     @author Matthew A. Todd
     '''
+
+    NEGATIVE_TIME = "Error: time is negative"
 
     def __init__(self, name = ""):
         '''
@@ -64,7 +68,7 @@ class TestCase(TestComponent.TestComponent):
     @timeTaken.setter
     def timeTaken(self, time): #@DuplicatedSignature
         if time < 0:
-            # TODO: log?
+            Constants.logger.error(TestCase.NEGATIVE_TIME)
             raise ValueError("time is negative")
         self._timeTaken = time        
     @timeTaken.deleter

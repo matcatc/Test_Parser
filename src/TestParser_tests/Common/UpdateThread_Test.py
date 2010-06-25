@@ -62,6 +62,7 @@ class UpdateThread_Test(unittest.TestCase):
         self.jobPool.waitUntilJobsFinished_Raise()
         # TODO: can we check the log instead?
         # that way we can ditch the printing to errStream
+        # or perhaps we shouldn't be checking something like this.
         self.assertTrue(UpdateThread.NON_EXISTENT_OBSERVER_MSG + "\n" in Constants.errStream.getvalue())
 
 

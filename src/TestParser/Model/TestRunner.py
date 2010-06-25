@@ -51,6 +51,9 @@ class TestRunner(object):
     
     ## message for when no previous cmd to rerun
     NO_PREVIOUS_CMD_MESSAGE = "No previous cmd to rerun. Running all."
+    
+    ## message for when runner is None
+    RUNNER_NONE = "warning: runner is none"
 
     def __init__(self):
         '''
@@ -101,6 +104,7 @@ class TestRunner(object):
         '''
         if self.runner is None:
             # TODO: raise an exception?
+            Constants.logger.warning(TestRunner.RUNNER_NONE)
             return None
         
         try:

@@ -91,20 +91,6 @@ class Notice_Test(unittest.TestCase):
         self.assertEqual(self.notice.info, self.info)
         self.assertEqual(self.notice.type, self.type)
 
-    def test_emptyInfo(self):
-        '''
-        test that a warning is output when info is an empty string
-        '''
-        self.notice.info = ""
-        self.assertEqual(Constants.errStream.getvalue(), Notice.EMPTY_INFO + "\n")
-
-    def test_emptyType(self):
-        '''
-        test that a warning is output when type string is empty
-        '''
-        self.notice.type = ""
-        self.assertEqual(Constants.errStream.getvalue(), Notice.EMPTY_TYPE + "\n")
-
     def test_getChildren(self):
         length = len(self.notice.getChildren())
         self.assertEqual(length, 0)
