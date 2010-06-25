@@ -63,6 +63,21 @@ class Suite_Test(unittest.TestCase):
     def testGetTestCases(self):
         self.suite.testCases.add(self.test)
         self.assertTrue(self.test in self.suite.testCases)
+        
+        
+    def test_getChildren(self):
+        '''
+        test for typos and that function is overridden
+        '''
+        self.suite.getChildren()
+        
+    def test_getRelevantDisplayData(self):
+        '''
+        test that name data is returned
+        '''
+        data = self.suite.getRelevantDisplayData()
+        types = [typeinfo for typeinfo, x in data]
+        self.assertTrue("name" in types)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
