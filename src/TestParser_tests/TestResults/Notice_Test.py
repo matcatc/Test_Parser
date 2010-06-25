@@ -91,6 +91,18 @@ class Notice_Test(unittest.TestCase):
         self.assertEqual(self.notice.info, self.info)
         self.assertEqual(self.notice.type, self.type)
 
+    def test_emptyInfo(self):
+        '''
+        cause logging code to be executed for typo checking purposes
+        '''
+        self.notice.info = ""
+
+    def test_emptyType(self):
+        '''
+        cause logging code to be executed for typo checking purposes
+        '''
+        self.notice.type = ""
+
     def test_getChildren(self):
         length = len(self.notice.getChildren())
         self.assertEqual(length, 0)
