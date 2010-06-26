@@ -184,20 +184,14 @@ class QtView(UiClass, WidgetClass):
         
         self._displayData(resultItem, result)
 
-        returnedBrushItem = None        # returned (item, brush) tuple
+        returnedBrushItems = []        # returned (item, brush) tuple
         for child in result.getChildren():
             temp = self._displayResults(resultItem, child)
             
             if temp is not None:
-                # we have a conflict of items to propagate up, resolve
-                if returnedBrushItem is not None:
-                    if QtView._priorityItem(temp[0])  \
-                        < QtView._priorityItem(returnedBrushItem[0]):
-                        returnedBrushItem = temp
-                else:
-                    returnedBrushItem = temp
+                returnedBrushItems.append(temp)
 
-        return self._colorRow(resultItem, result, returnedBrushItem)
+        return self._colorRow(resultItem, result, returnedBrushItems)
         
     def _displayData(self, resultItem, result):
         '''
@@ -226,7 +220,7 @@ class QtView(UiClass, WidgetClass):
             elif infotype == "time":
                 resultItem.setText(QtView.TIME_COL, "time: " + data)
                 
-    def _colorRow(self, resultItem, result, returnedBrushItem):
+    def _colorRow(self, resultItem, result, returnedBrushItems):
         '''
         Determine which brush/color to use and color the row.
         
@@ -244,11 +238,16 @@ class QtView(UiClass, WidgetClass):
         @return item, brush tuple if brush should propagate up.
         @date Jun 26, 2010
         '''
-        if returnedBrushItem is not None:
-            retItem = returnedBrushItem[0]
-            retBrush = returnedBrushItem[1]
-        else:
-            retItem = retBrush = None
+        # get highest priority brush of those propagating up
+        propagateItem = None
+        propagateBrush = None
+        for item, brush in returnedBrushItems:
+            if item is not None and brush is not None:
+                if QtView._priorityItem(item) \
+                        < QtView._priorityItem(propagateItem):
+                    propagateItem = item
+                    propagateBrush = brush
+
         
         # get brush for current item
         try:
@@ -257,24 +256,24 @@ class QtView(UiClass, WidgetClass):
             brush = QtView.DEFAULT_BRUSH
 
         
-        propagateUp = result.type in QtView.PROPAGATING_ITEMS
-        brushReturned = retBrush is not None
+        thisPropagateUp = result.type in QtView.PROPAGATING_ITEMS
+        childPropagateUp = propagateBrush is not None
         
         # determine which brush to use
-        if propagateUp and brushReturned:   
-            if QtView._priorityItem(retItem) \
+        if thisPropagateUp and childPropagateUp:   
+            if QtView._priorityItem(propagateItem) \
                     < QtView._priorityItem(result.type):
-                self._colorRow_helper(resultItem, retBrush)
-                return (retItem, retBrush)
+                self._colorRow_helper(resultItem, propagateBrush)
+                return (propagateItem, propagateBrush)
             else:
                 self._colorRow_helper(resultItem, brush)
                 return (result.type, brush)
-        elif propagateUp:
+        elif thisPropagateUp:
             self._colorRow_helper(resultItem, brush)
             return (result.type, brush)
-        elif brushReturned:
-            self._colorRow_helper(resultItem, retBrush)
-            return (result.type, retBrush)
+        elif childPropagateUp:
+            self._colorRow_helper(resultItem, propagateBrush)
+            return (propagateItem, propagateBrush)
         else:
             self._colorRow_helper(resultItem,  brush)
             return None
