@@ -164,6 +164,7 @@ class QtView(UiClass, WidgetClass):
         self._clearTreeWidget()
         tree = self.treeWidget
         
+        self.numCols = self.treeWidget.columnCount()
         self._displayResults(tree, results)
 
 
@@ -179,8 +180,6 @@ class QtView(UiClass, WidgetClass):
         
         @date Jun 23, 2010
         '''
-        numCols = self.treeWidget.columnCount()
-        
         resultItem = QtGui.QTreeWidgetItem(parent)
         
         resultItem.setText(QtView.TYPE_COL, result.type)
@@ -200,7 +199,7 @@ class QtView(UiClass, WidgetClass):
                 else:
                     returnedBrushItem = temp
 
-        return self._colorRow(resultItem, numCols, result, returnedBrushItem)
+        return self._colorRow(resultItem, result, returnedBrushItem)
         
     def _displayRelevantData(self, resultItem, relevantDisplayData):
         '''
@@ -224,7 +223,7 @@ class QtView(UiClass, WidgetClass):
             elif infotype == "time":
                 resultItem.setText(QtView.TIME_COL, "time: " + data)
                 
-    def _colorRow(self, resultItem, numCols, result, returnedBrushItem):
+    def _colorRow(self, resultItem, result, returnedBrushItem):
         '''
         Determine which brush/color to use and color the row.
         
@@ -255,22 +254,22 @@ class QtView(UiClass, WidgetClass):
         if propagateUp and brushReturned:   
             if QtView._priorityItem(retItem) \
                     < QtView._priorityItem(result.type):
-                self._colorRow_helper(resultItem, numCols, retBrush)
+                self._colorRow_helper(resultItem, retBrush)
                 return (retItem, retBrush)
             else:
-                self._colorRow_helper(resultItem, numCols, brush)
+                self._colorRow_helper(resultItem, brush)
                 return (result.type, brush)
         elif propagateUp:
-            self._colorRow_helper(resultItem, numCols, brush)
+            self._colorRow_helper(resultItem, brush)
             return (result.type, brush)
         elif brushReturned:
-            self._colorRow_helper(resultItem, numCols, retBrush)
+            self._colorRow_helper(resultItem, retBrush)
             return (result.type, retBrush)
         else:
-            self._colorRow_helper(resultItem, numCols, brush)
+            self._colorRow_helper(resultItem,  brush)
             return None
         
-    def _colorRow_helper(self, item, numCols, brush):
+    def _colorRow_helper(self, item,  brush):
         '''
         Colors a given item across all cols (the entire row)
         with the given brush.
@@ -281,7 +280,7 @@ class QtView(UiClass, WidgetClass):
         
         @date Jun 23, 2010
         '''
-        for i in range(numCols):
+        for i in range(self.numCols):
             item.setBackground(i, brush)
     
     @staticmethod    
