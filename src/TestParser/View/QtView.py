@@ -173,8 +173,8 @@ class QtView(UiClass, WidgetClass):
         @param results results is all the Test Results data we want to 
             display below given parent item
             
-        @return returns Brush if a particular brush/color should work
-            its way up (eg: we had an error, therefore error's color
+        @return returns (item, brush) if a particular brush/color should
+            propagate up (eg: we had an error, therefore error's color
             should work its way up)
         
         @date Jun 23, 2010
@@ -186,56 +186,29 @@ class QtView(UiClass, WidgetClass):
         resultItem.setText(QtView.TYPE_COL, result.type)
         
         self._displayRelevantData(resultItem, result.getRelevantDisplayData())
-       
-        retBrush = None
-        retItem = None
+
+        returnedBrushItem = None        # returned (item, brush) tuple
         for child in result.getChildren():
             temp = self._displayResults(resultItem, child)
+            
             if temp is not None:
-                # we have a conflict of items to return up, need to resolve
-                if retItem is not None:
+                # we have a conflict of items to propagate up, resolve
+                if returnedBrushItem is not None:
                     if QtView._priorityItem(temp[0])  \
-                        < QtView._priorityItem(retItem):
-                        retItem = temp[0]
-                        retBrush = temp[1]
+                        < QtView._priorityItem(returnedBrushItem[0]):
+                        returnedBrushItem = temp
                 else:
-                    retItem = temp[0]
-                    retBrush = temp[1]
+                    returnedBrushItem = temp
 
-        #TODO: extract method? (next 3 blocks)
-        try:
-            brush = QtView.colorBrushes[result.type]
-        except KeyError:
-            brush = QtView.DEFAULT_BRUSH
-
-        
-        propagateUp = result.type in QtView.PROPAGATING_ITEMS
-        brushReturned = retBrush is not None
-        
-        # determine which brush to use
-        if propagateUp and brushReturned:   
-            if QtView._priorityItem(retItem) \
-                    < QtView._priorityItem(result.type):
-                self._colorRow(resultItem, numCols, retBrush)
-                return (retItem, retBrush)
-            else:
-                self._colorRow(resultItem, numCols, brush)
-                return (result.type, brush)
-        elif propagateUp:
-            self._colorRow(resultItem, numCols, brush)
-            return (result.type, brush)
-        elif brushReturned:
-            self._colorRow(resultItem, numCols, retBrush)
-            return (result.type, retBrush)
-        else:
-            self._colorRow(resultItem, numCols, brush)
-            return None
+        return self._colorRow(resultItem, numCols, result, returnedBrushItem)
         
     def _displayRelevantData(self, resultItem, relevantDisplayData):
         '''
         Parses relevant display data and displays it.
         
-        helper function
+        helper function for _displayResults()
+        
+        @see _displayResults()
         
         @date Jun 26, 2010
         '''
@@ -250,11 +223,61 @@ class QtView(UiClass, WidgetClass):
                 resultItem.setText(QtView.INFO_COL, data)
             elif infotype == "time":
                 resultItem.setText(QtView.TIME_COL, "time: " + data)
+                
+    def _colorRow(self, resultItem, numCols, result, returnedBrushItem):
+        '''
+        Determine which brush/color to use and color the row.
         
-    def _colorRow(self, item, numCols, brush):
+        helper function for _displayResults()
+        
+        Returns (item, brush) if the brush is to propagate up.
+        @see _displayResults()
+        
+        @return item, brush tuple if brush should propagate up.
+        @date Jun 26, 2010
+        '''
+        if returnedBrushItem is not None:
+            retItem = returnedBrushItem[0]
+            retBrush = returnedBrushItem[1]
+        else:
+            retItem = retBrush = None
+        
+        try:
+            brush = QtView.colorBrushes[result.type]
+        except KeyError:
+            brush = QtView.DEFAULT_BRUSH
+
+        
+        propagateUp = result.type in QtView.PROPAGATING_ITEMS
+        brushReturned = retBrush is not None
+        
+        # determine which brush to use
+        if propagateUp and brushReturned:   
+            if QtView._priorityItem(retItem) \
+                    < QtView._priorityItem(result.type):
+                self._colorRow_helper(resultItem, numCols, retBrush)
+                return (retItem, retBrush)
+            else:
+                self._colorRow_helper(resultItem, numCols, brush)
+                return (result.type, brush)
+        elif propagateUp:
+            self._colorRow_helper(resultItem, numCols, brush)
+            return (result.type, brush)
+        elif brushReturned:
+            self._colorRow_helper(resultItem, numCols, retBrush)
+            return (result.type, retBrush)
+        else:
+            self._colorRow_helper(resultItem, numCols, brush)
+            return None
+        
+    def _colorRow_helper(self, item, numCols, brush):
         '''
         Colors a given item across all cols (the entire row)
         with the given brush.
+        
+        helper function for _colorRow()
+        
+        TODO: better name?
         
         @date Jun 23, 2010
         '''
@@ -269,6 +292,8 @@ class QtView(UiClass, WidgetClass):
         
         Returning MAX_PRIORITY so that we don't have to deal with None
         where this function is returned.
+        
+        helper function
         
         @return priority of item or MAX_PRIORITY if not in list
         @date Jun 26, 2010
