@@ -36,11 +36,22 @@ class QtView(UiClass, WidgetClass):
     Main window for our Qt implemented view.
     '''
 
-    red = QtGui.QColor("red")
-    green = QtGui.QColor("green")
-    redBrush = QtGui.QBrush(red)
-    greenBrush = QtGui.QBrush(green)
+    _red = QtGui.QColor("red")
+    _green = QtGui.QColor("green")
+    _white = QtGui.QColor("white")
     
+    _redBrush = QtGui.QBrush(_red)
+    _greenBrush = QtGui.QBrush(_green)
+    _whiteBrush = QtGui.QBrush(_white)
+    
+    DEFAULT_BRUSH = _whiteBrush
+    
+    
+    colorBrushes = {'error' : _redBrush,
+                    'message' : _greenBrush,
+                    'Suite' : _greenBrush,
+                    'TestParser': _greenBrush,
+                    'TestCase' : _greenBrush}
     
     TYPE_COL = 0
     NAME_COL = 1
@@ -143,7 +154,10 @@ class QtView(UiClass, WidgetClass):
         @param parent is the parent item in the tree
         @param results results is all the Test Results data we want to 
             display below given parent item
-        @return returns True if parent should be Red
+            
+        @return returns Brush if a particular brush/color should work
+            its way up (eg: we had an error, therefore error's color
+            should work its way up)
         
         @date Jun 23, 2010
         '''
@@ -166,17 +180,26 @@ class QtView(UiClass, WidgetClass):
             elif infotype == "time":
                 resultItem.setText(QtView.TIME_COL, "time: " + data)
 
-        haveRedChild = False
+        retBrush = None
         for child in result.getChildren():
-            if self._displayResults(resultItem, child) == True:
-                haveRedChild = True
+            temp = self._displayResults(resultItem, child)
+            if temp is not None:
+                retBrush = temp
 
-        if result.type == "error" or haveRedChild == True:
-            self._colorRow(resultItem, numCols, QtView.redBrush)
-            return True
+        try:
+            brush = QtView.colorBrushes[result.type]
+        except KeyError:
+            brush = QtView.DEFAULT_BRUSH
+
+        if result.type == "error":
+            self._colorRow(resultItem, numCols, brush)
+            return brush
+        elif retBrush is not None:
+            self._colorRow(resultItem, numCols, retBrush)
+            return retBrush
         else:
-            self._colorRow(resultItem, numCols, QtView.greenBrush)
-            return False
+            self._colorRow(resultItem, numCols, brush)
+            return None
         
     def _colorRow(self, item, numCols, brush):
         '''
