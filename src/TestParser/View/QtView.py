@@ -182,9 +182,7 @@ class QtView(UiClass, WidgetClass):
         '''
         resultItem = QtGui.QTreeWidgetItem(parent)
         
-        resultItem.setText(QtView.TYPE_COL, result.type)
-        
-        self._displayRelevantData(resultItem, result.getRelevantDisplayData())
+        self._displayData(resultItem, result)
 
         returnedBrushItem = None        # returned (item, brush) tuple
         for child in result.getChildren():
@@ -201,7 +199,7 @@ class QtView(UiClass, WidgetClass):
 
         return self._colorRow(resultItem, result, returnedBrushItem)
         
-    def _displayRelevantData(self, resultItem, relevantDisplayData):
+    def _displayData(self, resultItem, result):
         '''
         Parses relevant display data and displays it.
         
@@ -211,7 +209,9 @@ class QtView(UiClass, WidgetClass):
         
         @date Jun 26, 2010
         '''
-        for infotype, data in relevantDisplayData:
+        resultItem.setText(QtView.TYPE_COL, result.type)
+        
+        for infotype, data in result.getRelevantDisplayData():
             if infotype == "name":
                 resultItem.setText(QtView.NAME_COL, data)
             elif infotype == "file":
