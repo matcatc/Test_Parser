@@ -34,6 +34,16 @@ UiClass, WidgetClass = uic.loadUiType(computeDataFilepath(filename, __file__))
 class QtView(UiClass, WidgetClass):
     '''
     Main window for our Qt implemented view.
+    
+    colorBrushes is a dictionary mapping from item type (e.g: error, suite)
+    to the color brush to use when displaying the item type. 
+    
+    DEFAULT_BRUSH is the brush/color to use when colorBrushes doesn't
+    contain the key.
+    
+    PROPAGATING_ITEMS is a set of all items whose colors should propagate up.
+    I.e: if one of these items is present, the higher level items will be
+    colored according to the particular item's color.
     '''
 
     _red = QtGui.QColor("red")
@@ -52,6 +62,8 @@ class QtView(UiClass, WidgetClass):
                     'Suite' : _greenBrush,
                     'TestParser': _greenBrush,
                     'TestCase' : _greenBrush}
+    
+    PROPAGATING_ITEMS = set(['error'])
     
     TYPE_COL = 0
     NAME_COL = 1
@@ -191,7 +203,7 @@ class QtView(UiClass, WidgetClass):
         except KeyError:
             brush = QtView.DEFAULT_BRUSH
 
-        if result.type == "error":
+        if result.type in QtView.PROPAGATING_ITEMS:
             self._colorRow(resultItem, numCols, brush)
             return brush
         elif retBrush is not None:
