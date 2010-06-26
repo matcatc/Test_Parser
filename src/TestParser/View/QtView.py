@@ -65,7 +65,7 @@ class QtView(UiClass, WidgetClass):
     colorBrushes = {'error' : _redBrush,
                     'message' : _greenBrush,
                     'Suite' : _greenBrush,
-                    'TestParser': _greenBrush,
+                    'TestResults': _greenBrush,
                     'TestCase' : _greenBrush}
     
     PROPAGATING_ITEMS = ['error']
@@ -207,6 +207,9 @@ class QtView(UiClass, WidgetClass):
         
         @see _displayResults()
         
+        @param resultItem QtItem that we're coloring
+        @param result TestComposite data to display
+        
         @date Jun 26, 2010
         '''
         resultItem.setText(QtView.TYPE_COL, result.type)
@@ -232,6 +235,12 @@ class QtView(UiClass, WidgetClass):
         Returns (item, brush) if the brush is to propagate up.
         @see _displayResults()
         
+        @param resultItem QtItem that we're coloring
+        @param result TestComposite data to display
+        @param returnedBrushItems list of (item, brush) tuples that were
+            returned by child items. Contains brushes that are trying
+            to propagate up.
+        
         @return item, brush tuple if brush should propagate up.
         @date Jun 26, 2010
         '''
@@ -241,6 +250,7 @@ class QtView(UiClass, WidgetClass):
         else:
             retItem = retBrush = None
         
+        # get brush for current item
         try:
             brush = QtView.colorBrushes[result.type]
         except KeyError:
