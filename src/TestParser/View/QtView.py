@@ -68,7 +68,7 @@ class QtView(UiClass, WidgetClass):
                     'TestParser': _greenBrush,
                     'TestCase' : _greenBrush}
     
-    PROPAGATING_ITEMS = ['error', 'message']
+    PROPAGATING_ITEMS = ['error']
     MAX_PRIORITY = len(PROPAGATING_ITEMS) + 1
     
     TYPE_COL = 0
@@ -185,19 +185,8 @@ class QtView(UiClass, WidgetClass):
         
         resultItem.setText(QtView.TYPE_COL, result.type)
         
-        # parse and display data
-        for infotype, data in result.getRelevantDisplayData():
-            if infotype == "name":
-                resultItem.setText(QtView.NAME_COL, data)
-            elif infotype == "file":
-                resultItem.setText(QtView.FILE_COL, data)
-            elif infotype == "line":
-                resultItem.setText(QtView.LINE_COL, data)
-            elif infotype == "info":
-                resultItem.setText(QtView.INFO_COL, data)
-            elif infotype == "time":
-                resultItem.setText(QtView.TIME_COL, "time: " + data)
-
+        self._displayRelevantData(resultItem, result.getRelevantDisplayData())
+       
         retBrush = None
         retItem = None
         for child in result.getChildren():
@@ -213,6 +202,7 @@ class QtView(UiClass, WidgetClass):
                     retItem = temp[0]
                     retBrush = temp[1]
 
+        #TODO: extract method? (next 3 blocks)
         try:
             brush = QtView.colorBrushes[result.type]
         except KeyError:
@@ -222,7 +212,7 @@ class QtView(UiClass, WidgetClass):
         propagateUp = result.type in QtView.PROPAGATING_ITEMS
         brushReturned = retBrush is not None
         
-        # need to determine which brush to use
+        # determine which brush to use
         if propagateUp and brushReturned:   
             if QtView._priorityItem(retItem) \
                     < QtView._priorityItem(result.type):
@@ -240,6 +230,26 @@ class QtView(UiClass, WidgetClass):
         else:
             self._colorRow(resultItem, numCols, brush)
             return None
+        
+    def _displayRelevantData(self, resultItem, relevantDisplayData):
+        '''
+        Parses relevant display data and displays it.
+        
+        helper function
+        
+        @date Jun 26, 2010
+        '''
+        for infotype, data in relevantDisplayData:
+            if infotype == "name":
+                resultItem.setText(QtView.NAME_COL, data)
+            elif infotype == "file":
+                resultItem.setText(QtView.FILE_COL, data)
+            elif infotype == "line":
+                resultItem.setText(QtView.LINE_COL, data)
+            elif infotype == "info":
+                resultItem.setText(QtView.INFO_COL, data)
+            elif infotype == "time":
+                resultItem.setText(QtView.TIME_COL, "time: " + data)
         
     def _colorRow(self, item, numCols, brush):
         '''
