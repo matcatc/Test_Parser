@@ -41,9 +41,14 @@ class QtView(UiClass, WidgetClass):
     DEFAULT_BRUSH is the brush/color to use when colorBrushes doesn't
     contain the key.
     
-    PROPAGATING_ITEMS is a set of all items whose colors should propagate up.
+    PROPAGATING_ITEMS is a list of all items whose colors should propagate up.
     I.e: if one of these items is present, the higher level items will be
-    colored according to the particular item's color.
+    colored according to the particular item's color. Items earlier in the
+    list have a higher priority.
+    
+    MAX_PRIORITY is an number representing the highest priority
+    of items in PROPAGATING_ITEMS. Its used in _priorityItem() as a return
+    when the item isn't present.
     '''
 
     _red = QtGui.QColor("red")
@@ -63,7 +68,8 @@ class QtView(UiClass, WidgetClass):
                     'TestParser': _greenBrush,
                     'TestCase' : _greenBrush}
     
-    PROPAGATING_ITEMS = set(['error'])
+    PROPAGATING_ITEMS = ['error', 'message']
+    MAX_PRIORITY = len(PROPAGATING_ITEMS) + 1
     
     TYPE_COL = 0
     NAME_COL = 1
@@ -193,22 +199,44 @@ class QtView(UiClass, WidgetClass):
                 resultItem.setText(QtView.TIME_COL, "time: " + data)
 
         retBrush = None
+        retItem = None
         for child in result.getChildren():
             temp = self._displayResults(resultItem, child)
             if temp is not None:
-                retBrush = temp
+                # we have a conflict of items to return up, need to resolve
+                if retItem is not None:
+                    if QtView._priorityItem(temp[0])  \
+                        < QtView._priorityItem(retItem):
+                        retItem = temp[0]
+                        retBrush = temp[1]
+                else:
+                    retItem = temp[0]
+                    retBrush = temp[1]
 
         try:
             brush = QtView.colorBrushes[result.type]
         except KeyError:
             brush = QtView.DEFAULT_BRUSH
 
-        if result.type in QtView.PROPAGATING_ITEMS:
+        
+        propagateUp = result.type in QtView.PROPAGATING_ITEMS
+        brushReturned = retBrush is not None
+        
+        # need to determine which brush to use
+        if propagateUp and brushReturned:   
+            if QtView._priorityItem(retItem) \
+                    < QtView._priorityItem(result.type):
+                self._colorRow(resultItem, numCols, retBrush)
+                return (retItem, retBrush)
+            else:
+                self._colorRow(resultItem, numCols, brush)
+                return (result.type, brush)
+        elif propagateUp:
             self._colorRow(resultItem, numCols, brush)
-            return brush
-        elif retBrush is not None:
+            return (result.type, brush)
+        elif brushReturned:
             self._colorRow(resultItem, numCols, retBrush)
-            return retBrush
+            return (result.type, retBrush)
         else:
             self._colorRow(resultItem, numCols, brush)
             return None
@@ -222,6 +250,23 @@ class QtView(UiClass, WidgetClass):
         '''
         for i in range(numCols):
             item.setBackground(i, brush)
+    
+    @staticmethod    
+    def _priorityItem(item):
+        '''
+        Determines the priority of an item in PROPAGATING_ITEMS. Lower
+        values have more priority.
+        
+        Returning MAX_PRIORITY so that we don't have to deal with None
+        where this function is returned.
+        
+        @return priority of item or MAX_PRIORITY if not in list
+        @date Jun 26, 2010
+        '''
+        try:
+            return QtView.PROPAGATING_ITEMS.index(item)
+        except:         # TODO specific exception
+            return QtView.MAX_PRIORITY
         
 
 class QtViewController(Controller.Controller):
