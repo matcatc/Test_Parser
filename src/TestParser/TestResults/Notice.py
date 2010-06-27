@@ -72,8 +72,11 @@ class Notice(TestComponent.TestComponent):
         return []
     
     def getRelevantDisplayData(self):
+        line = None
+        if self.line is not None:
+            line = str(self.line) 
         return [("file", self.file),
-                ("line", str(self.line)),
+                ("line", line),
                 ("info", self.info)]
         
     @property
@@ -101,6 +104,9 @@ class Notice(TestComponent.TestComponent):
         '''
         @throw ValueError if line number is negative
         '''
+        if line is None:
+            self._line = None
+            return
         if line < 0:
             Constants.logger.error(Notice.NEGATIVE_LINE)
             raise ValueError("line number is negative")

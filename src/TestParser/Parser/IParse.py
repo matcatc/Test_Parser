@@ -40,6 +40,8 @@ class IParse():
         '''
         Parse data.
         
+        TODO: add stream?
+        
         To be implemented in subclass
         
         @param stringData a string containing the xml data.

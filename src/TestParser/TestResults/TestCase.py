@@ -44,7 +44,7 @@ class TestCase(TestComponent.TestComponent):
         self.notices = []
         ## set of known types (of notices added)
         self.types = set()          
-        self._timeTaken = 0
+        self._timeTaken = None
         self.name = name
         
     def getChildren(self):
