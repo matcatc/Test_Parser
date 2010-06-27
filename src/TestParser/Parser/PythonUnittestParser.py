@@ -1,6 +1,6 @@
 '''
-@date Feb 22, 2010
-@author: Matthew A. Todd
+@date Jun 27, 2010
+@author Matthew A. Todd
 
 This file is part of Test Parser
 by Matthew A. Todd
@@ -19,31 +19,34 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-class IParse():
+from . import IParse
+from ..TestResults import TestResults, Suite, TestCase, Notice
+
+class PythonUnittestParser(IParse.IParse):
     '''
-    Parsing interface.
-    A strategy.
+    Parser for Python's unittest framework
     
-    Classes that implement this interface are to parse XML and return a TestResults (import TestResults).
-    They do so by implementing _parseData().
-    
-    @date Feb 22, 2010
-    @author Matthew A. Todd 
+    @date Jun 27, 2010
+    @author Matthew A. Todd
     '''
+
 
     def __init__(self):
         '''
         Constructor
         '''
-        
+    
     def parse(self, file=None, stringData=None):
         '''
         Parse data.
         
-        To be implemented in subclass
-        
-        @param stringData a string containing the xml data.
-        @param file a filename or file object.
-        @return TestResults containing the parsed results
+        @see IParser.parse()
         '''
-        raise NotImplementedError
+        pass
+#        return results
+    
+    def _parseData(self, tree):
+        '''
+        '''
+        pass
+#        return results

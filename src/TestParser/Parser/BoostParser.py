@@ -21,6 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 from . import IParse
 from ..TestResults import TestResults, Suite, TestCase, Notice
+from xml.etree import ElementTree as ET
 
 class BoostParser(IParse.IParse):
     '''
@@ -44,16 +45,37 @@ class BoostParser(IParse.IParse):
         Constructor
         '''
 
+    def parse(self, file=None, stringData=None):
+        '''
+        Delegates to _parseData()
+        @see _parseData()
+        
+        stringData has a higher priority than file. So if both are provided,
+        stringData will be used.
+        
+        @pre stringData or the data contained in file need to be xml parsable
+        by xml.etree.ElementTree. I assume any well formed xml will be fine.
+        
+        @param stringData a string containing the xml data.
+        @param file a filename or file object.
+        @return TestResults containing the parsed results
+        '''
+        if stringData is not None:
+            tree = ET.fromstring(stringData)
+            return self._parseData(tree)
+        else:
+            tree = ET.parse(file)
+            return self._parseData(tree.getroot())
+
     def _parseData(self, tree):
         '''
-        @see IParse._parseData
+        @param tree xml tree containing data to parse
         '''
         results = TestResults.TestResults()
         
         for suite in tree.getiterator():
             if suite.tag == "TestLog":
                 results.suites.append(self._parseSuite(suite))
-        
         
         return results
         
