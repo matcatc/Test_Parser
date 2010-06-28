@@ -22,7 +22,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 from TestParser.View import TextView
 from TestParser.View import QtView
 from TestParser.Model import Model
-from TestParser.Model import BoostRunner
+from TestParser.Model import BoostRunner, PythonUnittestRunner
 from TestParser.Parser import BoostParser, PythonUnittestParser
 
 from optparse import OptionParser
@@ -64,10 +64,8 @@ def main():
         model.parser = BoostParser.BoostParser()
         runner = BoostRunner.BoostRunner()
     elif options.framework.lower() =="PyUnittest".lower():
-        model.parser = PythonUnittestParser.PythonUnittestParser
-        #TODO: runner
-        print("ERROR: PyUnittest framework incomplete")
-        return
+        model.parser = PythonUnittestParser.PythonUnittestParser()
+        runner = PythonUnittestRunner.PythonUnittestRunner()
     else:
         print("ERROR: invalid framework")
         return
