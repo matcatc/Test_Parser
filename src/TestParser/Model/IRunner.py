@@ -79,6 +79,8 @@ class IRunner(object):
                 cmd = self.computeCmd(params)
                 self.previousCmd = cmd
                 
+            Constants.logger.debug("cmd = [" + ", ".join(cmd) + "]")
+                
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
             Constants.logger.error(IRunner.EXECUTION_FAILURE_MESSAGE)
