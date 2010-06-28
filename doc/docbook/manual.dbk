@@ -70,7 +70,7 @@
 						<member>v0.1.0 - boost 1.40</member>
 					</simplelist>
 				</listitem>
-				<listitem><para>python unittest (in planning)</para></listitem>
+				<listitem><para>Python Unittest</para></listitem>
 			</itemizedlist>
 			<para> I have no plans to support other test formats, unless asked 
 				or I find the need. So if you desire a particular format,
@@ -81,6 +81,18 @@
 				already or if I plan on making any changes that'll complicate
 				matters / break your code.
 			</para>
+			<refsect3>
+				<title>Warnings / Minor Details</title>
+				<para>
+					Because of how Python Unittest is designed, we require
+	    			that the test runner be setup a certain way. For parsing to work,
+	    			we need the verbosity level to be set to 2. For running to work,
+	    			we need the information all output to stdout. I.e: use the
+	    			following command in your test runner.
+	    
+	    			<screen>unittest.TextTestRunner(verbosity=2, stream=sys.stdout).run(suite)</screen>
+				</para>
+			</refsect3>
 		</refsect2>
 		<refsect2>
 			<title>Displays / Views</title>
