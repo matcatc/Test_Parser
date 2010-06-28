@@ -23,7 +23,7 @@ from TestParser.View import TextView
 from TestParser.View import QtView
 from TestParser.Model import Model
 from TestParser.Model import TestRunner
-from TestParser.Parser import BoostParser
+from TestParser.Parser import BoostParser, PythonUnittestParser
 
 from optparse import OptionParser
 
@@ -35,6 +35,9 @@ def main():
     usage = "usage: %prog [options] <test_runner>"
     gui_choices = ("Simple (Default)",)
     gui_help = "use specified gui: " + ", ".join(gui_choices)
+    framework_choices = ("Boost", "PyUnittest")
+    framework_help = "use specified test framework: "   \
+                            + ", ".join(framework_choices)
     
     parser = OptionParser(usage)
     parser.add_option("--text", dest="ui", const="text",
@@ -43,6 +46,9 @@ def main():
     parser.add_option("--gui", dest="gui",
                       action="store", choices=gui_choices,
                       help=gui_help)
+    parser.add_option("--framework", dest="framework",
+                      action="store", choices=framework_choices,
+                      help=framework_help)
     
     (options, args) = parser.parse_args()    
 
@@ -52,10 +58,23 @@ def main():
     
     # setup model
     model = Model.Model()
-    runner = TestRunner.TestRunner()
+    
+    
+    if options.framework.lower() == "Boost".lower():
+        model.parser = BoostParser.BoostParser()
+        runner = TestRunner.TestRunner()
+    elif options.framework.lower() =="PyUnittest".lower():
+        model.parser = PythonUnittestParser.PythonUnittestParser
+        #TODO: runner
+        print("ERROR: PyUnittest framework incomplete")
+        return
+    else:
+        print("ERROR: invalid framework")
+        return
+    
+    
     runner.runner = args[0]
     model.testRunner = runner
-    model.parser = BoostParser.BoostParser()
     
     if options.ui == "text":
         TextView.TextView.startView(model)
