@@ -81,7 +81,7 @@ class IRunner(object):
                 
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
-            print(IRunner.EXECUTION_FAILURE_MESSAGE, file=Constants.errStream)
+            Constants.logger.error(IRunner.EXECUTION_FAILURE_MESSAGE)
             return None
 
         stdout, stderr = p.communicate()
