@@ -117,9 +117,8 @@ class IRunner(object):
     def runAll(self):
         '''
         runs all tests in the test program
-        
-        To be implemented in subclass
+        @return return from run()
         '''
-        raise NotImplementedError
+        return self.run([])
         
         

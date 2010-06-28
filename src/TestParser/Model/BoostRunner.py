@@ -56,6 +56,9 @@ class BoostRunner(IRunner):
     
     def computeCmd(self, params):
         '''
+        Of the format:
+            <runner> --log_format=XML --log_level=<level>
+        
         @date Jun 28, 2010
         '''
         cmd = copy.deepcopy(params)
@@ -63,13 +66,6 @@ class BoostRunner(IRunner):
         cmd.insert(1, BoostRunner.LOG_FORMAT)
         cmd.insert(2, "--log_level="+self.logLevel)
         return cmd
-    
-    def runAll(self):
-        '''
-        runs all tests in the test program
-        @return return from run()
-        '''
-        return self.run([])
     
     def runTest(self, tests):
         '''
