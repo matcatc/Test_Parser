@@ -21,6 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 from . import IParse
 from ..TestResults import TestResults, Suite, TestCase, Notice
+from TestParser.Common.Constants import Constants
 
 import sys
 
@@ -31,7 +32,7 @@ class PythonUnittestParser(IParse.IParse):
     @date Jun 27, 2010
     @author Matthew A. Todd
     '''
-
+    
 
     def __init__(self):
         '''
@@ -47,8 +48,13 @@ class PythonUnittestParser(IParse.IParse):
         '''
         if stringData is not None:
             self._parseData(stringData)
-        else:
+        elif file is not None:
             self._parseData(file.read())
+        else:
+            #TODO: raise
+            Constants.logger.error("ERROR: parse() needs data to parse")
+            return
+            
             
         return self._compileTestResults()
     
