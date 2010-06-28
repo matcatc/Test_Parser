@@ -87,11 +87,11 @@ class IParse_Test(unittest.TestCase):
         self.assertTrue(tree.find("TestCase") is not None)
         self.assertTrue(tree.find("TestCase").find("TestingTime") is not None)
 
-    def testparseData(self):
+    def testparse(self):
         '''
-        IParse's parseData should be undefined.
+        IParse's parse() should be undefined.
         '''
-        self.assertRaises(NotImplementedError, self.parser._parseData, None)
+        self.assertRaises(NotImplementedError, self.parser.parse, None)
         
 
 
