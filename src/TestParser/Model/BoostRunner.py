@@ -47,15 +47,6 @@ class BoostRunner(IRunner):
     ## BoostTest format
     LOG_FORMAT = "--log_format=XML"
 
-    ## message that is displayed when testRunner isn't run successfully
-    EXECUTION_FAILURE_MESSAGE = "Failed to execute unit test program"
-    
-    ## message for when no previous cmd to rerun
-    NO_PREVIOUS_CMD_MESSAGE = "No previous cmd to rerun. Running all."
-    
-    ## message for when runner is None
-    RUNNER_NONE = "warning: runner is none"
-
     def __init__(self):
         '''
         Constructor
@@ -63,52 +54,15 @@ class BoostRunner(IRunner):
         super().__init__()
         self.logLevel = BoostRunner.LOG_LVL_TESTSUITE
     
-    def run(self, params = None, givenCmd = None):
+    def computeCmd(self, params):
         '''
-        runs just with the given params. Concatenates runner and params.
-        
-        @param params list of params to be passed to the test runner.
-            The same params you would use if running on the command line.
-        @param givenCmd a string explicitly stating the cmd to be executed.
-            Used by runPrevious(). Could also be called by client or others
-            if they wanted to execute a specific cmd.
-        @return stdout from the test program. Or None if program execution failed.
+        @date Jun 28, 2010
         '''
-        if self.runner is None:
-            # TODO: raise an exception?
-            Constants.logger.warning(BoostRunner.RUNNER_NONE)
-            return None
-        
-        try:
-            if givenCmd:
-                cmd = givenCmd
-            else:
-                cmd = copy.deepcopy(params)
-                cmd.insert(0, self.runner)                
-                cmd.insert(1, BoostRunner.LOG_FORMAT)
-                cmd.insert(2, "--log_level="+self.logLevel)
-                self.previousCmd = cmd
-            p = Popen(cmd, stdout=PIPE, stderr=PIPE)
-        except (OSError, ValueError):
-            print(BoostRunner.EXECUTION_FAILURE_MESSAGE, file=Constants.errStream)
-            return None
-
-        stdout, stderr = p.communicate()
-        if not stderr == "":
-            print(stderr.decode("utf-8"), file=Constants.errStream)      
-        return stdout
-    
-    def runPrevious(self):
-        '''
-        runs using the same settings/configuration as the previous run.
-        
-        @date Jun 16, 2010
-        '''
-        if self.previousCmd is None:
-            # error/raise etc
-            Constants.logger.warning(BoostRunner.NO_PREVIOUS_CMD_MESSAGE)
-            return self.runAll()
-        return self.run(givenCmd = self.previousCmd)
+        cmd = copy.deepcopy(params)
+        cmd.insert(0, self.runner)                
+        cmd.insert(1, BoostRunner.LOG_FORMAT)
+        cmd.insert(2, "--log_level="+self.logLevel)
+        return cmd
     
     def runAll(self):
         '''

@@ -2,8 +2,9 @@
 @date Jun 28, 2010
 @author matcat
 '''
-
+from TestParser.Common.Constants import Constants
 import os.path
+from subprocess import Popen, PIPE
 
 class IRunner(object):
     '''
@@ -12,6 +13,14 @@ class IRunner(object):
     @author matcat
     '''
 
+    ## message that is displayed when testRunner isn't run successfully
+    EXECUTION_FAILURE_MESSAGE = "Failed to execute unit test program"
+    
+    ## message for when no previous cmd to rerun
+    NO_PREVIOUS_CMD_MESSAGE = "No previous cmd to rerun. Running all."
+    
+    ## message for when runner is None
+    RUNNER_NONE = "warning: runner is none"
 
     def __init__(self):
         '''
@@ -49,9 +58,7 @@ class IRunner(object):
         
     def run(self, params = None, givenCmd = None):
         '''
-        generic run command
-        
-        To be implemented in subclass
+        runs just with the given params. Concatenates runner and params.
         
         @param params list of params to be passed to the test runner.
             The same params you would use if running on the command line.
@@ -60,15 +67,52 @@ class IRunner(object):
             if they wanted to execute a specific cmd.
         @return stdout from the test program. Or None if program execution failed.
         '''
+        if self.runner is None:
+            # TODO: raise an exception?
+            Constants.logger.warning(IRunner.RUNNER_NONE)
+            return None
+        
+        try:
+            if givenCmd:
+                cmd = givenCmd
+            else:
+                cmd = self.computeCmd(params)
+                self.previousCmd = cmd
+                
+            p = Popen(cmd, stdout=PIPE, stderr=PIPE)
+        except (OSError, ValueError):
+            print(IRunner.EXECUTION_FAILURE_MESSAGE, file=Constants.errStream)
+            return None
+
+        stdout, stderr = p.communicate()
+        if not stderr == "":
+            print(stderr.decode("utf-8"), file=Constants.errStream)      
+        return stdout
+    
+    def computeCmd(self, params):
+        '''
+        Computes the cmd to be invoked in order to run the runner
+        for the particular subclass.
+        
+        Think Template Method.
+        
+        To be overridden.
+        
+        @date Jun 28, 2010
+        '''
         raise NotImplementedError
     
     def runPrevious(self):
         '''
-        runs using the same settings/configuration as the previous run
+        runs using the same settings/configuration as the previous run.
         
-        To be implemented in subclass
+        @date Jun 16, 2010
         '''
-        raise NotImplementedError
+        if self.previousCmd is None:
+            # error/raise etc
+            Constants.logger.warning(IRunner.NO_PREVIOUS_CMD_MESSAGE)
+            return self.runAll()
+        return self.run(givenCmd = self.previousCmd)
     
     def runAll(self):
         '''
