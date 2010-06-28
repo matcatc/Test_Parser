@@ -15,10 +15,10 @@ class IRunner(object):
 
     ## message that is displayed when testRunner isn't run successfully
     EXECUTION_FAILURE_MESSAGE = "Failed to execute unit test program"
-    
+
     ## message for when no previous cmd to rerun
     NO_PREVIOUS_CMD_MESSAGE = "No previous cmd to rerun. Running all."
-    
+
     ## message for when runner is None
     RUNNER_NONE = "warning: runner is none"
 
@@ -29,7 +29,7 @@ class IRunner(object):
         ## string containing name / path of the test program to be run 
         self.runner = None
         self.previousCmd = None
-    
+
     @property
     def runner(self):
         return self._runner
@@ -47,7 +47,7 @@ class IRunner(object):
         if runner is None:
             self._runner = None
         # working directory   
-        elif os.path.exists(os.path.abspath(runner)):            
+        elif os.path.exists(os.path.abspath(runner)):
             self._runner = os.path.abspath(runner)
         # global path
         else:
@@ -55,8 +55,8 @@ class IRunner(object):
     @runner.deleter
     def runner(self): #@DuplicatedSignature
         del self._runner
-        
-    def run(self, params = None, givenCmd = None):
+
+    def run(self, params=None, givenCmd=None):
         '''
         runs just with the given params. Concatenates runner and params.
         
@@ -71,16 +71,16 @@ class IRunner(object):
             # TODO: raise an exception?
             Constants.logger.warning(IRunner.RUNNER_NONE)
             return None
-        
+
         try:
             if givenCmd:
                 cmd = givenCmd
             else:
                 cmd = self.computeCmd(params)
                 self.previousCmd = cmd
-                
+
             Constants.logger.debug("cmd = [" + ", ".join(cmd) + "]")
-                
+
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
             Constants.logger.error(IRunner.EXECUTION_FAILURE_MESSAGE)
@@ -88,9 +88,9 @@ class IRunner(object):
 
         stdout, stderr = p.communicate()
         if not stderr == "":
-            print(stderr.decode("utf-8"), file=Constants.errStream)      
+            print(stderr.decode("utf-8"), file=Constants.errStream)
         return stdout
-    
+
     def computeCmd(self, params):
         '''
         Computes the cmd to be invoked in order to run the runner
@@ -103,7 +103,7 @@ class IRunner(object):
         @date Jun 28, 2010
         '''
         raise NotImplementedError
-    
+
     def runPrevious(self):
         '''
         runs using the same settings/configuration as the previous run.
@@ -114,13 +114,12 @@ class IRunner(object):
             # error/raise etc
             Constants.logger.warning(IRunner.NO_PREVIOUS_CMD_MESSAGE)
             return self.runAll()
-        return self.run(givenCmd = self.previousCmd)
-    
+        return self.run(givenCmd=self.previousCmd)
+
     def runAll(self):
         '''
         runs all tests in the test program
         @return return from run()
         '''
         return self.run([])
-        
-        
+
