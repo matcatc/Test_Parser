@@ -18,4 +18,10 @@ class PythonUnittestRunner(IRunner):
         Constructor
         '''
         super().__init__()
-        
+    
+    
+    def computeCmd(self, params):
+        '''
+        Just run w/o any paramaters
+        '''
+        return [self.runner]
