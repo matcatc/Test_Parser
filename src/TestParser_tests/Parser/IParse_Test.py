@@ -43,50 +43,6 @@ class IParse_Test(unittest.TestCase):
     def tearDown(self):
         del self.parser
 
-    def testParseStringData(self):
-        '''
-        test parse() when given some string data
-        
-        Use Mock_Parser so that we can have access to tree,
-        which is the data that is passed into _parseData()
-        '''
-        data = '<TestSuite name="test suite">\
-                <TestCase name="test testCase">\
-                    <TestingTime>0</TestingTime>\
-                </TestCase>\
-            </TestSuite>'
-        self.mockParser.parse(stringData = data)
-        
-        tree = self.mockParser.tree
-        self.assertTrue(tree is not None)
-        
-        # call some functions to see if they end up working
-        self.assertTrue(tree.tag is not None)
-        self.assertTrue(tree.get("name") is not None)
-        self.assertTrue(tree.find("TestCase") is not None)
-        self.assertTrue(tree.find("TestCase").find("TestingTime") is not None)
-        
-        
-        
-        
-    def testParseFilename(self):
-        '''
-        test parse() when given a filename 
-        
-        Use Mock_Parser so that we can have access to tree,
-        which is the data that is passed into _parseData()
-        '''
-        self.mockParser.parse(computeDataFilepath("xml", __file__))
-        
-        tree = self.mockParser.tree
-        self.assertTrue(tree is not None)
-        
-        # call some functions to see if they end up working
-        self.assertTrue(tree.tag is not None)
-        self.assertTrue(tree.get("name") is not None)
-        self.assertTrue(tree.find("TestCase") is not None)
-        self.assertTrue(tree.find("TestCase").find("TestingTime") is not None)
-
     def testparse(self):
         '''
         IParse's parse() should be undefined.
