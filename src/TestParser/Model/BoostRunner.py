@@ -22,7 +22,7 @@ from TestParser.Common.Constants import Constants
 from subprocess import Popen, PIPE
 import copy, os.path
 
-class TestRunner(object):
+class BoostRunner(object):
     '''
     This object exists in order to run the external test
     program (BoostTest in the default case). It contains
@@ -61,7 +61,7 @@ class TestRunner(object):
         '''
         ## string containing name / path of the test program to be run 
         self.runner = None
-        self.logLevel = TestRunner.LOG_LVL_TESTSUITE
+        self.logLevel = BoostRunner.LOG_LVL_TESTSUITE
         self.previousCmd = None
     
     @property
@@ -104,7 +104,7 @@ class TestRunner(object):
         '''
         if self.runner is None:
             # TODO: raise an exception?
-            Constants.logger.warning(TestRunner.RUNNER_NONE)
+            Constants.logger.warning(BoostRunner.RUNNER_NONE)
             return None
         
         try:
@@ -113,12 +113,12 @@ class TestRunner(object):
             else:
                 cmd = copy.deepcopy(params)
                 cmd.insert(0, self.runner)                
-                cmd.insert(1, TestRunner.LOG_FORMAT)
+                cmd.insert(1, BoostRunner.LOG_FORMAT)
                 cmd.insert(2, "--log_level="+self.logLevel)
                 self.previousCmd = cmd
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
-            print(TestRunner.EXECUTION_FAILURE_MESSAGE, file=Constants.errStream)
+            print(BoostRunner.EXECUTION_FAILURE_MESSAGE, file=Constants.errStream)
             return None
 
         stdout, stderr = p.communicate()
@@ -134,7 +134,7 @@ class TestRunner(object):
         '''
         if self.previousCmd is None:
             # error/raise etc
-            Constants.logger.warning(TestRunner.NO_PREVIOUS_CMD_MESSAGE)
+            Constants.logger.warning(BoostRunner.NO_PREVIOUS_CMD_MESSAGE)
             return self.runAll()
         return self.run(givenCmd = self.previousCmd)
             

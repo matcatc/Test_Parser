@@ -22,7 +22,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 
 from TestParser.View import TextView
-from TestParser.Model import Model, TestRunner
+from TestParser.Model import Model, BoostRunner
 from TestParser.Parser import BoostParser
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
@@ -71,7 +71,7 @@ class TextView_Test(unittest.TestCase):
         for though.)
         '''
         model = Model.Model()
-        runner = TestRunner.TestRunner()
+        runner = BoostRunner.BoostRunner()
         filepath = computeDataFilepath("../Model/Boost_Test", __file__)
         Constants.logger.debug("filepath = " + filepath)
         runner.runner = filepath

@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import unittest
-from TestParser.Model.TestRunner import TestRunner
+from TestParser.Model.BoostRunner import BoostRunner
 from TestParser.Common.Constants import Constants
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 import io
@@ -50,7 +50,7 @@ class TestRunner_Test(unittest.TestCase):
 
     def setUp(self):
         Constants.errStream = io.StringIO()
-        self.runner = TestRunner()
+        self.runner = BoostRunner()
 
     def tearDown(self):
         Constants.reset()
@@ -69,7 +69,7 @@ class TestRunner_Test(unittest.TestCase):
         the "-n" option tells echo not to return a newline
         '''
         input = "echo test output"
-        output = TestRunner.LOG_FORMAT + " --log_level=test_suite " + input + "\n"
+        output = BoostRunner.LOG_FORMAT + " --log_level=test_suite " + input + "\n"
         self.runner.runner = "echo"
         stdout = self.runner.run([input])
         self.assertEqual(stdout.decode("utf-8"), output)
@@ -109,7 +109,7 @@ class TestRunner_Test(unittest.TestCase):
         test runAll() using echo.
         output = "\n" b/c echo return a new line after printing (nothing in this case) 
         '''
-        output = TestRunner.LOG_FORMAT + " --log_level=test_suite\n"
+        output = BoostRunner.LOG_FORMAT + " --log_level=test_suite\n"
         self.runner.runner = "echo"
         stdout = self.runner.runAll()
         self.assertEqual(stdout.decode("utf-8"), output)
@@ -130,13 +130,13 @@ class TestRunner_Test(unittest.TestCase):
         self.runner.runner = "echo"
         
         input = "echo test output"
-        output = TestRunner.LOG_FORMAT + " --log_level=test_suite --run_test=" + input + "\n"
+        output = BoostRunner.LOG_FORMAT + " --log_level=test_suite --run_test=" + input + "\n"
         stdout = self.runner.runTest([input])
         self.assertEqual(stdout.decode("utf-8"), output)
         
         input1 = "test1"
         input2 = "test2"
-        output = TestRunner.LOG_FORMAT + " --log_level=test_suite --run_test=" + input1 + "," + input2 + "\n"
+        output = BoostRunner.LOG_FORMAT + " --log_level=test_suite --run_test=" + input1 + "," + input2 + "\n"
         stdout = self.runner.runTest([input1, input2])
         self.assertEqual(stdout.decode("utf-8"), output)
         
@@ -168,7 +168,7 @@ class TestRunner_Test(unittest.TestCase):
         stdout = self.runner.run([])
         
         self.assertEqual(stdout, None)
-        self.assertEqual(Constants.errStream.getvalue(), TestRunner.EXECUTION_FAILURE_MESSAGE + "\n")
+        self.assertEqual(Constants.errStream.getvalue(), BoostRunner.EXECUTION_FAILURE_MESSAGE + "\n")
 
     def test_NoneRunner(self):
         '''

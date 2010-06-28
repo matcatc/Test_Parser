@@ -22,7 +22,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 from TestParser.View import TextView
 from TestParser.View import QtView
 from TestParser.Model import Model
-from TestParser.Model import TestRunner
+from TestParser.Model import BoostRunner
 from TestParser.Parser import BoostParser, PythonUnittestParser
 
 from optparse import OptionParser
@@ -62,7 +62,7 @@ def main():
     
     if options.framework.lower() == "Boost".lower():
         model.parser = BoostParser.BoostParser()
-        runner = TestRunner.TestRunner()
+        runner = BoostRunner.BoostRunner()
     elif options.framework.lower() =="PyUnittest".lower():
         model.parser = PythonUnittestParser.PythonUnittestParser
         #TODO: runner
