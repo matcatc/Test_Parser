@@ -64,9 +64,7 @@ class PythonUnittestParser(IParse.IParse):
         for line in lines:
             words = line.split(' ')
             
-#            if words[0] == '======================================================================':
-#                return
-            
+            # TODO: use regEx to validate instead
             if len(words) > 3:
                 name = words[0]
                 suite = words[1]
