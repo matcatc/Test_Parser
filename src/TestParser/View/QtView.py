@@ -63,7 +63,7 @@ class QtView(UiClass, WidgetClass):
     
     
     colorBrushes = {'error' : _redBrush,
-                    'message' : _greenBrush,
+                    'message' : _whiteBrush,
                     'Suite' : _greenBrush,
                     'TestResults': _greenBrush,
                     'TestCase' : _greenBrush}
