@@ -19,10 +19,11 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>
 '''
 from TestParser.Common.Constants import Constants
+from .IRunner import IRunner
 from subprocess import Popen, PIPE
 import copy, os.path
 
-class BoostRunner(object):
+class BoostRunner(IRunner):
     '''
     This object exists in order to run the external test
     program (BoostTest in the default case). It contains
@@ -59,37 +60,8 @@ class BoostRunner(object):
         '''
         Constructor
         '''
-        ## string containing name / path of the test program to be run 
-        self.runner = None
+        super().__init__()
         self.logLevel = BoostRunner.LOG_LVL_TESTSUITE
-        self.previousCmd = None
-    
-    @property
-    def runner(self):
-        return self._runner
-    @runner.setter
-    def runner(self, runner): #@DuplicatedSignature
-        '''
-        This automatically deals with path names.
-        If None: None
-        If valid for cwd: use cwd
-        else: global path
-        
-        @pre runner is present in working directory or global path
-        @param runner filename/path to the test runner
-        '''
-        if runner is None:
-            self._runner = None
-        # working directory   
-        elif os.path.exists(os.path.abspath(runner)):            
-            self._runner = os.path.abspath(runner)
-        # global path
-        else:
-            self._runner = runner
-    @runner.deleter
-    def runner(self): #@DuplicatedSignature
-        del self._runner
-    
     
     def run(self, params = None, givenCmd = None):
         '''
@@ -137,9 +109,6 @@ class BoostRunner(object):
             Constants.logger.warning(BoostRunner.NO_PREVIOUS_CMD_MESSAGE)
             return self.runAll()
         return self.run(givenCmd = self.previousCmd)
-            
-        
-            
     
     def runAll(self):
         '''

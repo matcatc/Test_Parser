@@ -2,8 +2,9 @@
 @date Jun 28, 2010
 @author matcat
 '''
+from .IRunner import IRunner
 
-class PythonUnittestRunner(object):
+class PythonUnittestRunner(IRunner):
     '''
     Runner for Python Unittest framework.
     
@@ -16,4 +17,5 @@ class PythonUnittestRunner(object):
         '''
         Constructor
         '''
+        super().__init__()
         
