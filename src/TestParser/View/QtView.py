@@ -63,12 +63,14 @@ class QtView(UiClass, WidgetClass):
     
     
     colorBrushes = {'error' : _redBrush,
+                    'fail' : _redBrush,
+                    'pass' : _greenBrush,
                     'message' : _whiteBrush,
                     'Suite' : _greenBrush,
                     'TestResults': _greenBrush,
                     'TestCase' : _greenBrush}
     
-    PROPAGATING_ITEMS = ['error']
+    PROPAGATING_ITEMS = ['error', 'fail']
     MAX_PRIORITY = len(PROPAGATING_ITEMS) + 1
     
     TYPE_COL = 0
