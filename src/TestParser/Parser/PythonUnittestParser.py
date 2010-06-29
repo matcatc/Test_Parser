@@ -34,24 +34,34 @@ class PythonUnittestParser(IParse.IParse):
     (1) are lines to be validated by _validStatusLine()
     (2) are lines to be validated by _validFailLine()
     (3) are lines to be validated by _validFailInfoLine()
+    
     @verbatim
     test_choice (__main__.TestSequenceFunctions) ... ok                    (1)
+    test_error (__main__.TestSequenceFunctions) ... ERROR                  (1)
     test_fail (__main__.TestSequenceFunctions) ... FAIL                    (1)
     test_sample (__main__.TestSequenceFunctions) ... ok                    (1)
     test_shuffle (__main__.TestSequenceFunctions) ... ok                   (1)
     
     ======================================================================
+    ERROR: test_error (__main__.TestSequenceFunctions)                     (2)
+    ----------------------------------------------------------------------
+    Traceback (most recent call last):
+      File "python_unittest_example.py", line 43, in test_error            (3)
+        raise NotImplementedError
+    NotImplementedError
+    
+    ======================================================================
     FAIL: test_fail (__main__.TestSequenceFunctions)                       (2)
     ----------------------------------------------------------------------
     Traceback (most recent call last):
-      File "python_unittest_example.py", line 25, in test_fail             (3)
+      File "python_unittest_example.py", line 40, in test_fail             (3)
         self.fail()
-    AssertionError
+    AssertionError: None
     
     ----------------------------------------------------------------------
-    Ran 4 tests in 0.001s
+    Ran 5 tests in 0.001s
     
-    FAILED (failures=1)
+    FAILED (failures=1, errors=1)
     @endverbatim
     
     @date Jun 27, 2010

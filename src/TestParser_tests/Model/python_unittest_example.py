@@ -38,6 +38,9 @@ class TestSequenceFunctions(unittest.TestCase):
 
 	def test_fail(self):
 		self.fail()
+		
+	def test_error(self):
+		raise NotImplementedError
 
 if __name__ == '__main__':
 	suite = unittest.TestLoader().loadTestsFromTestCase(TestSequenceFunctions)
