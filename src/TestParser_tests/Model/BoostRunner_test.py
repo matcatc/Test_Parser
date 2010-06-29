@@ -158,17 +158,12 @@ class BoostRunner_Test(unittest.TestCase):
         
     def test_InvalidRunner(self):
         '''
-        test what happens when trying to run an invalid runner. i.e: we want
-        an OSError to be thrown in run().
-        
-        None should be returned.
-        An error message should be printed out to a given err stream.
+        test that when trying to run an invalid runner, nothing
+        crazy happens.
         '''
         self.runner.runner = "invalid_runner_ALSKFJEOIJFDFLKJakjdflakjdfaedf"
-        stdout = self.runner.run([])
-        
-        self.assertEqual(stdout, None)
-        self.assertEqual(Constants.errStream.getvalue(), BoostRunner.EXECUTION_FAILURE_MESSAGE + "\n")
+        self.runner.run([])
+
 
     def test_NoneRunner(self):
         '''
