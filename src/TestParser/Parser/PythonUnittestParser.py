@@ -24,22 +24,50 @@ from ..TestResults import TestResults, Suite, TestCase, Notice
 from TestParser.Common.Constants import Constants
 import re
 
+import sys
+
 class PythonUnittestParser(IParse.IParse):
     '''
     Parser for Python's unittest framework
+    
+    The following is example output from a pyhton unittest runner.
+    (1) are lines to be validated by _validStatusLine()
+    (2) are lines to be validated by _validFailLine()
+    (3) are lines to be validated by _validFailInfoLine()
+    @verbatim
+    test_choice (__main__.TestSequenceFunctions) ... ok                    (1)
+    test_fail (__main__.TestSequenceFunctions) ... FAIL                    (1)
+    test_sample (__main__.TestSequenceFunctions) ... ok                    (1)
+    test_shuffle (__main__.TestSequenceFunctions) ... ok                   (1)
+    
+    ======================================================================
+    FAIL: test_fail (__main__.TestSequenceFunctions)                       (2)
+    ----------------------------------------------------------------------
+    Traceback (most recent call last):
+      File "python_unittest_example.py", line 25, in test_fail             (3)
+        self.fail()
+    AssertionError
+    
+    ----------------------------------------------------------------------
+    Ran 4 tests in 0.001s
+    
+    FAILED (failures=1)
+    @endverbatim
     
     @date Jun 27, 2010
     @author Matthew A. Todd
     '''
     
-    ## for use in _validStatusLine()
-    REGEX = r'^[a-zA-z0-9_]+ \([a-zA-z0-9_.]+\) \.{3} (FAIL|ok)$'
+    VALID_STATUS_LINE_REGEX = r'^[a-zA-z0-9_]+ \([a-zA-z0-9_.]+\) \.{3} (FAIL|ok)$'
+    VALID_FAIL_LINE_REGEX = r'^FAIL: [a-zA-z0-9_]+ \([a-zA-z0-9_.]+\)$'
+    VALID_FAIL_INFO_LINE_REGEX = r'^  File "[a-zA-z0-9_/]+\.[a-zA-z0-9]+", line [0-9]+, in [a-zA-z0-9_]+$'
 
     def __init__(self):
         '''
         Constructor
         '''
-        self.suites = {}
+        self.suites = {}        # contains dictionary of suites -> test statuses: (name, status)
+        self.failSuites = {}    # contains dictionary of suites -> failed tests-> failure info: (file, line)
     
     def parse(self, file=None, stringData=None):
         '''
@@ -68,10 +96,10 @@ class PythonUnittestParser(IParse.IParse):
         '''
         lines = stringData.split('\n')
         
+        lastFailSuiteName = None
+        
         for line in lines:
-            temp = self._validStatusLine(line)
-            Constants.logger.debug("line = " + line + "\n\tvalid = " + str(temp))
-            if temp:
+            if self._validStatusLine(line):
                 words = line.split(' ')
                 name = words[0]
                 suite = words[1]
@@ -81,6 +109,26 @@ class PythonUnittestParser(IParse.IParse):
                     self.suites[suite] = []
                     
                 self.suites[suite].append((name, status))
+                
+            # scraping FAIL messages
+            else:
+                if self._validFailLine(line):
+                    words = line.split(' ')
+                    lastFailSuiteName = words[2]
+                    
+                elif self._validFailInfoLine(line):
+                    line = line.strip(' ')
+                    words = line.split(' ')
+                    file = words[1]
+                    line = words[3]
+                    test = words[5]
+                    
+                    if lastFailSuiteName not in self.failSuites:
+                        self.failSuites[lastFailSuiteName] = {}
+                    
+                    self.failSuites[lastFailSuiteName][test] = (file, line)
+                    
+                    
             
     def _compileTestResults(self):
         '''
@@ -93,11 +141,21 @@ class PythonUnittestParser(IParse.IParse):
             suiteName = suite.strip(")(")
             resultSuite = Suite.Suite(suiteName)
             
-            for name, status in self.suites[suite]:
-                resultTest = TestCase.TestCase(name)
+            for test, status in self.suites[suite]:
+                resultTest = TestCase.TestCase(test)
+                
+                try:
+                    file, line = self.failSuites[suite][test]
+                    
+                    file = file.strip(',')
+                    file = file.strip('"')
+                    
+                    line = int(line.strip(','))
+                except:
+                    file = line = None
                 
                 if status == "FAIL":
-                    resultTest.addNotice(Notice.Notice(None, None, None, "fail"))
+                    resultTest.addNotice(Notice.Notice(file, line, None, "fail"))
                 elif status == "ok":
                     resultTest.addNotice(Notice.Notice(None, None, None, "pass"))
                     
@@ -127,9 +185,48 @@ class PythonUnittestParser(IParse.IParse):
         @warning Its entirely possible that I've missed certain characters
         than can appear (particularly in name and suite.)
         
+        @see PythonUnittestParser
+        
         @param line line to check
         @return true if line is valid
         @date Jun 29, 2010 
         '''
-        return re.match(PythonUnittestParser.REGEX, line) is not None
-            
+        return re.match(PythonUnittestParser.VALID_STATUS_LINE_REGEX, line) is not None
+    
+    def _validFailLine(self, line):
+        '''
+        Uses regex to validate that the given line is a 'fail line,' by which
+        I mean it is the title of a test failure section.
+        
+        Line should be of the form:
+        
+        @verbatim
+        FAIL: name (suite)
+        @endverbatim
+        
+        @see PythonUnittestParser
+        
+        @return true if line valid
+        @date Jun 29, 2010
+        '''
+        return re.match(PythonUnittestParser.VALID_FAIL_LINE_REGEX, line) is not None
+    
+    def _validFailInfoLine(self, line):
+        '''
+        Uses regex to validate that the given line contains info on a failed
+        test case.
+        
+        Line should be of the form:
+        
+        @verbatim
+          File "filename", line ##, in name
+        @endverbatim
+        
+        Note that there are spaces at the beginning of the line.
+        
+        @see PythonUnittestParser
+        
+        @return true if line valid
+        @date Jun 29, 2010
+        '''
+        return re.match(PythonUnittestParser.VALID_FAIL_INFO_LINE_REGEX, line) is not None
