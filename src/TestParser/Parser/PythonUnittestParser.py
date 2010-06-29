@@ -152,15 +152,7 @@ class PythonUnittestParser(IParse.IParse):
             for test, status in self.suites[suite]:
                 resultTest = TestCase.TestCase(test)
                 
-                try:
-                    file, line = self.failSuites[suite][test]
-                    
-                    file = file.strip(',')
-                    file = file.strip('"')
-                    
-                    line = int(line.strip(','))
-                except:
-                    file = line = None
+                file, line = self._getFailInfo(suite, test)
                 
                 if status == "FAIL":
                     resultTest.addNotice(Notice.Notice(file, line, None, "fail"))
@@ -172,7 +164,27 @@ class PythonUnittestParser(IParse.IParse):
             results.suites.append(resultSuite)
             
         return results
+    
+    def _getFailInfo(self, suite, test):
+        '''
+        get file and line info for a failed test.
+        
+        Cleans up data and returns proper types.
+        
+        @return returns file and line if present. None if not found.
+        @date Jun 29, 2010
+        '''
+        try:
+            file, line = self.failSuites[suite][test]
             
+            file = file.strip(',')
+            file = file.strip('"')
+            
+            line = int(line.strip(','))
+        except:
+            file = line = None
+            
+        return (file, line)
 
     def _validStatusLine(self, line):
         '''
