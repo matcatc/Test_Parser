@@ -58,9 +58,17 @@ class PythonUnittestParser(IParse.IParse):
     @author Matthew A. Todd
     '''
     
-    VALID_STATUS_LINE_REGEX = r'^[a-zA-z0-9_]+ \([a-zA-z0-9_.]+\) \.{3} (FAIL|ok)$'
-    VALID_FAIL_LINE_REGEX = r'^FAIL: [a-zA-z0-9_]+ \([a-zA-z0-9_.]+\)$'
-    VALID_FAIL_INFO_LINE_REGEX = r'^  File "[a-zA-z0-9_/]+\.[a-zA-z0-9]+", line [0-9]+, in [a-zA-z0-9_]+$'
+    VALID_STATUS_LINE_REGEX = r'^[a-zA-z0-9_]+'     \
+                            ' \([a-zA-z0-9_.]+\)'   \
+                            ' \.{3}'                \
+                            ' (FAIL|ok)$'           # name (suite) ... status           
+    VALID_FAIL_LINE_REGEX = r'^FAIL:'               \
+                            ' [a-zA-z0-9_]+'        \
+                            ' \([a-zA-z0-9_.]+\)$'  # FAIL: name (suite)
+    VALID_FAIL_INFO_LINE_REGEX = r'^  File'         \
+                            ' "[a-zA-z0-9_/]+\.[a-zA-z0-9]+",' \
+                            ' line [0-9]+,'         \
+                            ' in [a-zA-z0-9_]+$'    #   File "filename.ext", line num, in name
 
     def __init__(self):
         '''
