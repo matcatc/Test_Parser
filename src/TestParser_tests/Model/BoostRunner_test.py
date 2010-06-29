@@ -25,7 +25,7 @@ from TestParser.Common.Constants import Constants
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 import io
 
-class TestRunner_Test(unittest.TestCase):
+class BoostRunner_Test(unittest.TestCase):
     '''
     For the tests that use Boost_Test, I'm not sure if
     they will work on Windows because the file is a linux
