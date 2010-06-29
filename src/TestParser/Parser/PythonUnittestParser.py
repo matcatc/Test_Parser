@@ -22,8 +22,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 from . import IParse
 from ..TestResults import TestResults, Suite, TestCase, Notice
 from TestParser.Common.Constants import Constants
-
-import sys
+import re
 
 class PythonUnittestParser(IParse.IParse):
     '''
@@ -33,6 +32,8 @@ class PythonUnittestParser(IParse.IParse):
     @author Matthew A. Todd
     '''
     
+    ## for use in _validStatusLine()
+    REGEX = r'^[a-zA-z0-9_]+ \([a-zA-z0-9_.]+\) \.{3} (FAIL|ok)$'
 
     def __init__(self):
         '''
@@ -68,25 +69,18 @@ class PythonUnittestParser(IParse.IParse):
         lines = stringData.split('\n')
         
         for line in lines:
-            words = line.split(' ')
-            
-            # TODO: use regEx to validate instead
-            if len(words) > 3:
+            temp = self._validStatusLine(line)
+            Constants.logger.debug("line = " + line + "\n\tvalid = " + str(temp))
+            if temp:
+                words = line.split(' ')
                 name = words[0]
                 suite = words[1]
                 status = words[3]
-                
-#                print("DEBUG: name = ", name,
-#                      "\n\tsuite = ", suite,
-#                      "\n\tstatus = ", status,
-#                      file=sys.stderr)
                 
                 if suite not in self.suites:
                     self.suites[suite] = []
                     
                 self.suites[suite].append((name, status))
-            else:
-                return
             
     def _compileTestResults(self):
         '''
@@ -100,9 +94,6 @@ class PythonUnittestParser(IParse.IParse):
             resultSuite = Suite.Suite(suiteName)
             
             for name, status in self.suites[suite]:
-                print("DEBUG: name = ", name,
-                        "\tstatus = ", status,
-                        file=sys.stderr)
                 resultTest = TestCase.TestCase(name)
                 
                 if status == "FAIL":
@@ -117,5 +108,28 @@ class PythonUnittestParser(IParse.IParse):
         return results
             
 
-            
+    def _validStatusLine(self, line):
+        '''
+        Uses regex to validate that the given line contains data to extract.
+        For use on the one-liner status lines that appear at the beginning
+        of python unittest's output.
+        
+        Line should be of the form:
+        
+        @verbatim
+        name (suite) ... status
+        @endverbatim
+        
+        Where name and suite are valid python identifiers. Except that
+        suite can (and probably will) have a '.'.
+        Status is either 'FAIL' or 'ok'.
+        
+        @warning Its entirely possible that I've missed certain characters
+        than can appear (particularly in name and suite.)
+        
+        @param line line to check
+        @return true if line is valid
+        @date Jun 29, 2010 
+        '''
+        return re.match(PythonUnittestParser.REGEX, line) is not None
             
