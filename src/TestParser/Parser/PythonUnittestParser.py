@@ -71,10 +71,11 @@ class PythonUnittestParser(IParse.IParse):
     VALID_STATUS_LINE_REGEX = r'^[a-zA-z0-9_]+'     \
                             ' \([a-zA-z0-9_.]+\)'   \
                             ' \.{3}'                \
-                            ' (FAIL|ok)$'           # name (suite) ... status           
-    VALID_FAIL_LINE_REGEX = r'^FAIL:'               \
+                            ' (FAIL|ERROR|ok)$'           # name (suite) ... status           
+    VALID_FAIL_LINE_REGEX = r'^(FAIL|ERROR):'               \
                             ' [a-zA-z0-9_]+'        \
                             ' \([a-zA-z0-9_.]+\)$'  # FAIL: name (suite)
+                                                    # ERROR: name (suite)
     VALID_FAIL_INFO_LINE_REGEX = r'^  File'         \
                             ' "[a-zA-z0-9_/]+\.[a-zA-z0-9]+",' \
                             ' line [0-9]+,'         \
@@ -155,7 +156,7 @@ class PythonUnittestParser(IParse.IParse):
         Takes the data contained in self.suites and puts it in TestResults
         for returning.
         
-        Fail info will only be valid when status is 'FAIL', so we can just
+        Fail info will only be valid when status is 'FAIL' or 'ERROR', so we can just
         pass in explicit None's for 'ok'.
         '''
         results = TestResults.TestResults()
@@ -171,6 +172,8 @@ class PythonUnittestParser(IParse.IParse):
                 
                 if status == "FAIL":
                     resultTest.addNotice(Notice.Notice(file, line, None, "fail"))
+                elif status == "ERROR":
+                    resultTest.addNotice(Notice.Notice(file, line, None, "error"))
                 elif status == "ok":
                     resultTest.addNotice(Notice.Notice(None, None, None, "pass"))
                     
