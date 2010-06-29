@@ -64,6 +64,10 @@ class PythonUnittestParser(IParse.IParse):
     FAILED (failures=1, errors=1)
     @endverbatim
     
+    
+    @warning This only works if the data is output correctly. 
+    @see TestParser.Model.PythonUnittestRunner
+    
     @date Jun 27, 2010
     @author Matthew A. Todd
     '''
