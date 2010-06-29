@@ -98,7 +98,9 @@ class PythonUnittestParser(IParse.IParse):
     def _parseData(self, stringData):
         '''
         Parses the given string data and sets it up in self.suites
-        for later compiling
+        for later compiling. Gathers information from FAIL tests
+        section and stores it in sef.failSuites for later use.
+        
         
         @param stringData all the data contained w/in a string
         '''
@@ -141,7 +143,10 @@ class PythonUnittestParser(IParse.IParse):
     def _compileTestResults(self):
         '''
         Takes the data contained in self.suites and puts it in TestResults
-        for returning. 
+        for returning.
+        
+        Fail info will only be valid when status is 'FAIL', so we can just
+        pass in explicit None's for 'ok'.
         '''
         results = TestResults.TestResults()
         
@@ -198,14 +203,7 @@ class PythonUnittestParser(IParse.IParse):
         name (suite) ... status
         @endverbatim
         
-        Where name and suite are valid python identifiers. Except that
-        suite can (and probably will) have a '.'.
-        Status is either 'FAIL' or 'ok'.
-        
-        @warning Its entirely possible that I've missed certain characters
-        than can appear (particularly in name and suite.)
-        
-        @see PythonUnittestParser
+        @see PythonUnittestParser (example)
         
         @param line line to check
         @return true if line is valid
@@ -224,7 +222,7 @@ class PythonUnittestParser(IParse.IParse):
         FAIL: name (suite)
         @endverbatim
         
-        @see PythonUnittestParser
+        @see PythonUnittestParser (example)
         
         @return true if line valid
         @date Jun 29, 2010
@@ -244,7 +242,7 @@ class PythonUnittestParser(IParse.IParse):
         
         Note that there are spaces at the beginning of the line.
         
-        @see PythonUnittestParser
+        @see PythonUnittestParser (example)
         
         @return true if line valid
         @date Jun 29, 2010
