@@ -25,7 +25,7 @@ import sys
 
 from TestParser_tests.Common import Observable_Test, Observer_Test, UpdateJobPool_Test, UpdateThread_Test
 from TestParser_tests.Model import Model_test, BoostRunner_test
-from TestParser_tests.Parser import BasicParser_Test, IParse_Test 
+from TestParser_tests.Parser import BoostParser_Test, IParse_Test 
 from TestParser_tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test, TestComponent_Test
 from TestParser_tests.View import Controller_Test, TextView_Test, QtView_Test
 
@@ -49,7 +49,7 @@ def main():
                      UpdateThread_Test.UpdateThread_Test, \
                       Model_test.Model_test, \
                        BoostRunner_test.BoostRunner_Test, \
-                        BasicParser_Test.BasicParser_Test, \
+                        BoostParser_Test.BoostParser_Test, \
                          IParse_Test.IParse_Test, \
                           Notice_Test.Notice_Test, \
                            Suite_Test.Suite_Test, \

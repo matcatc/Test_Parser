@@ -23,7 +23,7 @@ import unittest
 from TestParser.Parser.BoostParser import BoostParser
 from xml.etree import ElementTree as ET
 
-class BasicParser_Test(unittest.TestCase):
+class BoostParser_Test(unittest.TestCase):
 
 
     def setUp(self):
