@@ -22,6 +22,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 from TestParser.Parser.BoostParser import BoostParser
 from xml.etree import ElementTree as ET
+from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 class BoostParser_Test(unittest.TestCase):
 
@@ -91,6 +92,10 @@ class BoostParser_Test(unittest.TestCase):
         self.assertEqual(first.info, message)
         second = test.notices[1]
         self.assertEqual(second.info, error)
+        
+    def test_ParseFile(self):
+        f = open(computeDataFilepath("xml", __file__))
+        self.parser.parse(file = f)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
