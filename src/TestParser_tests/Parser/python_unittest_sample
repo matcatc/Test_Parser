@@ -1,0 +1,26 @@
+test_choice (__main__.TestSequenceFunctions) ... ok
+test_error (__main__.TestSequenceFunctions) ... ERROR
+test_fail (__main__.TestSequenceFunctions) ... FAIL
+test_sample (__main__.TestSequenceFunctions) ... ok
+test_shuffle (__main__.TestSequenceFunctions) ... ok
+
+======================================================================
+ERROR: test_error (__main__.TestSequenceFunctions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "python_unittest_example.py", line 43, in test_error
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+FAIL: test_fail (__main__.TestSequenceFunctions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "python_unittest_example.py", line 40, in test_fail
+    self.fail()
+AssertionError: None
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+FAILED (failures=1, errors=1)
