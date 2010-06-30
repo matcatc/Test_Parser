@@ -91,6 +91,10 @@ class PythonUnittestParser(IParse.IParse):
         '''
         self.suites = {}        # contains dictionary of suites -> test statuses: (name, status)
         self.failSuites = {}    # contains dictionary of suites -> failed tests-> failure info: (file, line)
+        
+        self.validStatusLineRegex = re.compile(PythonUnittestParser.VALID_STATUS_LINE_REGEX)
+        self.validFailLineRegex = re.compile(PythonUnittestParser.VALID_FAIL_LINE_REGEX)
+        self.validFailInfoLineRegex = re.compile(PythonUnittestParser.VALID_FAIL_INFO_LINE_REGEX)
     
     def parse(self, file=None, stringData=None):
         '''
@@ -226,7 +230,7 @@ class PythonUnittestParser(IParse.IParse):
         @return true if line is valid
         @date Jun 29, 2010 
         '''
-        return re.match(PythonUnittestParser.VALID_STATUS_LINE_REGEX, line) is not None
+        return self.validStatusLineRegex.match(line) is not None
     
     def _validFailLine(self, line):
         '''
@@ -244,7 +248,7 @@ class PythonUnittestParser(IParse.IParse):
         @return true if line valid
         @date Jun 29, 2010
         '''
-        return re.match(PythonUnittestParser.VALID_FAIL_LINE_REGEX, line) is not None
+        return self.validFailLineRegex.match(line) is not None
     
     def _validFailInfoLine(self, line):
         '''
@@ -264,4 +268,4 @@ class PythonUnittestParser(IParse.IParse):
         @return true if line valid
         @date Jun 29, 2010
         '''
-        return re.match(PythonUnittestParser.VALID_FAIL_INFO_LINE_REGEX, line) is not None
+        return self.validFailInfoLineRegex.match(line) is not None
