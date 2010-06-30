@@ -102,6 +102,12 @@ class Notice_Test(unittest.TestCase):
         cause logging code to be executed for typo checking purposes
         '''
         self.notice.type = ""
+        
+    def test_noneLine(self):
+        '''
+        check that nothing extreme happens. Typo checking purposes.
+        '''
+        self.notice.line = None
 
     def test_getChildren(self):
         length = len(self.notice.getChildren())
