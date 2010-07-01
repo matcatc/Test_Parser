@@ -21,7 +21,6 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>
 
 from ..Common import Observable
 import copy, threading
-import sys
 
 class Model(Observable.Observable):
     '''

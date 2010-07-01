@@ -18,10 +18,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>
 '''
-from TestParser.Common.Constants import Constants
+
 from .IRunner import IRunner
-from subprocess import Popen, PIPE
-import copy, os.path
+import copy
 
 class BoostRunner(IRunner):
     '''

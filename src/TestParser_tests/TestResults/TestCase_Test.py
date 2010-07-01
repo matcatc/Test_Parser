@@ -93,7 +93,7 @@ class TestCase_Test(unittest.TestCase):
     def testGetNotices(self):
         amount = 4
         
-        for i in range(amount):
+        for i in range(amount):                                 #@UnusedVariable
             self.test.addNotice(self.notice)
             
         self.assertTrue(self.notice in self.test.notices)
@@ -108,9 +108,9 @@ class TestCase_Test(unittest.TestCase):
         type = "testType"
         notice2 = Notice("file", 0, "newNotice", type)
         
-        for i in range(3):
+        for i in range(3):                                      #@UnusedVariable
             self.test.addNotice(self.notice)
-        for i in range(amount):
+        for i in range(amount):                                 #@UnusedVariable
             self.test.addNotice(notice2)
         
         self.assertEquals(len(self.test.getNoticesOfType(type)), amount)
@@ -128,7 +128,7 @@ class TestCase_Test(unittest.TestCase):
         test that name and time data returned
         '''
         data = self.test.getRelevantDisplayData()
-        types = [typeinfo for typeinfo, x in data]
+        types = [typeinfo for typeinfo, x in data]              #@UnusedVariable
         self.assertTrue("name" in types)
         self.assertTrue("time" in types)
 

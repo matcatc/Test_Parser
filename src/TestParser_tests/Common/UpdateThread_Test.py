@@ -23,8 +23,6 @@ import unittest
 from TestParser.Common.UpdateJobPool import UpdateThread, UpdateJobPool
 from TestParser.Common.Constants import Constants
 
-import sys
-
 import io
 
 class UpdateThread_Test(unittest.TestCase):

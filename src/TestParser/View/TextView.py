@@ -44,7 +44,7 @@ class TextView(Observer.Observer):
         @see main.main()
         '''   
         # setup view and controller
-        view = TextView(model)
+        view = TextView(model)                              #@UnusedVariable
         controller = TextViewController(model)
     
         # run (and implicitly display)

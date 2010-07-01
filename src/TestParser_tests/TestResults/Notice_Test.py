@@ -118,7 +118,7 @@ class Notice_Test(unittest.TestCase):
         test that file, line, and info data is returned
         '''
         data = self.notice.getRelevantDisplayData()
-        types = [infotype for infotype, x in data]
+        types = [infotype for infotype, x in data]              #@UnusedVariable
         self.assertTrue("file" in types)
         self.assertTrue("line" in types)
         self.assertTrue("info" in types)

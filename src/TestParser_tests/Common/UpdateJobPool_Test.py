@@ -73,7 +73,7 @@ class UpdateJobPool_Test(unittest.TestCase):
         self.jobPool.removeThreads(num)
         self.assertEqual(self.jobPool._removeCount, num)
         
-        for i in range(num):
+        for i in range(num):                                    #@UnusedVariable
             self.jobPool.addJob(None)
             
         self.jobPool.waitUntilJobsFinished_Raise()

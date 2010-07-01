@@ -54,7 +54,7 @@ class Suite_Test(unittest.TestCase):
     def testCount(self):
         amount = 4
         
-        for i in range(amount):
+        for i in range(amount):                                 #@UnusedVariable
             test = TestCase()
             self.suite.testCases.append(test)
         
@@ -76,7 +76,7 @@ class Suite_Test(unittest.TestCase):
         test that name data is returned
         '''
         data = self.suite.getRelevantDisplayData()
-        types = [typeinfo for typeinfo, x in data]
+        types = [typeinfo for typeinfo, x in data]              #@UnusedVariable
         self.assertTrue("name" in types)
 
 if __name__ == "__main__":

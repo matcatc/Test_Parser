@@ -37,7 +37,7 @@ class TestResults_Test(unittest.TestCase):
         
     def testSuiteCount(self):
         amount = 18
-        for i in range(amount):
+        for i in range(amount):                                 #@UnusedVariable
             suite = Suite()
             self.results.suites.append(suite)
             
