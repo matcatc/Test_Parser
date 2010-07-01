@@ -56,12 +56,12 @@ def main():
         parser.error("incorrect number of arguments")
     
 
-    factory = FrameworkFactory.selectFramework(options.framework)
+    FrameworkFactory.selectFramework(options.framework)
     
     # setup model
     model = Model.Model()  
-    model.parser = factory.createParser()
-    runner = factory.createRunner()
+    model.parser = FrameworkFactory.factory.createParser()  #@UndefinedVariable
+    runner = FrameworkFactory.factory.createRunner()        #@UndefinedVariable
     runner.runner = args[0]
     model.testRunner = runner
     

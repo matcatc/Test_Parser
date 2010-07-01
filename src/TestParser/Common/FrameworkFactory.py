@@ -28,21 +28,28 @@ class UndefinedTestFrameworkError(Exception):
 class FrameworkFactory(object):
     '''
     Abstract Factory for test frameworks.
+    
+    Singleton.
+    
+    
     @date Jul 1, 2010
     @author Matthew A. Todd
     '''
+    
+    ## singleton factory
+    factory = None
 
-    @staticmethod
-    def selectFramework(framework):
+    @classmethod
+    def selectFramework(cls, framework):
         '''
         Select the framework to use.
         
         @return the concrete framework factory.
         '''
         if framework.lower() == "Boost".lower():
-            return BoostFactory()
+            cls.factory = _BoostFactory()
         elif framework.lower() == "PyUnittest".lower():
-            return PythonUnittestFactory()
+            cls.factory = _PythonUnittestFactory()
         else:
             raise UndefinedTestFrameworkError()
 
@@ -57,14 +64,14 @@ class FrameworkFactory(object):
     def createParser(self):
         raise NotImplementedError
     
-class BoostFactory(FrameworkFactory):
+class _BoostFactory(FrameworkFactory):
     def createRunner(self):
         return BoostRunner.BoostRunner()
     
     def createParser(self):
         return BoostParser.BoostParser()
 
-class PythonUnittestFactory(FrameworkFactory):
+class _PythonUnittestFactory(FrameworkFactory):
     def createRunner(self):
         return PythonUnittestRunner.PythonUnittestRunner()
     

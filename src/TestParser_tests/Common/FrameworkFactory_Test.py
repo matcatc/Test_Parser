@@ -28,8 +28,8 @@ class FrameworkFactory_Test(unittest.TestCase):
 
     def setUp(self):
         self.framework = FrameworkFactory.FrameworkFactory()
-        self.boost = FrameworkFactory.BoostFactory()
-        self.python = FrameworkFactory.PythonUnittestFactory()
+        self.boost = FrameworkFactory._BoostFactory()
+        self.python = FrameworkFactory._PythonUnittestFactory()
 
 
     def tearDown(self):
