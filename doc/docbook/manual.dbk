@@ -32,6 +32,11 @@
 			Test Parser is intended for a primarily developer audience,
 			but I can see it being used in other situations.
 		</para>
+		<para> When running, Test Parser will output the runner's stderr output
+			to the console (stderr), so you can see what your runner is
+			printing out. Test Parser will also output some stuff to stderr,
+			but I currently have most of it logging to TestParser.log. 
+		</para>
 		<refsect2>
 			<title>History</title>
 			<para>I built Test Parser to help me visualize/read the test
