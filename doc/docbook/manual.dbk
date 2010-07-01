@@ -203,29 +203,16 @@ sudo make install
 	
 	<refsect1>
 		<title>Road map</title>
-		<para> I'm currently working on a simple non-interactive GUI.
-			But at the same time, I'm working on making the system more
-			robust by adding tests, documentation, and such. But once
-			I finish the GUI, I plan to release the first version. This
-			way I *might* get some feedback before starting/finishing
-			the next GUI (an user interactive version.) I will likely
-			have to iterate several times before the interactive version
-			is completely finished, so there will be several other minor
-			releases.
+		<para> 
+			Please see <ulink url="http://github.com/matcatc/Test_Parser/issues">here</ulink>
+			for current issues. Feel free to submit your own via github or
+			email (matcatprg@yahoo.com).
 		</para>
 	</refsect1>
 	
 	<refsect1>
 		<title>Technical Documentation</title>
 		<para>Go <ulink url="./technical.html">here</ulink> for the technical documentation.
-		</para>
-	</refsect1>
-	
-	<refsect1>
-		<title> Other</title>
-		<para>This file is written in docbook, which is why it may appear
-			somewhat strange. Its available in the repository, mentioned 
-			<link linkend="download_links">above</link>.
 		</para>
 	</refsect1>
 </refentry>
