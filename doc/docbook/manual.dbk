@@ -78,7 +78,7 @@
 				implement yourself (fork the github repository.) If you plan
 				on implementing yourself, you might want to check github issues
 				to see if I have any plans on implementing that framework
-				already or if I plan on making any changes that'll complicate
+				already or if I plan on making any changes that will complicate
 				matters / break your code.
 			</para>
 			<refsect3>
@@ -194,8 +194,8 @@ sudo make install
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
 					<listitem><para>Python Unittest Framework</para></listitem>
-					<listitem><para>Ui's display results in cronological order</para></listitem>
-					<listitem><para>Increased View orthagonality (internal)</para></listitem>
+					<listitem><para>Ui's display results in chronological order</para></listitem>
+					<listitem><para>Increased View orthogonality</para></listitem>
 				</itemizedlist>
 			</listitem>
 			<listitem>
