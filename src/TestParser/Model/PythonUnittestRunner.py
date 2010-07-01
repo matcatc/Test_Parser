@@ -1,6 +1,6 @@
 '''
 @date Jun 28, 2010
-@author matcat
+@author Matthew A. Todd
 '''
 from .IRunner import IRunner
 
@@ -17,7 +17,7 @@ class PythonUnittestRunner(IRunner):
     unittest.TextTestRunner(verbosity=2, stream=sys.stdout).run(suite)
     
     @date Jun 28, 2010
-    @author matcat
+    @author Matthew A. Todd
     '''
 
 

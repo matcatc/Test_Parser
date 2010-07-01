@@ -1,6 +1,6 @@
 '''
 @date Jun 28, 2010
-@author matcat
+@author Matthew A. Todd
 '''
 from TestParser.Common.Constants import Constants
 import os.path
@@ -10,7 +10,7 @@ class IRunner(object):
     '''
     classdocs
     @date Jun 28, 2010
-    @author matcat
+    @author Matthew A. Todd
     '''
 
     ## message that is displayed when testRunner isn't run successfully

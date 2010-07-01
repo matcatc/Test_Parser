@@ -1,7 +1,6 @@
 '''
-Created on Jun 30, 2010
-
-@author: matcat
+@date Jun 30, 2010
+@author: Matthew A. Todd
 '''
 import unittest
 
