@@ -23,7 +23,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 import sys
 
-from TestParser_tests.Common import Observable_Test, Observer_Test, UpdateJobPool_Test, UpdateThread_Test
+from TestParser_tests.Common import Observable_Test, Observer_Test, UpdateJobPool_Test, UpdateThread_Test, FrameworkFactory_Test
 from TestParser_tests.Model import Model_test, IRunner_Test, BoostRunner_test, PythonUnittestRunner_Test
 from TestParser_tests.Parser import BoostParser_Test, PythonUnittestParser_Test, IParse_Test 
 from TestParser_tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test, TestComponent_Test
@@ -44,24 +44,25 @@ def runTestSuites(testClasses):
 
 def main():
     runTestSuites([Observable_Test.Observable_Test, \
-                   Observer_Test.Observer_Test, \
-                    UpdateJobPool_Test.UpdateJobPool_Test, \
-                     UpdateThread_Test.UpdateThread_Test, \
-                      Model_test.Model_test, \
-                       IRunner_Test.IRunner_Test, \
-                        BoostRunner_test.BoostRunner_Test, \
-                         PythonUnittestRunner_Test.PythonUnittestRunner_Test, \
-                          BoostParser_Test.BoostParser_Test, \
-                           PythonUnittestParser_Test.PythonUnittestParser_Test, \
-                            IParse_Test.IParse_Test, \
-                             Notice_Test.Notice_Test, \
-                              Suite_Test.Suite_Test, \
-                               TestCase_Test.TestCase_Test, \
-                                TestResults_Test.TestResults_Test, \
-                                 TestComponent_Test.TestComponent_Test, \
-                                  Controller_Test.ControllerTest, \
-                                   TextView_Test.TextView_Test, \
-                                    QtView_Test.QtView_Test])
+                    Observer_Test.Observer_Test, \
+                     UpdateJobPool_Test.UpdateJobPool_Test, \
+                      UpdateThread_Test.UpdateThread_Test, \
+                       FrameworkFactory_Test.FrameworkFactory_Test, \
+                    Model_test.Model_test, \
+                     IRunner_Test.IRunner_Test, \
+                      BoostRunner_test.BoostRunner_Test, \
+                       PythonUnittestRunner_Test.PythonUnittestRunner_Test, \
+                    BoostParser_Test.BoostParser_Test, \
+                     PythonUnittestParser_Test.PythonUnittestParser_Test, \
+                      IParse_Test.IParse_Test, \
+                    Notice_Test.Notice_Test, \
+                     Suite_Test.Suite_Test, \
+                      TestCase_Test.TestCase_Test, \
+                       TestResults_Test.TestResults_Test, \
+                        TestComponent_Test.TestComponent_Test, \
+                    Controller_Test.ControllerTest, \
+                     TextView_Test.TextView_Test, \
+                      QtView_Test.QtView_Test])
 
 if __name__ == '__main__':
     main()
