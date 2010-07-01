@@ -27,15 +27,6 @@ class BoostParser(IParse.IParse):
     '''
     Our basic parser for Boost's Test Framework.
     
-    When looking at the code, I feel that it seems very "hard-coded."
-    I assume there is probably a "better"/more dynamic way of structuring it
-    so that all we have to give it is a couple data structures with strings
-    of xml tags we're interested in. But, the hard-coded code is strait
-    forward and easy to understand. Plus we don't want to get crazy until we
-    have a couple other parsers anyways.  
-    
-    Notice types: @see _parseTestCase()
-    
     @date Feb 22, 2010
     @author Matthew A. Todd
     '''

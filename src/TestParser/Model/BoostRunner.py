@@ -25,15 +25,6 @@ import copy, os.path
 
 class BoostRunner(IRunner):
     '''
-    This object exists in order to run the external test
-    program (BoostTest in the default case). It contains
-    information that allows it to spawn a subprocess
-    (the test program.)
-    
-    @note this is currently setup for Boost's Test framework. If we
-    want to add other frameworks later, we're probably going to have to
-    use some sort of pattern.
-    
     @date Mar 6, 2010
     @author Matthew A. Todd
     '''

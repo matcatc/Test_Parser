@@ -23,6 +23,9 @@ from TestParser.Parser import BoostParser, PythonUnittestParser
 from TestParser.Model import BoostRunner, PythonUnittestRunner
 
 class UndefinedTestFrameworkError(Exception):
+    '''
+    Exception for when we receive a unrecognized Test Framework.
+    '''
     pass
 
 class FrameworkFactory(object):

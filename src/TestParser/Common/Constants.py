@@ -20,9 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import sys
-
 import logging
-import logging.handlers
 
 
 class Constants_class(object):

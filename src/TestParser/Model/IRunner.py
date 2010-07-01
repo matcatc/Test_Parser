@@ -25,7 +25,16 @@ from subprocess import Popen, PIPE
 
 class IRunner(object):
     '''
-    classdocs
+    Runner interface/Template Method.
+    
+    Defines the interface for runners and implements a most the
+    details as well.
+    
+    This object exists in order to run the external test
+    program. It contains information that allows it to spawn a subprocess
+    (the test program.)
+
+
     @date Jun 28, 2010
     @author Matthew A. Todd
     '''
@@ -113,7 +122,7 @@ class IRunner(object):
         Computes the cmd to be invoked in order to run the runner
         for the particular subclass.
         
-        Think Template Method.
+        Template Method.
         
         To be overridden.
         

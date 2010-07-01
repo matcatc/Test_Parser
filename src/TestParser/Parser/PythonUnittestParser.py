@@ -24,7 +24,6 @@ from ..TestResults import TestResults, Suite, TestCase, Notice
 from TestParser.Common.Constants import Constants
 import re
 
-import sys
 
 class PythonUnittestParser(IParse.IParse):
     '''
