@@ -190,6 +190,15 @@ sudo make install
 		<title>Change Log</title>
 		<itemizedlist>
 			<listitem>
+				<bridgehead>v 0.1.1</bridgehead>
+				<para>Pre-alpha. No packaged-release.</para>
+				<itemizedlist>
+					<listitem><para>Python Unittest Framework</para></listitem>
+					<listitem><para>Ui's display results in cronological order</para></listitem>
+					<listitem><para>Increased View orthagonality (internal)</para></listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
 				<bridgehead>v 0.1.0</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
