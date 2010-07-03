@@ -9,6 +9,8 @@ def main():
     
     f = open('/home/matcat/Desktop/Junit4_out')
     parser4.parse(file=f)
+    
+    print("Done.")
 
 
 if __name__ == '__main__':
