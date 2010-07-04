@@ -96,19 +96,6 @@ class JUnitParser(IParse.IParse):
         Parses the fail and error messages to get data regarding the
         fails and errors.
         
-        format of fail/error messages:
-        
-        @verbatim
-        for JUnit3:
-        #) testName(filename)<error line>
-            at class.test(file:line)
-        
-        example fail/error messages:
-        
-        @verbatim        
-        1) testTwo(Junit3_test)junit.framework.AssertionFailedError: expected:<5> but was:<4>
-            at Junit3_test.testTwo(Junit3_test.java:20)
-        @endverbatim
         
         @see _parseFailError_JUnit4
         @see _parseFailError_JUnit3
@@ -209,6 +196,31 @@ class JUnitParser(IParse.IParse):
                 failInfo.append( (className, testName, fileName, line, exceptionLine))
         return failInfo
 
+
+    def _parseFailError_JUnit3(self, lines):
+        '''
+        Parses the fail and error messages to get data regarding the
+        fails and errors.
+        
+        format of fail/error messages:
+        
+        @verbatim
+        for JUnit3:
+        #) testName(filename)<error line>
+            at class.test(file:line)
+        
+        example fail/error messages:
+        
+        @verbatim        
+        1) testTwo(Junit3_test)junit.framework.AssertionFailedError: expected:<5> but was:<4>
+            at Junit3_test.testTwo(Junit3_test.java:20)
+        @endverbatim
+        
+        @return a list of tuples: (className, testName, fileName, line, exceptionLine),
+            containing all the relevant fail/error message data (in order)
+        @date Jul 4, 2010
+        '''
+        pass
 
     def _compileTestResults(self):
         '''
