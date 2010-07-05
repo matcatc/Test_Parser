@@ -6,11 +6,11 @@
 from . import IParse
 from TestParser.Common.Constants import Constants
 from TestParser.Common.InvalidJUnitVersion import InvalidJUnitVersion
+from ..TestResults import TestResults, Suite, TestCase, Notice
 from .JUnit4Yaccer import InvalidLine, parser
 
 
 import re
-import sys
 
 
 
@@ -37,13 +37,13 @@ class JUnitParser(IParse.IParse):
         '''
         '''
         if stringData is not None:
-            self._parseData(stringData)
+            return self._parseData(stringData)
         elif file is not None:
-            self._parseData(file.read())
+            return self._parseData(file.read())
         else:
             #TODO: raise
             Constants.logger.error("ERROR: parse() needs data to parse")
-            return
+            return None
 
 
     def _parseData(self, stringData):
@@ -61,6 +61,11 @@ class JUnitParser(IParse.IParse):
 
         failInfo = self._parseFailError(lines)
         Constants.logger.debug(str(failInfo))
+        
+        suites = self._compileSuites(failInfo)
+        Constants.logger.debug(str(suites))
+        
+        return self._compileTestResults(testCount, errorCount, failCount, suites)
 
     def _parseStatus(self, statusLine):
         '''
@@ -108,6 +113,7 @@ class JUnitParser(IParse.IParse):
             return self._parseFailError_JUnit4(lines)
         elif self.version == 3:
             Constants.logger.fatal("_parseFailError() hasn't implemented version 3 yet")
+            raise InvalidJUnitVersion('version 3 not implemented yet')
         else:
             raise InvalidJUnitVersion()
 
@@ -214,16 +220,64 @@ class JUnitParser(IParse.IParse):
             at Junit3_test.testTwo(Junit3_test.java:20)
         @endverbatim
         
-        @return a list of tuples: (className, testName, fileName, line, exceptionLine),
+        @return a list of tuples: (suiteName, testName, fileName, line, exceptionLine),
             containing all the relevant fail/error message data (in order)
         @date Jul 4, 2010
         '''
         pass
-
-    def _compileTestResults(self):
+    
+    def _compileSuites(self, failInfo):
         '''
-        Using data that we've parsed, construct Test Results.
+        Takes information from _parseFailError() and breaks it into suites.
+        
+        failInfo is a list of tuples (suiteName, testName, fileName, line, info).
+        So all the tests from the same suite aren't currently grouped together.
+        Which is why this method exists.        
+        
+        @date Jul 4, 2010
+        @author Matthew A. Todd
+        '''
+        suites = {}
+        
+        for suite, test, filename, line, info in failInfo:
+            if suite not in suites:
+                suites[suite] = []
+                
+            suites[suite].append((test, filename, line, info))
+        
+        return suites
+        
+
+    def _compileTestResults(self, testCount, errorCount, failCount, suites):
+        '''
+        Using data that we've gathered, construct Test Results.
         
         @date Jul 3, 2010
         '''
-        pass
+        results = TestResults.TestResults()
+        
+        bad = errorCount + failCount
+        good = testCount - bad
+        
+        # add good tests
+        for i in range(good):                                   #@UnusedVariable
+            resultTest = TestCase.TestCase()
+            resultTest.addNotice(Notice.Notice(None, None, None, "pass"))
+            
+            results.suites.append(resultTest)
+        
+        # add bad suites
+        for suite in suites.keys():
+            suiteName = suite
+            resultSuite = Suite.Suite(suiteName)
+            
+            for test, filename, line, info in suites[suite]:
+                resultTest = TestCase.TestCase(test)
+                
+                resultTest.addNotice(Notice.Notice(filename, line, info, "fail"))
+                    
+                resultSuite.testCases.append(resultTest)
+            
+            results.suites.append(resultSuite)
+
+        return results
