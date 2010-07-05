@@ -34,11 +34,20 @@ def p_start(p):
     p[0] = p[1]
     
 
-def p_status_line(p):
+def p_status_line_junit4(p):
     'status_line : NUMBER RPAREN name LPAREN name RPAREN end'
     p[0] = ('status_line', {'testName' : p[3],
-            'suiteName' : p[5]})
+                            'suiteName' : p[5]})
 
+def p_status_line_junit3(p):
+    '''
+    status_line : NUMBER RPAREN name LPAREN name RPAREN exception_line
+    '''
+    exception_lineData = p[7][1]
+    p[0] = ('status_line_junit3', {'testName' : p[3],
+                                    'suiteName' : p[5],
+                                    'exception' : exception_lineData['exception'],
+                                    'info' : exception_lineData['info']})
 
 # TODO: return other relevant exception data (if applicable)
 def p_exception_line(p):

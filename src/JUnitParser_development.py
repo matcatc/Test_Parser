@@ -5,7 +5,7 @@ This is a temporary file to help us exercise JUnitParser
 from TestParser.Parser.JUnitParser import JUnitParser
 
 def main():
-    parser4 = JUnitParser(4)
+    parser4 = JUnitParser(3)
     
     f = open('/home/matcat/Desktop/test_out')
     parser4.parse(file=f)
