@@ -53,10 +53,8 @@ class FrameworkFactory(object):
             cls.factory = _BoostFactory()
         elif framework.lower() == "PyUnittest".lower():
             cls.factory = _PythonUnittestFactory()
-        elif framework.lower() == "JUnit4".lower():
-            cls.factory = _JUnitFactory(4)
-        elif framework.lower() == "JUnit3".lower():
-            cls.factory = _JUnitFactory(3)
+        elif framework.lower() == "JUnit".lower():
+            cls.factory = _JUnitFactory()
         else:
             raise UndefinedTestFrameworkError()
 
@@ -86,10 +84,9 @@ class _PythonUnittestFactory(FrameworkFactory):
         return PythonUnittestParser.PythonUnittestParser()
     
 class _JUnitFactory(FrameworkFactory):
-    def __init__(self, version):
+    def __init__(self):
         super().__init__()
-        self.version = version
     def createRunner(self):
-        return JUnitRunner.JUnitRunner(self.version)
+        return JUnitRunner.JUnitRunner()
     def createParser(self):
-        return JUnitParser.JUnitParser(self.version)
+        return JUnitParser.JUnitParser()

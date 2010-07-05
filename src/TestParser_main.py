@@ -34,7 +34,7 @@ def main():
     usage = "usage: %prog [options] <test_runner>"
     gui_choices = ("Simple (Default)",)
     gui_help = "use specified gui: " + ", ".join(gui_choices)
-    framework_choices = ("Boost", "PyUnittest", "JUnit3", "JUnit4")
+    framework_choices = ("Boost", "PyUnittest", "JUnit")
     framework_help = "use specified test framework: "   \
                             + ", ".join(framework_choices)
     

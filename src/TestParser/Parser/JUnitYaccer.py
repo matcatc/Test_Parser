@@ -1,7 +1,7 @@
 '''
 This file contains the PLY.yacc parser to parse the tokens from JUnitLexer.
 
-Used for parsing JUnit 4's output
+Used for parsing JUnit 3 and 4's output
 
 @date Jul 4, 2010
 @author Matthew A. Todd

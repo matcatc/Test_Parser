@@ -4,7 +4,6 @@
 '''
 
 from .IRunner import IRunner
-from TestParser.Common.InvalidJUnitVersion import InvalidJUnitVersion
 
 class JUnitRunner(IRunner):
     '''
@@ -14,7 +13,7 @@ class JUnitRunner(IRunner):
     '''
 
 
-    def __init__(self, version):
+    def __init__(self):
         '''
         Constructor
         
@@ -25,10 +24,6 @@ class JUnitRunner(IRunner):
         here.
         '''
         super().__init__()
-        
-        if version != 3 and version != 4:
-            raise InvalidJUnitVersion()
-        self.version = version
     
     
     def computeCmd(self, params):
