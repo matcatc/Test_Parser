@@ -34,6 +34,10 @@ class IRunner(object):
     program. It contains information that allows it to spawn a subprocess
     (the test program.)
 
+    The runner attribute is a list. The first item is the runner executable
+    name, and any following items are parameters for the executable that
+    we're passed in along with it. While at first it seems a little weird
+    to store a list, it never-the-less simplifies the code that uses it. 
 
     @date Jun 28, 2010
     @author Matthew A. Todd
@@ -60,24 +64,37 @@ class IRunner(object):
     def runner(self):
         return self._runner
     @runner.setter
-    def runner(self, runner): #@DuplicatedSignature
+    def runner(self, gRunner): #@DuplicatedSignature
         '''
         This automatically deals with path names.
         If None: None
         If valid for cwd: use cwd
         else: global path
         
+        Its possible someone is passing in a runner with its options
+        (as they should be able to.) In that case, we need to split
+        it and store it as as a list. Still want to do path checking though. 
+        
         @pre runner is present in working directory or global path
         @param runner filename/path to the test runner
         '''
-        if runner is None:
+        if gRunner is None:
             self._runner = None
-        # working directory   
-        elif os.path.exists(os.path.abspath(runner)):
-            self._runner = os.path.abspath(runner)
-        # global path
+            return
+        
+        # passing in command with arguments
+        if ' ' in gRunner:
+            runner = gRunner.split(' ')
         else:
-            self._runner = runner
+            runner = [gRunner]
+
+
+        # working directory   
+        if os.path.exists(os.path.abspath(runner[0])):
+            runner[0] = os.path.abspath(runner[0])
+
+        self._runner = runner
+        
     @runner.deleter
     def runner(self): #@DuplicatedSignature
         del self._runner
@@ -105,7 +122,7 @@ class IRunner(object):
                 cmd = self.computeCmd(params)
                 self.previousCmd = cmd
 
-            Constants.logger.debug("cmd = [" + ", ".join(cmd) + "]")
+            Constants.logger.debug("DEBUG: cmd = %s" % repr(cmd))
 
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):

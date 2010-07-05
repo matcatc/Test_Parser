@@ -35,4 +35,4 @@ class JUnitRunner(IRunner):
         '''
         Just run w/o any paramaters
         '''
-        return [self.runner]
+        return self.runner

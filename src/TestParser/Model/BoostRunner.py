@@ -55,7 +55,8 @@ class BoostRunner(IRunner):
         cmd.insert(0, self.runner)                
         cmd.insert(1, BoostRunner.LOG_FORMAT)
         cmd.insert(2, "--log_level="+self.logLevel)
-        return cmd
+        return self.runner + [BoostRunner.LOG_FORMAT,
+                              "--log_level="+self.logLevel]
     
     def runTest(self, tests):
         '''
