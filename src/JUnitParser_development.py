@@ -7,7 +7,7 @@ from TestParser.Parser.JUnitParser import JUnitParser
 def main():
     parser4 = JUnitParser(4)
     
-    f = open('/home/matcat/Desktop/Junit4_out')
+    f = open('/home/matcat/Desktop/test_out')
     parser4.parse(file=f)
     
     print("Done.")
