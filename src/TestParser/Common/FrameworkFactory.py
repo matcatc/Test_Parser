@@ -19,8 +19,8 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from TestParser.Parser import BoostParser, PythonUnittestParser
-from TestParser.Model import BoostRunner, PythonUnittestRunner
+from TestParser.Parser import BoostParser, PythonUnittestParser, JUnitParser
+from TestParser.Model import BoostRunner, PythonUnittestRunner, JUnitRunner
 
 class UndefinedTestFrameworkError(Exception):
     '''
@@ -53,6 +53,10 @@ class FrameworkFactory(object):
             cls.factory = _BoostFactory()
         elif framework.lower() == "PyUnittest".lower():
             cls.factory = _PythonUnittestFactory()
+        elif framework.lower() == "JUnit4".lower():
+            cls.factory = _JUnitFactory(4)
+        elif framework.lower() == "JUnit3".lower():
+            cls.factory = _JUnitFactory(3)
         else:
             raise UndefinedTestFrameworkError()
 
@@ -80,3 +84,11 @@ class _PythonUnittestFactory(FrameworkFactory):
     
     def createParser(self):
         return PythonUnittestParser.PythonUnittestParser()
+    
+class _JUnitFactory(FrameworkFactory):
+    def __init__(self, version):
+        self.version = version
+    def createRunner(self):
+        return JUnitRunner.JUnitRunner(self.version)
+    def createParser(self):
+        return JUnitParser.JUnitParser(self.version)
