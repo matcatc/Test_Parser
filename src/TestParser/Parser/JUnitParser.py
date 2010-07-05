@@ -25,6 +25,8 @@ class JUnitParser(IParse.IParse):
     @author Matthew A. Todd
     '''
 
+    # matches line: 'JUnit version #.#.#'
+    JunitVersionLine_Regex = re.compile(r'^JUnit version [0-9\.]+$')
 
     def __init__(self):
         '''
@@ -46,13 +48,18 @@ class JUnitParser(IParse.IParse):
 
     def _parseData(self, stringData):
         '''
-
+        Overall function that coordinates the parsing and compilation
+        of data.
+        
+        Only real work it does is removes the first line if its a
+        JUnit version identifier. That way the code will work with
+        both JUnit3 and JUnit4.
         '''
         lines = stringData.split('\n')
 
-        # JUnit4 will print an extra line: 'JUnit version #.#.#
+        # JUnit4 will print an extra line: 'JUnit version #.#.#'
         #  which we remove to unify the two JUnits
-        if re.match(r'^JUnit version [0-9\.]+$', lines[0]):
+        if JUnitParser.JunitVersionLine_Regex.match(lines[0]):
             lines.pop(0)
 
         statusLine = lines[0]
@@ -204,132 +211,6 @@ class JUnitParser(IParse.IParse):
         return failInfo
 
 
-    def _parseFailError_JUnit4(self, lines):
-        '''
-        Parses the fail and error messages to get data regarding the
-        fails and errors.
-        
-
-        
-        @return a list of tuples: (suiteName, testName, fileName, line, exceptionLine),
-            containing all the relevant fail/error message data (in order)
-        @date Jul 3, 2010
-        '''
-        failInfo = []
-        
-        # TODO: we need to reset variables?
-        
-        for line in lines:
-            try:
-                temp = parser.parse(line)                   #@UndefinedVariable
-                if temp is not None:
-                    lineType = temp[0]
-                    lineDict = temp[1]
-                    
-                    if lineType == 'status_line':
-                        testName = lineDict['testName']
-                        suiteName = lineDict['suiteName']
-                        
-                    elif lineType == 'exception_line':
-                        exception = lineDict['exception']
-                        exceptionData = lineDict['info']
-
-                        if exceptionData is not None:                        
-                            info = "%s: %s" % (exception, exceptionData)
-                        else:
-                            info = exception
-                            
-                    elif lineType == 'detail_line':
-                        classData = lineDict['class']
-                        
-                        # check that the file and line occur in the test and suite
-                        # should have all necessary data now.
-                        if classData == "%s.%s" % (suiteName, testName):
-                            fileName = lineDict['filename']
-                            line = lineDict['line']
-                        
-                            failInfo.append( (suiteName, testName, fileName, line, info))
-                            
-                    else:
-                        Constants.logger.error("ERROR: encountered unknown line type")
-                    
-            except InvalidLine:
-                # We just got a line that yacc doesn't know how to handle.
-                # We don't need to do anything. see JUnit4Yaccer.
-                pass
-        
-        return failInfo
-
-
-    def _parseFailError_JUnit3(self, lines):
-        '''
-        Parses the fail and error messages to get data regarding the
-        fails and errors.
-        
-        format of fail/error messages:
-        
-
-        
-        @return a list of tuples: (suiteName, testName, fileName, line, exceptionLine),
-            containing all the relevant fail/error message data (in order)
-        @date Jul 4, 2010
-        '''
-        failInfo = []
-        
-        # TODO: we need to reset variables?
-        
-        for line in lines:
-            try:
-                temp = parser.parse(line)                   #@UndefinedVariable
-                if temp is not None:
-                    lineType = temp[0]
-                    lineDict = temp[1]
-                    
-                    if lineType == 'status_line_junit3':
-                        testName = lineDict['testName']
-                        suiteName = lineDict['suiteName']
-                        
-                        exception = lineDict['exception']
-                        exceptionData = lineDict['info']
-
-                        if exceptionData is not None:                        
-                            info = "%s: %s" % (exception, exceptionData)
-                        else:
-                            info = exception
-                    
-                    elif lineType == 'status_line':
-                        testName = lineDict['testName']
-                        suiteName = lineDict['suiteName']
-                        
-                    elif lineType == 'exception_line':
-                        exception = lineDict['exception']
-                        exceptionData = lineDict['info']
-
-                        if exceptionData is not None:                        
-                            info = "%s: %s" % (exception, exceptionData)
-                        else:
-                            info = exception
-                            
-                    elif lineType == 'detail_line':
-                        classData = lineDict['class']
-                        
-                        # check that the file and line occur in the test and suite
-                        # should have all necessary data now.
-                        if classData == "%s.%s" % (suiteName, testName):
-                            fileName = lineDict['filename']
-                            line = lineDict['line']
-                        
-                            failInfo.append( (suiteName, testName, fileName, line, info))
-                            
-                    else:
-                        Constants.logger.error("ERROR: encountered unknown line type")
-                    
-            except InvalidLine:
-                # We just got a line that yacc doesn't know how to handle.
-                # We don't need to do anything. see JUnit4Yaccer.
-                pass
-        
-        return failInfo
     
     def _compileSuites(self, failInfo):
         '''
