@@ -7,7 +7,7 @@ from . import IParse
 from TestParser.Common.Constants import Constants
 from TestParser.Common.InvalidJUnitVersion import InvalidJUnitVersion
 from ..TestResults import TestResults, Suite, TestCase, Notice
-from .JUnit4Yaccer import InvalidLine, parser
+from .JUnit4Yaccer import InvalidLine, parser                #@UnresolvedImport
 
 
 import re
