@@ -75,8 +75,24 @@
 						<member>v0.1.0 - boost 1.40</member>
 					</simplelist>
 				</listitem>
-				<listitem><para>Python Unittest</para></listitem>
+				<listitem><para>Python Unittest</para>
+					<simplelist>
+						<member>v0.1.1 - python 3.1.2</member>
+					</simplelist>
+				</listitem>
+				<listitem><para>JUnit</para>
+					<simplelist>
+						<member>v0.1.2 - JUnit 3.8.2</member>
+						<member>v0.1.2 - JUnit 4.8.1</member>
+					</simplelist>
+				</listitem>
 			</itemizedlist>
+			<note>
+				<title>Version Info</title>
+				<para> Note: that the given versions are what has been
+				 	tested/verified.
+				 </para>
+			</note>
 			<para> I have no plans to support other test formats, unless asked 
 				or I find the need. So if you desire a particular format,
 				either notify me with the relevant information or feel free to
@@ -96,6 +112,21 @@
 	    			following command in your test runner.
 	    
 	    			<screen>unittest.TextTestRunner(verbosity=2, stream=sys.stdout).run(suite)</screen>
+				</para>
+				<para> The JUnit framework is currently just JUnit output, not
+					JUnit through Ant. Because this output doesn't contain
+					more information about the passing tests, you will see
+					'free-floating' test cases in the output will little
+					information. Also, the user needs to setup CLASSPATH
+					and pass in the full java command (in quotes):
+					<screen>java junit.textui.TestRunner className</screen>
+					for JUnit3 and
+					<screen>java org.junit.runner.JUnitCore className</screen>
+					for JUnit4. Its possible to run a JUnit3 program with
+					JUnit4's command, or at least I've seen it work. TestParser
+					doesn't care which you use, as long as it works. If it
+					doesn't work you will likely see JUnit's error message
+					appear in stderr.
 				</para>
 			</refsect3>
 		</refsect2>
@@ -138,6 +169,7 @@
 			<itemizedlist>
 				<listitem><para>python 3.x</para></listitem>
 				<listitem><para>PyQt4</para></listitem>
+				<listitem><para>PLY (for JUnit)</para></listitem>
 			</itemizedlist>
 			<refsect3>
 				<title>PyQt4 installation</title>
@@ -170,6 +202,18 @@ make
 sudo make install
 					</screen>
 				</blockquote>
+			</refsect3>
+			<refsect3>
+				<title>PLY installation</title>
+				<para><ulink url="http://www.dabeaz.com/ply/">PLY</ulink>
+					(Python Lex Yacc)
+					is a python package that can be installed in the
+					typical ways. Just download and run
+					<literal>setup.py install</literal>.
+					Make sure to install it with the correct python version,
+					the correct version being the one used by TestParser
+					(see above.)
+				</para>
 			</refsect3>
 		</refsect2>
 	</refsect1>
