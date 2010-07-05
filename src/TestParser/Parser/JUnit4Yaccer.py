@@ -51,7 +51,8 @@ def p_exception_line(p):
         p[0] = ('exception_line', {'exception': p[1],
                                    'info' : p[4]})
     else:
-        p[0] = ('exception_line', p[1])
+        p[0] = ('exception_line', {'exception' : p[1],
+                                   'info' : None})
     
     
 
@@ -79,7 +80,8 @@ def p_detail_line2(p):
     detail_line : AT class LPAREN filename RPAREN end
     '''
     p[0] = ('detail_line', {'class' : p[2],
-                            'filename' : p[4]})
+                            'filename' : p[4],
+                            'line' : None})
 
 
 def p_class_rec(p):
@@ -87,7 +89,7 @@ def p_class_rec(p):
     class : class PERIOD name
             | class DOLLAR NUMBER
     '''
-    p[0] = p[1] + p[2] + p[3]
+    p[0] = p[1] + p[2] + str(p[3])
 
 def p_class_bc(p):
     '''
@@ -129,7 +131,7 @@ def p_string(p):
             | char
     '''
     if len(p) == 3:
-        p[0] = p[1] + p[2]
+        p[0] = p[1] + str(p[2])
     else:
         p[0] = p[1]
 
@@ -146,6 +148,10 @@ def p_char(p):
 
 # Error rule for syntax errors
 def p_error(p):
+    ## Although this is bad style
+    ## (using exceptions like this) it tremendulously simplifies
+    ## the code, as we'd otherwise have to come up with rules
+    ## that cover everything that isn't valid.
 #    print("Syntax error in input!", p)
     if p is not None:
         raise InvalidLine(p)

@@ -6,8 +6,11 @@
 from . import IParse
 from TestParser.Common.Constants import Constants
 from TestParser.Common.InvalidJUnitVersion import InvalidJUnitVersion
+from .JUnit4Yaccer import InvalidLine, parser
+
 
 import re
+import sys
 
 
 
@@ -57,7 +60,6 @@ class JUnitParser(IParse.IParse):
         testCount, errorCount, failCount = self._parseStatus(statusLine)
 
         failInfo = self._parseFailError(lines)
-        
         Constants.logger.debug(str(failInfo))
 
     def _parseStatus(self, statusLine):
@@ -139,58 +141,57 @@ class JUnitParser(IParse.IParse):
             at org.junit.Assert.fail(Assert.java:91)
         @endverbatim
         
-        Because when we find a matching line we need to get the next couple/next
-        line(s), we're using an iterator. So when we find our match, we just
-        ask for the needed next lines.
+        Uses PLY (python lex yacc) to break down the lines, validate, and
+        return the relevant data. Then takes said data and assembles it
+        into list failInfo, to be used later in the program.
         
-        @return a list of tuples: (className, testName, fileName, line, exceptionLine),
+        @return a list of tuples: (suiteName, testName, fileName, line, exceptionLine),
             containing all the relevant fail/error message data (in order)
         @date Jul 3, 2010
-        
-        TODO: pretty complex. Should we go for a BNF?
         '''
         failInfo = []
         
-        lineIter = iter(lines)
-        for line in lineIter:                
-            bMatch = re.match(r"^[0-9]+\) [a-zA-Z0-9_]+\([a-zA-Z0-9_]+\)", line) is not None
+        # TODO: we need to reset variables?
+        
+        for line in lines:
+            try:
+                temp = parser.parse(line)                   #@UndefinedVariable
+                if temp is not None:
+                    lineType = temp[0]
+                    lineDict = temp[1]
+                    
+                    if lineType == 'status_line':
+                        testName = lineDict['testName']
+                        suiteName = lineDict['suiteName']
+                        
+                    elif lineType == 'exception_line':
+                        exception = lineDict['exception']
+                        exceptionData = lineDict['info']
 
-            if bMatch:
-                testLine = line
-                Constants.logger.debug("line = " + testLine)
-                
-                words = testLine.split(' ')
-                words = words[1].split('(')
-                testName = words[0]
-                className = words[1][:-1]
-                Constants.logger.debug("testName = " + testName + "\tclassName = " + className)
-                
-                
-                exceptionLine = next(lineIter)
-                Constants.logger.debug("exceptionLine = " + exceptionLine)
-                
-                # look for locationLine that matches our testCase
-                # should be something like: at className.testName(fileName:line)
-                # TODO: potential to run into a StopIteration exception here
-                found = False
-                while not found: 
-                    locationLine = next(lineIter)
+                        if exceptionData is not None:                        
+                            info = "%s: %s" % (exception, exceptionData)
+                        else:
+                            info = exception
+                            
+                    elif lineType == 'detail_line':
+                        classData = lineDict['class']
+                        
+                        # check that the file and line occur in the test and suite
+                        # should have all necessary data now.
+                        if classData == "%s.%s" % (suiteName, testName):
+                            fileName = lineDict['filename']
+                            line = lineDict['line']
+                        
+                            failInfo.append( (suiteName, testName, fileName, line, info))
+                            
+                    else:
+                        Constants.logger.error("ERROR: encountered unknown line type")
                     
-                    pattern = className+"\."+testName                        
-                    if re.search(pattern, locationLine) is not None:
-                        found = True
-                    
-                Constants.logger.debug("locationLine = " + locationLine)
-                
-                words2 = locationLine.split(' ')
-                words2 = words2[1].split('(')
-                words2 = words2[1][:-1].split(':')
-                fileName = words2[0]
-                line = words2[1]
-                
-                Constants.logger.debug("fileName = " + fileName + "\tline = " + line)
-                
-                failInfo.append( (className, testName, fileName, line, exceptionLine))
+            except InvalidLine:
+                # We just got a line that yacc doesn't know how to handle.
+                # We don't need to do anything. see JUnit4Yaccer.
+                pass
+        
         return failInfo
 
 
