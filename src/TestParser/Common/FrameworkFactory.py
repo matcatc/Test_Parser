@@ -87,6 +87,7 @@ class _PythonUnittestFactory(FrameworkFactory):
     
 class _JUnitFactory(FrameworkFactory):
     def __init__(self, version):
+        super().__init__()
         self.version = version
     def createRunner(self):
         return JUnitRunner.JUnitRunner(self.version)
