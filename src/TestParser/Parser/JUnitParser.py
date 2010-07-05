@@ -85,8 +85,10 @@ class JUnitParser(IParse.IParse):
         @return (testCount, errorCount, failCount) tuple
         @date Jul 3, 2010
         '''
-        # TODO: verify statusLine w/ RegEx?
-        # exception or None?
+        # need to use BNF to completely verify,
+        # but this is more of a sanity check
+        if not re.match(r'[\.EF]+', statusLine):
+            Constants.logger.error("ERROR: statusLine isn't of correct form")
 
         Constants.logger.debug("statusLine = " + statusLine)
 
@@ -155,7 +157,7 @@ class JUnitParser(IParse.IParse):
         '''
         failInfo = []
         
-        # TODO: we need to reset variables?
+        # TODO: we need to reset variables after each add to failInfo?
         
         for line in lines:
             try:
