@@ -5,14 +5,11 @@
 
 from . import IParse
 from TestParser.Common.Constants import Constants
+from TestParser.Common.InvalidJUnitVersion import InvalidJUnitVersion
 
 import re
 
-class InvalidJUnitVersion(Exception):
-    '''
-    Raised when we have an invalid JUnit version.
-    '''
-    pass
+
 
 class JUnitParser(IParse.IParse):
     '''
