@@ -65,10 +65,18 @@
 						</itemizedlist>
 					</listitem>
 				</varlistentry>
+				<varlistentry>
+					<term><option>--framework <replaceable>&lt;test framework&gt;</replaceable></option></term>
+					<listitem>
+						<para> Use specified framework. See below for allowed
+							 frameworks.
+						</para>
+					</listitem>
+				</varlistentry>
 			</variablelist>
 		</refsect2>
 		<refsect2>
-			<title>Supported Test Formats</title>
+			<title>Supported Test Frameworks</title>
 			<itemizedlist>
 				<listitem><para> Boost Test</para>
 					<simplelist>
