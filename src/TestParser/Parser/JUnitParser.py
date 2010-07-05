@@ -112,8 +112,7 @@ class JUnitParser(IParse.IParse):
         if self.version == 4:
             return self._parseFailError_JUnit4(lines)
         elif self.version == 3:
-            Constants.logger.fatal("_parseFailError() hasn't implemented version 3 yet")
-            raise InvalidJUnitVersion('version 3 not implemented yet')
+            return self._parseFailError_JUnit3(lines)
         else:
             raise InvalidJUnitVersion()
 
@@ -224,7 +223,7 @@ class JUnitParser(IParse.IParse):
             containing all the relevant fail/error message data (in order)
         @date Jul 4, 2010
         '''
-        pass
+        raise NotImplementedError()
     
     def _compileSuites(self, failInfo):
         '''
