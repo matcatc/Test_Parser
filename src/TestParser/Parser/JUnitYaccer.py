@@ -166,7 +166,7 @@ def p_error(p):
         raise InvalidLine(p)
 
 # Build the parser
-parser = yacc.yacc()
+yaccer = yacc.yacc()
 
 
 

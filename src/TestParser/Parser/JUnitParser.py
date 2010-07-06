@@ -6,11 +6,27 @@
 from . import IParse
 from TestParser.Common.Constants import Constants
 from ..TestResults import TestResults, Suite, TestCase, Notice
-from .JUnitYaccer import InvalidLine, parser                #@UnresolvedImport
+from .JUnitYaccer import InvalidLine, yaccer                #@UnresolvedImport
 
 
 import re
 
+
+class UnknownLineType(Exception):
+    '''
+    Used when Yaccer returns a line_type that we don't know how to
+    handle and aren't expecting.
+    
+    This deserves an exception because it shows that there is a bug,
+    as it should only be returning the line types we know and handle.
+    
+    @date Jul 6, 2010
+    @author Matthew A. Todd 
+    '''
+    def __init__(self, lineType):
+        self.lineType = lineType
+    def __str__(self):
+        return "Unknown Line Type: %s" % self.lineType
 
 
 class JUnitParser(IParse.IParse):
@@ -162,7 +178,7 @@ class JUnitParser(IParse.IParse):
         
         for line in lines:
             try:
-                temp = parser.parse(line)                   #@UndefinedVariable
+                temp = yaccer.parse(line)                   #@UndefinedVariable
                 if temp is not None:
                     lineType = temp[0]
                     lineDict = temp[1]
@@ -204,7 +220,8 @@ class JUnitParser(IParse.IParse):
                             failInfo.append( (suiteName, testName, fileName, line, info))
                             
                     else:
-                        Constants.logger.error("ERROR: encountered unknown line type")
+                        Constants.logger.error("ERROR: encountered unknown line type %s" % lineType)
+                        raise UnknownLineType(lineType)
                     
             except InvalidLine:
                 # We just got a line that yacc doesn't know how to handle.
