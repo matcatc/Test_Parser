@@ -39,6 +39,18 @@ class IRunner_Test(unittest.TestCase):
 
     def tearDown(self):
         del self.runner
+        
+        
+    def test_runnerWithOptions(self):
+        '''
+        Test case where user passes in a runner with options.
+        e.g: 'java org.junit.runner.JUnitCore test'
+        '''
+        input = '<runner> <option1> <option2>'
+        output = ['<runner>', '<option1>', '<option2>']
+        self.runner.runner = input
+        self.assertEqual(self.runner.runner, output)
+         
 
     
     def test_runnerDeleter(self):
