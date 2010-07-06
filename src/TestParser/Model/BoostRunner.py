@@ -51,12 +51,9 @@ class BoostRunner(IRunner):
         
         @date Jun 28, 2010
         '''
-        cmd = copy.deepcopy(params)
-        cmd.insert(0, self.runner)                
-        cmd.insert(1, BoostRunner.LOG_FORMAT)
-        cmd.insert(2, "--log_level="+self.logLevel)
         return self.runner + [BoostRunner.LOG_FORMAT,
-                              "--log_level="+self.logLevel]
+                              "--log_level="+self.logLevel] \
+                            + params
     
     def runTest(self, tests):
         '''

@@ -41,7 +41,7 @@ class PythonUnittestRunner_Test(unittest.TestCase):
         '''
         self.runner.runner = "<runner>"
         input = ["input"]
-        output = [self.runner.runner]
+        output = self.runner.runner
         self.assertEqual(self.runner.computeCmd(input), output)
         
     def testRunAll(self):

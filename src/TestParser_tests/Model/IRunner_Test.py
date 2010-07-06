@@ -30,7 +30,7 @@ class MockRunner(IRunner):
     so that we can test other functionality.
     '''
     def computeCmd(self, params):
-        return [self.runner] + params
+        return self.runner + params
         
 
 class IRunner_Test(unittest.TestCase):

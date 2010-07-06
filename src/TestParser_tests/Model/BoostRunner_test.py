@@ -103,7 +103,7 @@ class BoostRunner_Test(unittest.TestCase):
         '''
         self.runner.runner = "<runner>"
         input = ["input"]
-        output = [self.runner.runner, BoostRunner.LOG_FORMAT, "--log_level=test_suite"] + input
+        output = self.runner.runner + [BoostRunner.LOG_FORMAT, "--log_level=test_suite"] + input
         self.assertEqual(self.runner.computeCmd(input), output)
         
 
