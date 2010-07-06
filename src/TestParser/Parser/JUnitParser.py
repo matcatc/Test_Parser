@@ -104,7 +104,7 @@ class JUnitParser(IParse.IParse):
         # need to use BNF to completely verify,
         # but this is more of a sanity check
         # TODO: should we raise?
-        if not re.match(r'[\.EF]+', statusLine):
+        if not re.match(r'^[\.EF]+$', statusLine):
             Constants.logger.error("ERROR: statusLine isn't of correct form")
 
         Constants.logger.debug("statusLine = " + statusLine)

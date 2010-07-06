@@ -25,6 +25,13 @@ class JUnitParser_Test(unittest.TestCase):
         f = open(computeDataFilepath("JUnit4_out", __file__))
         self.parser.parse(file = f)
 
+    def test_parseString(self):
+        f = open(computeDataFilepath("JUnit4_out", __file__))
+        self.parser.parse(stringData = f.read())
+        
+    def test_badStatusLine(self):
+        data = '..Faa;dkadfjasdl\n'
+        self.parser.parse( stringData=data)
 
 
 if __name__ == "__main__":
