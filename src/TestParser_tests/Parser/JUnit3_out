@@ -1,0 +1,12 @@
+..F
+Time: 0.002
+There was 1 failure:
+1) testTwo(Junit3_test)junit.framework.AssertionFailedError: expected:<5> but was:<4>
+	at Junit3_test.testTwo(Junit3_test.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1,  Errors: 0
+
