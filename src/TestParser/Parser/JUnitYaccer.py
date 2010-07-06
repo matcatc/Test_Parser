@@ -58,7 +58,7 @@ def p_exception_line(p):
     '''
     if len(p) == 5:
         p[0] = ('exception_line', {'exception': p[1],
-                                   'info' : p[4]})
+                                   'info' : p[3]})
     else:
         p[0] = ('exception_line', {'exception' : p[1],
                                    'info' : None})
@@ -140,7 +140,7 @@ def p_string(p):
             | char
     '''
     if len(p) == 3:
-        p[0] = p[1] + str(p[2])
+        p[0] = p[1] + ' ' + str(p[2])
     else:
         p[0] = p[1]
 
