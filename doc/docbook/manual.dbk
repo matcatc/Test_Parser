@@ -177,7 +177,7 @@
 			<itemizedlist>
 				<listitem><para>python 3.x</para></listitem>
 				<listitem><para>PyQt4</para></listitem>
-				<listitem><para>PLY (for JUnit)</para></listitem>
+				<listitem><para>PLY 3.3</para></listitem>
 			</itemizedlist>
 			<refsect3>
 				<title>PyQt4 installation</title>
