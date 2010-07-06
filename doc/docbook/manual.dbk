@@ -172,6 +172,16 @@
 			I'm currently only using source distributions, but I'll try
 			to add installers/packages later (maybe.)
 		</para>
+		<para> Test Parser's installation is defaulted to install all
+			documentation to <literal>/usr/share/doc/Test_Parser</literal>.
+			Because of the directory location, you'll need to run the install
+			as root. Or you can change the directory to somewhere else.
+			To change the directory, either
+			edit <literal>setup.cfg</literal> or pass in
+			<literal>--install-data = <replaceable>&lt;new_directory&gt;</replaceable></literal>.
+			Windows users will have to change the directory because the
+			default is designed for *nix users.
+		</para>
 		<refsect2>
 			<title>Requirements</title>
 			<itemizedlist>
