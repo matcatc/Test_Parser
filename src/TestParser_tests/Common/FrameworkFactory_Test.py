@@ -30,12 +30,13 @@ class FrameworkFactory_Test(unittest.TestCase):
         self.framework = FrameworkFactory.FrameworkFactory()
         self.boost = FrameworkFactory._BoostFactory()
         self.python = FrameworkFactory._PythonUnittestFactory()
-
+        self.junit = FrameworkFactory._JUnitFactory()
 
     def tearDown(self):
         del self.framework
         del self.boost
         del self.python
+        del self.junit
 
 
     # Test FrameworkFactory
@@ -46,6 +47,7 @@ class FrameworkFactory_Test(unittest.TestCase):
         '''
         FrameworkFactory.FrameworkFactory.selectFramework("Boost")
         FrameworkFactory.FrameworkFactory.selectFramework("PyUnittest")
+        FrameworkFactory.FrameworkFactory.selectFramework("JUnit")
         
         self.assertRaises(FrameworkFactory.UndefinedTestFrameworkError,
                           FrameworkFactory.FrameworkFactory.selectFramework,
@@ -74,6 +76,13 @@ class FrameworkFactory_Test(unittest.TestCase):
         '''
         self.python.createParser()
         self.python.createRunner()
+        
+    def test_junitFactory(self):
+        '''
+        Test that methods are defined. Check for typos.
+        '''
+        self.junit.createParser()
+        self.junit.createRunner()
     
 
 
