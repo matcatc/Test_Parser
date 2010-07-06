@@ -222,6 +222,13 @@ sudo make install
 					the correct version being the one used by TestParser
 					(see above.)
 				</para>
+				<para> Currently, PLY is only used by the JUnit framework.
+					As such, I'm considering changing the code slightly
+					so that those who don't use the JUnit framework don't
+					need it installed. For the technically inclined, I'd
+					just be moving the import statement such that its only
+					imported if used. 
+				</para>
 			</refsect3>
 		</refsect2>
 	</refsect1>
@@ -246,6 +253,13 @@ sudo make install
 	<refsect1>
 		<title>Change Log</title>
 		<itemizedlist>
+			<listitem>
+				<bridgehead>v 0.1.2</bridgehead>
+				<para>Pre-alpha. No packaged-release.</para>
+				<itemizedlist>
+					<listitem><para>JUnit Framework</para></listitem>
+				</itemizedlist>
+			</listitem>
 			<listitem>
 				<bridgehead>v 0.1.1</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
