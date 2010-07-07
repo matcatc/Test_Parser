@@ -6,8 +6,12 @@ Used for parsing JUnit 3 and 4's output
 @date Jul 4, 2010
 @author Matthew A. Todd
 '''
+import sys
 
-import ply.yacc as yacc             #@UnresolvedImport
+try:
+    import ply.yacc as yacc             #@UnresolvedImport
+except:
+    sys.exit("Failed to import PLY. JUnit framework requires PLY, so please install.")
 
 class InvalidLine(Exception):
     '''

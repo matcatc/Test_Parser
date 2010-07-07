@@ -6,9 +6,12 @@ Used with the appropriate yaccer.
 @date Jul 4, 2010
 @author Matthew A. Todd
 '''
+import sys
 
-
-import ply.lex as lex       #@UnresolvedImport
+try:
+    import ply.lex as lex       #@UnresolvedImport
+except:
+    sys.exit("Failed to import PLY. JUnit framework requires PLY, so please install.")
 
 reserved = {
    'at' : 'AT',
