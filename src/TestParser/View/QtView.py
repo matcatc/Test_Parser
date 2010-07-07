@@ -19,9 +19,14 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from PyQt4 import uic #@UnresolvedImport
-from PyQt4 import QtGui #@UnresolvedImport
 import sys
+
+try:
+    from PyQt4 import uic #@UnresolvedImport
+    from PyQt4 import QtGui #@UnresolvedImport
+except:
+    sys.exit("Failed to import PyQt4. QtView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
+    
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 from . import Controller
