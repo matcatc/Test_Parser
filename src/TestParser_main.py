@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 '''
+For some modules (currently QtView and TextView,) we import where
+used instead of the usual location. We do this because the modules
+are only used once. And we don't need both, and the one we need
+is decided at runtime. Similar to FrameworkFactoriy's import
+situation.
+
 @author: Matthew A. Todd
 
 This file is part of Test Parser
@@ -19,10 +25,9 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from TestParser.View import TextView
-from TestParser.View import QtView
 from TestParser.Model import Model
 from TestParser.Common.FrameworkFactory import FrameworkFactory
+# we import TextView and QtView down below where they're used. See above for info.
 
 from optparse import OptionParser
 
@@ -66,8 +71,10 @@ def main():
     model.testRunner = runner
     
     if options.ui == "text":
+        from TestParser.View import TextView
         TextView.TextView.startView(model)
     else:
+        from TestParser.View import QtView
         QtView.QtView.startView(model)
 
     
