@@ -48,7 +48,7 @@ class PythonUnittestRunner_Test(unittest.TestCase):
         '''
         test runAll() with real input
         '''
-        self.runner.runner = computeDataFilepath("python_unittest_example.py", __file__)
+        self.runner.runner = computeDataFilepath("./sample/python_unittest_example.py", __file__)
         stdout = self.runner.runAll()
         self.assertNotEqual(stdout, None)
         

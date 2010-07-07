@@ -72,7 +72,7 @@ class TextView_Test(unittest.TestCase):
         '''
         model = Model.Model()
         runner = BoostRunner.BoostRunner()
-        filepath = computeDataFilepath("../Model/Boost_Test", __file__)
+        filepath = computeDataFilepath("../Model/sample/Boost_Test", __file__)
         Constants.logger.debug("DEBUG: filepath = %s" % filepath)
         runner.runner = filepath
         model.testRunner = runner

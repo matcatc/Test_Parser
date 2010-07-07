@@ -30,7 +30,7 @@ from ..Common.Observable_Test import Mock_Observer
 class Model_test(unittest.TestCase):
     
     runner = BoostRunner.BoostRunner()
-    runner.runner = computeDataFilepath("Boost_Test", __file__)
+    runner.runner = computeDataFilepath("./sample/Boost_Test", __file__)
     parser = BoostParser.BoostParser()
     
     data = '<TestSuite name="test suite">\

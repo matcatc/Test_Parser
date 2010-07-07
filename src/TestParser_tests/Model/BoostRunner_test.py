@@ -60,7 +60,7 @@ class BoostRunner_Test(unittest.TestCase):
         '''
         test runAll() with real input
         '''
-        self.runner.runner = computeDataFilepath("Boost_Test", __file__)
+        self.runner.runner = computeDataFilepath("./sample/Boost_Test", __file__)
         stdout = self.runner.runAll()
         self.assertNotEqual(stdout, None)
 
@@ -85,7 +85,7 @@ class BoostRunner_Test(unittest.TestCase):
         '''
         test runTest() with real input
         '''
-        self.runner.runner = computeDataFilepath("Boost_Test", __file__)
+        self.runner.runner = computeDataFilepath("./sample/Boost_Test", __file__)
         stdout = self.runner.runTest(["testA", "testB"])
         self.assertNotEqual(stdout, None)
         
@@ -93,7 +93,7 @@ class BoostRunner_Test(unittest.TestCase):
         '''
         test runSuite() with real input
         '''
-        self.runner.runner = computeDataFilepath("Boost_Test", __file__)
+        self.runner.runner = computeDataFilepath("./sample/Boost_Test", __file__)
         stdout = self.runner.runSuite([])
         self.assertNotEqual(stdout, None)
         

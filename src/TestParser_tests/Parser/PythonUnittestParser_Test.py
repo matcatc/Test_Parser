@@ -47,11 +47,11 @@ class PythonUnittestParser_Test(unittest.TestCase):
         self.assertTrue(self.parser._validFailInfoLine('  File "python_unittest_example.123asd", line 40123, in test_fail'))
     
     def test_ParseFile(self):
-        f = open(computeDataFilepath("python_unittest_sample", __file__))
+        f = open(computeDataFilepath("./sample/python_unittest_sample", __file__))
         self.parser.parse(file = f)
         
     def test_ParseStringdata(self):
-        f = open(computeDataFilepath("python_unittest_sample", __file__))
+        f = open(computeDataFilepath("./sample/python_unittest_sample", __file__))
         self.parser.parse(stringData = f.read())
         
     def test_ParseNone(self):

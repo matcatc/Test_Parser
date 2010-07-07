@@ -18,15 +18,15 @@ class JUnitParser_Test(unittest.TestCase):
         del self.parser
 
     def test_parseFile_3(self):
-        f = open(computeDataFilepath("JUnit3_out", __file__))
+        f = open(computeDataFilepath("./sample/JUnit3_out", __file__))
         self.parser.parse(file = f)
         
     def test_parseFile_4(self):
-        f = open(computeDataFilepath("JUnit4_out", __file__))
+        f = open(computeDataFilepath("./sample/JUnit4_out", __file__))
         self.parser.parse(file = f)
 
     def test_parseString(self):
-        f = open(computeDataFilepath("JUnit4_out", __file__))
+        f = open(computeDataFilepath("./sample/JUnit4_out", __file__))
         self.parser.parse(stringData = f.read())
         
     def test_badStatusLine(self):

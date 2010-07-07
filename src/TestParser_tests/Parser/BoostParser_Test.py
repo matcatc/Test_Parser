@@ -94,7 +94,7 @@ class BoostParser_Test(unittest.TestCase):
         self.assertEqual(second.info, error)
         
     def test_ParseFile(self):
-        f = open(computeDataFilepath("boost_xml", __file__))
+        f = open(computeDataFilepath("./sample/boost_xml", __file__))
         self.parser.parse(file = f)
 
 if __name__ == "__main__":
