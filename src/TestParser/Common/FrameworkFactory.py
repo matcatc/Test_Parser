@@ -1,4 +1,10 @@
 '''
+Because user will only end up using a small portion of the the imports
+and we use each import once, we import where its needed. This way if an
+user doesn't use an import, we don't waste resources importing it. In
+addition, this allows users to avoid having dependencies for the
+modules that aren't used. Example: PLY for JUnitParser.
+
 @date Jul 1, 2010
 @author Matthew A. Todd
 
@@ -19,8 +25,6 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from TestParser.Parser import BoostParser, PythonUnittestParser, JUnitParser
-from TestParser.Model import BoostRunner, PythonUnittestRunner, JUnitRunner
 
 class UndefinedTestFrameworkError(Exception):
     '''
@@ -71,22 +75,27 @@ class FrameworkFactory(object):
     
 class _BoostFactory(FrameworkFactory):
     def createRunner(self):
-        return BoostRunner.BoostRunner()
+        from TestParser.Model.BoostRunner import BoostRunner
+        return BoostRunner()
     
     def createParser(self):
-        return BoostParser.BoostParser()
+        from TestParser.Parser.BoostParser import BoostParser
+        return BoostParser()
 
 class _PythonUnittestFactory(FrameworkFactory):
     def createRunner(self):
-        return PythonUnittestRunner.PythonUnittestRunner()
+        from TestParser.Model.PythonUnittestRunner import PythonUnittestRunner
+        return PythonUnittestRunner()
     
     def createParser(self):
-        return PythonUnittestParser.PythonUnittestParser()
+        from TestParser.Parser.PythonUnittestParser import PythonUnittestParser
+        return PythonUnittestParser()
     
 class _JUnitFactory(FrameworkFactory):
-    def __init__(self):
-        super().__init__()
     def createRunner(self):
-        return JUnitRunner.JUnitRunner()
+        from TestParser.Model.JUnitRunner import JUnitRunner
+        return JUnitRunner()
+    
     def createParser(self):
-        return JUnitParser.JUnitParser()
+        from TestParser.Parser.JUnitParser import JUnitParser
+        return JUnitParser()
