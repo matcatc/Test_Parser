@@ -23,6 +23,7 @@ import unittest
 from TestParser.Parser.BoostParser import BoostParser
 from xml.etree import ElementTree as ET
 from TestParser.Common.computeDataFilepath import computeDataFilepath
+import sys
 
 class BoostParser_Test(unittest.TestCase):
 
@@ -40,7 +41,7 @@ class BoostParser_Test(unittest.TestCase):
                     <TestingTime>0</TestingTime>\
                 </TestCase>\
             </TestSuite>'
-        data = '<TestLog>' + suite +'</TestLog>'
+        data = '<TestLog>%s</TestLog>' % suite
         
         xml = ET.fromstring(data)
         results = self.parser._parseData(xml)
@@ -53,9 +54,7 @@ class BoostParser_Test(unittest.TestCase):
             <TestingTime>0</TestingTime>\
         </TestCase>'
         
-        testSuite = '<TestSuite name="' + name + '">'\
-            + test\
-            + '</TestSuite>'
+        testSuite = '<TestSuite name="%s">%s</TestSuite>' % (name, test)
         xml = ET.fromstring(testSuite)
         suite = self.parser._parseSuite(xml)
         
@@ -71,11 +70,12 @@ class BoostParser_Test(unittest.TestCase):
         error = "sample error"
         time = 0
         
-        testCase = '<TestCase name="' + name + '"> \
-            <Message file="' + file + '" line="' + str(line) + '">' + message + '</Message> \
-            <Error file="' + file + '" line="' + str(line) + '">' + error + '</Error> \
-            <TestingTime>' + str(time) + '</TestingTime> \
-        </TestCase>'
+        testCase = '<TestCase name="%(name)s"> \
+            <Message file="%(file)s" line="%(line)d">%(message)s</Message> \
+            <Error file="%(file)s" line="%(line)d">%(error)s</Error> \
+            <TestingTime>%(time)d</TestingTime> \
+        </TestCase>' % {'name' : name, 'file' : file, 'line' : line,
+                         'message' : message, 'error':error, 'time':time}
         xml = ET.fromstring(testCase)
         test = self.parser._parseTestCase(xml)
         

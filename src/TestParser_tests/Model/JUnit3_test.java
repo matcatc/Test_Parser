@@ -1,6 +1,6 @@
 import junit.framework.*;
 
-public class Junit3_test extends TestCase {
+public class JUnit3_test extends TestCase {
 
 	// Normally you would be testing some function's output, and not some variable you set...
 	public void testOne() {

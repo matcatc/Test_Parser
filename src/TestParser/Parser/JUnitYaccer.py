@@ -19,7 +19,7 @@ class InvalidLine(Exception):
         if self.line is None:
             return "Invalid Line"
         else:
-            return "Invalid Line: #%s" % self.line
+            return "Invalid Line: %s" % self.line
 
 
 # Get the token map from the lexer.  This is required.

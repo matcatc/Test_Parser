@@ -35,8 +35,8 @@ def main():
     gui_choices = ("Simple (Default)",)
     gui_help = "use specified gui: " + ", ".join(gui_choices)
     framework_choices = ("Boost", "PyUnittest", "JUnit")
-    framework_help = "use specified test framework: "   \
-                            + ", ".join(framework_choices)
+    framework_help = "use specified test framework: %s"   \
+                            % ", ".join(framework_choices)
     
     parser = OptionParser(usage)
     parser.add_option("--text", dest="ui", const="text",
@@ -53,7 +53,7 @@ def main():
 
     # should only have the test_runner
     if len(args) != 1:
-        parser.error("incorrect number of arguments")
+        parser.error("Incorrect number of arguments")
     
 
     FrameworkFactory.selectFramework(options.framework)

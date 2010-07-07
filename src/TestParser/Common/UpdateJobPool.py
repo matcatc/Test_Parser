@@ -77,7 +77,7 @@ class UpdateJobPool(object):
         if self._bPoolCreated == False:
             raise NonExistentJobPool_Exception("cannot add threads to a job pool that hasn't been created")
 
-        Constants.logger.info("adding threads:" + str(numThreads))
+        Constants.logger.info("adding threads: %d" % numThreads)
         for x in range(numThreads):                         #@UnusedVariable
             self._threadCount += 1
             thread = UpdateThread(self)

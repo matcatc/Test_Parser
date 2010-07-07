@@ -107,16 +107,16 @@ class JUnitParser(IParse.IParse):
         if not re.match(r'^[\.EF]+$', statusLine):
             Constants.logger.error("ERROR: statusLine isn't of correct form")
 
-        Constants.logger.debug("statusLine = " + statusLine)
+        Constants.logger.debug("statusLine = %s" % statusLine)
 
         testCount = len(re.findall('\.', statusLine))
-        Constants.logger.debug("testCount = " + str(testCount))
+        Constants.logger.debug("testCount = %d" % testCount)
 
         errorCount = len(re.findall('E', statusLine))
-        Constants.logger.debug("errorCount = " + str(errorCount))
+        Constants.logger.debug("errorCount = %d" % errorCount)
 
         failCount = len(re.findall('F', statusLine))
-        Constants.logger.debug("failCount = " + str(failCount))
+        Constants.logger.debug("failCount = %d" % failCount)
 
         return (testCount, errorCount, failCount)
 

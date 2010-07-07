@@ -1,7 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-public class Junit4_test{
+public class JUnit4_test{
 
 	@Test
 	public void testOne() {

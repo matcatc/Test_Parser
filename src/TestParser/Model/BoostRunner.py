@@ -61,7 +61,7 @@ class BoostRunner(IRunner):
         @return return from run() 
         --run_test=testA,testB
         '''
-        param = "--run_test=" + ",".join(tests)
+        param = "--run_test=%s" % ",".join(tests)
         return self.run([param])
 
     def runSuite(self, suites):

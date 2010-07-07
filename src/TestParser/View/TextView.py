@@ -98,9 +98,9 @@ class TextView(Observer.Observer):
             printData = ""
             for infotype, data in result.getRelevantDisplayData():
                 if infotype is not None and data is not None:
-                    printData += "\t" + infotype + ": " + data
+                    printData += "\t%s: %s" % (infotype, data)
                 
-            print("\t"*indentLevel + result.type + ": " + printData)
+            print("\t"*indentLevel + "%s: %s" % (result.type, printData))
             self._display(result, indentLevel+1 )
    
 

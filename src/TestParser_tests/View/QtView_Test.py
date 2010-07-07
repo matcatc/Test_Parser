@@ -39,8 +39,8 @@ class QtView_Test(unittest.TestCase):
         pass
 
 
-    def testName(self):
-        raise NotImplementedError
+#    def testName(self):
+#        raise NotImplementedError
 
 
 if __name__ == "__main__":
