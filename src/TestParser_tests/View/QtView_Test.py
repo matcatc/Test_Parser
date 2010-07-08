@@ -21,10 +21,9 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from TestParser.Model.Model import Model
-from TestParser.View.QtView import QtView
+from TestParser.Model import Model
+#from TestParser.View.QtView import QtView
 from TestParser.Common.computeDataFilepath import computeDataFilepath
-from TestParser.Common.FrameworkFactory import FrameworkFactory
 
 
 
@@ -39,14 +38,9 @@ class QtView_Test(unittest.TestCase):
     '''
 
 
-    def setUp(self):
-        self.model = Model()
-        FrameworkFactory.selectFramework("Boost")  
-        self.model.parser = FrameworkFactory.factory.createParser()  #@UndefinedVariable
-        runner = FrameworkFactory.factory.createRunner()        #@UndefinedVariable
-        runner.runner = computeDataFilepath('../Model/sample/Boost_Test', __file__)
-        self.model.testRunner = runner
-        
+    def setUp(self):        
+        self.model = Model.setupModel("Boost",
+                            computeDataFilepath('../Model/sample/Boost_Test', __file__))
 
 
     def tearDown(self):

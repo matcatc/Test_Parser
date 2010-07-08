@@ -22,11 +22,9 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 
 from TestParser.View import TextView
-from TestParser.Model import Model, BoostRunner
-from TestParser.Parser import BoostParser
+from TestParser.Model import Model
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
-from TestParser.Common.Constants import Constants
 
 class TextView_Test(unittest.TestCase):
     '''
@@ -69,13 +67,9 @@ class TextView_Test(unittest.TestCase):
         
         Run twice just to see any problems occur (not actually looking
         for though.)
-        '''
-        model = Model.Model()
-        runner = BoostRunner.BoostRunner()
-        filepath = computeDataFilepath("../Model/sample/Boost_Test", __file__)
-        runner.runner = filepath
-        model.testRunner = runner
-        model.parser = BoostParser.BoostParser()
+        '''        
+        model = Model.setupModel("Boost",
+                        computeDataFilepath("../Model/sample/Boost_Test", __file__))
 
         TextView.TextViewController.startView(model)
         TextView.TextViewController.startView(model)
