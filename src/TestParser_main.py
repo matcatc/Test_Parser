@@ -26,23 +26,10 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from TestParser.Model import Model
-from TestParser.Common.FrameworkFactory import FrameworkFactory
 # we import TextView and QtView down below where they're used. See above for info.
 
 from optparse import OptionParser
 
-
-
-def setupModel(framework, runnerName):
-    FrameworkFactory.selectFramework(framework)
-
-    model = Model.Model()
-    model.parser = FrameworkFactory.factory.createParser()  #@UndefinedVariable
-    runner = FrameworkFactory.factory.createRunner()        #@UndefinedVariable
-    runner.runner = runnerName
-    model.testRunner = runner
-    
-    return model
 
 def main():
     '''    
@@ -72,7 +59,7 @@ def main():
     if len(args) != 1:
         parser.error("Incorrect number of arguments")
     
-    model = setupModel(options.framework, args[0])
+    model = Model.setupModel(options.framework, args[0])
     
     if options.ui == "text":
         from TestParser.View import TextView
