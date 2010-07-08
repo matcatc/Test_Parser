@@ -72,7 +72,7 @@ def main():
     
     if options.ui == "text":
         from TestParser.View import TextView
-        TextView.TextView.startView(model)
+        TextView.TextViewController.startView(model)
     else:
         from TestParser.View import QtView
         QtView.QtViewController.startView(model)
