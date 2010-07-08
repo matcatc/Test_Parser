@@ -61,6 +61,8 @@ class QtView(UiClass, WidgetClass):
     Factory or something similar for Brushes, so that we could use different
     GUI frameworks (The issue is that the brushes are Qt Objects.) Or 
     perhaps we should use strategy pattern or pass in our desired values.
+    We're going to want to wait until we need to share or until we need
+    to refactor.
     '''
 
     _red = QtGui.QColor("red")
