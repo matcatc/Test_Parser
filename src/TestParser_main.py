@@ -64,6 +64,7 @@ def main():
     FrameworkFactory.selectFramework(options.framework)
     
     # setup model
+    # TODO: create a separate function that can be used to setup the model?
     model = Model.Model()  
     model.parser = FrameworkFactory.factory.createParser()  #@UndefinedVariable
     runner = FrameworkFactory.factory.createRunner()        #@UndefinedVariable

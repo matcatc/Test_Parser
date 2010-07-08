@@ -21,10 +21,18 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-#from TestParser.View.QtView import QtView
+from TestParser.Model.Model import Model
+from TestParser.View.QtView import QtView
+from TestParser.Common.computeDataFilepath import computeDataFilepath
+from TestParser.Common.FrameworkFactory import FrameworkFactory
+
+
 
 class QtView_Test(unittest.TestCase):
     '''
+    
+    Maybe if we could automate using a GUI testing toolkit. The problem
+    is getting the window to close after opening it.
     
     @see TestRunner_test for information regarding how Boost_Test may
     cause tests that use it to fail.
@@ -32,16 +40,26 @@ class QtView_Test(unittest.TestCase):
 
 
     def setUp(self):
-        pass
+        self.model = Model()
+        FrameworkFactory.selectFramework("Boost")  
+        self.model.parser = FrameworkFactory.factory.createParser()  #@UndefinedVariable
+        runner = FrameworkFactory.factory.createRunner()        #@UndefinedVariable
+        runner.runner = computeDataFilepath('../Model/sample/Boost_Test', __file__)
+        self.model.testRunner = runner
+        
 
 
     def tearDown(self):
-        pass
+        del self.model
 
 
-#    def testName(self):
-#        raise NotImplementedError
-
+#    def test_run_simple(self):
+#        '''
+#        Run the View then exit.
+#        '''
+#        QtView.startView(self.model)
+        
+        
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
