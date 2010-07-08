@@ -32,6 +32,18 @@ from TestParser.Common.FrameworkFactory import FrameworkFactory
 from optparse import OptionParser
 
 
+
+def setupModel(framework, runnerName):
+    FrameworkFactory.selectFramework(framework)
+
+    model = Model.Model()
+    model.parser = FrameworkFactory.factory.createParser()  #@UndefinedVariable
+    runner = FrameworkFactory.factory.createRunner()        #@UndefinedVariable
+    runner.runner = runnerName
+    model.testRunner = runner
+    
+    return model
+
 def main():
     '''    
     '''
@@ -60,16 +72,7 @@ def main():
     if len(args) != 1:
         parser.error("Incorrect number of arguments")
     
-
-    FrameworkFactory.selectFramework(options.framework)
-    
-    # setup model
-    # TODO: create a separate function that can be used to setup the model?
-    model = Model.Model()  
-    model.parser = FrameworkFactory.factory.createParser()  #@UndefinedVariable
-    runner = FrameworkFactory.factory.createRunner()        #@UndefinedVariable
-    runner.runner = args[0]
-    model.testRunner = runner
+    model = setupModel(options.framework, args[0])
     
     if options.ui == "text":
         from TestParser.View import TextView
