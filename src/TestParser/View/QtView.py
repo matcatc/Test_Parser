@@ -55,10 +55,12 @@ class QtView(UiClass, WidgetClass):
     of items in PROPAGATING_ITEMS. Its used in _priorityItem() as a return
     when the item isn't present.
     
-    TODO: I think colors and propagating should be put someplace else. That
+    TODO: I think colors and propagating should be put someplace else.
+    That
     way they can be used by other GUIs. Note that we'd have to use Abstract
     Factory or something similar for Brushes, so that we could use different
-    GUI frameworks (The issue is that the brushes are Qt Objects.)
+    GUI frameworks (The issue is that the brushes are Qt Objects.) Or 
+    perhaps we should use strategy pattern or pass in our desired values.
     '''
 
     _red = QtGui.QColor("red")
