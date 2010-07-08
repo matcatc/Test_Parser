@@ -78,8 +78,8 @@ class TextView_Test(unittest.TestCase):
         model.testRunner = runner
         model.parser = BoostParser.BoostParser()
 
-        TextView.TextView.startView(model)
-        TextView.TextView.startView(model)
+        TextView.TextViewController.startView(model)
+        TextView.TextViewController.startView(model)
 
 
 if __name__ == "__main__":
