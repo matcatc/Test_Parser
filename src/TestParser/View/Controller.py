@@ -52,3 +52,6 @@ class Controller(Observer.Observer):
         '''
         self.model.runAll()
         
+    def runPrevious(self):
+        self.model.runPrevious()
+        

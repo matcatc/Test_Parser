@@ -54,6 +54,11 @@ class QtView(UiClass, WidgetClass):
     MAX_PRIORITY is an number representing the highest priority
     of items in PROPAGATING_ITEMS. Its used in _priorityItem() as a return
     when the item isn't present.
+    
+    TODO: I think colors and propagating should be put someplace else. That
+    way they can be used by other GUIs. Note that we'd have to use Abstract
+    Factory or something similar for Brushes, so that we could use different
+    GUI frameworks (The issue is that the brushes are Qt Objects.)
     '''
 
     _red = QtGui.QColor("red")
@@ -85,27 +90,8 @@ class QtView(UiClass, WidgetClass):
     INFO_COL = 4
     TIME_COL = 4
 
-    @staticmethod
-    def startView(model):
-        '''
-        Run the qt view based program.
-        
-        @see main.main()
-        '''
-        # setup view
-        app = QtGui.QApplication(sys.argv)
-        widget = QtView(model)
-        widget.show()
 
-        # setup controller
-        controller = QtViewController(model)
-
-        # run
-        controller.run()
-        sys.exit(app.exec_())
-
-
-    def __init__(self, model):
+    def __init__(self, model, controller):
         '''
         Constructor
         '''
@@ -115,7 +101,14 @@ class QtView(UiClass, WidgetClass):
         self.model = model
         self.model.registerObserver(self)
 
-        self.run = False
+        # To be set by controller
+        self.controller = controller
+
+        self.run = False        # TODO: What's this for?
+
+#
+# User interfacing code
+#
 
     def aboutDialog(self):
         '''
@@ -124,16 +117,20 @@ class QtView(UiClass, WidgetClass):
         Modal.
         @date Jun 17, 2010
         '''
-        widget = About.About()
-        widget.exec()
+        self.controller.displayAboutDialog()
 
     def reRun(self):
         '''
         Menu Cmd. Rerun previous test configuration.
         
         @date Jun 17, 2010
+        
         '''
-        self.model.runPrevious()
+        self.controller.runPrevious()
+
+#
+# Data display code
+#
 
 
     def _retrieveTestResults(self):
@@ -327,4 +324,28 @@ class QtViewController(Controller.Controller):
     @see Controller.Controller
     '''
 
+    @staticmethod
+    def startView(model):
+        '''
+        Run the qt view based program.
+        
+        @see main.main()
+        '''
+        # setup controller
+        controller = QtViewController(model)
+        
+        # setup view
+        app = QtGui.QApplication(sys.argv)
+        view = QtView(model, controller)
+        view.show()
 
+        # run
+        controller.run()
+        sys.exit(app.exec_())
+        
+    def displayAboutDialog(self):
+        '''
+        Displays the Qt based About Dialog
+        '''
+        widget = About.About()
+        widget.exec()
