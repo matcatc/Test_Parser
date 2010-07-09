@@ -130,6 +130,9 @@
    <property name="text">
     <string>Rerun</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
   </action>
  </widget>
  <resources/>
