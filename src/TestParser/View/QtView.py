@@ -329,7 +329,7 @@ class QtViewController(Controller.Controller):
     '''
 
     @staticmethod
-    def startView(model):
+    def startView(model, framework, runner):
         '''
         Run the qt view based program.
         
@@ -341,6 +341,10 @@ class QtViewController(Controller.Controller):
         # setup view
         app = QtGui.QApplication(sys.argv)
         view = QtView(model, controller)
+        
+        view.frameworkLabel.setText("Framework: %s" % framework)
+        view.runnerLabel.setText("Runner: %s" % runner)
+        
         view.show()
 
         # run

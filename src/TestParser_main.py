@@ -66,7 +66,7 @@ def main():
         TextView.TextViewController.startView(model)
     else:
         from TestParser.View import QtView
-        QtView.QtViewController.startView(model)
+        QtView.QtViewController.startView(model, options.framework, args[0])
 
     
 if __name__ == "__main__":
