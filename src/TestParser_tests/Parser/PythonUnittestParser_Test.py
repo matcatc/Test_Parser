@@ -61,7 +61,68 @@ class PythonUnittestParser_Test(unittest.TestCase):
         Note: later we might change to checking for an exception.
         '''
         self.parser.parse(None)
-
+        
+    def test_Parse_1(self):
+        '''
+        Test and validate with real data.
+        
+        Everything is hardcoded. I did this b/c its easy, fast, simple and
+        provides unobfuscated documentation.
+        
+        @date Jul 13, 2010
+        '''
+        data = open(computeDataFilepath("./sample/python_unittest_sample", __file__)).read()
+        
+        results = self.parser.parse(stringData = data)
+        
+        suites = results.getChildren()
+        self.assertEquals(len(suites), 1)
+        
+        suite = suites[0]
+        suiteData = suite.getRelevantDisplayData()
+        self.assertTrue(('name', '__main__.TestSequenceFunctions') in suiteData)
+        
+        tests = suite.getChildren()
+        self.assertEqual(len(tests), 5)
+        
+        test0 = tests[0]
+        test0_data = test0.getRelevantDisplayData()
+        self.assertTrue(('name', 'test_choice') in test0_data)
+        notice0 = test0.getChildren()[0] 
+        self.assertEquals(notice0.type, "pass")
+                
+        test1 = tests[1]
+        test1_data = test1.getRelevantDisplayData()
+        self.assertTrue(('name', 'test_error') in test1_data)
+        notice1 = test1.getChildren()[0]
+        self.assertEquals(notice1.type, "error")
+        notice1_data = notice1.getRelevantDisplayData()
+        self.assertTrue(('file', 'python_unittest_example.py') in notice1_data)
+        self.assertTrue(('line', '43') in notice1_data)
+        self.assertTrue(('info', None) in notice1_data)     # currently no info
+        
+        test2 =tests[2]
+        test2_data = test2.getRelevantDisplayData()
+        self.assertTrue(('name', 'test_fail') in test2_data)
+        notice2 = test2.getChildren()[0]
+        self.assertEquals(notice2.type, "fail")
+        notice2_data = notice2.getRelevantDisplayData()
+        self.assertTrue(('file', 'python_unittest_example.py') in notice2_data)
+        self.assertTrue(('line', '40') in notice2_data)
+        self.assertTrue(('info', None) in notice2_data)     # currently no info
+        
+        test3 = tests[3]
+        test3_data = test3.getRelevantDisplayData()
+        self.assertTrue(('name', 'test_sample') in test3_data)
+        notice3 = test3.getChildren()[0]
+        self.assertEquals(notice3.type, "pass")
+        
+        test4 = tests[4]
+        test4_data = test4.getRelevantDisplayData()
+        self.assertTrue(('name', 'test_shuffle') in test4_data)
+        notice4 = test4.getChildren()[0]
+        self.assertEquals(notice4.type, "pass")
+        
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
