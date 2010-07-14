@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="docbook.css" type="text/css"?>
+
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.docbook.org/xml/4.5/docbookx.dtd">
+
+
+<refentry>
+	<refentryinfo>
+		<author>
+		<firstname>Matthew</firstname>
+		<lineage>Todd</lineage>
+		</author>
+		<date>July 2010</date>
+	</refentryinfo>
+
+	<refmeta><refentrytitle>Test Parser screen shots</refentrytitle></refmeta>
+	
+	<refnamediv>
+		<refname>Test Parser screen shots</refname>
+		<refpurpose>Screen shots of Test Parser.</refpurpose>
+	</refnamediv>
+	
+	<refsect1>
+		<title>Screen shots</title>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="images/blah.png" format="PNG" scale="50"/>
+			</imageobject>
+			<textobject>
+				<phrase>The Eiffel Tower</phrase>
+			</textobject>
+		</mediaobject>
+				
+	</refsect1>
+</refentry>

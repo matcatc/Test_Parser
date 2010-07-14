@@ -30,3 +30,6 @@ mv index.html manual.html
 
 xmlto html -m config.xsl technical.dbk
 mv index.html technical.html
+
+xmlto html -m config.xsl screenshots.dbk
+mv index.html screenshots.html
