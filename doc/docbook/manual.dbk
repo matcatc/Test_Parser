@@ -111,7 +111,7 @@
 				matters / break your code.
 			</para>
 			<refsect3>
-				<title>Warnings / Minor Details</title>
+				<title>Python Unittest</title>
 				<para>
 					Because of how Python Unittest is designed, we require
 	    			that the test runner be setup a certain way. For parsing to work,
@@ -121,6 +121,9 @@
 	    
 	    			<screen>unittest.TextTestRunner(verbosity=2, stream=sys.stdout).run(suite)</screen>
 				</para>
+			</refsect3>
+			<refsect3>
+				<title>JUnit</title>
 				<para> The JUnit framework is currently just JUnit output, not
 					JUnit through Ant. Because this output doesn't contain
 					more information about the passing tests, you will see
@@ -164,6 +167,39 @@
 		</refsect2>
 	</refsect1>
 	
+	<refsect1>
+		<title>Examples</title>
+		<example>
+			<title>Boost</title>
+			<screen>./TestParser_main.py --framework=Boost ~/dir/dir2/Boost_runner</screen>
+		</example>
+		<example>
+			<title>Python</title>
+			<screen>./TestParser_main.py --framework=PyUnittest 'python ~/dir/dir2/python_runner.py'</screen>
+			<para>In the above invocation, we call the python interpreter and pass in
+				our script. But if the script has a
+				<literal>#!/usr/bin/python</literal> declaration, we can just
+				do the following:
+			</para>
+			<screen>./TestParser_main.py --framework=PyUnittest ~/dir/dir2/python_runner2.py</screen>
+		</example>
+		<example>
+			<title>JUnit</title>
+			<para>The following classpaths are set according to where junit is
+				installed from the Ubuntu repositories.
+			</para>
+			<screen>CLASSPATH=.:/usr/share/java/junit4.jar:~/dir/dir2/
+./TestPaser_main.py --framework=JUnit 'java org.junit.runner.JUnitCore junit_runner'
+			</screen>
+			<screen>CLASSPATH=.:/usr/share/java/junit.jar:~/dir/dir2/
+./TestParser_main.py --framework=JUnit 'java junit.textui.TestRunner junit_runner'
+			</screen>
+		</example>
+		<example>
+			<title>Text output</title>
+			<screen>./TestParser_main.py --framework=Boost --text ~/dir/dir2/Boost_runner</screen>
+		</example>
+	</refsect1>
 	
 	<refsect1>
 		<title>Installation</title>
