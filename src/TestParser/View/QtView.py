@@ -342,8 +342,7 @@ class QtViewController(Controller.Controller):
         app = QtGui.QApplication(sys.argv)
         view = QtView(model, controller)
         
-        view.frameworkLabel.setText("Framework: %s" % framework)
-        view.runnerLabel.setText("Runner: %s" % runner)
+        view.setWindowTitle( "Test Parser - %s" % runner)
         
         view.show()
 

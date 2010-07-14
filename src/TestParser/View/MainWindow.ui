@@ -19,20 +19,6 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="runnerLabel">
-      <property name="text">
-       <string>Runner:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="frameworkLabel">
-      <property name="text">
-       <string>Framework:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QTreeWidget" name="treeWidget">
       <property name="autoFillBackground">
        <bool>true</bool>
