@@ -25,12 +25,19 @@
 		<title>Screen shots</title>
 		<mediaobject>
 			<imageobject>
-				<imagedata fileref="images/blah.png" format="PNG" scale="50"/>
+				<imagedata fileref="images/Screenshot1.png" format="PNG" scale="80"/>
 			</imageobject>
-			<textobject>
-				<phrase>The Eiffel Tower</phrase>
-			</textobject>
 		</mediaobject>
-				
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="images/Screenshot2.png" format="PNG" scale="80"/>
+			</imageobject>
+		</mediaobject>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="images/Screenshot3.png" format="PNG" scale="80"/>
+			</imageobject>
+		</mediaobject>
 	</refsect1>
+	
 </refentry>
