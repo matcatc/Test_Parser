@@ -202,6 +202,13 @@
 	</refsect1>
 	
 	<refsect1>
+		<title>Screenshots</title>
+		<para>Go <ulink url="./screenshots.html">here</ulink>
+			for screenshots.
+		</para>
+	</refsect1>
+	
+	<refsect1>
 		<title>Installation</title>
 		<para>Test Parser is packaged via distutils.  To install,
 			run <literal>setup.py install</literal>.
