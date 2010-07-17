@@ -77,14 +77,15 @@ class QtView(UiClass, WidgetClass):
     
     
     colorBrushes = {'error' : _redBrush,
+                    'fatalerror' : _redBrush,
                     'fail' : _redBrush,
                     'pass' : _greenBrush,
                     'message' : _whiteBrush,
-                    'Suite' : _greenBrush,
-                    'TestResults': _greenBrush,
-                    'TestCase' : _greenBrush}
+                    'suite' : _greenBrush,
+                    'testresults' : _greenBrush,
+                    'testcase' : _greenBrush}
     
-    PROPAGATING_ITEMS = ['error', 'fail']
+    PROPAGATING_ITEMS = ['error', 'fatalerror', 'fail']
     MAX_PRIORITY = len(PROPAGATING_ITEMS) + 1
     
     TYPE_COL = 0
@@ -259,12 +260,12 @@ class QtView(UiClass, WidgetClass):
         
         # get brush for current item
         try:
-            brush = QtView.colorBrushes[result.type]
+            brush = QtView.colorBrushes[result.type.lower()]
         except KeyError:
             brush = QtView.DEFAULT_BRUSH
 
         
-        thisPropagateUp = result.type in QtView.PROPAGATING_ITEMS
+        thisPropagateUp = result.type.lower() in QtView.PROPAGATING_ITEMS
         childPropagateUp = propagateBrush is not None
         
         # determine which brush to use
@@ -315,7 +316,7 @@ class QtView(UiClass, WidgetClass):
         @date Jun 26, 2010
         '''
         try:
-            return QtView.PROPAGATING_ITEMS.index(item)
+            return QtView.PROPAGATING_ITEMS.index(item.lower())
         except:         # TODO specific exception
             return QtView.MAX_PRIORITY
         
