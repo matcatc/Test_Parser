@@ -1,0 +1,61 @@
+<TestLog>
+	<TestSuite name="example">
+		<TestCase name="testA">
+			<Message file="/usr/include/boost/test/impl/results_collector.ipp"
+				line="220">Test case testA did not run any assertions</Message>
+			<TestingTime>0</TestingTime>
+		</TestCase>
+		<TestCase name="testB">
+			<Message file="/usr/include/boost/test/impl/results_collector.ipp"
+				line="220">Test case testB did not run any assertions</Message>
+			<TestingTime>0</TestingTime>
+		</TestCase>
+		<TestSuite name="s1">
+			<TestCase name="test1">
+				<Message file="/usr/include/boost/test/impl/results_collector.ipp"
+					line="220">Test case test1 did not run any assertions</Message>
+				<TestingTime>0</TestingTime>
+			</TestCase>
+			<TestCase name="lest2">
+				<Message file="/usr/include/boost/test/impl/results_collector.ipp"
+					line="220">Test case lest2 did not run any assertions</Message>
+				<TestingTime>0</TestingTime>
+			</TestCase>
+		</TestSuite>
+		<TestSuite name="s2">
+			<TestCase name="test1">
+				<Message file="/usr/include/boost/test/impl/results_collector.ipp"
+					line="220">Test case test1 did not run any assertions</Message>
+				<TestingTime>0</TestingTime>
+			</TestCase>
+			<TestCase name="test11">
+				<Message file="/usr/include/boost/test/impl/results_collector.ipp"
+					line="220">Test case test11 did not run any assertions</Message>
+				<TestingTime>0</TestingTime>
+			</TestCase>
+			<TestCase name="fail">
+				<FatalError file="../main.cpp" line="36">Test fail</FatalError>
+				<TestingTime>0</TestingTime>
+			</TestCase>
+			<TestCase name="error">
+				<Error file="../main.cpp" line="41">Test error</Error>
+				<TestingTime>0</TestingTime>
+			</TestCase>
+			<TestSuite name="in">
+				<TestCase name="test">
+					<Message file="/usr/include/boost/test/impl/results_collector.ipp"
+						line="220">Test case test did not run any assertions</Message>
+					<TestingTime>0</TestingTime>
+				</TestCase>
+			</TestSuite>
+		</TestSuite>
+		<TestSuite name="pass">
+			<TestCase name="pass1">
+				<TestingTime>0</TestingTime>
+			</TestCase>
+			<TestCase name="pass2">
+				<TestingTime>0</TestingTime>
+			</TestCase>
+		</TestSuite>
+	</TestSuite>
+</TestLog>

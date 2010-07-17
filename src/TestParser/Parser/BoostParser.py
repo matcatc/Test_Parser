@@ -58,10 +58,42 @@ class BoostParser(IParse.IParse):
             tree = ET.parse(file)
             return self._parseData(tree.getroot())
 
+    def _parseTemp(self, tree):
+        '''
+        Recursive function that parses Boost Test results.
+        
+        @date Jul 17, 2010
+        '''
+        
+        if tree.tag == "TestCase":
+            return self._parseTestCase(tree)
+        
+        elif tree.tag == "TestLog":
+            results = TestResults.TestResults()
+            for child in tree:
+                temp = self._parseTemp(child)
+                if temp is not None:
+                    results.suites.append(temp)
+            return results
+            
+        elif tree.tag == "TestSuite":
+            suite = Suite.Suite()
+            for child in tree:
+                temp = self._parseTemp(child)
+                if temp is not None:
+                    suite.testCases.append(temp)
+            return suite
+        
+
+        
+        
+
     def _parseData(self, tree):
         '''
         @param tree xml tree containing data to parse
         '''
+        return self._parseTemp(tree)
+        
         results = TestResults.TestResults()
         
         for suite in tree.getiterator():

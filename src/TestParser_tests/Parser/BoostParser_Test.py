@@ -93,10 +93,63 @@ class BoostParser_Test(unittest.TestCase):
         second = test.notices[1]
         self.assertEqual(second.info, error)
         
-    def test_ParseFile(self):
-        f = open(computeDataFilepath("./sample/boost_xml", __file__))
-        self.parser.parse(file = f)
-
+    def test_testcaseFatalError(self):
+        data = '<TestCase name="fail"> \
+                <FatalError file="../main.cpp" line="36">Test fail</FatalError> \
+                <TestingTime>0</TestingTime> \
+            </TestCase>'
+        raise NotImplementedError
+        
+    def test_hierarchy(self):
+        '''
+        Test parse with real data.
+        
+        Tests with sub-suites. Checks that correct hierarchy returned.
+        Doesn't test that all the data (names, lines, files, etc.) are
+        correct, as it would complicate the test and its already checked
+        in other tests.
+        '''
+        
+        f = open(computeDataFilepath("./sample/boost.xml", __file__))
+        results = self.parser.parse(file = f)
+        
+        lvl0 = results.getChildren()
+        self.assertEquals(len(lvl0), 1)
+        self.assertEquals(lvl0[0].type, "Suite")
+        
+        lvl1 = lvl0[0].getChildren()
+        self.assertEquals(len(lvl1), 5)
+        
+        self.assertEquals(lvl1[0].type, "TestCase")
+        
+        self.assertEquals(lvl1[1].type, "TestCase")
+        
+        self.assertEquals(lvl1[2].type, "Suite")
+        lvl2_a = lvl1[2].getChildren()
+        self.assertEquals(len(lvl2_a), 2)
+        self.assertEquals(lvl2_a[0].type, "TestCase")
+        self.assertEquals(lvl2_a[1].type, "TestCase")
+        
+        self.assertEquals(lvl1[3].type, "Suite")
+        lvl2_b = lvl1[3].getChildren()
+        self.assertEquals(len(lvl2_b), 5)
+        self.assertEquals(lvl2_b[0].type, "TestCase")
+        self.assertEquals(lvl2_b[1].type, "TestCase")
+        self.assertEquals(lvl2_b[2].type, "TestCase")
+        self.assertEquals(lvl2_b[3].type, "TestCase")
+        self.assertEquals(lvl2_b[4].type, "Suite")
+        lvl3_a = lvl2_b[4].getChildren()
+        self.assertEquals(len(lvl3_a), 1)
+        self.assertEquals(lvl3_a[0].type, "TestCase")
+        
+        
+        self.assertEquals(lvl1[4].type, "Suite")
+        lvl2_c = lvl1[4].getChildren()
+        self.assertEquals(len(lvl2_c), 2)
+        self.assertEquals(lvl2_c[0].type, "TestCase")
+        self.assertEquals(lvl2_c[1].type, "TestCase")
+        
+        
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
