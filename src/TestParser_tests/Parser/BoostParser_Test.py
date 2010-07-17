@@ -94,11 +94,32 @@ class BoostParser_Test(unittest.TestCase):
         self.assertEqual(second.info, error)
         
     def test_testcaseFatalError(self):
-        data = '<TestCase name="fail"> \
-                <FatalError file="../main.cpp" line="36">Test fail</FatalError> \
-                <TestingTime>0</TestingTime> \
-            </TestCase>'
-        raise NotImplementedError
+        '''
+        Test that parser handles FatalError.
+        
+        @date Jul 17, 2010
+        '''
+        name = 'test_fail'
+        file = 'main.cpp'
+        line = 36
+        time = 0
+        data = '<TestCase name="%(name)s"> \
+                <FatalError file="%(file)s" line="%(line)d">Test fail</FatalError> \
+                <TestingTime>%(time)d</TestingTime> \
+            </TestCase>' % {'name':name, 'file' : file, 'line':line, 'time':time}
+        
+        xml = ET.fromstring(data)
+        test = self.parser._parseTestCase(xml)
+        
+        self.assertEqual(test.type, "TestCase")
+        self.assertEqual(test.name, name)
+        self.assertEqual(test.timeTaken, time)
+        
+        self.assertEqual(len(test.notices), 1)
+        notice = test.getChildren()[0]
+        self.assertEqual(notice.type, "FatalError")
+        self.assertEqual(notice.file, file)
+        self.assertEqual(notice.line, line)
         
     def test_hierarchy(self):
         '''
