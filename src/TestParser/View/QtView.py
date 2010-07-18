@@ -227,7 +227,8 @@ class QtView(UiClass, WidgetClass):
             elif infotype == "info":
                 resultItem.setText(QtView.INFO_COL, data)
             elif infotype == "time":
-                resultItem.setText(QtView.TIME_COL, "time: " + data)
+                if data is not None:
+                    resultItem.setText(QtView.TIME_COL, "time: " + data)
                 
     def _colorRow(self, resultItem, result, returnedBrushItems):
         '''

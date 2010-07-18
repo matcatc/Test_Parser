@@ -51,8 +51,13 @@ class TestCase(TestComponent.TestComponent):
         return self.notices
     
     def getRelevantDisplayData(self):
+        if self.timeTaken is not None:
+            time = str(self.timeTaken)
+        else:
+             time = None           
         return [("name", self.name),
-                 ("time", str(self.timeTaken))]
+                ("time", time)]
+
     
     def hasType(self, type):
         '''
