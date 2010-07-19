@@ -117,7 +117,7 @@ class PythonUnittestParser(IParse.IParse):
         '''
         Parses the given string data and sets it up in self.suites
         for later compiling. Gathers information from FAIL tests
-        section and stores it in sef.failSuites for later use.
+        section and stores it in self.failSuites for later use.
         
         
         @param stringData all the data contained w/in a string
@@ -125,6 +125,10 @@ class PythonUnittestParser(IParse.IParse):
         lines = stringData.split('\n')
         
         lastFailSuiteName = None
+        lastFileName = None
+        lastLineNum = None
+        lastTestName = None
+        lineCount = 0
         
         for line in lines:
             if self._validStatusLine(line):
@@ -147,14 +151,19 @@ class PythonUnittestParser(IParse.IParse):
                 elif self._validFailInfoLine(line):
                     line = line.strip(' ')
                     words = line.split(' ')
-                    file = words[1]
-                    line = words[3]
-                    test = words[5]
+                    lastFileName = words[1]
+                    lastLineNum = words[3]
+                    lastTestName = words[5]
                     
+                    lineCount = 0
+                elif lineCount == 2:
                     if lastFailSuiteName not in self.failSuites:
                         self.failSuites[lastFailSuiteName] = {}
                     
-                    self.failSuites[lastFailSuiteName][test] = (file, line)
+                    info = line
+                    self.failSuites[lastFailSuiteName][lastTestName] \
+                            = (lastFileName, lastLineNum, info)
+                lineCount += 1
                     
                     
             
@@ -175,12 +184,12 @@ class PythonUnittestParser(IParse.IParse):
             for test, status in self.suites[suite]:
                 resultTest = TestCase.TestCase(test)
                 
-                file, line = self._getFailInfo(suite, test)
+                file, line, info = self._getFailInfo(suite, test)
                 
                 if status == "FAIL":
-                    resultTest.addNotice(Notice.Notice(file, line, None, "fail"))
+                    resultTest.addNotice(Notice.Notice(file, line, info, "fail"))
                 elif status == "ERROR":
-                    resultTest.addNotice(Notice.Notice(file, line, None, "error"))
+                    resultTest.addNotice(Notice.Notice(file, line, info, "error"))
                 elif status == "ok":
                     resultTest.addNotice(Notice.Notice(None, None, None, "pass"))
                     
@@ -194,22 +203,24 @@ class PythonUnittestParser(IParse.IParse):
         '''
         get file and line info for a failed test.
         
-        Cleans up data and returns proper types.
+        Cleans up data and returns proper types. Note that info *might*
+        be None the way _parseData() is implemented.
         
         @return returns file and line if present. None if not found.
         @date Jun 29, 2010
         '''
         try:
-            file, line = self.failSuites[suite][test]
+            file, line, info = self.failSuites[suite][test]
             
             file = file.strip(',')
             file = file.strip('"')
             
             line = int(line.strip(','))
-        except:
-            file = line = None
             
-        return (file, line)
+        except:
+            file = line = info = None
+            
+        return (file, line, info)
 
     def _validStatusLine(self, line):
         '''
