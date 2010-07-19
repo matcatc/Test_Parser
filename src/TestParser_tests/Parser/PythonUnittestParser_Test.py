@@ -99,7 +99,7 @@ class PythonUnittestParser_Test(unittest.TestCase):
         notice1_data = notice1.getRelevantDisplayData()
         self.assertTrue(('file', 'python_unittest_example.py') in notice1_data)
         self.assertTrue(('line', '43') in notice1_data)
-        self.assertTrue(('info', None) in notice1_data)     # currently no info
+        self.assertTrue(('info', "NotImplementedError") in notice1_data)
         
         test2 =tests[2]
         test2_data = test2.getRelevantDisplayData()
@@ -109,7 +109,7 @@ class PythonUnittestParser_Test(unittest.TestCase):
         notice2_data = notice2.getRelevantDisplayData()
         self.assertTrue(('file', 'python_unittest_example.py') in notice2_data)
         self.assertTrue(('line', '40') in notice2_data)
-        self.assertTrue(('info', None) in notice2_data)     # currently no info
+        self.assertTrue(('info', "AssertionError: None") in notice2_data)
         
         test3 = tests[3]
         test3_data = test3.getRelevantDisplayData()
