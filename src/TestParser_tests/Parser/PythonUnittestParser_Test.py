@@ -123,6 +123,12 @@ class PythonUnittestParser_Test(unittest.TestCase):
         notice4 = test4.getChildren()[0]
         self.assertEquals(notice4.type, "pass")
         
+    def test_fail(self):
+        '''
+        For developing sub suites handling
+        '''
+        self.assertTrue(False)
+        
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
