@@ -28,7 +28,10 @@ import re
 
 class SuiteHierarchyDict(object):
     '''
-    Used to simplify structuring of suites
+    Used to simplify structuring of suites. Uses a tree-hierarchy reminiscient
+    of k-ary trees.
+    
+    @date Jul 20, 2010
     '''
     def __init__(self):
         self.suites = {}
@@ -78,6 +81,11 @@ class SuiteHierarchyDict(object):
             lastSuite[name].info = info
 
 class TestData(object):
+    '''
+    represents all the data we can collect on a test.
+    
+    @date Jul 20, 2010 
+    '''
     def __init__(self):
         self.name = None
         self.status = None
@@ -92,7 +100,6 @@ class TestData(object):
     def __repr__(self):
         return self.__str__()
 
-testDict = SuiteHierarchyDict()
 
 
 class PythonUnittestParser(IParse.IParse):
@@ -158,8 +165,7 @@ class PythonUnittestParser(IParse.IParse):
         '''
         Constructor
         '''
-        self.suites = {}        # contains dictionary of suites -> test statuses: (name, status)
-        self.failSuites = {}    # contains dictionary of suites -> failed tests-> failure info: (file, line)
+        self.suiteDict = SuiteHierarchyDict()       # stores all test/suite information
 
         self.validStatusLineRegex = re.compile(PythonUnittestParser.VALID_STATUS_LINE_REGEX)
         self.validFailLineRegex = re.compile(PythonUnittestParser.VALID_FAIL_LINE_REGEX)
@@ -208,13 +214,7 @@ class PythonUnittestParser(IParse.IParse):
                 suite = words[1]
                 status = words[3]
 
-                if suite not in self.suites:
-                    self.suites[suite] = []
-
-                self.suites[suite].append((name, status))
-
-                #DEBUG:
-                testDict.addData(suite, name, status)
+                self.suiteDict.addData(suite, name, status)
 
             # scraping FAIL messages
             else:
@@ -232,37 +232,47 @@ class PythonUnittestParser(IParse.IParse):
                     lineCount = 0
                     lineEncountered = True
                 elif lineCount == 2 and lineEncountered:
-                    if lastFailSuiteName not in self.failSuites:
-                        self.failSuites[lastFailSuiteName] = {}
-
                     info = line
-                    self.failSuites[lastFailSuiteName][lastTestName] \
- = (lastFileName, lastLineNum, info)
+                    self.suiteDict.addData(lastFailSuiteName, lastTestName, file=lastFileName, line=lastLineNum, info=info)
 
                     lineEncountered = False
 
-                    #DEBUG:
-                    testDict.addData(lastFailSuiteName, lastTestName, file=lastFileName, line=lastLineNum, info=info)
                 lineCount += 1
 
 
 
     def _compileSuite(self, name, suite):
+        '''
+        compiles suites.
+        
+        Recursive function. Basecase is TestCase, which is signified by
+        a non-dict item, hence the try/except.
+        
+        TODO: change away from try/except if possible
+        
+        @date Jul 20, 2010
+        '''
         # Suite
         try:
             resultSuite = Suite.Suite(name)
             for suiteName in suite.keys():
-                print("DEBUG: suiteName = %s" % suiteName)
 
                 resultSuite.testCases.append(self._compileSuite(suiteName, suite[suiteName]))
             return resultSuite
         # TestData
         except AttributeError:
-            print("DEBUG: testCase")
             return self._compileTestCase(suite)
 
 
     def _compileTestCase(self, data):
+        '''
+        make a TestCase with the given data
+        
+        Fail info will only be valid when status is 'FAIL' or 'ERROR', so we can just
+        pass in explicit None's for 'ok'.
+        
+        @date Jul 20, 2010
+        '''
         name = data.name
         status = data.status
         file = data.file
@@ -270,13 +280,7 @@ class PythonUnittestParser(IParse.IParse):
         info = data.info
         
         resultTest = TestCase.TestCase(name)
- 
-        if status == "FAIL":
-            resultTest.addNotice(Notice.Notice(file, line, info, "fail"))
-        elif status == "ERROR":
-            resultTest.addNotice(Notice.Notice(file, line, info, "error"))
-        elif status == "ok":
-            resultTest.addNotice(Notice.Notice(None, None, None, "pass"))
+        resultTest.addNotice(Notice.Notice(file, line, info, status.lower()))
         
         return resultTest
 
@@ -284,61 +288,13 @@ class PythonUnittestParser(IParse.IParse):
         '''
         Takes the data contained in self.suites and puts it in TestResults
         for returning.
-        
-        Fail info will only be valid when status is 'FAIL' or 'ERROR', so we can just
-        pass in explicit None's for 'ok'.
         '''
         results = TestResults.TestResults()
 
-        #Debug
-        for suite in testDict.suites:
-            results.suites.append(self._compileSuite(suite, testDict.suites[suite]))
+        # TODO: clean up
+        for suite in self.suiteDict.suites:
+            results.suites.append(self._compileSuite(suite, self.suiteDict.suites[suite]))
         return results
-
-        for suite in self.suites.keys():
-            suiteName = suite.strip(")(")
-            resultSuite = Suite.Suite(suiteName)
-
-            for test, status in self.suites[suite]:
-                resultTest = TestCase.TestCase(test)
-
-                file, line, info = self._getFailInfo(suite, test)
-
-                if status == "FAIL":
-                    resultTest.addNotice(Notice.Notice(file, line, info, "fail"))
-                elif status == "ERROR":
-                    resultTest.addNotice(Notice.Notice(file, line, info, "error"))
-                elif status == "ok":
-                    resultTest.addNotice(Notice.Notice(None, None, None, "pass"))
-
-                resultSuite.testCases.append(resultTest)
-
-            results.suites.append(resultSuite)
-
-        return results
-
-    def _getFailInfo(self, suite, test):
-        '''
-        get file and line info for a failed test.
-        
-        Cleans up data and returns proper types. Note that info *might*
-        be None the way _parseData() is implemented.
-        
-        @return returns file and line if present. None if not found.
-        @date Jun 29, 2010
-        '''
-        try:
-            file, line, info = self.failSuites[suite][test]
-
-            file = file.strip(',')
-            file = file.strip('"')
-
-            line = int(line.strip(','))
-
-        except:
-            file = line = info = None
-
-        return (file, line, info)
 
     def _validStatusLine(self, line):
         '''

@@ -62,12 +62,23 @@ class PythonUnittestParser_Test(unittest.TestCase):
         '''
         self.parser.parse(None)
         
-    def test_Parse_1(self):
+    def test_parseRealData(self):
         '''
-        Test and validate with real data.
+        Test and validate with real data. We're interested in the details
+        here, not the hierarchy
+        
+        @data Jul 20, 2010
+        '''
+    
+    def test_ParseHierarchy(self):
+        '''
+        Test and validate with real data. We're only interested in the
+        hierarchy here.
         
         Everything is hardcoded. I did this b/c its easy, fast, simple and
         provides unobfuscated documentation.
+        
+        TODO: need to update to reflect changes in sub-suite structure
         
         @date Jul 13, 2010
         '''
