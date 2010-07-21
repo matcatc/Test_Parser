@@ -29,7 +29,7 @@ import re
 class SuiteHierarchyDict(object):
     '''
     Used to simplify structuring of suites. Uses a tree-hierarchy reminiscient
-    of k-ary trees.
+    of k-ary trees. Basically a custom dictionary based on dictionaries.
     
     @date Jul 20, 2010
     '''
@@ -41,11 +41,18 @@ class SuiteHierarchyDict(object):
         '''
         Takes in the long suite name and breaks it down to be used for
         a suite hierarchy.
+        
+        suite is something like: mod1.mod2.mod3.class
         '''
         suite = suite.strip("()")
         return suite.split(".")
 
-    def addSuite(self, suitePath):
+    def _addSuite(self, suitePath):
+        '''
+        Adds suite to the dictionary, so that we can later add data.
+        
+        @date Jul 20, 2010
+        '''
         splitSuite = self.splitSuite(suitePath)
 
         lastSuite = self.suites
@@ -56,7 +63,15 @@ class SuiteHierarchyDict(object):
             lastSuite = lastSuite[suite]
 
     def addData(self, suitePath, name, status=None, file=None, line=None, info=None):
-        self.addSuite(suitePath)
+        '''
+        Add data to our 'dictionary'.
+        
+        suitePath is something to the effect of: 'mod1.mod2.mod3.class' the
+        data is stored like so: dict[mod1][mod2][mod3][class] = data
+
+        @date Jul 20, 2010
+        '''
+        self._addSuite(suitePath)
 
         splitSuite = self.splitSuite(suitePath)
 
@@ -241,6 +256,18 @@ class PythonUnittestParser(IParse.IParse):
 
 
 
+    def _compileTestResults(self):
+        '''
+        Takes the data contained in self.suites and puts it in TestResults
+        for returning.
+        '''
+        results = TestResults.TestResults()
+
+        # TODO: clean up
+        for suite in self.suiteDict.suites:
+            results.suites.append(self._compileSuite(suite, self.suiteDict.suites[suite]))
+        return results
+
     def _compileSuite(self, name, suite):
         '''
         compiles suites.
@@ -252,17 +279,26 @@ class PythonUnittestParser(IParse.IParse):
         
         @date Jul 20, 2010
         '''
-        # Suite
-        try:
+        if self._isSuite(suite):
             resultSuite = Suite.Suite(name)
             for suiteName in suite.keys():
-
                 resultSuite.testCases.append(self._compileSuite(suiteName, suite[suiteName]))
             return resultSuite
-        # TestData
-        except AttributeError:
+        else:
             return self._compileTestCase(suite)
 
+    def _isSuite(self, suite):
+        '''
+        Checks to see if its a suite. Suites are stored in a dictionary and
+        we're going to be using keys(), so just check if we have that.
+        
+        @date Jul 20, 2010
+        '''
+        try:
+            suite.keys()
+            return True
+        except AttributeError:
+            return False
 
     def _compileTestCase(self, data):
         '''
@@ -278,23 +314,12 @@ class PythonUnittestParser(IParse.IParse):
         file = data.file
         line = data.line
         info = data.info
-        
+
         resultTest = TestCase.TestCase(name)
         resultTest.addNotice(Notice.Notice(file, line, info, status.lower()))
-        
+
         return resultTest
 
-    def _compileTestResults(self):
-        '''
-        Takes the data contained in self.suites and puts it in TestResults
-        for returning.
-        '''
-        results = TestResults.TestResults()
-
-        # TODO: clean up
-        for suite in self.suiteDict.suites:
-            results.suites.append(self._compileSuite(suite, self.suiteDict.suites[suite]))
-        return results
 
     def _validStatusLine(self, line):
         '''

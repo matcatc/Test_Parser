@@ -80,6 +80,7 @@ class QtView(UiClass, WidgetClass):
                     'fatalerror' : _redBrush,
                     'fail' : _redBrush,
                     'pass' : _greenBrush,
+                    'ok' : _greenBrush,
                     'message' : _whiteBrush,
                     'suite' : _greenBrush,
                     'testresults' : _greenBrush,
