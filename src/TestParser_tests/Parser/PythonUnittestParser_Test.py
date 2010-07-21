@@ -69,6 +69,7 @@ class PythonUnittestParser_Test(unittest.TestCase):
         
         @data Jul 20, 2010
         '''
+        raise NotImplementedError
     
     def test_ParseHierarchy(self):
         '''
