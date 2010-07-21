@@ -61,25 +61,17 @@ class PythonUnittestParser_Test(unittest.TestCase):
         Note: later we might change to checking for an exception.
         '''
         self.parser.parse(None)
-        
-    def test_parseRealData(self):
-        '''
-        Test and validate with real data. We're interested in the details
-        here, not the hierarchy
-        
-        @data Jul 20, 2010
-        '''
-        raise NotImplementedError
+
     
-    def test_ParseHierarchy(self):
+    def test_Parse(self):
         '''
-        Test and validate with real data. We're only interested in the
-        hierarchy here.
+        Test and validate with real data.
         
         Everything is hardcoded. I did this b/c its easy, fast, simple and
         provides unobfuscated documentation.
         
-        TODO: need to update to reflect changes in sub-suite structure
+        Note: order of tests isn't guaranteed.
+        TODO: Find a better way to test such that we don't have to specify the order.
         
         @date Jul 13, 2010
         '''
@@ -92,48 +84,55 @@ class PythonUnittestParser_Test(unittest.TestCase):
         
         suite = suites[0]
         suiteData = suite.getRelevantDisplayData()
-        self.assertTrue(('name', '__main__.TestSequenceFunctions') in suiteData)
+        self.assertTrue(('name', '__main__') in suiteData)
         
-        tests = suite.getChildren()
+        subSuites = suite.getChildren()
+        self.assertEqual(len(subSuites), 1)
+        
+        subSuite = subSuites[0]
+        subSuiteData = subSuite.getRelevantDisplayData()
+        self.assertTrue(('name', 'TestSequenceFunctions') in subSuiteData)
+        
+        tests = subSuite.getChildren()
         self.assertEqual(len(tests), 5)
         
         test0 = tests[0]
         test0_data = test0.getRelevantDisplayData()
-        self.assertTrue(('name', 'test_choice') in test0_data)
+        self.assertTrue(('name', 'test_shuffle') in test0_data)
         notice0 = test0.getChildren()[0] 
-        self.assertEquals(notice0.type, "pass")
-                
-        test1 = tests[1]
+        self.assertEquals(notice0.type, "ok")
+        
+        test1 =tests[1]
         test1_data = test1.getRelevantDisplayData()
-        self.assertTrue(('name', 'test_error') in test1_data)
+        self.assertTrue(('name', 'test_fail') in test1_data)
         notice1 = test1.getChildren()[0]
-        self.assertEquals(notice1.type, "error")
+        self.assertEquals(notice1.type, "fail")
         notice1_data = notice1.getRelevantDisplayData()
         self.assertTrue(('file', 'python_unittest_example.py') in notice1_data)
-        self.assertTrue(('line', '43') in notice1_data)
-        self.assertTrue(('info', "NotImplementedError") in notice1_data)
+        self.assertTrue(('line', '40') in notice1_data)
+        self.assertTrue(('info', "AssertionError: None") in notice1_data)
         
-        test2 =tests[2]
+        test2 = tests[2]
         test2_data = test2.getRelevantDisplayData()
-        self.assertTrue(('name', 'test_fail') in test2_data)
+        self.assertTrue(('name', 'test_sample') in test2_data)
         notice2 = test2.getChildren()[0]
-        self.assertEquals(notice2.type, "fail")
-        notice2_data = notice2.getRelevantDisplayData()
-        self.assertTrue(('file', 'python_unittest_example.py') in notice2_data)
-        self.assertTrue(('line', '40') in notice2_data)
-        self.assertTrue(('info', "AssertionError: None") in notice2_data)
+        self.assertEquals(notice2.type, "ok")
         
         test3 = tests[3]
         test3_data = test3.getRelevantDisplayData()
-        self.assertTrue(('name', 'test_sample') in test3_data)
+        self.assertTrue(('name', 'test_choice') in test3_data)
         notice3 = test3.getChildren()[0]
-        self.assertEquals(notice3.type, "pass")
+        self.assertEquals(notice3.type, "ok")
         
         test4 = tests[4]
         test4_data = test4.getRelevantDisplayData()
-        self.assertTrue(('name', 'test_shuffle') in test4_data)
+        self.assertTrue(('name', 'test_error') in test4_data)
         notice4 = test4.getChildren()[0]
-        self.assertEquals(notice4.type, "pass")
+        self.assertEquals(notice4.type, "error")
+        notice4_data = notice4.getRelevantDisplayData()
+        self.assertTrue(('file', 'python_unittest_example.py') in notice4_data)
+        self.assertTrue(('line', '43') in notice4_data)
+        self.assertTrue(('info', "NotImplementedError") in notice4_data)
         
 
 if __name__ == "__main__":
