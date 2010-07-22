@@ -155,6 +155,9 @@ class PythonUnittestParser(IParse.IParse):
     FAILED (failures=1, errors=1)
     @endverbatim
     
+    @warning Because of how Python Unittest Parser is currently implemented
+    (actually how SuiteHierarchyDict is implemented - dicts) the order of tests
+    and suites aren't completely correct.
     
     @warning This only works if the data is output correctly. 
     @see TestParser.Model.PythonUnittestRunner
