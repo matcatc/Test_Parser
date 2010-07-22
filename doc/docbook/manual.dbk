@@ -303,6 +303,17 @@ sudo make install
 		<title>Change Log</title>
 		<itemizedlist>
 			<listitem>
+				<bridgehead>v 0.1.3</bridgehead>
+				<para>Pre-alpha. No packaged-release.</para>
+				<itemizedlist>
+					<listitem><para>3rd party libs only imported if needed</para></listitem>
+					<listitem><para>GUI shows runner</para></listitem>
+					<listitem><para>Boost: sub-suites, Fatal Error</para></listitem>
+					<listitem><para>PyUnittest: sub-suites, more info</para></listitem>
+					<listitem><para>GUI doesn't show None time</para></listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
 				<bridgehead>v 0.1.2</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
