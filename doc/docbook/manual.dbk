@@ -112,8 +112,7 @@
 			</para>
 			<refsect3>
 				<title>Python Unittest</title>
-				<para>
-					Because of how Python Unittest is designed, we require
+				<para> Because of how Python Unittest is designed, we require
 	    			that the test runner be setup a certain way. For parsing to work,
 	    			we need the verbosity level to be set to 2. For running to work,
 	    			we need the information all output to stdout. I.e: use the
