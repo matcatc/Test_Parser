@@ -23,6 +23,7 @@ from . import IParse
 from ..TestResults import TestResults, Suite, TestCase, Notice
 from TestParser.Common.Constants import Constants
 import re
+from collections import OrderedDict
 
 
 
@@ -34,7 +35,7 @@ class SuiteHierarchyDict(object):
     @date Jul 20, 2010
     '''
     def __init__(self):
-        self.suites = {}
+        self.suites = OrderedDict()
 
     @staticmethod
     def splitSuite(suite):
@@ -58,7 +59,7 @@ class SuiteHierarchyDict(object):
         lastSuite = self.suites
         for suite in splitSuite:
             if suite not in lastSuite:
-                lastSuite[suite] = {}
+                lastSuite[suite] = OrderedDict()
 
             lastSuite = lastSuite[suite]
 
