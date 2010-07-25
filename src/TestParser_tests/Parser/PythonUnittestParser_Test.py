@@ -47,10 +47,16 @@ class PythonUnittestParser_Test(unittest.TestCase):
         self.assertTrue(self.parser._validFailInfoLine('  File "python_unittest_example.123asd", line 40123, in test_fail'))
     
     def test_ParseFile(self):
+        '''
+        Make sure nothing explodes
+        '''
         f = open(computeDataFilepath("./sample/python_unittest_sample", __file__))
         self.parser.parse(file = f)
         
     def test_ParseStringdata(self):
+        '''
+        Make sure nothing explodes
+        '''
         f = open(computeDataFilepath("./sample/python_unittest_sample", __file__))
         self.parser.parse(stringData = f.read())
         
@@ -69,8 +75,6 @@ class PythonUnittestParser_Test(unittest.TestCase):
         
         Everything is hardcoded. I did this b/c its easy, fast, simple and
         provides unobfuscated documentation.
-        
-        TODO: fix order of tests
         
         @date Jul 13, 2010
         '''
