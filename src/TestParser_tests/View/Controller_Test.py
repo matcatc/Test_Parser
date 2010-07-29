@@ -37,6 +37,12 @@ class Mock_Model(object):
         no need to implement, just checking correctly spelled.
         '''
         pass
+    
+    def runPrevious(self):
+        '''
+        no need to implement, just checking correctly spelled.
+        '''
+        pass
         
 
 class ControllerTest(unittest.TestCase):
@@ -67,6 +73,14 @@ class ControllerTest(unittest.TestCase):
         Doesn't test functionality
         '''
         self.controller.run()
+        
+    def test_runPrevious(self):
+        '''
+        tests that nothing explodes
+        
+        @date Jul 29, 2010
+        '''
+        self.controller.runPrevious()
         
     def test_update(self):
         '''
