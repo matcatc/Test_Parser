@@ -139,6 +139,7 @@ class QtView(UiClass, WidgetClass):
         When an item in the tree widget is selected.
         
         TODO: implement
+        we're going to want to involve the Controller somehow.
         
         @date Jul 29, 2010
         '''
