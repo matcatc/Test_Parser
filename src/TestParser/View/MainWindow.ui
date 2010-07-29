@@ -29,6 +29,9 @@
       <property name="horizontalScrollBarPolicy">
        <enum>Qt::ScrollBarAsNeeded</enum>
       </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
       <property name="sortingEnabled">
        <bool>false</bool>
       </property>

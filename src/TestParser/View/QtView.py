@@ -134,14 +134,19 @@ class QtView(UiClass, WidgetClass):
         '''
         self.controller.runPrevious()
         
-    def itemSelected(self, treeItem, num):
+    def itemSelected(self, treeItem, col):
         '''
         When an item in the tree widget is selected.
+        
+        We don't need/want col and we (eventually) want to have multiple
+        selection work. Which means we're probably going to want to use
+        getSelectedItems and not deal with any items being passed in.
+        But in the meantime, it might not be bad to have just single item.
         
         @date Jul 29, 2010
         '''
         # TODO: implement
-        print("itemSelected")
+        print("itemSelected: treeItem = %s\t col = %d" % (treeItem, col))
 
 #
 # Data display code
