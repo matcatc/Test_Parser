@@ -129,8 +129,11 @@ class QtView(UiClass, WidgetClass):
         '''
         Menu Cmd. Rerun previous test configuration.
         
-        @date Jun 17, 2010
+        If we add redisplay/reopening of tests after rerun,
+        we'll likely have to override runPrevious() in 
+        QtViewController and fetch info there.
         
+        @date Jun 17, 2010
         '''
         self.controller.runPrevious()
         
