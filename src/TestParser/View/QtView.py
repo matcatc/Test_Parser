@@ -133,6 +133,15 @@ class QtView(UiClass, WidgetClass):
         
         '''
         self.controller.runPrevious()
+        
+    def itemSelected(self, treeItem, num):
+        '''
+        When an item in the tree widget is selected.
+        
+        @date Jul 29, 2010
+        '''
+        # TODO: implement
+        print("itemSelected")
 
 #
 # Data display code
