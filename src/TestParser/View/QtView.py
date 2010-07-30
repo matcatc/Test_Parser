@@ -168,12 +168,14 @@ class QtView(UiClass, WidgetClass):
         while item is not None:
             path.insert(0, self._getItemData(item))
             item = item.parent()
-        print("DEBUG: path = %s" % path)
         return path
 
     def _getExpandedItems(self):
         '''
         Returns a list of items that are open/displayed/expanded.
+        
+        Only add items who don't have expanded children b/c those
+        who do will be expanded during their children's expansion.
         
         @date Jul 29, 2010
         '''
@@ -181,8 +183,9 @@ class QtView(UiClass, WidgetClass):
         iter = QtGui.QTreeWidgetItemIterator(self.treeWidget)
         while iter.value():
             item = iter.value()
-            if item.isExpanded():
-                itemsToExpand.append(self._computeItemPath(item))
+            if item.parent() is not None:
+                if item.parent().isExpanded() and not item.isExpanded():
+                    itemsToExpand.append(self._computeItemPath(item))
             iter += 1
             
         return itemsToExpand
@@ -198,7 +201,6 @@ class QtView(UiClass, WidgetClass):
         
         @date Jul 29, 2010
         '''
-        
         for path in itemsToExpand:
             root = self.treeWidget.topLevelItem(0)   # TODO: what if we have multiple root items?          
             self._expandPath(path, root)
@@ -229,13 +231,14 @@ class QtView(UiClass, WidgetClass):
         if path[0] == self._getItemData(root):
             # no children and last item in path
             if root.childCount() == 0 and len(path) == 1:
+                self.treeWidget.expandItem(root.parent())
                 return True
             
             for i in range(root.childCount()):      # for child in root
                 child =  root.child(i)
                 
                 if self._expandPath(path[1:], child):
-                    self.treeWidget.expandItem(root)
+                    self.treeWidget.expandItem(root.parent())
                     return True
                 
         return False
