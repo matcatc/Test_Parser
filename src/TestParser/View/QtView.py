@@ -194,12 +194,16 @@ class QtView(UiClass, WidgetClass):
         Expands/displays item. Will expand from item to root,
         that way the item will be visible immediately.
         
+        We don't want to expand item, as we're interested in seeing it,
+        not its children.
+        
         @bug This currently doesn't expand root for some reason.
         It does call expandItem() on the root item, so I'm guessing
         that its a pyQt issue.
         
         @date Jul 29, 2010
         '''
+        item = item.parent()
         while item is not None:
             self.treeWidget.expandItem(item)
             item = item.parent()
