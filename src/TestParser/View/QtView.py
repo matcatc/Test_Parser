@@ -141,7 +141,7 @@ class QtView(UiClass, WidgetClass):
         selectedItems = self.treeWidget.selectedItems()
         if len(selectedItems) > 0:
             for item in selectedItems:
-                itemsToExpand.append(self._getItemData(item))
+                itemsToExpand.append(self._computeItemPath(item))
         else:          
             itemsToExpand = self._getExpandedItems()
 
@@ -152,6 +152,24 @@ class QtView(UiClass, WidgetClass):
 #
 ## rerun item expansion
 #
+
+    def _computeItemPath(self, item):
+        '''
+        Compute and return the path from root to given item.
+        
+        Path is a list. The first item is the root and each element
+        is a child of its predecessor item.
+        
+        Builds path from head to tail.
+        
+        @date Jul 30, 2010
+        '''
+        path = []
+        while item is not None:
+            path.insert(0, self._getItemData(item))
+            item = item.parent()
+        print("DEBUG: path = %s" % path)
+        return path
 
     def _getExpandedItems(self):
         '''
@@ -164,7 +182,7 @@ class QtView(UiClass, WidgetClass):
         while iter.value():
             item = iter.value()
             if item.isExpanded():
-                itemsToExpand.append(self._getItemData(item))
+                itemsToExpand.append(self._computeItemPath(item))
             iter += 1
             
         return itemsToExpand
@@ -173,14 +191,35 @@ class QtView(UiClass, WidgetClass):
         '''
         Expands items in the tree so that the user can see them.
         
-        This expands all items which match an item-data-tuple
-        contained within itemsToExpand.
+        @param itemsToExpand a list of item paths to expand along.
         
-        @param itemsToExpand a list of tuples of item data.
-        Tuples are of the form as those returned by _getItemData()
+        TODO: need backtracking algorithm, as there will be multiple
+        children that satisfy the requirements at any particular level.
         
         @date Jul 29, 2010
-        '''               
+        '''
+        
+        for path in itemsToExpand:
+            curTreeItem = self.treeWidget.topLevelItem(0)   # TODO: what if we have multiple root items?
+            path.pop(0)
+            for item in path:
+                self.treeWidget.expandItem(curTreeItem)
+                
+                # select proper child
+                childFound = False
+                for i in range(curTreeItem.childCount()):
+                    child = curTreeItem.child(i)
+                    if self._getItemData(child) == item:
+                        curTreeItem = child
+                        childFound = True
+                        break
+                
+                # path broke off, therefore go to next path
+                if childFound == False:
+                    break
+                    
+        return
+           
         iter = QtGui.QTreeWidgetItemIterator(self.treeWidget)
         
         while iter.value():
