@@ -200,52 +200,45 @@ class QtView(UiClass, WidgetClass):
         '''
         
         for path in itemsToExpand:
-            curTreeItem = self.treeWidget.topLevelItem(0)   # TODO: what if we have multiple root items?
-            path.pop(0)
-            for item in path:
-                self.treeWidget.expandItem(curTreeItem)
-                
-                # select proper child
-                childFound = False
-                for i in range(curTreeItem.childCount()):
-                    child = curTreeItem.child(i)
-                    if self._getItemData(child) == item:
-                        curTreeItem = child
-                        childFound = True
-                        break
-                
-                # path broke off, therefore go to next path
-                if childFound == False:
-                    break
-                    
-        return
-           
-        iter = QtGui.QTreeWidgetItemIterator(self.treeWidget)
-        
-        while iter.value():
-            item = iter.value()
-            if self._getItemData(item) in itemsToExpand:
-                self._expandAlongPath(item)
-            iter += 1
+            root = self.treeWidget.topLevelItem(0)   # TODO: what if we have multiple root items?          
+            self._expandPath(path, root)
 
-    def _expandAlongPath(self, item):
+    def _expandPath(self, path, root):
         '''
-        Expands/displays item. Will expand from item to root,
-        that way the item will be visible immediately.
+        Expands a path.
         
-        We don't want to expand item, as we're interested in seeing it,
-        not its children.
+        Because there will be multiple children that satisfy the
+        requirements at any particular level (think multiple unnamed suites),
+        we need a backtracking algorithm.
         
-        @bug This currently doesn't expand root for some reason.
-        It does call expandItem() on the root item, so I'm guessing
-        that its a pyQt issue.
+        We expand items on the way back up (if returns true)
         
-        @date Jul 29, 2010
+        @bug doesn't expand root
+        
+        @bug expands one too far, but that's minor
+        
+        @param path List of items. Path goes from parent to child
+        @param root item in tree. Path starts at this item/root.
+        @return True if parent item should be expanded.
+        
+        @date Jul 20, 2010
         '''
-        item = item.parent()
-        while item is not None:
-            self.treeWidget.expandItem(item)
-            item = item.parent()
+        if len(path) == 0:
+            return True
+        
+        if path[0] == self._getItemData(root):
+            # no children and last item in path
+            if root.childCount() == 0 and len(path) == 1:
+                return True
+            
+            for i in range(root.childCount()):      # for child in root
+                child =  root.child(i)
+                
+                if self._expandPath(path[1:], child):
+                    self.treeWidget.expandItem(root)
+                    return True
+                
+        return False
 
     
     def _getItemData(self, item):
