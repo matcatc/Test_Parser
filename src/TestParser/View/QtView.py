@@ -24,9 +24,10 @@ import sys
 try:
     from PyQt4 import uic #@UnresolvedImport
     from PyQt4 import QtGui #@UnresolvedImport
+    from PyQt4 import QtCore #@UnresolvedImport
 except:
     sys.exit("Failed to import PyQt4. QtView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
-    
+
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 from . import Controller
@@ -68,14 +69,14 @@ class QtView(UiClass, WidgetClass):
     _red = QtGui.QColor("red")
     _green = QtGui.QColor("green")
     _white = QtGui.QColor("white")
-    
+
     _redBrush = QtGui.QBrush(_red)
     _greenBrush = QtGui.QBrush(_green)
     _whiteBrush = QtGui.QBrush(_white)
-    
+
     DEFAULT_BRUSH = _whiteBrush
-    
-    
+
+
     colorBrushes = {'error' : _redBrush,
                     'fatalerror' : _redBrush,
                     'fail' : _redBrush,
@@ -85,10 +86,10 @@ class QtView(UiClass, WidgetClass):
                     'suite' : _greenBrush,
                     'testresults' : _greenBrush,
                     'testcase' : _greenBrush}
-    
+
     PROPAGATING_ITEMS = ['error', 'fatalerror', 'fail']
     MAX_PRIORITY = len(PROPAGATING_ITEMS) + 1
-    
+
     TYPE_COL = 0
     NAME_COL = 1
     FILE_COL = 2
@@ -127,28 +128,95 @@ class QtView(UiClass, WidgetClass):
 
     def reRun(self):
         '''
-        Menu Cmd. Rerun previous test configuration.
+        Rerun previous test configuration.
         
-        If we add redisplay/reopening of tests after rerun,
-        we'll likely have to override runPrevious() in 
-        QtViewController and fetch info there.
+        Will expand items in the tree according to the following:
+        If there are items selected at rerun, then those items are
+        expanded/displayed. If none selected, then the items 
+        expanded/displayed at rerun will be so after.
         
         @date Jun 17, 2010
         '''
+        itemsToExpand = []
+        selectedItems = self.treeWidget.selectedItems()
+        if len(selectedItems) > 0:
+            for item in selectedItems:
+                itemsToExpand.append(self._getItemData(item))
+        else:          
+            itemsToExpand = self._getExpandedItems()
+
         self.controller.runPrevious()
-        
-    def itemSelected(self):
+
+        self._expandItems(itemsToExpand)
+
+#
+## rerun item expansion
+#
+
+    def _getExpandedItems(self):
         '''
-        When an item in the tree widget is selected.
-        
-        TODO: implement
-        we're going to want to involve the Controller somehow.
+        Returns a list of items that are open/displayed/expanded.
         
         @date Jul 29, 2010
         '''
-        itemsSelected = self.treeWidget.selectedItems()
+        itemsToExpand = []
+        iter = QtGui.QTreeWidgetItemIterator(self.treeWidget)
+        while iter.value():
+            item = iter.value()
+            if item.isExpanded():
+                itemsToExpand.append(self._getItemData(item))
+            iter += 1
+            
+        return itemsToExpand
+
+    def _expandItems(self, itemsToExpand):
+        '''
+        Expands items in the tree so that the user can see them.
         
-        print("itemSelected: treeItems = %s\n" % (itemsSelected,))
+        This expands all items which match an item-data-tuple
+        contained within itemsToExpand.
+        
+        @param itemsToExpand a list of tuples of item data.
+        Tuples are of the form as those returned by _getItemData()
+        
+        @date Jul 29, 2010
+        '''               
+        iter = QtGui.QTreeWidgetItemIterator(self.treeWidget)
+        
+        while iter.value():
+            item = iter.value()
+            if self._getItemData(item) in itemsToExpand:
+                self._expandAlongPath(item)
+            iter += 1
+
+    def _expandAlongPath(self, item):
+        '''
+        Expands/displays item. Will expand from item to root,
+        that way the item will be visible immediately.
+        
+        @bug This currently doesn't expand root for some reason.
+        It does call expandItem() on the root item, so I'm guessing
+        that its a pyQt issue.
+        
+        @date Jul 29, 2010
+        '''
+        while item is not None:
+            self.treeWidget.expandItem(item)
+            item = item.parent()
+
+    
+    def _getItemData(self, item):
+        '''
+        Returns a tuple (type, name, file, line time) of
+        the data contained within item.
+        
+        @date Jul 29, 2010
+        '''
+        return (item.text(QtView.TYPE_COL),
+                item.text(QtView.NAME_COL),
+                item.text(QtView.FILE_COL),
+                item.text(QtView.LINE_COL),
+                item.text(QtView.INFO_COL))
 
 #
 # Data display code
@@ -189,7 +257,7 @@ class QtView(UiClass, WidgetClass):
 
         self._clearTreeWidget()
         tree = self.treeWidget
-        
+
         self.numCols = self.treeWidget.columnCount()
         self._displayResults(tree, results)
 
@@ -207,18 +275,18 @@ class QtView(UiClass, WidgetClass):
         @date Jun 23, 2010
         '''
         resultItem = QtGui.QTreeWidgetItem(parent)
-        
+
         self._displayData(resultItem, result)
 
         returnedBrushItems = []        # returned (item, brush) tuple
         for child in result.getChildren():
             temp = self._displayResults(resultItem, child)
-            
+
             if temp is not None:
                 returnedBrushItems.append(temp)
 
         return self._colorRow(resultItem, result, returnedBrushItems)
-        
+
     def _displayData(self, resultItem, result):
         '''
         Parses relevant display data and displays it.
@@ -233,7 +301,7 @@ class QtView(UiClass, WidgetClass):
         @date Jun 26, 2010
         '''
         resultItem.setText(QtView.TYPE_COL, result.type)
-        
+
         for infotype, data in result.getRelevantDisplayData():
             if infotype == "name":
                 resultItem.setText(QtView.NAME_COL, data)
@@ -246,7 +314,7 @@ class QtView(UiClass, WidgetClass):
             elif infotype == "time":
                 if data is not None:
                     resultItem.setText(QtView.TIME_COL, "time: " + data)
-                
+
     def _colorRow(self, resultItem, result, returnedBrushItems):
         '''
         Determine which brush/color to use and color the row.
@@ -275,19 +343,19 @@ class QtView(UiClass, WidgetClass):
                     propagateItem = item
                     propagateBrush = brush
 
-        
+
         # get brush for current item
         try:
             brush = QtView.colorBrushes[result.type.lower()]
         except KeyError:
             brush = QtView.DEFAULT_BRUSH
 
-        
+
         thisPropagateUp = result.type.lower() in QtView.PROPAGATING_ITEMS
         childPropagateUp = propagateBrush is not None
-        
+
         # determine which brush to use
-        if thisPropagateUp and childPropagateUp:   
+        if thisPropagateUp and childPropagateUp:
             if QtView._priorityItem(propagateItem) \
                     < QtView._priorityItem(result.type):
                 self._colorRow_helper(resultItem, propagateBrush)
@@ -302,10 +370,10 @@ class QtView(UiClass, WidgetClass):
             self._colorRow_helper(resultItem, propagateBrush)
             return (propagateItem, propagateBrush)
         else:
-            self._colorRow_helper(resultItem,  brush)
+            self._colorRow_helper(resultItem, brush)
             return None
-        
-    def _colorRow_helper(self, item,  brush):
+
+    def _colorRow_helper(self, item, brush):
         '''
         Colors a given item across all cols (the entire row)
         with the given brush.
@@ -318,8 +386,8 @@ class QtView(UiClass, WidgetClass):
         '''
         for i in range(self.numCols):
             item.setBackground(i, brush)
-    
-    @staticmethod    
+
+    @staticmethod
     def _priorityItem(item):
         '''
         Determines the priority of an item in PROPAGATING_ITEMS. Lower
@@ -337,7 +405,7 @@ class QtView(UiClass, WidgetClass):
             return QtView.PROPAGATING_ITEMS.index(item.lower())
         except:         # TODO specific exception
             return QtView.MAX_PRIORITY
-        
+
 
 class QtViewController(Controller.Controller):
     '''
@@ -356,19 +424,19 @@ class QtViewController(Controller.Controller):
         '''
         # setup controller
         controller = QtViewController(model)
-        
+
         # setup view
         app = QtGui.QApplication(sys.argv)
         view = QtView(model, controller)
-        
-        view.setWindowTitle( "Test Parser - %s" % runner)
-        
+
+        view.setWindowTitle("Test Parser - %s" % runner)
+
         view.show()
 
         # run
         controller.run()
         sys.exit(app.exec_())
-        
+
     def displayAboutDialog(self):
         '''
         Displays the Qt based About Dialog

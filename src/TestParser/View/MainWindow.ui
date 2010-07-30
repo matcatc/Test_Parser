@@ -178,7 +178,7 @@
    <sender>treeWidget</sender>
    <signal>itemActivated(QTreeWidgetItem*,int)</signal>
    <receiver>MainWindow</receiver>
-   <slot>itemSelected()</slot>
+   <slot>reRun()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>271</x>
@@ -194,6 +194,5 @@
  <slots>
   <slot>aboutDialog()</slot>
   <slot>reRun()</slot>
-  <slot>itemSelected()</slot>
  </slots>
 </ui>
