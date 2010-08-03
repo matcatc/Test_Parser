@@ -231,12 +231,9 @@ class QtView(UiClass, WidgetClass):
         if len(path) == 0:
             return True
         
-        Constants.logger.debug("DEBUG: path[0] = %s\t item = %s" % (path[0], self._getItemData(root)))
-        
         if path[0] == self._getItemData(root):
             # no children and last item in path
             if root.childCount() == 0 and len(path) == 1:
-                Constants.logger.debug("DEBUG: expanding: %s" % str(self._getItemData(root.parent())))
                 self.treeWidget.expandItem(root.parent())
                 return True
             
@@ -244,7 +241,6 @@ class QtView(UiClass, WidgetClass):
                 child =  root.child(i)
                 
                 if self._expandPath(path[1:], child):
-                    Constants.logger.debug("DEBUG: expanding: %s" % str(self._getItemData(root.parent())))
                     self.treeWidget.expandItem(root.parent())
                     return True
                 
