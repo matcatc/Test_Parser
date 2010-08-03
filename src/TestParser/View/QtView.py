@@ -20,6 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import sys
+from TestParser.Common.Constants import Constants
 
 try:
     from PyQt4 import uic #@UnresolvedImport
@@ -147,6 +148,8 @@ class QtView(UiClass, WidgetClass):
 
         self.controller.runPrevious()
 
+        Constants.logger.debug("DEBUG: itemsToExpand:\t %s" % itemsToExpand)
+
         self._expandItems(itemsToExpand)
 
 #
@@ -225,12 +228,15 @@ class QtView(UiClass, WidgetClass):
         
         @date Jul 20, 2010
         '''
+        Constants.logger.debug("DEBUG: path[0] = %s\t item = %s" % (path[0], self._getItemData(root)))
+        
         if len(path) == 0:
             return True
         
         if path[0] == self._getItemData(root):
             # no children and last item in path
             if root.childCount() == 0 and len(path) == 1:
+                Constants.logger.debug("DEBUG: expanding: %s" % str(self._getItemData(root.parent())))
                 self.treeWidget.expandItem(root.parent())
                 return True
             
@@ -238,6 +244,7 @@ class QtView(UiClass, WidgetClass):
                 child =  root.child(i)
                 
                 if self._expandPath(path[1:], child):
+                    Constants.logger.debug("DEBUG: expanding: %s" % str(self._getItemData(root.parent())))
                     self.treeWidget.expandItem(root.parent())
                     return True
                 
@@ -251,11 +258,14 @@ class QtView(UiClass, WidgetClass):
         
         @date Jul 29, 2010
         '''
-        return (item.text(QtView.TYPE_COL),
-                item.text(QtView.NAME_COL),
-                item.text(QtView.FILE_COL),
-                item.text(QtView.LINE_COL),
-                item.text(QtView.INFO_COL))
+        if item is None:
+            return None
+        else:
+            return (item.text(QtView.TYPE_COL),
+                    item.text(QtView.NAME_COL),
+                    item.text(QtView.FILE_COL),
+                    item.text(QtView.LINE_COL),
+                    item.text(QtView.INFO_COL))
 
 #
 # Data display code
