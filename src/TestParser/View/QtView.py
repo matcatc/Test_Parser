@@ -227,11 +227,11 @@ class QtView(UiClass, WidgetClass):
         @return True if parent item should be expanded.
         
         @date Jul 20, 2010
-        '''
-        Constants.logger.debug("DEBUG: path[0] = %s\t item = %s" % (path[0], self._getItemData(root)))
-        
+        '''       
         if len(path) == 0:
             return True
+        
+        Constants.logger.debug("DEBUG: path[0] = %s\t item = %s" % (path[0], self._getItemData(root)))
         
         if path[0] == self._getItemData(root):
             # no children and last item in path
