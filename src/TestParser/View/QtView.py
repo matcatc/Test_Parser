@@ -148,7 +148,7 @@ class QtView(UiClass, WidgetClass):
 
         self.controller.runPrevious()
 
-        Constants.logger.debug("DEBUG: itemsToExpand:\t %s" % itemsToExpand)
+        Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
 
         self._expandItems(itemsToExpand)
 

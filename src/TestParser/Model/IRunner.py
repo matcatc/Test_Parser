@@ -122,7 +122,7 @@ class IRunner(object):
                 cmd = self.computeCmd(params)
                 self.previousCmd = cmd
 
-            Constants.logger.debug("DEBUG: cmd = %s" % repr(cmd))
+            Constants.logger.debug("cmd = %s" % repr(cmd))
 
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):

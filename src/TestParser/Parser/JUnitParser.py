@@ -58,7 +58,7 @@ class JUnitParser(IParse.IParse):
             return self._parseData(file.read())
         else:
             #TODO: raise
-            Constants.logger.error("ERROR: parse() needs data to parse")
+            Constants.logger.error("parse() needs data to parse")
             return None
 
 
@@ -105,7 +105,7 @@ class JUnitParser(IParse.IParse):
         # but this is more of a sanity check
         # TODO: should we raise?
         if not re.match(r'^[\.EF]+$', statusLine):
-            Constants.logger.error("ERROR: statusLine isn't of correct form")
+            Constants.logger.error("statusLine isn't of correct form")
 
         Constants.logger.debug("statusLine = %s" % statusLine)
 
@@ -220,7 +220,7 @@ class JUnitParser(IParse.IParse):
                             failInfo.append( (suiteName, testName, fileName, line, info))
                             
                     else:
-                        Constants.logger.error("ERROR: encountered unknown line type %s" % lineType)
+                        Constants.logger.error("encountered unknown line type %s" % lineType)
                         raise UnknownLineType(lineType)
                     
             except InvalidLine:
