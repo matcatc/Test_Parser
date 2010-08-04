@@ -202,7 +202,7 @@ class PythonUnittestParser(IParse.IParse):
             self._parseData(file.read())
         else:
             #TODO: raise?
-            Constants.logger.error("ERROR: parse() needs data to parse")
+            Constants.logger.error("parse() needs data to parse")
             return None
 
 
