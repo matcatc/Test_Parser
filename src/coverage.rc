@@ -1,0 +1,4 @@
+[report]
+omit = 
+    /usr/local/lib/
+    TestParser_tests/
