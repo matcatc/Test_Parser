@@ -137,6 +137,17 @@ class PythonUnittestParser_Test(unittest.TestCase):
         notice4 = test4.getChildren()[0]
         self.assertEquals(notice4.type, "ok")
         
+        
+        
+    def test_TestData_repr(self):
+        '''
+        Tests that TestData's __repr__() and __str__() don't explode
+        '''
+        from TestParser.Parser.PythonUnittestParser import TestData
+        obj = TestData()
+        str(obj)
+        repr(obj)
+        
 
         
 
