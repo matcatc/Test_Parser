@@ -163,6 +163,22 @@
 				or all of the tests from the GUI. For an idea of what I hope
 				to achieve with the GUI's, see Alleyoop (valgrind front end.) 
 			</para>
+			<refsect3>
+				<title>Qt4</title>
+				<para> Because of problems I encountered during development
+					relating to PyQt4, I've decided to (temporarily) halt
+					development on PyQt based GUI parts. The problems
+					are that the Qt and PyQt libs (or their dependicies)
+					we're resulting in seg-faults. The problem got
+					<emphasis>MUCH</emphasis> worse	after I updated the
+					library.
+				</para>
+				<para> Because the problem is with the library, it is
+					possible that the program might work on your system
+					without any changes if you have a different version.
+					Feel free to try it out if you so desire.
+				</para>
+			</refsect3>
 		</refsect2>
 	</refsect1>
 	
@@ -236,6 +252,12 @@
 			</para>
 			<refsect3>
 				<title>PyQt4 installation</title>
+				<para>Because there wasn't a PyQt package available for
+					python3 when I was developing I had to compile and install
+					PyQt4 manually. If when you're trying to install Test Parser
+					check to see if there is a package available. It'll be
+					something like: python3-Qt4.
+				</para>
 				<para>I followed the instructions found
 					<ulink url="http://osdir.com/ml/leo-editor/2009-12/msg00033.html">
 					here</ulink>. To quote:
