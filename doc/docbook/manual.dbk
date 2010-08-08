@@ -165,18 +165,14 @@
 			</para>
 			<refsect3>
 				<title>Qt4</title>
-				<para> Because of problems I encountered during development
-					relating to PyQt4, I've decided to (temporarily) halt
-					development on PyQt based GUI parts. The problems
-					are that the Qt and PyQt libs (or their dependicies)
-					we're resulting in seg-faults. The problem got
-					<emphasis>MUCH</emphasis> worse	after I updated the
-					library.
+				<para> It should be noted that after adding auto-expansion
+					to the Qt based view, I started encountering random
+					seg-faults. According to the stack trace, they're
+					originating in the qt library (libqtSOMETHING.so)
 				</para>
-				<para> Because the problem is with the library, it is
-					possible that the program might work on your system
-					without any changes if you have a different version.
-					Feel free to try it out if you so desire.
+				<para> So if you are using the Qt based gui and keep
+					encountering seg-faults, consider disabling auto
+					expansion.
 				</para>
 			</refsect3>
 		</refsect2>
