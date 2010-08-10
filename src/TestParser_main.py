@@ -34,12 +34,13 @@ from optparse import OptionParser
 def initConstants(options):
     '''
     initialize constants based on given program options
-    '''
     
+    @date Aug 9, 2010
+    '''
     from TestParser.Common.Constants import Constants
     
     Constants.autoExpand = (False, True)[options.auto_expand == "on"]
-    print("DEBUG: autoExpand = %s" % Constants.autoExpand)
+    Constants.logger.info("autoExpand = %s" % options.auto_expand)
 
 
 def main():

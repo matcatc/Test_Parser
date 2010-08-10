@@ -140,19 +140,20 @@ class QtView(UiClass, WidgetClass):
         '''
         Constants.logger.debug("start of QtView.reRun()")
         
-        itemsToExpand = []
-        selectedItems = self.treeWidget.selectedItems()
-        if len(selectedItems) > 0:
-            for item in selectedItems:
-                itemsToExpand.append(self._computeItemPath(item))
-        else:          
-            itemsToExpand = self._getExpandedItems()
+        if Constants.autoExpand:
+            itemsToExpand = []
+            selectedItems = self.treeWidget.selectedItems()
+            if len(selectedItems) > 0:
+                for item in selectedItems:
+                    itemsToExpand.append(self._computeItemPath(item))
+            else:          
+                itemsToExpand = self._getExpandedItems()
 
         self.controller.runPrevious()
 
-        Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
-
-        self._expandItems(itemsToExpand)
+        if Constants.autoExpand:
+            Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
+            self._expandItems(itemsToExpand)
         
         Constants.logger.debug("end of QtView.reRun()")
 
