@@ -76,9 +76,8 @@ class Notice_Test(unittest.TestCase):
 
     def testValue(self):
         '''
-        Test valid input: empty strings, negative numbers
+        Test invalid input: negative line numbers
         '''
-        self.assertRaises(ValueError, Notice, "", self.line, self.info, self.type)
         self.assertRaises(ValueError, Notice, self.file, -1, self.info, self.type)
 
     def testGetters(self):
@@ -93,19 +92,25 @@ class Notice_Test(unittest.TestCase):
 
     def test_emptyInfo(self):
         '''
-        cause logging code to be executed for typo checking purposes
+        Test that nothing explodes
         '''
         self.notice.info = ""
 
     def test_emptyType(self):
         '''
-        cause logging code to be executed for typo checking purposes
+        Test that nothing explodes
         '''
         self.notice.type = ""
         
+    def test_emptyFIle(self):
+        '''
+        Test that nothing explodes
+        '''
+        self.notice.file = ""
+        
     def test_noneLine(self):
         '''
-        check that nothing extreme happens. Typo checking purposes.
+        Test that nothing explodes
         '''
         self.notice.line = None
 
