@@ -66,7 +66,7 @@ def main():
                       help=framework_help)
     parser.add_option("--autoexpand", dest="auto_expand",
                       action="store", choices=("on", "off"),
-                      default="on")
+                      default="on",help="enable/disable autoexpand")
     
     (options, args) = parser.parse_args()    
 
