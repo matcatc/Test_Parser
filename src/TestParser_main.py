@@ -31,6 +31,17 @@ from TestParser.Model import Model
 from optparse import OptionParser
 
 
+def initConstants(options):
+    '''
+    initialize constants based on given program options
+    '''
+    
+    from TestParser.Common.Constants import Constants
+    
+    Constants.autoExpand = (False, True)[options.auto_expand == "on"]
+    print("DEBUG: autoExpand = %s" % Constants.autoExpand)
+
+
 def main():
     '''    
     '''
@@ -52,12 +63,17 @@ def main():
     parser.add_option("--framework", dest="framework",
                       action="store", choices=framework_choices,
                       help=framework_help)
+    parser.add_option("--autoexpand", dest="auto_expand",
+                      action="store", choices=("on", "off"),
+                      default="on")
     
     (options, args) = parser.parse_args()    
 
     # should only have the test_runner
     if len(args) != 1:
         parser.error("Incorrect number of arguments")
+    
+    initConstants(options)
     
     model = Model.setupModel(options.framework, args[0])
     

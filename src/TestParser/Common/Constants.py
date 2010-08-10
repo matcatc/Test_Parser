@@ -47,10 +47,13 @@ class Constants_class(object):
     def __init__(self):
         '''
         '''
-        # logging stuff that shouldn't change
-        self.handler = logging.FileHandler(Constants_class.LOG_FILENAME, 'w')
+        # Set up a specific logger with our desired output level
+        self.logger = logging.getLogger('TestParser_Logger')
+        self.logger.setLevel(logging.DEBUG)
+        handler = logging.FileHandler(Constants_class.LOG_FILENAME, 'w')
         formatter = logging.Formatter("[%(levelname)s]\t %(message)s")
-        self.handler.setFormatter(formatter)
+        handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
         
         self.reset()
     
@@ -60,10 +63,9 @@ class Constants_class(object):
         '''
         self.errStream = sys.stderr
         
-        # Set up a specific logger with our desired output level
-        self.logger = logging.getLogger('TestParser_Logger')
-        self.logger.setLevel(logging.DEBUG)
-        self.logger.addHandler(self.handler)
+        self.autoExpand = True
+        
+
         
 
         
