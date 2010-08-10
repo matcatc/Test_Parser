@@ -73,6 +73,10 @@
 						</para>
 					</listitem>
 				</varlistentry>
+				<varlistentry>
+					<term><option>--autoexpand <parameter class="option">on/off</parameter></option></term>
+					<listitem><para>Enable/disable autoexpansion</para></listitem>
+				</varlistentry>
 			</variablelist>
 		</refsect2>
 		<refsect2>
@@ -173,6 +177,42 @@
 				<para> So if you are using the Qt based gui and keep
 					encountering seg-faults, consider disabling auto
 					expansion.
+				</para>
+			</refsect3>
+			<refsect3>
+				<title>Auto Expansion</title>
+				<para> Without auto expand, when you rerun the tests
+					the display tree will collapse. You will then have
+					to manually go through and expand each node to
+					reach your desired node. So if you rerun multiple
+					times, you'll have to go through this process
+					multiple times.
+				</para>
+				<para> Auto expand seeks to remedy this	problem. There
+					are two ways to use auto expand. First is to select
+					the nodes you want to be expanded/displayed after
+					rerunning all the tests. Second is to simply select
+					no tests. All the nodes that are currently displayed
+					will be redisplayed after rerunning. 
+				</para>
+				<para> Note that for some reason, there are several bugs
+					with auto expand. The biggest issue is that the program
+					will sometimes seg-fault and crash. I've determined
+					that the seg-fault occurs in the Qt library, so there
+					is not much I can do. Because its in the library, users
+					might not see it if the version they're using happens
+					to not have this issue. The other issue is that the
+					root node, and sometimes other nodes, will not expand.
+					Again, I don't think there is much I can do about this,
+					as it seems to be a quirk of the library.
+				</para>
+				<para> Despite its intermittent crashes, I've still found
+					auto expand to be helpful. But if you want to disable
+					it, you can do so through the command line. Simply
+					pass in <screen>--autoexpand=off</screen>
+					Note that auto expand is enabled by default, but if/when
+					I get around to adding a configuration file, users will
+					be able to define their own defaults.
 				</para>
 			</refsect3>
 		</refsect2>
