@@ -57,7 +57,7 @@ class JUnitParser(IParse.IParse):
         elif file is not None:
             return self._parseData(file.read())
         else:
-            #TODO: raise
+            #TODO: raise?
             Constants.logger.error("parse() needs data to parse")
             return None
 
@@ -175,6 +175,7 @@ class JUnitParser(IParse.IParse):
         failInfo = []
         
         # TODO: we need to reset variables after each add to failInfo?
+        # Seems to work without it, but it feels a little weird
         
         for line in lines:
             try:

@@ -26,10 +26,11 @@ class NonExistentJobPool_Exception(Exception):
     Exception. No JobPool in existence.
     
     There are no threads currently running to process jobs.
-    
-    TODO: anything to implement?
     '''
-    pass
+    def __str__(self):
+        return "Cannot use a non-existent Job Pool"
+    def __repr__(self):
+        return self.str()
 
 class UpdateJobPool(object):
     '''

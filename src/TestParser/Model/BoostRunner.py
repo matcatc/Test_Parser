@@ -20,7 +20,6 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>
 '''
 
 from .IRunner import IRunner
-import copy
 
 class BoostRunner(IRunner):
     '''

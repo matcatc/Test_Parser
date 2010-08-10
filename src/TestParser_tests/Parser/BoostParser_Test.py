@@ -23,7 +23,6 @@ import unittest
 from TestParser.Parser.BoostParser import BoostParser
 from xml.etree import ElementTree as ET
 from TestParser.Common.computeDataFilepath import computeDataFilepath
-import sys
 
 class BoostParser_Test(unittest.TestCase):
 

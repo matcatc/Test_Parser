@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 import unittest
 
-from TestParser.Common.UpdateJobPool import UpdateThread, UpdateJobPool
+from TestParser.Common.UpdateJobPool import UpdateJobPool
 from TestParser.Common.Constants import Constants
 
 import io
@@ -50,18 +50,10 @@ class UpdateThread_Test(unittest.TestCase):
     
     def test_runNone(self):
         '''
-        Test that an error message is printed out when trying to process a
-        job that is None.
-        
-        Use MSG in stream so that if other stuff gets into the stream,
-        we don't fail.
+        Test that nothing explodes when we have a None job.
         '''
         self.jobPool.addJob(None)
         self.jobPool.waitUntilJobsFinished_Raise()
-        # TODO: can we check the log instead?
-        # that way we can ditch the printing to errStream
-        # or perhaps we shouldn't be checking something like this.
-        self.assertTrue("%s\n" % UpdateThread.NON_EXISTENT_OBSERVER_MSG in Constants.errStream.getvalue())
 
 
 if __name__ == "__main__":

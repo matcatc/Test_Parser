@@ -25,7 +25,6 @@ from TestParser.Common.Constants import Constants
 try:
     from PyQt4 import uic #@UnresolvedImport
     from PyQt4 import QtGui #@UnresolvedImport
-    from PyQt4 import QtCore #@UnresolvedImport
 except:
     sys.exit("Failed to import PyQt4. QtView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
 
@@ -112,7 +111,6 @@ class QtView(UiClass, WidgetClass):
         # To be set by controller
         self.controller = controller
 
-        self.run = False        # TODO: What's this for?
 
 #
 # User interfacing code
@@ -158,7 +156,7 @@ class QtView(UiClass, WidgetClass):
         Constants.logger.debug("end of QtView.reRun()")
 
 #
-## rerun item expansion
+## auto expand
 #
 
     def _computeItemPath(self, item):
@@ -202,15 +200,23 @@ class QtView(UiClass, WidgetClass):
         '''
         Expands items in the tree so that the user can see them.
         
-        @param itemsToExpand a list of item paths to expand along.
+        @warning This currently only works if there is only a single
+        root item. But Test Results is setup such that it always returns
+        a single root item, so it shouldn't be a problem. Nevertheless,
+        we should at some point make this more resilient.
         
-        TODO: need backtracking algorithm, as there will be multiple
-        children that satisfy the requirements at any particular level.
+        TODO: what if we have multiple root/top-level items?
+        I think because of the way we setup _expandPath(), we
+        can just run this on all roots/topLevelItems. We'll need to test
+        somehow, but I don't think we'll ever encounter a situation with
+        multiple roots. So we'll leave it be for the moment.
+        
+        @param itemsToExpand a list of item paths to expand along.
         
         @date Jul 29, 2010
         '''
         for path in itemsToExpand:
-            root = self.treeWidget.topLevelItem(0)   # TODO: what if we have multiple root items?          
+            root = self.treeWidget.topLevelItem(0)          
             self._expandPath(path, root)
 
     def _expandPath(self, path, root):
@@ -219,13 +225,11 @@ class QtView(UiClass, WidgetClass):
         
         Because there will be multiple children that satisfy the
         requirements at any particular level (think multiple unnamed suites),
-        we need a backtracking algorithm.
+        we need and thus use a backtracking algorithm.
         
         We expand items on the way back up (if returns true)
         
         @bug doesn't expand root
-        
-        @bug expands one too far, but that's minor
         
         @param path List of items. Path goes from parent to child
         @param root item in tree. Path starts at this item/root.

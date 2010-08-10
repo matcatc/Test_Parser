@@ -53,7 +53,6 @@ def p_status_line_junit3(p):
                                     'exception' : exception_lineData['exception'],
                                     'info' : exception_lineData['info']})
 
-# TODO: return other relevant exception data (if applicable)
 def p_exception_line(p):
     '''
     exception_line : exception COLON string end

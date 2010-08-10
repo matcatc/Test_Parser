@@ -267,7 +267,6 @@ class PythonUnittestParser(IParse.IParse):
         '''
         results = TestResults.TestResults()
 
-        # TODO: clean up
         for suite in self.suiteDict.suites:
             results.suites.append(self._compileSuite(suite, self.suiteDict.suites[suite]))
         return results
@@ -278,8 +277,6 @@ class PythonUnittestParser(IParse.IParse):
         
         Recursive function. Basecase is TestCase, which is signified by
         a non-dict item, hence the try/except.
-        
-        TODO: change away from try/except if possible
         
         @date Jul 20, 2010
         '''

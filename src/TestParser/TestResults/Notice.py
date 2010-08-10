@@ -85,12 +85,11 @@ class Notice(TestComponent.TestComponent):
     @file.setter
     def file(self, file): #@DuplicatedSignature
         '''
-        @throw ValueError if file name is empty
-        # TODO: should we really raise an exception here?
+        No longer throwing an exception if the filename is empty.
+        What if the file info really isn't available for some reason?
         '''
         if file == "":
             Constants.logger.warning(Notice.EMPTY_FILE)
-            raise ValueError("file name is empty")
         self._file = file
     @file.deleter
     def file(self): #@DuplicatedSignature

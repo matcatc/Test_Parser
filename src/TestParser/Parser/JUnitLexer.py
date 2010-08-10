@@ -57,7 +57,8 @@ t_ignore = ' \t'
 
 # Error handling rule
 def t_error(t):
-    print ("Illegal character '%s'" % t.value[0])   # TODO: log?
+    from TestParser.Common.Constants import Constants
+    Constants.logger.warning("JUnitLexer: Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
 

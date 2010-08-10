@@ -54,7 +54,7 @@ class TestCase(TestComponent.TestComponent):
         if self.timeTaken is not None:
             time = str(self.timeTaken)
         else:
-             time = None           
+            time = None           
         return [("name", self.name),
                 ("time", time)]
 
