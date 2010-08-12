@@ -41,6 +41,14 @@ class ViewFactory():
     Abstract factory for views. All views will be of same GUI framework.
     
     Singleton
+    
+    Use:
+    @code
+    ViewFactory.selectFramework(framework)
+    ViewFactory.preViewInit()
+    ViewFactory.createResultView(model)
+    ViewFactory.startApplication()
+    @endcode
     '''
     
     ## singleton
@@ -53,28 +61,72 @@ class ViewFactory():
         '''
         framework = framework.lower()
         if framework == "qt":
-            cls.framework = _QtFramework()
+            cls.factory = _QtFramework()
         elif framework == "tkinter":
-            cls.framework = _TkinterFramework()
+            cls.factory = _TkinterFramework()
         elif framework == "text":
-            cls.framework = _TextFramework()
+            cls.factory = _TextFramework()
         else:
             raise UndefinedViewFramework(framework)
     
     @classmethod
-    def createResultView(cls):
-        return cls.factory.createResultView()
+    def createResultView(cls, model):
+        cls.factory.createResultView(model)
     
     @classmethod
     def createStatisticView(cls):
-        return cls.factory.createStatisticView()
+        cls.factory.createStatisticView()
     
+    @classmethod
+    def preViewInit(cls):
+        '''
+        Does any necessary initialization.
+        
+        Many frameworks require that the a root/application instance be
+        created before any windows,widgets,etc. are created. This is where
+        the root/application instance will be created
+        '''
+        cls.factory.preViewInit()
+    
+    @classmethod
+    def startApplication(cls):
+        '''
+        Starts the actual application.
+        
+        Note, if the actual implementation needs access to the views that
+        have been created, the factory needs to keep track of them. A member
+        variable (list or similar) will probably be enough, but the
+        create__View will need to make sure to add to this list.
+        '''
+        cls.factory.startApplication()
+
+
+
 class _QtFramework():
-    def createResultView(self):
-        pass
+    def createResultView(self, model):
+        from TestParser.View import QtView
+        controller = QtView.QtViewController(model)
+        view = QtView.QtView(model, controller)
+        view.show()
+        
+        controller.run()
     
     def createStatisticView(self):
-        pass
+        raise NotImplementedError()
+    
+    def preViewInit(self):
+        import sys
+        try:
+            from PyQt4 import QtGui #@UnresolvedImport
+        except:
+            sys.exit("Failed to import PyQt4. QtView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
+        
+        self.app = QtGui.QApplication(sys.argv)    
+    
+    def startApplication(self):
+        import sys
+        sys.exit(self.app.exec_())
+        
     
 class _TkinterFramework():
     def createResultView(self):

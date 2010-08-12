@@ -78,12 +78,16 @@ def main():
     
     model = Model.setupModel(options.framework, args[0])
     
+    # TODO: upgrade to use new ViewFactory
     if options.ui == "text":
         from TestParser.View import TextView
         TextView.TextViewController.startView(model)
     else:
-        from TestParser.View import QtView
-        QtView.QtViewController.startView(model, options.framework, args[0])
+        from TestParser.Common.ViewFactory import ViewFactory
+        ViewFactory.selectFramework("qt")
+        ViewFactory.preViewInit()
+        ViewFactory.createResultView(model)
+        ViewFactory.startApplication()
 
     
 if __name__ == "__main__":
