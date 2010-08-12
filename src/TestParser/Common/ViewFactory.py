@@ -105,17 +105,17 @@ class ViewFactory():
 class _QtFramework():
     def createResultView(self):
         from TestParser.View import QtView
-        controller = QtView.QtViewController(self.model)
-        view = QtView.QtView(self.model, controller)
+        view = QtView.QtView(self.model, self.controller)
         view.show()
-        
-        controller.run()
     
     def createStatisticView(self):
         raise NotImplementedError()
     
     def preViewInit(self, model):
         self.model = model
+        
+        from TestParser.View import QtView
+        self.controller = QtView.QtViewController(self.model)
         
         import sys
         try:
@@ -127,6 +127,7 @@ class _QtFramework():
     
     def startApplication(self):
         import sys
+        self.controller.run()
         sys.exit(self.app.exec_())
         
     

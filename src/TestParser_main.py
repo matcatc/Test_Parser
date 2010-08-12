@@ -88,6 +88,7 @@ def main():
         ViewFactory.selectFramework("qt")
         ViewFactory.preViewInit(model)
         ViewFactory.createResultView()
+        ViewFactory.createResultView()  # TODO: delete after test
         ViewFactory.startApplication()
 
     
