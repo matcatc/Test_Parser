@@ -469,28 +469,6 @@ class QtViewController(Controller.Controller):
     @see Controller.Controller
     '''
 
-    @staticmethod
-    def startView(model, framework, runner):
-        '''
-        Run the qt view based program.
-        
-        @see main.main()
-        '''
-        # setup controller
-        controller = QtViewController(model)
-
-        # setup view
-        app = QtGui.QApplication(sys.argv)
-        view = QtView(model, controller)
-
-        view.setWindowTitle("Test Parser - %s" % runner)
-
-        view.show()
-
-        # run
-        controller.run()
-        sys.exit(app.exec_())
-
     def displayAboutDialog(self):
         '''
         Displays the Qt based About Dialog
