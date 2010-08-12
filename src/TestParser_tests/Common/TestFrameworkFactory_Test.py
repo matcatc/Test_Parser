@@ -21,16 +21,16 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from TestParser.Common import FrameworkFactory
+from TestParser.Common import TestFrameworkFactory
 
-class FrameworkFactory_Test(unittest.TestCase):
+class TestFrameworkFactory_Test(unittest.TestCase):
 
 
     def setUp(self):
-        self.framework = FrameworkFactory.FrameworkFactory()
-        self.boost = FrameworkFactory._BoostFactory()
-        self.python = FrameworkFactory._PythonUnittestFactory()
-        self.junit = FrameworkFactory._JUnitFactory()
+        self.framework = TestFrameworkFactory.TestFrameworkFactory()
+        self.boost = TestFrameworkFactory._BoostFactory()
+        self.python = TestFrameworkFactory._PythonUnittestFactory()
+        self.junit = TestFrameworkFactory._JUnitFactory()
 
     def tearDown(self):
         del self.framework
@@ -45,21 +45,14 @@ class FrameworkFactory_Test(unittest.TestCase):
         Test that select framework accepts valid inputs.
         Check for typos.
         '''
-        FrameworkFactory.FrameworkFactory.selectFramework("Boost")
-        FrameworkFactory.FrameworkFactory.selectFramework("PyUnittest")
-        FrameworkFactory.FrameworkFactory.selectFramework("JUnit")
+        TestFrameworkFactory.TestFrameworkFactory.selectFramework("Boost")
+        TestFrameworkFactory.TestFrameworkFactory.selectFramework("PyUnittest")
+        TestFrameworkFactory.TestFrameworkFactory.selectFramework("JUnit")
         
-        self.assertRaises(FrameworkFactory.UndefinedTestFrameworkError,
-                          FrameworkFactory.FrameworkFactory.selectFramework,
+        self.assertRaises(TestFrameworkFactory.UndefinedTestFrameworkError,
+                          TestFrameworkFactory.TestFrameworkFactory.selectFramework,
                           "nonexistent_framework")
-    
-    def test_framework(self):
-        '''
-        Test that abstract functions are undefined.
-        '''
-        self.assertRaises(NotImplementedError, self.framework.createRunner)
-        self.assertRaises(NotImplementedError, self.framework.createParser)
-    
+       
     
     # Test BoostFactory
     def test_boostFactory(self):

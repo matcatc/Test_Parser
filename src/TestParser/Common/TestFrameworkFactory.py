@@ -32,9 +32,9 @@ class UndefinedTestFrameworkError(Exception):
     '''
     pass
 
-class FrameworkFactory(object):
+class TestFrameworkFactory(object):
     '''
-    Abstract Factory for test frameworks.
+    Abstract Factory for test frameworks. Create runners and parsers.
     
     Singleton.
     
@@ -44,6 +44,9 @@ class FrameworkFactory(object):
     FrameworkFactory.createRunner()
     FrameworkFactory.createParser()
     @endcode
+    
+    @note: Calling a create method when the framework hasn't been selected
+    will result in an exception. 
     
     @date Jul 1, 2010
     @author Matthew A. Todd

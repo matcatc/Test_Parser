@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>
 '''
 
 from ..Common import Observable
-from ..Common.FrameworkFactory import FrameworkFactory
+from ..Common.TestFrameworkFactory import TestFrameworkFactory
 import copy, threading
 
 def setupModel(framework, runnerName):
@@ -28,11 +28,11 @@ def setupModel(framework, runnerName):
     helper function that sets up the model using given
     Framework factory and runner.
     '''
-    FrameworkFactory.selectFramework(framework)
+    TestFrameworkFactory.selectFramework(framework)
 
     model = Model()
-    model.parser = FrameworkFactory.createParser()  #@UndefinedVariable
-    runner = FrameworkFactory.createRunner()        #@UndefinedVariable
+    model.parser = TestFrameworkFactory.createParser()  #@UndefinedVariable
+    runner = TestFrameworkFactory.createRunner()        #@UndefinedVariable
     runner.runner = runnerName
     model.testRunner = runner
     
