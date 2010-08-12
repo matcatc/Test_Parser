@@ -29,7 +29,7 @@ from TestParser.Model import Model
 # we import TextView and QtView down below where they're used. See above for info.
 
 from optparse import OptionParser
-
+from TestParser.Common.ViewFactory import ViewFactory
 
 def initConstants(options):
     '''
@@ -78,15 +78,16 @@ def main():
     
     model = Model.setupModel(options.framework, args[0])
     
-    # TODO: upgrade to use new ViewFactory
+    # TODO: upgrade to use new ViewFactory (particularly with program options)
     if options.ui == "text":
-        from TestParser.View import TextView
-        TextView.TextViewController.startView(model)
+        ViewFactory.selectFramework("text")
+        ViewFactory.preViewInit(model)
+        ViewFactory.createResultView()
+        ViewFactory.startApplication()
     else:
-        from TestParser.Common.ViewFactory import ViewFactory
         ViewFactory.selectFramework("qt")
-        ViewFactory.preViewInit()
-        ViewFactory.createResultView(model)
+        ViewFactory.preViewInit(model)
+        ViewFactory.createResultView()
         ViewFactory.startApplication()
 
     

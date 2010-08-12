@@ -93,21 +93,3 @@ class TextViewController(Controller.Controller):
     Nothing to override
     @see Controller.Controller
     '''
-        
-    @staticmethod
-    def startView(model):
-        '''
-        Run the entire program using our TextView and its associated controller
-        Will run tests, parse, display, and finally exit the program
-        
-        TODO: now that its a static method, will there be problems if we run
-         it more than once?
-        
-        @see main.main()
-        '''   
-        # setup view and controller
-        view = TextView(model)                              #@UnusedVariable
-        controller = TextViewController(model)
-    
-        # run (and implicitly display)
-        controller.run()

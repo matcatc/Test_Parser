@@ -70,15 +70,15 @@ class ViewFactory():
             raise UndefinedViewFramework(framework)
     
     @classmethod
-    def createResultView(cls, model):
-        cls.factory.createResultView(model)
+    def createResultView(cls):
+        cls.factory.createResultView()
     
     @classmethod
     def createStatisticView(cls):
         cls.factory.createStatisticView()
     
     @classmethod
-    def preViewInit(cls):
+    def preViewInit(cls, model):
         '''
         Does any necessary initialization.
         
@@ -86,7 +86,7 @@ class ViewFactory():
         created before any windows,widgets,etc. are created. This is where
         the root/application instance will be created
         '''
-        cls.factory.preViewInit()
+        cls.factory.preViewInit(model)
     
     @classmethod
     def startApplication(cls):
@@ -103,10 +103,10 @@ class ViewFactory():
 
 
 class _QtFramework():
-    def createResultView(self, model):
+    def createResultView(self):
         from TestParser.View import QtView
-        controller = QtView.QtViewController(model)
-        view = QtView.QtView(model, controller)
+        controller = QtView.QtViewController(self.model)
+        view = QtView.QtView(self.model, controller)
         view.show()
         
         controller.run()
@@ -114,7 +114,9 @@ class _QtFramework():
     def createStatisticView(self):
         raise NotImplementedError()
     
-    def preViewInit(self):
+    def preViewInit(self, model):
+        self.model = model
+        
         import sys
         try:
             from PyQt4 import QtGui #@UnresolvedImport
@@ -135,10 +137,27 @@ class _TkinterFramework():
     def createStatisticView(self):
         pass
     
+    def preViewInit(self):
+        pass
+    
+    def startApplication(self):
+        pass    
+    
 class _TextFramework():
     def createResultView(self):
-        pass
+        from TestParser.View import TextView
+        view = TextView.TextView(self.model)
     
     def createStatisticView(self):
         pass
+    
+    def preViewInit(self, model):
+        self.model = model
+    
+    def startApplication(self):
+        from TestParser.View import TextView
+        controller = TextView.TextViewController(self.model)
+    
+        # run (and implicitly display)
+        controller.run()
             
