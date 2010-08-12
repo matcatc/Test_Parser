@@ -31,8 +31,8 @@ def setupModel(framework, runnerName):
     FrameworkFactory.selectFramework(framework)
 
     model = Model()
-    model.parser = FrameworkFactory.factory.createParser()  #@UndefinedVariable
-    runner = FrameworkFactory.factory.createRunner()        #@UndefinedVariable
+    model.parser = FrameworkFactory.createParser()  #@UndefinedVariable
+    runner = FrameworkFactory.createRunner()        #@UndefinedVariable
     runner.runner = runnerName
     model.testRunner = runner
     

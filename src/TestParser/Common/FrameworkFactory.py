@@ -38,6 +38,12 @@ class FrameworkFactory(object):
     
     Singleton.
     
+    Use:
+    @code
+    FrameworkFactory.selectFramework(framework)
+    FrameworkFactory.createRunner()
+    FrameworkFactory.createParser()
+    @endcode
     
     @date Jul 1, 2010
     @author Matthew A. Todd
@@ -61,19 +67,17 @@ class FrameworkFactory(object):
             cls.factory = _JUnitFactory()
         else:
             raise UndefinedTestFrameworkError()
+    
+    @classmethod
+    def createRunner(cls):
+        return cls.factory.createRunner()
+    
+    @classmethod
+    def createParser(cls):
+        return cls.factory.createParser()
 
-    def __init__(self):
-        '''
-        Constructor
-        '''
     
-    def createRunner(self):
-        raise NotImplementedError
-    
-    def createParser(self):
-        raise NotImplementedError
-    
-class _BoostFactory(FrameworkFactory):
+class _BoostFactory():
     def createRunner(self):
         from TestParser.Model.BoostRunner import BoostRunner
         return BoostRunner()
@@ -82,7 +86,7 @@ class _BoostFactory(FrameworkFactory):
         from TestParser.Parser.BoostParser import BoostParser
         return BoostParser()
 
-class _PythonUnittestFactory(FrameworkFactory):
+class _PythonUnittestFactory():
     def createRunner(self):
         from TestParser.Model.PythonUnittestRunner import PythonUnittestRunner
         return PythonUnittestRunner()
@@ -91,7 +95,7 @@ class _PythonUnittestFactory(FrameworkFactory):
         from TestParser.Parser.PythonUnittestParser import PythonUnittestParser
         return PythonUnittestParser()
     
-class _JUnitFactory(FrameworkFactory):
+class _JUnitFactory():
     def createRunner(self):
         from TestParser.Model.JUnitRunner import JUnitRunner
         return JUnitRunner()
