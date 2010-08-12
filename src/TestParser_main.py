@@ -78,7 +78,7 @@ def main():
     
     model = Model.setupModel(options.framework, args[0])
     
-    # TODO: upgrade to use new ViewFactory (particularly with program options)
+    # TODO: upgrade to use program options
     if options.ui == "text":
         ViewFactory.selectFramework("text")
         ViewFactory.preViewInit(model)
@@ -88,7 +88,8 @@ def main():
         ViewFactory.selectFramework("qt")
         ViewFactory.preViewInit(model)
         ViewFactory.createResultView()
-        ViewFactory.createResultView()  # TODO: delete after test
+        ViewFactory.createResultView()  # TODO: delete after done testing
+                                        # although program options upgrade will handle this
         ViewFactory.startApplication()
 
     
