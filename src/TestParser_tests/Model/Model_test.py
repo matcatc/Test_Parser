@@ -119,6 +119,13 @@ class Model_test(unittest.TestCase):
         self.model.parser = Model_test.parser
         self.model.runPrevious()
         
+        
+    ## Model module tests
+    def test_setupModel(self):
+        '''
+        Test that nothing explodes
+        '''
+        Model.setupModel("Boost", "echo")
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
