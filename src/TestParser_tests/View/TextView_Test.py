@@ -60,6 +60,18 @@ class TextView_Test(unittest.TestCase):
         much of anything.
         '''
         self.view.update()
+        
+    def test_runView(self):
+        '''
+        Runs the view to make sure nothing explodes.
+        '''
+        model = Model.setupModel("Boost", computeDataFilepath("../Model/sample/Boost_Test", __file__))
+        
+        from TestParser.Common.ViewFactory import ViewFactory
+        ViewFactory.selectFramework("text")
+        ViewFactory.preViewInit(model)
+        ViewFactory.createResultView()
+        ViewFactory.startApplication()
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
