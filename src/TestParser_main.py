@@ -26,10 +26,9 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from TestParser.Model import Model
-# we import TextView and QtView down below where they're used. See above for info.
-
-from optparse import OptionParser
 from TestParser.Common.ViewFactory import ViewFactory
+from optparse import OptionParser
+
 
 def initConstants(options):
     '''
@@ -48,19 +47,20 @@ def main():
     '''
     
     usage = "usage: %prog [options] <test_runner>"
-    gui_choices = ("Simple (Default)",)
-    gui_help = "use specified gui: " + ", ".join(gui_choices)
+    ui_choices = ("qt", "tkinter", "text")
+    ui_help = "use specified ui framework: " + ", ".join(ui_choices)
+    view_choices = ("result", "statistic")
+    view_help = "use specified views: " + ", ".join(view_choices)
     framework_choices = ("Boost", "PyUnittest", "JUnit")
     framework_help = "use specified test framework: %s"   \
                             % ", ".join(framework_choices)
     
     parser = OptionParser(usage)
-    parser.add_option("--text", dest="ui", const="text",
-                      action="store_const",
-                      help="use text/console output")
-    parser.add_option("--gui", dest="gui",
-                      action="store", choices=gui_choices,
-                      help=gui_help)
+    parser.add_option("--ui", dest="ui",
+                      action="store", choices=ui_choices,
+                      help=ui_help)
+    parser.add_option("--view", dest="views",
+                      action="append", help=view_help)
     parser.add_option("--framework", dest="framework",
                       action="store", choices=framework_choices,
                       help=framework_help)
@@ -78,19 +78,15 @@ def main():
     
     model = Model.setupModel(options.framework, args[0])
     
-    # TODO: upgrade to use program options
-    if options.ui == "text":
-        ViewFactory.selectFramework("text")
-        ViewFactory.preViewInit(model)
-        ViewFactory.createResultView()
-        ViewFactory.startApplication()
-    else:
-        ViewFactory.selectFramework("qt")
-        ViewFactory.preViewInit(model)
-        ViewFactory.createResultView()
-        ViewFactory.createResultView()  # TODO: delete after done testing
-                                        # although program options upgrade will handle this
-        ViewFactory.startApplication()
+    # create views
+    ViewFactory.selectFramework(options.ui)
+    ViewFactory.preViewInit(model)
+    for view in options.views:
+        if view.lower() == "result":
+            ViewFactory.createResultView()
+        elif view.lower() == "statistic":
+            ViewFactory.createStatisticView()
+    ViewFactory.startApplication()
 
     
 if __name__ == "__main__":
