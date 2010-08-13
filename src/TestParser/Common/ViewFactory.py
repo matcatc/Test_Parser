@@ -34,7 +34,19 @@ class UndefinedViewFramework(Exception):
     def __str__(self):
         return "Unknown view framework: %s" % self.framework
     def __repr__(self):
-        return self.str()
+        return str(self)
+    
+class UndefinedView(Exception):
+    '''
+    Exception for when user gives an unknown View.
+    '''
+    def __init__(self, view):
+        self.view= view
+    def __str__(self):
+        return "Unknown view framework: %s" % self.view
+    def __repr__(self):
+        return str(self)
+
 
 class ViewFactory():
     '''
@@ -76,6 +88,8 @@ class ViewFactory():
                 cls.createResultView()
             elif view.lower() == "statistic":
                 cls.createStatisticView()
+            else:
+                raise UndefinedView(view)
     
     @classmethod
     def createResultView(cls):
@@ -158,7 +172,7 @@ class _TextFramework():
         view = TextView.TextView(self.model)
     
     def createStatisticView(self):
-        pass
+        raise NotImplementedError()
     
     def preViewInit(self, model):
         self.model = model
