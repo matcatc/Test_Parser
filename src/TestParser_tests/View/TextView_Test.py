@@ -61,20 +61,6 @@ class TextView_Test(unittest.TestCase):
         '''
         self.view.update()
 
-    def test_startView(self):
-        '''
-        checks that no exceptions raised.
-        
-        Run twice just to see any problems occur (not actually looking
-        for though.)
-        '''        
-        model = Model.setupModel("Boost",
-                        computeDataFilepath("../Model/sample/Boost_Test", __file__))
-
-        TextView.TextViewController.startView(model)
-        TextView.TextViewController.startView(model)
-
-
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
