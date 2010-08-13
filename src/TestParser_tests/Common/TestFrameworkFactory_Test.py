@@ -52,8 +52,16 @@ class TestFrameworkFactory_Test(unittest.TestCase):
         self.assertRaises(TestFrameworkFactory.UndefinedTestFrameworkError,
                           TestFrameworkFactory.TestFrameworkFactory.selectFramework,
                           "nonexistent_framework")
-       
     
+    def test_createRunner(self):
+        '''
+        Test that nothing explodes
+        '''
+        TestFrameworkFactory.TestFrameworkFactory.selectFramework("Boost")
+        
+        TestFrameworkFactory.TestFrameworkFactory.createRunner()
+        TestFrameworkFactory.TestFrameworkFactory.createParser()
+        
     # Test BoostFactory
     def test_boostFactory(self):
         '''
