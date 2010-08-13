@@ -47,9 +47,9 @@ def main():
     '''
     usage = "usage: %prog [options] <test_runner>"
     ui_choices = ("qt", "tkinter", "text")
-    ui_help = "use specified ui framework: " + ", ".join(ui_choices)
+    ui_help = "use specified ui framework: " + ", ".join(ui_choices) + ".\nDefault: text"
     view_choices = ("result", "statistic")
-    view_help = "use specified views: " + ", ".join(view_choices)
+    view_help = "use specified views: " + ", ".join(view_choices) + ".\nDefault: result"
     framework_choices = ("Boost", "PyUnittest", "JUnit")
     framework_help = "use specified test framework: %s"   \
                             % ", ".join(framework_choices)
@@ -57,9 +57,10 @@ def main():
     parser = OptionParser(usage)
     parser.add_option("--ui", dest="ui",
                       action="store", choices=ui_choices,
-                      help=ui_help)
+                      default="text", help=ui_help)
     parser.add_option("--view", dest="views",
-                      action="append", help=view_help)
+                      action="append", choices=view_choices,
+                      default=["result"], help=view_help)
     parser.add_option("--framework", dest="framework",
                       action="store", choices=framework_choices,
                       help=framework_help)
