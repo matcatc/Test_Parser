@@ -68,6 +68,14 @@ class ViewFactory():
             cls.factory = _TextFramework()
         else:
             raise UndefinedViewFramework(framework)
+        
+    @classmethod
+    def createViews(cls, views):
+        for view in views:
+            if view.lower() == "result":
+                cls.createResultView()
+            elif view.lower() == "statistic":
+                cls.createStatisticView()
     
     @classmethod
     def createResultView(cls):

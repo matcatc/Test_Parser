@@ -45,7 +45,6 @@ def initConstants(options):
 def main():
     '''    
     '''
-    
     usage = "usage: %prog [options] <test_runner>"
     ui_choices = ("qt", "tkinter", "text")
     ui_help = "use specified ui framework: " + ", ".join(ui_choices)
@@ -81,11 +80,7 @@ def main():
     # create views
     ViewFactory.selectFramework(options.ui)
     ViewFactory.preViewInit(model)
-    for view in options.views:
-        if view.lower() == "result":
-            ViewFactory.createResultView()
-        elif view.lower() == "statistic":
-            ViewFactory.createStatisticView()
+    ViewFactory.createViews(options.views)
     ViewFactory.startApplication()
 
     
