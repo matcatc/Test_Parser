@@ -155,16 +155,16 @@ class _QtFramework():
     
 class _TkinterFramework():
     def createResultView(self):
-        pass
+        raise NotImplementedError()
     
     def createStatisticView(self):
-        pass
+        raise NotImplementedError()
     
-    def preViewInit(self):
-        pass
+    def preViewInit(self, model):
+        raise NotImplementedError()
     
     def startApplication(self):
-        pass    
+        raise NotImplementedError()    
     
 class _TextFramework():
     def createResultView(self):
