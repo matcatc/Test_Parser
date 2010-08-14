@@ -41,6 +41,9 @@ def initConstants(options):
     Constants.autoExpand = (False, True)[options.auto_expand == "on"]
     Constants.logger.info("autoExpand = %s" % options.auto_expand)
 
+    Constants.threading = options.threading
+    Constants.logger.info("threading = %s" % options.threading)
+    
 
 def main():
     '''    
@@ -60,15 +63,18 @@ def main():
                       default="text", help=ui_help)
     parser.add_option("--view", dest="views",
                       action="append", choices=view_choices,
-                      default=["result"], help=view_help)
+                      default=[], help=view_help)
     parser.add_option("--framework", dest="framework",
                       action="store", choices=framework_choices,
                       help=framework_help)
     parser.add_option("--autoexpand", dest="auto_expand",
                       action="store", choices=("on", "off"),
                       default="on",help="enable/disable autoexpand")
+    parser.add_option("--threading", dest="threading",
+                      action="store_true",
+                      default=False, help="enable multi-threading")
     
-    (options, args) = parser.parse_args()    
+    (options, args) = parser.parse_args()   
 
     # should only have the test_runner
     if len(args) != 1:
@@ -78,7 +84,13 @@ def main():
     
     model = Model.setupModel(options.framework, args[0])
     
-    # create views
+    ## create views
+    # default value.
+    # if we do it through add_option, the default value will be there regardless
+    # if we actually specify our own value (b/c its appending, not overwriting)
+    if len(options.views) == 0:
+        options.views = ["result"] 
+    
     ViewFactory.selectFramework(options.ui)
     ViewFactory.preViewInit(model)
     ViewFactory.createViews(options.views)

@@ -46,6 +46,8 @@ class Constants_class(object):
     
     def __init__(self):
         '''
+        Only values initialized in self.reset() should be changed after
+        program initialization.
         '''
         # Set up a specific logger with our desired output level
         self.logger = logging.getLogger('TestParser_Logger')
@@ -55,15 +57,19 @@ class Constants_class(object):
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
         
+        self.autoExpand = True
+        
+        self.threading = False
+        
         self.reset()
     
     def reset(self):
         '''
-        reset all the values to their default values
+        reset all the values to their default values.
+        
+        These values are changed during some tests.
         '''
         self.errStream = sys.stderr
-        
-        self.autoExpand = True
         
 
         
