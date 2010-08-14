@@ -54,7 +54,32 @@ class Observable_Test(unittest.TestCase):
         self.assertEqual(len(self.subject._observers), 0)        
         
 
-    def testNotify(self):
+    def testNotify_unthreaded(self):
+        from TestParser.Common.Constants import Constants
+        Constants.threading = False
+        
+        self.subject.registerObserver(Observable_Test.subscriber)
+        self.subject.registerObserver(Observable_Test.subscriber2)
+        
+        self.subject.notifyObservers()
+        
+        self.assertTrue(Observable_Test.subscriber.notified)
+        self.assertTrue(Observable_Test.subscriber2.notified)
+        
+    def testNotify_threaded(self):
+        '''
+        Test with threading.
+        
+        
+        Need to create the job pool b/c threading is False by default,
+        so the job pool isn't created during object initialization.
+        Note that its fine during program execution, but needs to be
+        done here. 
+        '''
+        from TestParser.Common.Constants import Constants
+        Constants.threading = True
+        self.subject._updateJobPool.createPool(2)
+        
         self.subject.registerObserver(Observable_Test.subscriber)
         self.subject.registerObserver(Observable_Test.subscriber2)
         
