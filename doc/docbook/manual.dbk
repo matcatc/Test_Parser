@@ -53,15 +53,32 @@
 					<listitem><para>Display help information.</para></listitem>
 				</varlistentry>
 				<varlistentry>
-					<term><option>--text</option></term>
-					<listitem><para>Use console/text output.</para></listitem>
+					<term><option>--ui <replaceable>&lt;ui framework&gt;</replaceable></option></term>
+					<listitem>
+						<para>Use specified ui.</para>
+						<itemizedlist>
+							<listitem><para>qt</para></listitem>
+							<listitem><para>tkinter</para></listitem>
+							<listitem><para>text (default)</para></listitem>
+						</itemizedlist>
+					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term><option>--gui <replaceable>&lt;GUI&gt;</replaceable></option></term>
+					<term><option>--view <replaceable>&lt;view&gt;</replaceable></option></term>
 					<listitem>
-						<para>Use specified gui.</para>
+						<para> Use the specified views. Multiple vies can be
+							specified in the following manner:
+							<screen>--view=V1 --view=V1 --view=V2</screen>
+							Views earlier in the command have a higher priority.
+							This means they are created earlier, thus will be
+							updated earlier as well. Also in some GUI frameworks,
+							a particular window is specified as root and closing
+							this window will close all other windows as well. The
+							first specified view will be this root window.
+						</para>
 						<itemizedlist>
-							<listitem><para>Simple (default)</para></listitem>
+							<listitem><para>result (default)</para></listitem>
+							<listitem><para>statistic</para></listitem>
 						</itemizedlist>
 					</listitem>
 				</varlistentry>
@@ -76,6 +93,15 @@
 				<varlistentry>
 					<term><option>--autoexpand <parameter class="option">on/off</parameter></option></term>
 					<listitem><para>Enable/disable autoexpansion</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term><option>--threading</option></term>
+					<listitem>
+						<para>Enable threading. Note that threading is
+							likely superfluous in most situations. It also appears
+							to lead to some bugs in auto-expand.
+						</para>
+					</listitem>
 				</varlistentry>
 			</variablelist>
 		</refsect2>
@@ -168,18 +194,6 @@
 				to achieve with the GUI's, see Alleyoop (valgrind front end.) 
 			</para>
 			<refsect3>
-				<title>Qt4</title>
-				<para> It should be noted that after adding auto-expansion
-					to the Qt based view, I started encountering random
-					seg-faults. According to the stack trace, they're
-					originating in the qt library (libqtSOMETHING.so)
-				</para>
-				<para> So if you are using the Qt based gui and keep
-					encountering seg-faults, consider disabling auto
-					expansion.
-				</para>
-			</refsect3>
-			<refsect3>
 				<title>Auto Expansion</title>
 				<para> Without auto expand, when you rerun the tests
 					the display tree will collapse. You will then have
@@ -195,24 +209,13 @@
 					no tests. All the nodes that are currently displayed
 					will be redisplayed after rerunning. 
 				</para>
-				<para> Note that for some reason, there are several bugs
-					with auto expand. The biggest issue is that the program
-					will sometimes seg-fault and crash. I've determined
-					that the seg-fault occurs in the Qt library, so there
-					is not much I can do. Because its in the library, users
-					might not see it if the version they're using happens
-					to not have this issue. The other issue is that the
-					root node, and sometimes other nodes, will not expand.
-					Again, I don't think there is much I can do about this,
-					as it seems to be a quirk of the library.
-				</para>
-				<para> Despite its intermittent crashes, I've still found
-					auto expand to be helpful. But if you want to disable
-					it, you can do so through the command line. Simply
-					pass in <screen>--autoexpand=off</screen>
-					Note that auto expand is enabled by default, but if/when
-					I get around to adding a configuration file, users will
-					be able to define their own defaults.
+				<para> Note that when used with threading enabled,
+					autoexpand has a couple bugs. The biggest bug is that
+					the program	will sometimes seg-fault and crash. 
+					The other bug is that the root node, and sometimes other
+					nodes, will not expand.	Becuase of these bugs and the fact
+					that threading hasn't been particularly	useful, I suggest
+					leaving threding disabled.
 				</para>
 			</refsect3>
 		</refsect2>
@@ -248,7 +251,15 @@
 		</example>
 		<example>
 			<title>Text output</title>
-			<screen>./TestParser_main.py --framework=Boost --text ~/dir/dir2/Boost_runner</screen>
+			<screen>./TestParser_main.py --ui=text --framework=Boost ~/dir/dir2/Boost_runner</screen>
+		</example>
+		<example>
+			<title>Qt output</title>
+			<screen>./TestParser_main.py --ui=qt --framework=Boost ~/dir/dir2/Boost_runner</screen>
+		</example>
+		<example>
+			<title>Views</title>
+			<screen>./TestParser_main.py --ui=qt --view=result --view=statstic --framework=Boost ~/dir/dir2/Boost_runner</screen>
 		</example>
 	</refsect1>
 	
