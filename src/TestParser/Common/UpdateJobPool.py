@@ -30,7 +30,7 @@ class NonExistentJobPool_Exception(Exception):
     def __str__(self):
         return "Cannot use a non-existent Job Pool"
     def __repr__(self):
-        return self.str()
+        return str(self)
 
 class UpdateJobPool(object):
     '''

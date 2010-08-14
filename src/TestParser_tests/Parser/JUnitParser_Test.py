@@ -4,7 +4,8 @@ Created on Jul 6, 2010
 @author: matcat
 '''
 import unittest
-from TestParser.Parser.JUnitParser import JUnitParser
+from TestParser.Parser.JUnitParser import JUnitParser, UnknownLineType
+from TestParser.Parser.JUnitYaccer import InvalidLine
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 class JUnitParser_Test(unittest.TestCase):
@@ -81,6 +82,29 @@ class JUnitParser_Test(unittest.TestCase):
         self.assertTrue(('file', 'test.java') in notice2_data)
         self.assertTrue(('line', '33') in notice2_data)
         self.assertTrue(('info', 'java.lang.AssertionError') in notice2_data)
+        
+        
+    ## tests for exceptions
+    def test_UnknownLineType(self):
+        '''
+        Test that nothing explodes
+        '''
+        exception = UnknownLineType("nonexistent_test_line_type")
+        str(exception)
+        repr(exception)
+        
+    
+    def test_InvalidLine(self):
+        '''
+        Test that nothing explodes
+        '''
+        exception = InvalidLine()
+        str(exception)
+        repr(exception)
+        
+        exception = InvalidLine(3)
+        str(exception)
+        repr(exception)
         
 
 

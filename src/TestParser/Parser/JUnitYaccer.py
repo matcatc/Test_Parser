@@ -24,6 +24,8 @@ class InvalidLine(Exception):
             return "Invalid Line"
         else:
             return "Invalid Line: %s" % self.line
+    def __repr__(self):
+        return str(self)
 
 
 # Get the token map from the lexer.  This is required.

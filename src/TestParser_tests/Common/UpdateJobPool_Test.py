@@ -100,6 +100,16 @@ class UpdateJobPool_Test(unittest.TestCase):
         test that exception thrown when there are no threads
         '''
         self.assertRaises(NonExistentJobPool_Exception, self.jobPool.waitUntilJobsFinished_Raise)
+        
+        
+    ## Test for exceptions
+    def test_NonExistentJobPool_Exception(self):
+        '''0
+        Test that nothing explodes. 
+        '''
+        exception = NonExistentJobPool_Exception()
+        repr(exception)
+        str(exception)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

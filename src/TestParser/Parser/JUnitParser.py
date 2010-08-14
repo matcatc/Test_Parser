@@ -27,6 +27,8 @@ class UnknownLineType(Exception):
         self.lineType = lineType
     def __str__(self):
         return "Unknown Line Type: %s" % self.lineType
+    def __repr__(self):
+        return str(self)
 
 
 class JUnitParser(IParse.IParse):
