@@ -371,6 +371,14 @@ sudo make install
 		<title>Change Log</title>
 		<itemizedlist>
 			<listitem>
+				<bridgehead>v 0.1.5</bridgehead>
+				<para>Pre-alpha. No packaged-release.</para>
+				<itemizedlist>
+					<listitem><para>ui/view program options (ViewFactory)</para></listitem>
+					<listitem><para>threading optional</para></listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
 				<bridgehead>v 0.1.4</bridgehead>
 				<para>Pre-alhpa. No packaged-release.</para>
 				<itemizedlist>
