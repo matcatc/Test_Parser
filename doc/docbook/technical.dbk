@@ -30,30 +30,6 @@
 			patterns. Of course this complicates the details, but the
 			overall idea is the same.</para>
 		<refsect2>
-			<title>Threading</title>
-			<para>For most situations, the use of threading serves no
-				benefit. I added threading for the following reasons</para>
-			<itemizedlist>
-				<listitem>
-					<para>GUI responsiveness</para>
-				</listitem>
-				<listitem>
-					<para>Desire to experiment</para>
-				</listitem>
-			</itemizedlist>
-			<para>Clearly the second is a personal reason and has nothing
-				to do with the product. But the only way to learn to is to
-				do. The first is a reasonable concern: while running tests
-				and parsing the results, we don't want the GUI to
-				hang.</para>
-			<para>Nevertheless, I worry that threading is an unnecessary
-				complication (in the vein of YAGNI.) But it is always
-				possible to simply just remove it. Of course we could
-				always just maintain a separate threading branch.
-				That way we could easily switch to threading,
-				without having to commit to it.</para>
-		</refsect2>
-		<refsect2>
 			<title>Test Results</title>
 			<para> Test Results is now structured using the Composite Pattern.
 				Parsing code hasn't changed, and I don't think the parsing
@@ -128,12 +104,6 @@
 					I haven't tried yet, but its also possible/likely
 					that the same is true for a normal installation.
 				</para></listitem>
-				<listitem><bridgehead>Threading</bridgehead>
-					<para>This is self explanatory.
-					Test cases that fail randomly <emphasis>might
-					</emphasis> be because of timing between
-					threads. Naturally we've tried to reduce all
-					threading issues.</para></listitem>
 			</itemizedlist>
 		</para>
 	</refsect1>
