@@ -213,9 +213,9 @@
 					autoexpand has a couple bugs. The biggest bug is that
 					the program	will sometimes seg-fault and crash. 
 					The other bug is that the root node, and sometimes other
-					nodes, will not expand.	Becuase of these bugs and the fact
+					nodes, will not expand.	Because of these bugs and the fact
 					that threading hasn't been particularly	useful, I suggest
-					leaving threding disabled.
+					leaving threading disabled.
 				</para>
 			</refsect3>
 		</refsect2>
@@ -259,7 +259,7 @@
 		</example>
 		<example>
 			<title>Views</title>
-			<screen>./TestParser_main.py --ui=qt --view=result --view=statstic --framework=Boost ~/dir/dir2/Boost_runner</screen>
+			<screen>./TestParser_main.py --ui=qt --view=result --view=statistic --framework=Boost ~/dir/dir2/Boost_runner</screen>
 		</example>
 	</refsect1>
 	
