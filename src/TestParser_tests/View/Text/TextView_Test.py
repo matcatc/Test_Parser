@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from TestParser.View.Text import TextView
+from TestParser.View.Text import TextResultView
 from TestParser.Model import Model
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
@@ -40,7 +40,7 @@ class TextView_Test(unittest.TestCase):
 
     def setUp(self):
         self.model = Model.Model()
-        self.view = TextView.TextView(self.model)
+        self.view = TextResultView.TextResultView(self.model)
 
 
     def tearDown(self):

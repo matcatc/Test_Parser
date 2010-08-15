@@ -23,7 +23,7 @@ from TestParser.Common import Observer
 from .. import  Controller
 
 
-class TextView(Observer.Observer):
+class TextResultView(Observer.Observer):
     '''
     A simple view for our test runner / parser program.
     
@@ -88,7 +88,7 @@ class TextView(Observer.Observer):
 
 class TextViewController(Controller.Controller):
     '''
-    A simple controller for TextView.
+    A simple controller for TextResultView.
     
     Nothing to override
     @see Controller.Controller

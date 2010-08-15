@@ -26,7 +26,7 @@ try:
     from PyQt4 import uic #@UnresolvedImport
     from PyQt4 import QtGui #@UnresolvedImport
 except:
-    sys.exit("Failed to import PyQt4. QtView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
+    sys.exit("Failed to import PyQt4. QtResultView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
 
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
@@ -37,7 +37,7 @@ filename = "MainWindow.ui"
 
 UiClass, WidgetClass = uic.loadUiType(computeDataFilepath(filename, __file__))
 
-class QtView(UiClass, WidgetClass):
+class QtResultView(UiClass, WidgetClass):
     '''
     Main window for our Qt implemented view.
     
@@ -136,7 +136,7 @@ class QtView(UiClass, WidgetClass):
         
         @date Jun 17, 2010
         '''
-        Constants.logger.debug("start of QtView.reRun()")
+        Constants.logger.debug("start of QtResultView.reRun()")
         
         if Constants.autoExpand:
             itemsToExpand = []
@@ -153,7 +153,7 @@ class QtView(UiClass, WidgetClass):
             Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
             self._expandItems(itemsToExpand)
         
-        Constants.logger.debug("end of QtView.reRun()")
+        Constants.logger.debug("end of QtResultView.reRun()")
 
 #
 ## auto expand
@@ -266,11 +266,11 @@ class QtView(UiClass, WidgetClass):
         if item is None:
             return None
         else:
-            return (item.text(QtView.TYPE_COL),
-                    item.text(QtView.NAME_COL),
-                    item.text(QtView.FILE_COL),
-                    item.text(QtView.LINE_COL),
-                    item.text(QtView.INFO_COL))
+            return (item.text(self.TYPE_COL),
+                    item.text(self.NAME_COL),
+                    item.text(self.FILE_COL),
+                    item.text(self.LINE_COL),
+                    item.text(self.INFO_COL))
 
 #
 # Data display code
@@ -354,20 +354,20 @@ class QtView(UiClass, WidgetClass):
         
         @date Jun 26, 2010
         '''
-        resultItem.setText(QtView.TYPE_COL, result.type)
+        resultItem.setText(self.TYPE_COL, result.type)
 
         for infotype, data in result.getRelevantDisplayData():
             if infotype == "name":
-                resultItem.setText(QtView.NAME_COL, data)
+                resultItem.setText(self.NAME_COL, data)
             elif infotype == "file":
-                resultItem.setText(QtView.FILE_COL, data)
+                resultItem.setText(self.FILE_COL, data)
             elif infotype == "line":
-                resultItem.setText(QtView.LINE_COL, data)
+                resultItem.setText(self.LINE_COL, data)
             elif infotype == "info":
-                resultItem.setText(QtView.INFO_COL, data)
+                resultItem.setText(self.INFO_COL, data)
             elif infotype == "time":
                 if data is not None:
-                    resultItem.setText(QtView.TIME_COL, "time: " + data)
+                    resultItem.setText(self.TIME_COL, "time: " + data)
 
     def _colorRow(self, resultItem, result, returnedBrushItems):
         '''
@@ -392,26 +392,26 @@ class QtView(UiClass, WidgetClass):
         propagateBrush = None
         for item, brush in returnedBrushItems:
             if item is not None and brush is not None:
-                if QtView._priorityItem(item) \
-                        < QtView._priorityItem(propagateItem):
+                if self._priorityItem(item) \
+                        < self._priorityItem(propagateItem):
                     propagateItem = item
                     propagateBrush = brush
 
 
         # get brush for current item
         try:
-            brush = QtView.colorBrushes[result.type.lower()]
+            brush = self.colorBrushes[result.type.lower()]
         except KeyError:
-            brush = QtView.DEFAULT_BRUSH
+            brush = self.DEFAULT_BRUSH
 
 
-        thisPropagateUp = result.type.lower() in QtView.PROPAGATING_ITEMS
+        thisPropagateUp = result.type.lower() in self.PROPAGATING_ITEMS
         childPropagateUp = propagateBrush is not None
 
         # determine which brush to use
         if thisPropagateUp and childPropagateUp:
-            if QtView._priorityItem(propagateItem) \
-                    < QtView._priorityItem(result.type):
+            if self._priorityItem(propagateItem) \
+                    < self._priorityItem(result.type):
                 self._colorRow_helper(resultItem, propagateBrush)
                 return (propagateItem, propagateBrush)
             else:
@@ -441,8 +441,8 @@ class QtView(UiClass, WidgetClass):
         for i in range(self.numCols):
             item.setBackground(i, brush)
 
-    @staticmethod
-    def _priorityItem(item):
+    @classmethod
+    def _priorityItem(cls, item):
         '''
         Determines the priority of an item in PROPAGATING_ITEMS. Lower
         values have more priority.
@@ -456,14 +456,14 @@ class QtView(UiClass, WidgetClass):
         @date Jun 26, 2010
         '''
         try:
-            return QtView.PROPAGATING_ITEMS.index(item.lower())
+            return cls.PROPAGATING_ITEMS.index(item.lower())
         except:         # TODO specific exception
-            return QtView.MAX_PRIORITY
+            return cls.MAX_PRIORITY
 
 
 class QtViewController(Controller.Controller):
     '''
-    A simple controller for QtView.
+    A simple controller for QtResultView.
     
     Nothing to override
     @see Controller.Controller

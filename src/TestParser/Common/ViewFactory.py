@@ -126,8 +126,8 @@ class ViewFactory():
 
 class _QtFramework():
     def createResultView(self):
-        from TestParser.View.Qt import QtView
-        view = QtView.QtView(self.model, self.controller)
+        from TestParser.View.Qt import QtResultView
+        view = QtResultView.QtResultView(self.model, self.controller)
         view.show()
     
     def createStatisticView(self):
@@ -136,14 +136,14 @@ class _QtFramework():
     def preViewInit(self, model):
         self.model = model
         
-        from TestParser.View.Qt import QtView
-        self.controller = QtView.QtViewController(self.model)
+        from TestParser.View.Qt import QtResultView
+        self.controller = QtResultView.QtViewController(self.model)
         
         import sys
         try:
             from PyQt4 import QtGui #@UnresolvedImport
         except:
-            sys.exit("Failed to import PyQt4. QtView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
+            sys.exit("Failed to import PyQt4. QtResultView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
         
         self.app = QtGui.QApplication(sys.argv)    
     
@@ -168,8 +168,8 @@ class _TkinterFramework():
     
 class _TextFramework():
     def createResultView(self):
-        from TestParser.View.Text import TextView
-        view = TextView.TextView(self.model)
+        from TestParser.View.Text import TextResultView
+        view = TextResultView.TextResultView(self.model)
     
     def createStatisticView(self):
         raise NotImplementedError()
@@ -178,8 +178,8 @@ class _TextFramework():
         self.model = model
     
     def startApplication(self):
-        from TestParser.View.Text import TextView
-        controller = TextView.TextViewController(self.model)
+        from TestParser.View.Text import TextResultView
+        controller = TextResultView.TextViewController(self.model)
     
         # run (and implicitly display)
         controller.run()
