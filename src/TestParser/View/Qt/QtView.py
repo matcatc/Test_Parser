@@ -30,7 +30,7 @@ except:
 
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
-from . import Controller
+from .. import Controller
 from . import About
 
 filename = "MainWindow.ui"

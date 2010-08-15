@@ -19,8 +19,8 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from ..Common import Observer
-from . import  Controller
+from TestParser.Common import Observer
+from .. import  Controller
 
 
 class TextView(Observer.Observer):

@@ -126,7 +126,7 @@ class ViewFactory():
 
 class _QtFramework():
     def createResultView(self):
-        from TestParser.View import QtView
+        from TestParser.View.Qt import QtView
         view = QtView.QtView(self.model, self.controller)
         view.show()
     
@@ -136,7 +136,7 @@ class _QtFramework():
     def preViewInit(self, model):
         self.model = model
         
-        from TestParser.View import QtView
+        from TestParser.View.Qt import QtView
         self.controller = QtView.QtViewController(self.model)
         
         import sys
@@ -168,7 +168,7 @@ class _TkinterFramework():
     
 class _TextFramework():
     def createResultView(self):
-        from TestParser.View import TextView
+        from TestParser.View.Text import TextView
         view = TextView.TextView(self.model)
     
     def createStatisticView(self):
@@ -178,7 +178,7 @@ class _TextFramework():
         self.model = model
     
     def startApplication(self):
-        from TestParser.View import TextView
+        from TestParser.View.Text import TextView
         controller = TextView.TextViewController(self.model)
     
         # run (and implicitly display)

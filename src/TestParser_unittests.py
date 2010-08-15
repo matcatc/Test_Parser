@@ -27,7 +27,9 @@ from TestParser_tests.Common import Observable_Test, Observer_Test, UpdateJobPoo
 from TestParser_tests.Model import Model_test, IRunner_Test, BoostRunner_test, PythonUnittestRunner_Test, JUnitRunner_Test
 from TestParser_tests.Parser import BoostParser_Test, PythonUnittestParser_Test, JUnitParser_Test, IParse_Test 
 from TestParser_tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test, TestComponent_Test
-from TestParser_tests.View import Controller_Test, TextView_Test, QtView_Test
+from TestParser_tests.View import Controller_Test
+from TestParser_tests.View.Qt import QtView_Test
+from TestParser_tests.View.Text import TextView_Test
 
 def runTestSuites(testClasses):
     '''

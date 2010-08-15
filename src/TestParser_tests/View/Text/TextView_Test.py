@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from TestParser.View import TextView
+from TestParser.View.Text import TextView
 from TestParser.Model import Model
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
@@ -65,7 +65,7 @@ class TextView_Test(unittest.TestCase):
         '''
         Runs the view to make sure nothing explodes.
         '''
-        model = Model.setupModel("Boost", computeDataFilepath("../Model/sample/Boost_Test", __file__))
+        model = Model.setupModel("Boost", computeDataFilepath("../../Model/sample/Boost_Test", __file__))
         
         from TestParser.Common.ViewFactory import ViewFactory
         ViewFactory.selectFramework("text")
