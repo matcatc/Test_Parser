@@ -62,11 +62,9 @@ class PythonUnittestParser_Test(unittest.TestCase):
         
     def test_ParseNone(self):
         '''
-        Test that nothing explodes when we don't give it data to parse.
-        
-        Note: later we might change to checking for an exception.
+        Test what happens when we don't give data to parse.
         '''
-        self.parser.parse(None)
+        self.assertRaises(ValueError, self.parser.parse, None)
 
     
     def test_Parse(self):

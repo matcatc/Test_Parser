@@ -23,6 +23,12 @@ from TestParser.Common.Constants import Constants
 import os.path
 from subprocess import Popen, PIPE
 
+class NoRunnerException(Exception):
+    '''
+    Raised when the runner hasn't been specified and is needed.
+    '''
+    pass
+
 class IRunner(object):
     '''
     Runner interface/Template Method.
@@ -103,6 +109,8 @@ class IRunner(object):
         '''
         runs just with the given params. Concatenates runner and params.
         
+        @throws NoRunnerException When the runner hasn't been specified
+        
         @param params list of params to be passed to the test runner.
             The same params you would use if running on the command line.
         @param givenCmd a string explicitly stating the cmd to be executed.
@@ -111,9 +119,8 @@ class IRunner(object):
         @return stdout from the test program. Or None if program execution failed.
         '''
         if self.runner is None:
-            # TODO: raise an exception?
             Constants.logger.warning(IRunner.RUNNER_NONE)
-            return None
+            raise NoRunnerException()
 
         try:
             if givenCmd:

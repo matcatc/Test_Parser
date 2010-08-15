@@ -42,7 +42,7 @@ class Model(Observable.Observable):
     '''
     Model in MVC.
     
-    TODO: None issues
+    None issues:
     Test Runner and Parser need to be set before calling methods.
     If they are None, and need to be used, there are two possibilities,
     based on how I end up implementing.

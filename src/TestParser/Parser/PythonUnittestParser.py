@@ -201,9 +201,8 @@ class PythonUnittestParser(IParse.IParse):
         elif file is not None:
             self._parseData(file.read())
         else:
-            #TODO: raise?
             Constants.logger.error("parse() needs data to parse")
-            return None
+            raise ValueError("parse() needs data to parse")
 
 
         return self._compileTestResults()

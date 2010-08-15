@@ -34,6 +34,12 @@ class JUnitParser_Test(unittest.TestCase):
         data = '..Faa;dkadfjasdl\n'
         self.parser.parse( stringData=data)
         
+    def test_parseNone(self):
+        '''
+        Test what happens when we don't give data to parse.
+        '''
+        self.assertRaises(ValueError, self.parser.parse, None)
+        
     def test_parse(self):
         '''
         Test and validate parse with real data.

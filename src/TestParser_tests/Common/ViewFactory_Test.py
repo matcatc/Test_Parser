@@ -40,7 +40,8 @@ class ViewFactory_Test(unittest.TestCase):
     
     def test_qtFramework(self):
         '''
-        TODO: can we really test?
+        Test the parts that we can. Currently unable to test startApplicaton()
+        b/c it would start an event loop which we'd be unable to stop. 
         '''
         ViewFactory.selectFramework("qt")
         ViewFactory.preViewInit(self.model)

@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from TestParser.Model.IRunner import IRunner
+from TestParser.Model.IRunner import IRunner, NoRunnerException
 
 class MockRunner(IRunner):
     '''
@@ -76,9 +76,7 @@ class IRunner_Test(unittest.TestCase):
         Do we want run() to raise an exception instead?
         '''
         self.runner.runner = None
-        stdout = self.runner.run([])
-        
-        self.assertEqual(stdout, None)
+        self.assertRaises(NoRunnerException, self.runner.run, [])
         
     
     def testRun_echo(self):

@@ -59,9 +59,8 @@ class JUnitParser(IParse.IParse):
         elif file is not None:
             return self._parseData(file.read())
         else:
-            #TODO: raise?
             Constants.logger.error("parse() needs data to parse")
-            return None
+            raise ValueError("parse() needs data to parse")
 
 
     def _parseData(self, stringData):
@@ -105,9 +104,9 @@ class JUnitParser(IParse.IParse):
         '''
         # need to use BNF to completely verify,
         # but this is more of a sanity check
-        # TODO: should we raise?
         if not re.match(r'^[\.EF]+$', statusLine):
             Constants.logger.error("statusLine isn't of correct form")
+            # TODO: raise?
 
         Constants.logger.debug("statusLine = %s" % statusLine)
 
