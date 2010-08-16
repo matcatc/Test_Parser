@@ -32,6 +32,11 @@
      </item>
      <item row="0" column="2">
       <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <kerning>true</kerning>
+        </font>
+       </property>
        <property name="text">
         <string>Error</string>
        </property>
@@ -41,7 +46,11 @@
       <widget class="QLCDNumber" name="PassDisplay"/>
      </item>
      <item row="1" column="1">
-      <widget class="QLCDNumber" name="FailDisplay"/>
+      <widget class="QLCDNumber" name="FailDisplay">
+       <property name="segmentStyle">
+        <enum>QLCDNumber::Filled</enum>
+       </property>
+      </widget>
      </item>
      <item row="1" column="2">
       <widget class="QLCDNumber" name="ErrorDisplay"/>
@@ -49,7 +58,32 @@
     </layout>
    </item>
   </layout>
+  <action name="action_quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>action_quit</sender>
+   <signal>activated()</signal>
+   <receiver>Form</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>84</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
