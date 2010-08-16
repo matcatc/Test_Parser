@@ -71,13 +71,13 @@ class BoostRunner_Test(unittest.TestCase):
         self.runner.runner = "echo"
         
         input = "echo test output"
-        output = "%s --log_level=test_suite --run_test=%s\n" % (BoostRunner.LOG_FORMAT, input)
+        output = "%s --log_level=all --run_test=%s\n" % (BoostRunner.LOG_FORMAT, input)
         stdout = self.runner.runTest([input])
         self.assertEqual(stdout.decode("utf-8"), output)
         
         input1 = "test1"
         input2 = "test2"
-        output = "%s --log_level=test_suite --run_test=%s,%s\n" % (BoostRunner.LOG_FORMAT, input1, input2)
+        output = "%s --log_level=all --run_test=%s,%s\n" % (BoostRunner.LOG_FORMAT, input1, input2)
         stdout = self.runner.runTest([input1, input2])
         self.assertEqual(stdout.decode("utf-8"), output)
         
@@ -103,7 +103,7 @@ class BoostRunner_Test(unittest.TestCase):
         '''
         self.runner.runner = "<runner>"
         input = ["input"]
-        output = self.runner.runner + [BoostRunner.LOG_FORMAT, "--log_level=test_suite"] + input
+        output = self.runner.runner + [BoostRunner.LOG_FORMAT, "--log_level=all"] + input
         self.assertEqual(self.runner.computeCmd(input), output)
         
 

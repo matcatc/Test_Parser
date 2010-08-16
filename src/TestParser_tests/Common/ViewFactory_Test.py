@@ -30,11 +30,7 @@ class ViewFactory_Test(unittest.TestCase):
     def test_textFramework(self):
         ViewFactory.selectFramework("text")
         ViewFactory.preViewInit(self.model)
-        ViewFactory.createViews(["result"])
-        
-        # static view not implemented yet
-        self.assertRaises(NotImplementedError, ViewFactory.createViews, ["statistic"])
-        
+        ViewFactory.createViews(["result", "statistic"])
         ViewFactory.startApplication()
 
     
@@ -46,8 +42,7 @@ class ViewFactory_Test(unittest.TestCase):
         ViewFactory.selectFramework("qt")
         ViewFactory.preViewInit(self.model)
         ViewFactory.createResultView()
-        
-        self.assertRaises(NotImplementedError, ViewFactory.createStatisticView)
+        ViewFactory.createStatisticView()
         
         # this is where startApplication() would go
         # but can we really test? We need a way to close/shut it down
