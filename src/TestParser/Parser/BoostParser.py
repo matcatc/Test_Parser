@@ -121,5 +121,10 @@ class BoostParser(IParse.IParse):
                 test.addNotice(Notice.Notice(file, line, text, "FatalError"))
             elif element.tag == "Message":
                 test.addNotice(Notice.Notice(file, line, text, "message"))
+            elif element.tag == "Info":
+                if text == "check true passed":
+                    test.addNotice(Notice.Notice(file, line, text, "pass"))
+                else:
+                    test.addNotice(Notice.Notice(file, line, text, "info"))
         
         return test

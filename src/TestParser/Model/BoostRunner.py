@@ -27,6 +27,7 @@ class BoostRunner(IRunner):
     @author Matthew A. Todd
     '''
     # BoostTest log_level options
+    LOG_LVL_ALL = "all"
     LOG_LVL_SUCCESS = "success"
     LOG_LVL_TESTSUITE = "test_suite"
     LOG_LVL_MESSAGE = "message"
@@ -41,7 +42,7 @@ class BoostRunner(IRunner):
         Constructor
         '''
         super().__init__()
-        self.logLevel = BoostRunner.LOG_LVL_TESTSUITE
+        self.logLevel = BoostRunner.LOG_LVL_ALL
     
     def computeCmd(self, params):
         '''
