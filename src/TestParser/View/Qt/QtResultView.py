@@ -30,9 +30,6 @@ except:
 
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
-from .. import Controller
-from . import About
-
 filename = "MainWindow.ui"
 
 UiClass, WidgetClass = uic.loadUiType(computeDataFilepath(filename, __file__))
@@ -459,19 +456,3 @@ class QtResultView(UiClass, WidgetClass):
             return cls.PROPAGATING_ITEMS.index(item.lower())
         except:         # TODO specific exception
             return cls.MAX_PRIORITY
-
-
-class QtViewController(Controller.Controller):
-    '''
-    A simple controller for QtResultView.
-    
-    Nothing to override
-    @see Controller.Controller
-    '''
-
-    def displayAboutDialog(self):
-        '''
-        Displays the Qt based About Dialog
-        '''
-        widget = About.About()
-        widget.exec()

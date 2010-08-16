@@ -131,13 +131,15 @@ class _QtFramework():
         view.show()
     
     def createStatisticView(self):
-        raise NotImplementedError()
+        from TestParser.View.Qt import QtStasticView
+        view = QtStasticView.QtStatisticView(self.model, self.controller)
+        view.show()
     
     def preViewInit(self, model):
         self.model = model
         
-        from TestParser.View.Qt import QtResultView
-        self.controller = QtResultView.QtViewController(self.model)
+        from TestParser.View.Qt import QtViewController
+        self.controller = QtViewController.QtViewController(self.model)
         
         import sys
         try:
