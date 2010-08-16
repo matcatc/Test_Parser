@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>
 '''
 
 from ..Common import Observable
-from ..Common.TestFrameworkFactory import TestFrameworkFactory
+from ..Common.TestFrameworkFactory import TestFrameworkFactory, UndefinedTestFrameworkError
 import copy, threading
 
 def setupModel(framework, runnerName):
@@ -28,7 +28,12 @@ def setupModel(framework, runnerName):
     helper function that sets up the model using given
     Framework factory and runner.
     '''
-    TestFrameworkFactory.selectFramework(framework)
+    try:
+        TestFrameworkFactory.selectFramework(framework)
+    except UndefinedTestFrameworkError as  e:
+        import sys
+        print("Unknown test framework: %s" % e.framework)
+        sys.exit()
 
     model = Model()
     model.parser = TestFrameworkFactory.createParser()  #@UndefinedVariable

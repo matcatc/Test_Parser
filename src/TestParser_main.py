@@ -48,14 +48,12 @@ def initConstants(options):
 def main():
     '''    
     '''
-    usage = "usage: %prog [options] <test_runner>"
+    usage = "usage: %prog [options] <framework> <test_runner>"
     ui_choices = ("qt", "tkinter", "text")
     ui_help = "use specified ui framework: " + ", ".join(ui_choices) + ".\nDefault: text"
     view_choices = ("result", "statistic")
     view_help = "use specified views: " + ", ".join(view_choices) + ".\nDefault: result"
-    framework_choices = ("Boost", "PyUnittest", "JUnit")
-    framework_help = "use specified test framework: %s"   \
-                            % ", ".join(framework_choices)
+
     
     parser = OptionParser(usage)
     parser.add_option("--ui", dest="ui",
@@ -64,9 +62,6 @@ def main():
     parser.add_option("--view", dest="views",
                       action="append", choices=view_choices,
                       default=[], help=view_help)
-    parser.add_option("--framework", dest="framework",
-                      action="store", choices=framework_choices,
-                      help=framework_help)
     parser.add_option("--autoexpand", dest="auto_expand",
                       action="store", choices=("on", "off"),
                       default="on",help="enable/disable autoexpand")
@@ -77,12 +72,14 @@ def main():
     (options, args) = parser.parse_args()   
 
     # should only have the test_runner
-    if len(args) != 1:
+    if len(args) != 2:
         parser.error("Incorrect number of arguments")
+    framework = args[0]
+    runner = args[1]
     
     initConstants(options)
     
-    model = Model.setupModel(options.framework, args[0])
+    model = Model.setupModel(framework, runner)
     
     ## create views
     # default value.

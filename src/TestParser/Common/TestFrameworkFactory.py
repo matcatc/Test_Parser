@@ -30,7 +30,12 @@ class UndefinedTestFrameworkError(Exception):
     '''
     Exception for when we receive a unrecognized Test Framework.
     '''
-    pass
+    def __init__(self, framework):
+        self.framework = framework
+    def __str__(self):
+        return self.framework
+    def __repr__(self):
+        str(self)
 
 class TestFrameworkFactory(object):
     '''
@@ -69,7 +74,7 @@ class TestFrameworkFactory(object):
         elif framework.lower() == "JUnit".lower():
             cls.factory = _JUnitFactory()
         else:
-            raise UndefinedTestFrameworkError()
+            raise UndefinedTestFrameworkError(framework)
     
     @classmethod
     def createRunner(cls):
