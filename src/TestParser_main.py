@@ -27,6 +27,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 from TestParser.Model import Model
 from TestParser.Common.ViewFactory import ViewFactory
+from TestParser.Common.TestFrameworkFactory import UndefinedTestFrameworkError
 from optparse import OptionParser
 
 
@@ -79,7 +80,12 @@ def main():
     
     initConstants(options)
     
-    model = Model.setupModel(framework, runner)
+    try:
+        model = Model.setupModel(framework, runner)
+    except UndefinedTestFrameworkError as  e:
+        import sys
+        print("Unknown test framework: %s" % e.framework)
+        sys.exit()
     
     ## create views
     # default value.

@@ -85,7 +85,14 @@ class TestFrameworkFactory_Test(unittest.TestCase):
         self.junit.createParser()
         self.junit.createRunner()
     
-
+    ## test exceptions
+    def test_UndefinedTestFrameworkError(self):
+        '''
+        Test that nothing explodes
+        '''
+        exception = TestFrameworkFactory.UndefinedTestFrameworkError("undefined_test_framework")
+        str(exception)
+        repr(exception)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

@@ -35,7 +35,7 @@ class UndefinedTestFrameworkError(Exception):
     def __str__(self):
         return self.framework
     def __repr__(self):
-        str(self)
+        return str(self)
 
 class TestFrameworkFactory(object):
     '''
