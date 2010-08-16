@@ -172,7 +172,8 @@ class _TextFramework():
         view = TextResultView.TextResultView(self.model)
     
     def createStatisticView(self):
-        raise NotImplementedError()
+        from TestParser.View.Text import TextStatisticView
+        TextStatisticView.TextStatisticView(self.model)
     
     def preViewInit(self, model):
         self.model = model
