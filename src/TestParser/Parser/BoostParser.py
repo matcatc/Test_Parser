@@ -98,9 +98,15 @@ class BoostParser(IParse.IParse):
     
     def _parseTestCase(self, testTree):
         '''        
-        Currently only deals with error and message notice types.
+        Currently only deals with error, info, and message notice types.
         We can easily add an else statement to handle unknown types,
         but I figured I should wait until there is a need.
+        
+        Boost::Test doesn't have an explicit pass type,  but an info with
+        a particular message ("check true passed.") I'm not sure if there
+        are other messages that convey that the test case passed. I changed
+        Boost_Test to run a few different types of assertions, and the result
+        was always "check true passed." But this is a potential bug.
         '''
         test = TestCase.TestCase()
         
@@ -122,7 +128,7 @@ class BoostParser(IParse.IParse):
             elif element.tag == "Message":
                 test.addNotice(Notice.Notice(file, line, text, "message"))
             elif element.tag == "Info":
-                if text == "check true passed":
+                if text == "check true passed":         # potential bug (other indicators?)
                     test.addNotice(Notice.Notice(file, line, text, "pass"))
                 else:
                     test.addNotice(Notice.Notice(file, line, text, "info"))
