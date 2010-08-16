@@ -371,6 +371,15 @@ sudo make install
 		<title>Change Log</title>
 		<itemizedlist>
 			<listitem>
+				<bridgehead>v 0.1.6</bridgehead>
+				<para>Pre-alpha. No packaged-release.</para>
+				<itemizedlist>
+					<listitem><para>changed test framework cmd-line specification</para></listitem>
+					<listitem><para>Qt statistic view</para></listitem>
+					<listitem><para>text statistic view</para></listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
 				<bridgehead>v 0.1.5</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
