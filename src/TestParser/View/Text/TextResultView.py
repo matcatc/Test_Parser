@@ -20,7 +20,6 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from TestParser.Common import Observer
-from .. import  Controller
 
 
 class TextResultView(Observer.Observer):
@@ -84,12 +83,3 @@ class TextResultView(Observer.Observer):
                 
             print("\t"*indentLevel + "%s: %s" % (result.type, printData))
             self._display(result, indentLevel+1 )
-   
-
-class TextViewController(Controller.Controller):
-    '''
-    A simple controller for TextResultView.
-    
-    Nothing to override
-    @see Controller.Controller
-    '''

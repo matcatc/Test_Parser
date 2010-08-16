@@ -178,8 +178,8 @@ class _TextFramework():
         self.model = model
     
     def startApplication(self):
-        from TestParser.View.Text import TextResultView
-        controller = TextResultView.TextViewController(self.model)
+        from TestParser.View.Text import TextViewController
+        controller = TextViewController.TextViewController(self.model)
     
         # run (and implicitly display)
         controller.run()
