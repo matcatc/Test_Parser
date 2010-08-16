@@ -50,10 +50,9 @@ class TextStatisticView(Observer.Observer):
         self._display(results)
         
     def _display(self, results):
+        passes, fails, errors = self._computeStatistics(results)
         
-        stats = self._computeStatistics(results)
-        
-        print("%d pass, %d fail, %d error" % (stats[0], stats[1], stats[2]))
+        print("%d pass, %d fail, %d error" % (passes, fails, errors))
         
     def _computeStatistics(self, result):
         type = result.type.lower()
