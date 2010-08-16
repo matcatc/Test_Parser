@@ -17,21 +17,27 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="PassLabel">
        <property name="text">
         <string>Pass</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="FailLabel">
        <property name="text">
         <string>Fail</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="ErrorLabel">
        <property name="font">
         <font>
          <kerning>true</kerning>
@@ -39,6 +45,9 @@
        </property>
        <property name="text">
         <string>Error</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>

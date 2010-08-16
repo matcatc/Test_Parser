@@ -36,12 +36,15 @@ class QtStatisticView(UiClass, WidgetClass):
         passColor = QtGui.QPalette()
         passColor.setColor(QtGui.QPalette.Foreground, green)
         self.PassDisplay.setPalette(passColor)
+        self.PassLabel.setPalette(passColor)
 
         red = QtGui.QColor("red")
         errorColor = QtGui.QPalette()
         errorColor.setColor(QtGui.QPalette.Foreground, red)
         self.FailDisplay.setPalette(errorColor)
+        self.FailLabel.setPalette(errorColor)
         self.ErrorDisplay.setPalette(errorColor)
+        self.ErrorLabel.setPalette(errorColor)
 
 
     def aboutDialog(self):
