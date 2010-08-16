@@ -3,7 +3,7 @@
 @author Matthew Todd
 '''
 
-from TestParser.Common import Observer
+from TestParser.Common import Observer, ComputeStatistics
 
 class TextStatisticView(Observer.Observer):
     '''
@@ -50,32 +50,8 @@ class TextStatisticView(Observer.Observer):
         self._display(results)
         
     def _display(self, results):
-        passes, fails, errors = self._computeStatistics(results)
+        passes, fails, errors = ComputeStatistics.computeStatistics(results)
         
         print("%d pass, %d fail, %d error" % (passes, fails, errors))
         
-    def _computeStatistics(self, result):
-        type = result.type.lower()
-        if type == "pass" \
-                or type == "ok":
-            return (1, 0, 0)
-        elif type == "fail":
-            return (0, 1, 0)
-        elif type == "error" \
-                or type == "fatalerror":
-            return (0, 0, 1)
-        else:
-            print("ERROR: unknown type: %s" % result.type)
-            
-        passes = 0
-        fails = 0
-        errors = 0
-        for child in result.getChildren():
-            temp = self._computeStatistics(child)
-            
-            passes += temp[0]
-            fails += temp[1]
-            errors += temp[2]
-            
-        return (passes, fails, errors)
             

@@ -4,7 +4,7 @@
 '''
 
 import sys
-from TestParser.Common.Constants import Constants
+from TestParser.Common import ComputeStatistics
 
 try:
     from PyQt4 import uic #@UnresolvedImport
@@ -48,9 +48,8 @@ class QtStatisticView(UiClass, WidgetClass):
         self._display(self._retrieveTestResults())
         
     def _display(self, results):
-        #TODO: compute 3 values (use code from TextStatisticView
-        #TODO: refactor such that both Text and Qt Statistic views don't duplicate code
-        
+        passes, fails, errors = ComputeStatistics.computeStatistics(results)
+                
         self.PassDisplay.display(passes)
         self.FailDisplay.display(fails)
         self.ErrorDisplay.display(errors)
