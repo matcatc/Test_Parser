@@ -76,7 +76,7 @@ data_files.append(('.' ,['COPYING', 'build_documentation.sh']))
 
 
 setup(name='Test Parser',
-        version='0.1.6',
+        version='0.1.7',
         description='Test Parser displays the results from a given test run',
         author='Matthew A. Todd',
         author_email='matcatprg@yahoo.com',
