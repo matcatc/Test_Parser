@@ -1,10 +1,10 @@
 This file is a dump of random things I need to keep track of or might need later.
 
-For documentation, please see manual.dbk (docbook.)
+For the documentation, please see manual.dbk, which can be built into html using the provided script, build_documentation.sh.
 
 --------------------
 
-This project is an attempt to create some sort of parser for boost test. So instead of having some horrendous command line output, a developer could have something a little easier on the eyes.
+This project started as an attempt to create some sort of visualizer for the boost unittest framework. So instead of having some horrendous command line output, a developer could have something a little easier on the eyes.
 
 I'm trying to design it so that the program can work with any test framework. One would just have to switch out for a different parser and runner. 
 
@@ -12,7 +12,7 @@ This is my first Python project (serious coding with an final application in min
 I'm using python 3.x.
 The doxygen file is setup to use doxypy. See documentation.
 
-Please give feedback. If you find something that bugs you enough to complain about it, its important enough to send me an email. Same goes for positive aspects as well. If I get no feedback, I have no clue how well this software functions in the user's perspective. As a developer, I can't function as a true user b/c I know too much about how it functions and therefore know how to get it to work.
+Please give feedback. If you find something that bugs you enough to complain about it, its important enough to send me an email. Same goes for positive aspects as well. If I get no feedback, I have no clue how well this software functions in the user's perspective.
 
 Matthew A. Todd
 
@@ -20,31 +20,10 @@ Matthew A. Todd
 ----------------------------
 
 Road Map:
-
-From this moment,there are several ways to proceed: 
- Display:
- 	- (more) interactive gui
-
-Views:
-Here are the order of views to build. Do text first, then build a Gui.
-
-Gui:
-3) allow user to interact with test runner
-	- run all tests
-	- run certain tests
-
-	
 	
 Program Options
- - specific tests/suites:
- 	- run specific tests on startup
- 	- only valid if test runner selected
- 		possibile ways to handle
- 		- check
- 		- let run_() throw
- 			- catch print move on 	
- - xml file:
+ - xml/data file:
 	- open up an xml file to parse and display
 
 	
-It would be nice if the GUI could run arbitrary Python scripts. The idea being that an user could run a script which compiles the test runner then calls run on it. I'm assumming we're going to want to pass in something into it the script call so that scripts will have a reference to some of the data. Possibly the model (which would use Observer pattern to notify the display should the script change the model's data somehow.) I guess a question is whether the script would ever want to do something to the gui. I suppose its possible, so we should allow for it, meaning we need to give a reference to the Gui as well. If we have a containing class which contains all the particpating objects in the running program, it would be a good option to pass in. 
+It might be nice if the GUI could run arbitrary Python scripts. The idea being that an user could run a script which compiles the test runner then calls run on it. I'm assumming we're going to want to pass in something into it the script call so that scripts will have a reference to some of the data. Possibly the model (which would use Observer pattern to notify the display should the script change the model's data somehow.) I guess a question is whether the script would ever want to do something to the gui. I suppose its possible, so we should allow for it, meaning we need to give a reference to the Gui as well. If we have a containing class which contains all the particpating objects in the running program, it would be a good option to pass in. 
