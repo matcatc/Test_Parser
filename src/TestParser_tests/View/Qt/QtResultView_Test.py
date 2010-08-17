@@ -27,7 +27,7 @@ from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 
 
-class QtView_Test(unittest.TestCase):
+class QtResultView_Test(unittest.TestCase):
     '''
     
     Maybe if we could automate using a GUI testing toolkit. The problem

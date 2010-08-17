@@ -26,7 +26,7 @@ from TestParser.Model import Model
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
 
-class TextView_Test(unittest.TestCase):
+class TextResultView_Test(unittest.TestCase):
     '''
     I am not really sure what and how to test for this class.
     

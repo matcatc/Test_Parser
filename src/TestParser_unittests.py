@@ -28,8 +28,8 @@ from TestParser_tests.Model import Model_test, IRunner_Test, BoostRunner_test, P
 from TestParser_tests.Parser import BoostParser_Test, PythonUnittestParser_Test, JUnitParser_Test, IParse_Test 
 from TestParser_tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test, TestComponent_Test
 from TestParser_tests.View import Controller_Test
-from TestParser_tests.View.Qt import QtView_Test
-from TestParser_tests.View.Text import TextView_Test
+from TestParser_tests.View.Qt import QtResultView_Test
+from TestParser_tests.View.Text import TextResultView_Test
 
 def runTestSuites(testClasses):
     '''
@@ -66,8 +66,8 @@ def main():
                        TestResults_Test.TestResults_Test, \
                         TestComponent_Test.TestComponent_Test, \
                     Controller_Test.ControllerTest, \
-                     TextView_Test.TextView_Test, \
-                      QtView_Test.QtView_Test])
+                     TextResultView_Test.TextResultView_Test, \
+                      QtResultView_Test.QtResultView_Test])
 
 if __name__ == '__main__':
     main()
