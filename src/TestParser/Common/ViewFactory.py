@@ -156,17 +156,44 @@ class _QtFramework():
         
     
 class _TkinterFramework():
+    def __init__(self):
+        import tkinter as tk
+        
+        self._views = []
+        self.root = tk.Tk()
+        
+        self.parentGenerator = self._createParentGenerator()
+        
+    def _getNextParent(self):
+        return next(self.parentGenerator)
+    
+    def _createParentGenerator(self):
+        '''
+        creates parents for our Views
+        
+        @returns root, TopLevel, TopLevel, TopLevel, ...
+        '''
+        import tkinter as tk
+        
+        yield self.root
+        while True:
+            yield tk.Toplevel(self.root) 
+    
     def createResultView(self):
-        raise NotImplementedError()
+        from TestParser.View.Tkinter import TkResultView
+        TkResultView.TkResultView(self._getNextParent(), self.model, self.controller)
     
     def createStatisticView(self):
         raise NotImplementedError()
     
     def preViewInit(self, model):
-        raise NotImplementedError()
+        self.model = model
+        
+        from TestParser.View.Tkinter import TkViewController
+        self.controller = TkViewController.TkViewController(self.model)
     
     def startApplication(self):
-        raise NotImplementedError()    
+        self.root.mainloop()
     
 class _TextFramework():
     def createResultView(self):

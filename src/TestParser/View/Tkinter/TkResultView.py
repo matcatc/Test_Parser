@@ -19,6 +19,9 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+import tkinter as tk
+from tkinter import ttk
+
 from TestParser.Common import Observer
 
 class TkResultView(Observer.Observer):
@@ -29,9 +32,39 @@ class TkResultView(Observer.Observer):
     '''
 
 
-    def __init__(self):
+    def __init__(self, parent, model, controller):
         '''
         Constructor
-        '''
-        raise NotImplementedError
         
+        @param parent the tkinter parent item for this view
+        '''
+        self.parent = parent
+        
+        self.model = model
+        self.model.registerObserver(self)
+
+        self.controller = controller
+        
+        self._setupUi()
+        
+    def _setupUi(self):
+        frame = tk.Frame(self.parent)
+        frame.pack()
+
+        self.parent.title("Test Parser - %s" % ' '.join(self.model.testRunner.runner))
+
+        # sample code
+        self.button = tk.IntVar()
+        
+        tk.Radiobutton(frame, text="Radio Button 1", variable=self.button, \
+                value=1).pack(anchor=tk.W)
+        tk.Radiobutton(frame, text="Radio Button 2", variable=self.button, \
+                value=2).pack(anchor=tk.W)
+        tk.Radiobutton(frame, text="Radio Button 3", variable=self.button, \
+                value=3).pack(anchor=tk.W)
+
+
+        tk.Frame(frame, height=2, bd=1, relief=tk.SUNKEN).pack(fill=tk.X,  \
+                                                         padx=5, pady=5)
+
+        tk.Button(frame, text="Update").pack()
