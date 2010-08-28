@@ -107,6 +107,8 @@ class QtResultView(UiClass, WidgetClass):
 
         # To be set by controller
         self.controller = controller
+        
+        self.setWindowTitle("Test Parser Result - %s" % ' '.join(self.model.testRunner.runner))
 
 
 #
