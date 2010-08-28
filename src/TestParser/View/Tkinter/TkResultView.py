@@ -51,7 +51,7 @@ class TkResultView(Observer.Observer):
         frame = tk.Frame(self.parent)
         frame.pack()
 
-        self.parent.title("Test Parser - %s" % ' '.join(self.model.testRunner.runner))
+        self.parent.title("Test Parser - %s" % ' '.join(self.model.testRunner.runner)) #TODO: refactor
 
         # sample code
         self.button = tk.IntVar()
