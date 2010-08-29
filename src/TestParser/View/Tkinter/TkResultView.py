@@ -29,6 +29,16 @@ class TkResultView(Observer.Observer):
     @date Aug 28, 2010
     @author matcat
     '''
+    
+    tagColors = {'error' : 'red',
+                    'fatalerror' : 'red',
+                    'fail' : 'red',
+                    'pass' : 'green',
+                    'ok' : 'green',
+                    'message' : 'white',
+                    'suite' : 'green',
+                    'testresults' : 'green',
+                    'testcase' : 'green'} 
 
 
     def __init__(self, parent, model, controller):
@@ -100,6 +110,9 @@ class TkResultView(Observer.Observer):
         
         for col in treeCols:
             self.tree.heading(col, text=col)
+            
+        self.tree.tag_configure('green', background='green')
+        self.tree.tag_configure('red', background='red')
         
         self.tree.pack()
         self.rootId = None
@@ -122,7 +135,7 @@ class TkResultView(Observer.Observer):
     def _updateTreeWidget(self, results):
         self._clearTreeWidget()
         
-        self.rootId = self._displayResults('', results)
+        self._displayResults('', results)
         
     
     def _displayResults(self, parentId, result):
@@ -137,17 +150,36 @@ class TkResultView(Observer.Observer):
         
         @date Jun 23, 2010
         '''
-        id = self.tree.insert(parentId, 'end', text=result.type, values=self._getDisplayData(result))
+        tag = TkResultView.tagColors[result.type.lower()]
+        id = self.tree.insert(parentId, 'end', text=result.type,
+                               values=self._getDisplayData(result),
+                               tags=(tag))
+        
+        # if this is a root item, save its id
+        if parentId == '':
+            self.rootId = id
 
-#        returnedBrushItems = []        # returned (item, brush) tuple
+
+        returnedTags = [tag]        # returned (item, brush) tuple
         for child in result.getChildren():
             temp = self._displayResults(id, child)
 
-#            if temp is not None:
-#                returnedBrushItems.append(temp)
+            if temp is not None:
+                returnedTags.append(temp)
 
-#        return self._colorRow(resultItem, result, returnedBrushItems)
-        return id
+        tag = self._getHighestPriorityTag(result, returnedTags)
+        
+        self.tree.item(id, tags=(tag))
+
+        return tag
+    
+    def _getHighestPriorityTag(self, result, returnedTags):
+        if 'red' in returnedTags:
+            return 'red'
+        elif 'green' in returnedTags:
+            return 'green'
+        else:
+            return 'white'
     
     def _getDisplayData(self, result):
         '''
