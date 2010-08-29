@@ -102,6 +102,7 @@ class TkResultView(Observer.Observer):
             self.tree.heading(col, text=col)
         
         self.tree.pack()
+        self.rootId = None
         
     #
     ## result displaying
@@ -114,8 +115,9 @@ class TkResultView(Observer.Observer):
         self._updateTreeWidget(self.controller.getResults())
     
     def _clearTreeWidget(self):
-        print("deleting rootId %s" % self.rootId)
-        self.tree.delete(self.rootId)
+        if self.rootId is not None:
+            print("deleting rootId %s" % self.rootId)
+            self.tree.delete(self.rootId)
     
     def _updateTreeWidget(self, results):
         self._clearTreeWidget()
