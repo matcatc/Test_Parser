@@ -134,65 +134,58 @@ class TkResultView(Observer.Observer):
     
     def _updateTreeWidget(self, results):
         self._clearTreeWidget()
-        
         self._displayResults('', results)
         
     
     def _displayResults(self, parentId, result):
         '''
-        @param parent is the parent item in the tree
+        @param parent is the parent item id in the tree
         @param results results is all the Test Results data we want to 
             display below given parent item
             
-        @return returns (item, brush) if a particular brush/color should
+        @return returns tag/color that should
             propagate up (eg: we had an error, therefore error's color
             should work its way up)
         
-        @date Jun 23, 2010
+        @date Aug 29, 2010
         '''
-        tag = TkResultView.tagColors[result.type.lower()]
         id = self.tree.insert(parentId, 'end', text=result.type,
-                               values=self._getDisplayData(result),
-                               tags=(tag))
+                               values=self._getDisplayData(result))
         
         # if this is a root item, save its id
         if parentId == '':
             self.rootId = id
 
-
-        returnedTags = [tag]        # returned (item, brush) tuple
+        currItemColor = TkResultView.tagColors[result.type.lower()]
+        returnedColors = [currItemColor]
         for child in result.getChildren():
             temp = self._displayResults(id, child)
 
             if temp is not None:
-                returnedTags.append(temp)
+                returnedColors.append(temp)
 
-        tag = self._getHighestPriorityTag(result, returnedTags)
-        
-        self.tree.item(id, tags=(tag))
-
-        return tag
+        color = self._getHighestPriorityColor(returnedColors)        
+        self.tree.item(id, tags=(color))
+        return color
     
-    def _getHighestPriorityTag(self, result, returnedTags):
-        if 'red' in returnedTags:
+    def _getHighestPriorityColor(self, returnedColors):
+        '''
+        Determines which tag/color should propagate up.
+        '''
+        if 'red' in returnedColors:
             return 'red'
-        elif 'green' in returnedTags:
+        elif 'green' in returnedColors:
             return 'green'
         else:
             return 'white'
     
     def _getDisplayData(self, result):
         '''
-        Parses relevant display data and displays it.
-        
-        helper function for _displayResults()
-        
-        @see _displayResults()
-        
-        @param resultItem QtItem that we're coloring
+        Takes a TestComposite and returns its data in a tuple that can
+        be used by the tkinter functions.
+
         @param result TestComposite data to display
-        
-        @date Jun 26, 2010
+        @date Aug 29, 2010
         '''
 
         name = file = line = info = ""
