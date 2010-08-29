@@ -26,7 +26,6 @@ from TestParser.Common import Observer
 
 class TkResultView(Observer.Observer):
     '''
-    classdocs
     @date Aug 28, 2010
     @author matcat
     '''
@@ -46,25 +45,135 @@ class TkResultView(Observer.Observer):
         self.controller = controller
         
         self._setupUi()
+    
+    #
+    ## callbacks and initialization
+    #
+    
+    def close(self, data=None):
+        self.model.removeObserver(self)
+        self.parent.destroy()
+        
+    def rerun(self, data=None):
+        #TODO: add auto-expand
+        self.controller.runPrevious()
+        
+    def about(self, data=None):
+        self.controller.displayAboutDialog()
         
     def _setupUi(self):
+        '''
+        
+        Note that treeviews have an extra column for some reason, which is why we
+        just specify one less.
+        '''
         frame = tk.Frame(self.parent)
         frame.pack()
 
         self.parent.title("Test Parser - %s" % ' '.join(self.model.testRunner.runner)) #TODO: refactor
-
-        # sample code
-        self.button = tk.IntVar()
         
-        tk.Radiobutton(frame, text="Radio Button 1", variable=self.button, \
-                value=1).pack(anchor=tk.W)
-        tk.Radiobutton(frame, text="Radio Button 2", variable=self.button, \
-                value=2).pack(anchor=tk.W)
-        tk.Radiobutton(frame, text="Radio Button 3", variable=self.button, \
-                value=3).pack(anchor=tk.W)
+        
+        # menu
+        menubar = tk.Menu(self.parent)
+        
+        filemenu = tk.Menu(menubar, tearoff=0)
+        filemenu.add_command(label="Quit", command=self.close, accelerator="Ctrl+Q")
+        self.parent.bind("<Control-q>", self.close)
+        menubar.add_cascade(label="File", menu=filemenu)
+        
+        runmenu = tk.Menu(menubar, tearoff=0)
+        runmenu.add_command(label="Rerun", command=self.rerun, accelerator="Ctrl+R")
+        self.parent.bind("<Control-r>", self.rerun)
+        menubar.add_cascade(label="Run", menu=runmenu)
+        
+        helpmenu = tk.Menu(menubar, tearoff=0)
+        helpmenu.add_command(label="About", command=self.about, accelerator="F1")
+        self.parent.bind("F1", self.about)
+        menubar.add_cascade(label="Help", menu=helpmenu)
+        
+        self.parent.config(menu=menubar)
 
 
-        tk.Frame(frame, height=2, bd=1, relief=tk.SUNKEN).pack(fill=tk.X,  \
-                                                         padx=5, pady=5)
+        # tree
+        treeCols = ('Name', 'File', 'Line', 'Info')
+        self.tree = ttk.Treeview(frame, columns=treeCols)
+        
+        for col in treeCols:
+            self.tree.heading(col, text=col)
+        
+        self.tree.pack()
+        
+    #
+    ## result displaying
+    #
+    
+    def update(self):
+        '''
+        For observer.
+        '''
+        self._updateTreeWidget(self.controller.getResults())
+    
+    def _clearTreeWidget(self):
+        print("deleting rootId %s" % self.rootId)
+        self.tree.delete(self.rootId)
+    
+    def _updateTreeWidget(self, results):
+        self._clearTreeWidget()
+        
+        self.rootId = self._displayResults('', results)
+        
+    
+    def _displayResults(self, parentId, result):
+        '''
+        @param parent is the parent item in the tree
+        @param results results is all the Test Results data we want to 
+            display below given parent item
+            
+        @return returns (item, brush) if a particular brush/color should
+            propagate up (eg: we had an error, therefore error's color
+            should work its way up)
+        
+        @date Jun 23, 2010
+        '''
+        id = self.tree.insert(parentId, 'end', text=result.type, values=self._getDisplayData(result))
 
-        tk.Button(frame, text="Update").pack()
+#        returnedBrushItems = []        # returned (item, brush) tuple
+        for child in result.getChildren():
+            temp = self._displayResults(id, child)
+
+#            if temp is not None:
+#                returnedBrushItems.append(temp)
+
+#        return self._colorRow(resultItem, result, returnedBrushItems)
+        return id
+    
+    def _getDisplayData(self, result):
+        '''
+        Parses relevant display data and displays it.
+        
+        helper function for _displayResults()
+        
+        @see _displayResults()
+        
+        @param resultItem QtItem that we're coloring
+        @param result TestComposite data to display
+        
+        @date Jun 26, 2010
+        '''
+
+        name = file = line = info = ""
+
+        for infotype, data in result.getRelevantDisplayData():
+            if infotype == "name":
+                name = data
+            elif infotype == "file":
+                file = data
+            elif infotype == "line":
+                line = data
+            elif infotype == "info":
+                info = data
+            elif infotype == "time":
+                if data is not None:
+                    info = data
+                    
+        return (name, file, line, info)

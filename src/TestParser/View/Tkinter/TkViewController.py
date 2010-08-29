@@ -28,3 +28,7 @@ class TkViewController(Controller.Controller):
     @date Aug 28, 2010
     @author matcat
     '''
+    
+    def displayAboutDialog(self):
+        # TODO: implement
+        pass

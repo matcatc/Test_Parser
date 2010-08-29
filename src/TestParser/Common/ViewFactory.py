@@ -193,6 +193,7 @@ class _TkinterFramework():
         self.controller = TkViewController.TkViewController(self.model)
     
     def startApplication(self):
+        self.controller.run()
         self.root.mainloop()
     
 class _TextFramework():

@@ -55,3 +55,6 @@ class Controller(Observer.Observer):
     def runPrevious(self):
         self.model.runPrevious()
         
+    def getResults(self):
+        return self.model.results
+        
