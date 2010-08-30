@@ -228,7 +228,7 @@ class QtResultView(UiClass, WidgetClass):
         
         We expand items on the way back up (if returns true)
         
-        @bug doesn't expand root
+        @bug doesn't expand root (when multithreading enables)
         
         @param path List of items. Path goes from parent to child
         @param root item in tree. Path starts at this item/root.

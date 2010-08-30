@@ -23,6 +23,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from TestParser.Common import Observer
+from TestParser.Common.Constants import Constants
 
 class TkResultView(Observer.Observer):
     '''
@@ -65,8 +66,33 @@ class TkResultView(Observer.Observer):
         self.parent.destroy()
         
     def rerun(self, data=None):
-        #TODO: add auto-expand
+        '''
+        auto-expand.
+        
+        It appears there is no way to deselect items in a treeview.
+        Also, expanding an item selects it. So if the user has expanded
+        any items, there will be a selection. So either something has
+        been selected or nothing has been expanded. Therefore we don't
+        have to check for expanded items when nothing is selected.
+        '''
+        Constants.logger.debug("start of QtResultView.reRun()")
+        
+        if Constants.autoExpand:
+            itemsToExpand = []
+            selectedItems = self.tree.selection()
+            print("DEBUG: selectedItems = %s" % str(selectedItems))
+            if len(selectedItems) > 0:
+                for item in selectedItems:
+                    itemsToExpand.append(self._computeItemPath(item))
+
         self.controller.runPrevious()
+
+        if Constants.autoExpand:
+            Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
+            self._expandItems(itemsToExpand)
+        
+        Constants.logger.debug("end of QtResultView.reRun()")
+        
         
     def about(self, data=None):
         self.controller.displayAboutDialog()
@@ -204,3 +230,89 @@ class TkResultView(Observer.Observer):
                     info = data
                     
         return (name, file, line, info)
+
+#
+## auto expand
+#
+
+    def _computeItemPath(self, itemId):
+        '''
+        Compute and return the path from root to given item.
+        
+        Path is a list. The first item is the root and each element
+        is a child of its predecessor item.
+        
+        Builds path from head to tail.
+        
+        @date Jul 30, 2010
+        '''
+        path = []
+        while itemId != '':
+            path.insert(0, self._getItemData(itemId))
+            itemId = self.tree.parent(itemId)
+        return path
+    
+    def _getItemData(self, itemId):
+        '''
+        Returns a tuple (type, name, file, line time) of
+        the data contained within item.
+        
+        @date Aug 30, 2010
+        '''
+        itemData = self.tree.item(itemId)
+
+        return (itemData['text'],) + tuple(itemData['values'])
+                
+    def _expandItems(self, itemsToExpand):
+        '''
+        Expand all items so user can see them
+
+        
+        @param itemsToExpand a list of item paths to expand along.
+        
+        @date Aug 30, 2010
+        '''
+        for path in itemsToExpand:
+            print("DEBUG: path = %s" % path)
+            self._expandPath(path, self.rootId)
+            
+    def _expandPath(self, path, currId, parentId=None):
+        '''
+        Expands a path.
+        
+        Because there will be multiple children that satisfy the
+        requirements at any particular level (think multiple unnamed suites),
+        we need and thus use a backtracking algorithm.
+                        
+        Because of tkinter's see(), we can just call on the final item in the list.
+        So we go down to final item, then call see().
+        
+        @param path List of items. Path goes from parent to child
+        @param currId Id of current item in tree. Path starts at this item.
+        @param parentId Id of the parent item to this current item. Used so that
+            we don't expand one too far and don't have to call extra see()'s
+            (while recursing back up.)
+        @return True if we've expanded the final item (no more backtracking, just
+            go back up stack frames.
+        
+        @date Aug 30, 2010
+        '''
+        if len(path) == 0:
+            if parentId != None:
+                self.tree.see(parentId)
+            return True
+        
+        if path[0] == self._getItemData(currId):
+            children = self.tree.get_children(currId)
+            
+            # no children and last item in path
+            if len(children) == 0 and len(path) == 1:
+                self.tree.see(currId)
+                return True
+            
+            for childId in children:
+                if self._expandPath(path[1:], childId, currId):
+                    return True
+                
+        return False
+
