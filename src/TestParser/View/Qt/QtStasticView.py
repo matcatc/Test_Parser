@@ -62,6 +62,8 @@ class QtStatisticView(UiClass, WidgetClass):
         self.ErrorDisplay.setPalette(errorColor)
         self.ErrorLabel.setPalette(errorColor)
 
+        self.setWindowTitle("Test Parser Statistic - %s" % ' '.join(self.model.testRunner.runner)) #TODO: refactor
+
 
     def aboutDialog(self):
         self.controller.displayAboutDialog()

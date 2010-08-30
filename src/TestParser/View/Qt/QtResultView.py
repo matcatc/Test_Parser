@@ -105,8 +105,10 @@ class QtResultView(UiClass, WidgetClass):
         self.model = model
         self.model.registerObserver(self)
 
-        # To be set by controller
+        # To be set by controller # TODO: what is this comment?
         self.controller = controller
+        
+        self.setWindowTitle("Test Parser Result - %s" % ' '.join(self.model.testRunner.runner)) #TODO: refactor
 
 
 #
