@@ -173,24 +173,17 @@
 		<refsect2>
 			<title>Displays / Views</title>
 			<para> Test Parser will eventually have multiple display views
-				available to the user. Even when I complete more complicated
-				views, I still plan to keep the older ones available so that
-				there is something to fall back on in case of a bug.
-				Of course if the more advanced views provide features that
-				aren't of interest, then you can use the basic ones.
+				implemented in a variety of ui frameworks
+				available to the user. Each framework will either display different
+				data or display it in a different way. You can have multiple views
+				open at the same time, including multiple instances of the same view,
+				should you so desire. In addition to choosing a view
+				you need to select your desired framework (or use the default.)
+				The reasoning behind having different frameworks is that some
+				users may not have neccessary files installed on their system
+				to use some frameworks.
 			</para>
-			<para> The simplest display format, but the least useful/appetizing
-				is simple console/text output. Similar to the output the test
-				runner might output, the text output is useful for formatting
-				it and making it easier to read. Nonetheless, I personally
-				would only use it when I didn't have access to a GUI for some
-				reason or another.  
-			</para>
-			<para> There are several GUI stages currently planned. The first
-				is a simple non-interactive display. For the most part, this
-				will serve most if not all uses. The latter stage(s) is to
-				incorporate user interaction, allowing the user to rerun some
-				or all of the tests from the GUI. For an idea of what I hope
+			<para>For an idea of what I hope
 				to achieve with the GUI's, see Alleyoop (valgrind front end.) 
 			</para>
 			<refsect3>
@@ -198,7 +191,7 @@
 				<para> Without auto expand, when you rerun the tests
 					the display tree will collapse. You will then have
 					to manually go through and expand each node to
-					reach your desired node. So if you rerun multiple
+					reach your desired node. And if you rerun multiple
 					times, you'll have to go through this process
 					multiple times.
 				</para>
@@ -215,8 +208,8 @@
 						work in the second manner.
 					</para>
 				</note>
-				<warning> <title>Auto-expand + Threading</title>
-					<para> When used with threading enabled,
+				<warning> <title>Qt Auto-expand + Threading</title>
+					<para> When used with threading enabled, qt
 						autoexpand has a couple bugs. The biggest bug is that
 						the program	will sometimes seg-fault and crash. 
 						The other bug is that the root node, and sometimes other
