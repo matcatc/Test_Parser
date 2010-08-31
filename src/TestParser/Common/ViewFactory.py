@@ -181,10 +181,13 @@ class _TkinterFramework():
     
     def createResultView(self):
         from TestParser.View.Tkinter import TkResultView
-        TkResultView.TkResultView(self._getNextParent(), self.model, self.controller)
+        TkResultView.TkResultView(self._getNextParent(), self.model,
+                                   self.controller)
     
     def createStatisticView(self):
-        raise NotImplementedError()
+        from TestParser.View.Tkinter import TkStatisticView
+        TkStatisticView.TKStatisticView(self._getNextParent(), self.model,
+                                         self.controller)
     
     def preViewInit(self, model):
         self.model = model

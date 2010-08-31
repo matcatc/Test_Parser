@@ -104,7 +104,7 @@ class TkResultView(Observer.Observer):
         just specify one less.
         '''
         frame = tk.Frame(self.parent)
-        frame.pack()
+        frame.pack(expand=True, fill=tk.BOTH)
 
         self.parent.title("Test Parser - %s" % ' '.join(self.model.testRunner.runner)) #TODO: refactor
         
@@ -140,7 +140,7 @@ class TkResultView(Observer.Observer):
         self.tree.tag_configure('green', background='green')
         self.tree.tag_configure('red', background='red')
         
-        self.tree.pack()
+        self.tree.pack(expand=True, fill=tk.BOTH)
         self.rootId = None
         
     #
