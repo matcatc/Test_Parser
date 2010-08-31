@@ -72,8 +72,10 @@ class TkResultView(Observer.Observer):
         It appears there is no way to deselect items in a treeview.
         Also, expanding an item selects it. So if the user has expanded
         any items, there will be a selection. So either something has
-        been selected or nothing has been expanded. Therefore we don't
-        have to check for expanded items when nothing is selected.
+        been selected or nothing has been expanded. But as it turns out,
+        after an auto-expansion nothing is selected. So the first auto-expand
+        will require something be selected. But its possible for all the
+        rest to not have anything selected.
         '''
         Constants.logger.debug("start of QtResultView.reRun()")
         
@@ -84,6 +86,8 @@ class TkResultView(Observer.Observer):
             if len(selectedItems) > 0:
                 for item in selectedItems:
                     itemsToExpand.append(self._computeItemPath(item))
+            else:          
+                itemsToExpand = self._getExpandedItems()
 
         self.controller.runPrevious()
 
@@ -267,6 +271,11 @@ class TkResultView(Observer.Observer):
             path.insert(0, self._getItemData(itemId))
             itemId = self.tree.parent(itemId)
         return path
+    
+    def _getExpandedItems(self):
+        '''
+        '''
+        raise NotImplementedError()
     
     def _getItemData(self, itemId):
         '''
