@@ -54,7 +54,7 @@ class TKStatisticView(Observer.Observer):
         self.parent.destroy()
         
     def about(self, data=None):
-        self.controller.displayAboutDialog()
+        self.controller.displayAboutDialog(self.parent)
         
         
     def _setupUi(self):
@@ -76,7 +76,7 @@ class TKStatisticView(Observer.Observer):
         
         helpmenu = tk.Menu(menubar, tearoff=0)
         helpmenu.add_command(label="About", command=self.about, accelerator="F1")
-        self.parent.bind("F1", self.about)
+        self.parent.bind("<F1>", self.about)
         menubar.add_cascade(label="Help", menu=helpmenu)
         
         self.parent.config(menu=menubar)

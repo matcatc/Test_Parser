@@ -20,6 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from .. import  Controller
+from . import TkAbout
 
 class TkViewController(Controller.Controller):
     '''
@@ -29,6 +30,5 @@ class TkViewController(Controller.Controller):
     @author matcat
     '''
     
-    def displayAboutDialog(self):
-        # TODO: implement
-        pass
+    def displayAboutDialog(self, parent):
+        TkAbout.TkAbout(parent)
