@@ -202,12 +202,6 @@
 					no tests. All the nodes that are currently displayed
 					will be redisplayed after rerunning. 
 				</para>
-				<note> <title>Tkinter Auto-expand</title>
-					<para> Because tkinter's tree view doesn't allow you to
-						deselect items, there is no way for auto-expand to
-						work in the second manner.
-					</para>
-				</note>
 				<warning> <title>Qt Auto-expand + Threading</title>
 					<para> When used with threading enabled, qt
 						autoexpand has a couple bugs. The biggest bug is that
