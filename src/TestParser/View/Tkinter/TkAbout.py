@@ -26,17 +26,17 @@ class TkAbout(object):
         self.window.destroy()
     
     def __init__(self, parent):
-        self.parent = parent
+        self.window = tk.Toplevel(parent)        
         
-        self.window = tk.Toplevel(self.parent)        
+        frame = tk.Frame(self.window)
+        frame.pack(expand=True, fill=tk.BOTH)
         
-        self.frame = tk.Frame(self.window)
-        self.frame.pack(expand=True, fill=tk.BOTH)
-        
-        self.text = tk.Label(self.frame, text=self.aboutText, justify=tk.LEFT,
+        # display message
+        text = tk.Label(frame, text=self.aboutText, justify=tk.LEFT,
                                 wraplength=700)
-        self.text.pack(expand=True, fill=tk.BOTH)
+        text.pack(expand=True, fill=tk.BOTH)
         
-        self.closeButton = tk.Button(self.frame, text="Close", command=self.close)
-        self.closeButton.pack()
-        self.parent.bind("<Control-q>", self.close)
+        # closing
+        closeButton = tk.Button(frame, text="Close", command=self.close)
+        closeButton.pack()
+        self.window.bind("<Control-q>", self.close)

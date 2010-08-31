@@ -62,6 +62,13 @@ class TKStatisticView(Observer.Observer):
         '''
         frame = tk.Frame(self.parent)
         frame.pack(expand=True, fill=tk.BOTH)
+        
+        # share area evenly between cols, main row has higher priority
+        for col in range(3):
+            frame.grid_columnconfigure(col, weight =1)
+        frame.grid_rowconfigure(0, weight=2)
+        frame.grid_rowconfigure(1, weight=1)
+            
 
         self.parent.title("Test Parser Statistic - %s" % ' '.join(self.model.testRunner.runner)) #TODO: refactor
         
@@ -83,6 +90,8 @@ class TKStatisticView(Observer.Observer):
 
 
         # data display
+        stickyAll = tk.N+tk.S+tk.W+tk.E
+        
         tk.Label(frame, text="Pass", fg="green", width=5).grid(row=0, column=0)
         tk.Label(frame, text="Fail", fg="red", width=5).grid(row=0, column=1)
         tk.Label(frame, text="Error", fg="red", width=5).grid(row=0, column=2)
