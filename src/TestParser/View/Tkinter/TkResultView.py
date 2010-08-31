@@ -80,7 +80,7 @@ class TkResultView(Observer.Observer):
         if Constants.autoExpand:
             itemsToExpand = []
             selectedItems = self.tree.selection()
-            print("DEBUG: selectedItems = %s" % str(selectedItems))
+            Constants.logger.debug("selectedItems = %s" % str(selectedItems))
             if len(selectedItems) > 0:
                 for item in selectedItems:
                     itemsToExpand.append(self._computeItemPath(item))
@@ -144,19 +144,16 @@ class TkResultView(Observer.Observer):
         self.tree.tag_configure('green', background='green')
         self.tree.tag_configure('red', background='red')
         
-#        self.tree.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
         self.tree.grid(row = 0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
         self.rootId = None
         
         # scrollbars
         vertScrollbar = tk.Scrollbar(frame)
-#        vertScrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         vertScrollbar.grid(row= 0, column=1, sticky=tk.N+tk.S)
         self.tree.config(yscrollcommand=vertScrollbar.set)
         vertScrollbar.config(command=self.tree.yview)
         
         horizScrollbar = tk.Scrollbar(frame, orient=tk.HORIZONTAL)
-#        horizScrollbar.pack(side=tk.BOTTOM, fill=tk.X)
         horizScrollbar.grid(row=1, column=0, sticky=tk.E+tk.W)
         self.tree.config(xscrollcommand=horizScrollbar.set)
         horizScrollbar.config(command=self.tree.xview)
@@ -175,7 +172,6 @@ class TkResultView(Observer.Observer):
     
     def _clearTreeWidget(self):
         if self.rootId is not None:
-            print("deleting rootId %s" % self.rootId)
             self.tree.delete(self.rootId)
     
     def _updateTreeWidget(self, results):
@@ -293,7 +289,7 @@ class TkResultView(Observer.Observer):
         @date Aug 30, 2010
         '''
         for path in itemsToExpand:
-            print("DEBUG: path = %s" % path)
+            Constants.logger.debug("DEBUG: path = %s" % path)
             self._expandPath(path, self.rootId)
             
     def _expandPath(self, path, currId, parentId=None):
