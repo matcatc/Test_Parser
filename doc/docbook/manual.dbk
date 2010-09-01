@@ -366,27 +366,34 @@ sudo make install
 		<title>Change Log</title>
 		<itemizedlist>
 			<listitem>
+				<bridgehead>v 0.1.</bridgehead>
+				<para>Pre-alpha. No packaged-release.</para>
+				<itemizedlist>
+					<listitem><para>Added tkinter Result and Statistic views</para></listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
 				<bridgehead>v 0.1.6</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
-					<listitem><para>changed test framework cmd-line specification</para></listitem>
-					<listitem><para>Qt statistic view</para></listitem>
-					<listitem><para>text statistic view</para></listitem>
+					<listitem><para>Changed test framework cmd-line specification</para></listitem>
+					<listitem><para>Added Qt statistic view</para></listitem>
+					<listitem><para>Added text statistic view</para></listitem>
 				</itemizedlist>
 			</listitem>
 			<listitem>
 				<bridgehead>v 0.1.5</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
-					<listitem><para>ui/view program options (ViewFactory)</para></listitem>
-					<listitem><para>threading optional</para></listitem>
+					<listitem><para>Added ui/view program options (ViewFactory)</para></listitem>
+					<listitem><para>Made threading optional</para></listitem>
 				</itemizedlist>
 			</listitem>
 			<listitem>
 				<bridgehead>v 0.1.4</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
-					<listitem><para>auto expand</para></listitem>
+					<listitem><para>Added Qt auto expand</para></listitem>
 				</itemizedlist>
 			</listitem>
 			<listitem>
@@ -397,21 +404,21 @@ sudo make install
 					<listitem><para>GUI shows runner</para></listitem>
 					<listitem><para>Boost: sub-suites, Fatal Error</para></listitem>
 					<listitem><para>PyUnittest: sub-suites, more info</para></listitem>
-					<listitem><para>GUI doesn't show None time</para></listitem>
+					<listitem><para>GUI doesn't show "None" time</para></listitem>
 				</itemizedlist>
 			</listitem>
 			<listitem>
 				<bridgehead>v 0.1.2</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
-					<listitem><para>JUnit Framework</para></listitem>
+					<listitem><para>Added JUnit Framework</para></listitem>
 				</itemizedlist>
 			</listitem>
 			<listitem>
 				<bridgehead>v 0.1.1</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
-					<listitem><para>Python Unittest Framework</para></listitem>
+					<listitem><para>Added Python Unittest Framework</para></listitem>
 					<listitem><para>Ui's display results in chronological order</para></listitem>
 					<listitem><para>Increased View orthogonality</para></listitem>
 				</itemizedlist>
@@ -420,9 +427,9 @@ sudo make install
 				<bridgehead>v 0.1.0</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
-					<listitem><para>Boost Test Framework</para></listitem>
-					<listitem><para>Text output</para></listitem>
-					<listitem><para>Simple GUI</para></listitem>
+					<listitem><para>Added Boost Test Framework</para></listitem>
+					<listitem><para>Added Text output</para></listitem>
+					<listitem><para>Added Simple GUI</para></listitem>
 				</itemizedlist>
 			</listitem>
 		</itemizedlist>
