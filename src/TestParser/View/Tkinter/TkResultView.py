@@ -77,17 +77,23 @@ class TkResultView(Observer.Observer):
         will require something be selected. But its possible for all the
         rest to not have anything selected.
         '''
-        Constants.logger.debug("start of QtResultView.reRun()")
+        Constants.logger.debug("start of TkResultView.reRun()")
+        
+        
         
         if Constants.autoExpand:
             itemsToExpand = []
             selectedItems = self.tree.selection()
+            if len(selectedItems) == 0:
+                import time
+                t1 = time.time()
+                selectedItems = self._getExpandedItems()
+                t2 = time.time()
+                print("getExpandedItems() took %0.3f" % (t2-t1))  
             Constants.logger.debug("selectedItems = %s" % str(selectedItems))
-            if len(selectedItems) > 0:
-                for item in selectedItems:
-                    itemsToExpand.append(self._computeItemPath(item))
-            else:          
-                itemsToExpand = self._getExpandedItems()
+            
+            for item in selectedItems:
+                itemsToExpand.append(self._computeItemPath(item))
 
         self.controller.runPrevious()
 
@@ -95,7 +101,7 @@ class TkResultView(Observer.Observer):
             Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
             self._expandItems(itemsToExpand)
         
-        Constants.logger.debug("end of QtResultView.reRun()")
+        Constants.logger.debug("end of TkResultView.reRun()")
         
         
     def about(self, data=None):
@@ -272,10 +278,51 @@ class TkResultView(Observer.Observer):
             itemId = self.tree.parent(itemId)
         return path
     
-    def _getExpandedItems(self):
+    def _getExpandedItems(self, currId = None, parentId = None):
         '''
+        Returns a list of items id's that are open/displayed/expanded.
+        Does not include the item's path.
+        
+        We only add items who don't have expanded children, b/c item's
+        parents are expanded during their expansion. So this way items
+        won't have redundant expansion.
+
+        Base case: no children have been expanded and parent is expanded.
+        
+        We have this counter-intuitive 'if parent expanded add current'
+        in order to get the right items to expand. When we did it
+        the intuitive way ('if current expanded add current')
+        it was expanding one short. The major disadvantage of this is that
+        we end up with a lot items being expanded, but I don't think there is
+        a way around it. Also b/c tkinter's treeview automatically scrolls
+        to the expanded item, it will end up scrolling all the way down
+        (unless we do something to counteract that somewhere else.)
+            
+        
+        In tkinter treeview's leaf items are not considered expanded.
+        
+        @date Sep 1, 2010
         '''
-        raise NotImplementedError()
+        itemsToExpand = []
+        
+        if currId == None:
+            currId = self.rootId
+
+        if self._itemExpanded(currId):
+            for childId in self.tree.get_children(currId):
+                itemsToExpand += self._getExpandedItems(childId, currId)
+
+        # if not children have been expanded, then itemsToExpand will be empty
+        #  at this point.        
+        if len(itemsToExpand) == 0 and self._itemExpanded(parentId):
+            itemsToExpand.append(currId)
+                    
+        return itemsToExpand
+
+    def _itemExpanded(self, itemId):
+        if itemId == None:
+            return False
+        return self.tree.item(itemId)['open'] == True
     
     def _getItemData(self, itemId):
         '''
@@ -298,7 +345,7 @@ class TkResultView(Observer.Observer):
         @date Aug 30, 2010
         '''
         for path in itemsToExpand:
-            Constants.logger.debug("DEBUG: path = %s" % path)
+            Constants.logger.debug("path = %s" % path)
             self._expandPath(path, self.rootId)
             
     def _expandPath(self, path, currId, parentId=None):
