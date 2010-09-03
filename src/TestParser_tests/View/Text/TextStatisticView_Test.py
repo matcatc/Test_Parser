@@ -19,13 +19,12 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 import unittest
-from TestParser.Common.Observable import Observable
-from TestParser.View.Text.TextStatisticView import TextStatisticView
-from TestParser.View.Text.TextViewController import TextViewController
+from TestParser.View.Text import TextStatisticView
+from TestParser.View.Text import TextViewController
 from TestParser.Model import Model
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
-class MockModel(Observable):
+class MockModel(Model.Model):
     def __init__(self, results):
         super().__init__()
         self.results = results
@@ -34,8 +33,8 @@ class TextStatisticView_Test(unittest.TestCase):
     
     def setUp(self):
         self.model = Model.Model()
-        self.controller = TextViewController(self.model)
-        self.view = TextStatisticView(self.model, self.controller)
+        self.controller = TextViewController.TextViewController(self.model)
+        self.view = TextStatisticView.TextStatisticView(self.model, self.controller)
         
     def teardown(self):
         del self.model
@@ -47,7 +46,7 @@ class TextStatisticView_Test(unittest.TestCase):
         Test display code when model doesn't contain any data
         '''
         model = MockModel(None)
-        TextStatisticView(model, self.controller)
+        TextStatisticView.TextStatisticView(model, self.controller)
         
         model.notifyObservers()
         

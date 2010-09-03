@@ -25,6 +25,10 @@ from TestParser.View.Text import TextResultView, TextViewController
 from TestParser.Model import Model
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 
+class MockModel(Model.Model):
+    def __init__(self, results):
+        super().__init__()
+        self.results = results
 
 class TextResultView_Test(unittest.TestCase):
     '''
@@ -49,11 +53,14 @@ class TextResultView_Test(unittest.TestCase):
         del self.view
 
 
-    def test_registering(self):
+    def test_displayNone(self):
         '''
-        Test that the view registers itself with the model on creation
+        Test display code when model doesn't contain any data
         '''
-        self.assertTrue(self.view in self.model._observers)
+        model = MockModel(None)
+        TextResultView.TextResultView(model, self.controller)
+        
+        model.notifyObservers()
 
     def test_update(self):
         '''
