@@ -21,6 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 from TestParser.Common.Observable import Observable
 from TestParser.View.Text.TextStatisticView import TextStatisticView
+from TestParser.View.Text.TextViewController import TextViewController
 
 class Model(Observable):
     def __init__(self, results):
@@ -33,7 +34,8 @@ class TextStatisticView_Test(unittest.TestCase):
         Test display code when model doesn't contain any data
         '''
         model = Model(None)
-        TextStatisticView(model)
+        controller = TextViewController(model)
+        TextStatisticView(model, controller)
         
         model.notifyObservers()
 

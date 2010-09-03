@@ -202,14 +202,17 @@ class _TkinterFramework():
 class _TextFramework():
     def createResultView(self):
         from TestParser.View.Text import TextResultView
-        view = TextResultView.TextResultView(self.model)
+        TextResultView.TextResultView(self.model, self.controller)
     
     def createStatisticView(self):
         from TestParser.View.Text import TextStatisticView
-        TextStatisticView.TextStatisticView(self.model)
+        TextStatisticView.TextStatisticView(self.model, self.controller)
     
     def preViewInit(self, model):
         self.model = model
+        
+        from TestParser.View.Text import TextViewController
+        self.controller = TextViewController.TextViewController(self.model)
     
     def startApplication(self):
         from TestParser.View.Text import TextViewController

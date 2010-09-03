@@ -31,19 +31,14 @@ class TextResultView(Observer.Observer):
     Boost's test runner.
     '''
 
-    def __init__(self, model):
+    def __init__(self, model, controller):
         '''
         Constructor
         '''
         self.model = model
         self.model.registerObserver(self)
         
-    def _retrieveTestResults(self):
-        '''
-        get the test results from the model
-        @return test results
-        '''
-        return self.model.results
+        self.controller = controller
     
     def update(self):
         '''
@@ -59,7 +54,7 @@ class TextResultView(Observer.Observer):
         
         delegates to _display() for displaying
         '''
-        results = self._retrieveTestResults()
+        results = self.controller.getResults()
         if results is None:
             print("No test results to display")
             return

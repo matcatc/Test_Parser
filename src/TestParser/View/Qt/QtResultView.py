@@ -287,7 +287,7 @@ class QtResultView(UiClass, WidgetClass):
         '''
         For observer.
         '''
-        self._updateTreeWidget(self._retrieveTestResults())
+        self._updateTreeWidget(self.controller.getResults())
 
     def _clearTreeWidget(self):
         '''

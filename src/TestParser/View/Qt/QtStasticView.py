@@ -68,18 +68,11 @@ class QtStatisticView(UiClass, WidgetClass):
     def aboutDialog(self):
         self.controller.displayAboutDialog()
         
-    def _retrieveTestResults(self):
-        '''
-        get the test results from the model
-        @return test results
-        '''
-        return self.model.results
-
     def update(self):
         '''
         For observer.
         '''
-        self._display(self._retrieveTestResults())
+        self._display(self.controller.getResults())
         
     def _display(self, results):
         passes, fails, errors = ComputeStatistics.computeStatistics(results)
