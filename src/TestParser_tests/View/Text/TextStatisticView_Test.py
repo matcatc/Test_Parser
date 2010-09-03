@@ -22,22 +22,53 @@ import unittest
 from TestParser.Common.Observable import Observable
 from TestParser.View.Text.TextStatisticView import TextStatisticView
 from TestParser.View.Text.TextViewController import TextViewController
+from TestParser.Model import Model
+from TestParser.Common.computeDataFilepath import computeDataFilepath
 
-class Model(Observable):
+class MockModel(Observable):
     def __init__(self, results):
         super().__init__()
         self.results = results
             
 class TextStatisticView_Test(unittest.TestCase):
+    
+    def setUp(self):
+        self.model = Model.Model()
+        self.controller = TextViewController(self.model)
+        self.view = TextStatisticView(self.model, self.controller)
+        
+    def teardown(self):
+        del self.model
+        del self.controller
+        del self.view
+    
     def test_displayNone(self):
         '''
         Test display code when model doesn't contain any data
         '''
-        model = Model(None)
-        controller = TextViewController(model)
-        TextStatisticView(model, controller)
+        model = MockModel(None)
+        TextStatisticView(model, self.controller)
         
         model.notifyObservers()
+        
+    def test_update(self):
+        '''
+        Test that nothing explodes
+        '''
+        self.view.update()
+        
+    def test_runView(self):
+        '''
+        Runs the view to make sure nothing explodes.
+        '''
+        model = Model.setupModel("Boost", computeDataFilepath("../../Model/sample/Boost_Test", __file__))
+        
+        from TestParser.Common.ViewFactory import ViewFactory
+        ViewFactory.selectFramework("text")
+        ViewFactory.preViewInit(model)
+        ViewFactory.createResultView()
+        ViewFactory.startApplication()
+        
 
 
 if __name__ == "__main__":
