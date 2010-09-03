@@ -29,6 +29,9 @@ class Mock_Model(object):
     
     Only has one observer at a time (for simplicity's sake.)
     '''
+    def __init__(self):
+        self.results = None
+    
     def registerObserver(self, observer):
         self.observer = observer
         
@@ -89,6 +92,12 @@ class ControllerTest(unittest.TestCase):
         Doesn't test functionality
         '''
         self.controller.update()
+        
+    def test_getResults(self):
+        '''
+        Test that nothing explodes.
+        '''
+        self.controller.getResults()
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
