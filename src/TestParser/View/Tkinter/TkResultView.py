@@ -76,12 +76,21 @@ class TkResultView(Observer.Observer):
         after an auto-expansion nothing is selected. So the first auto-expand
         will require something be selected. But its possible for all the
         rest to not have anything selected.
+        
+        Scroll position will be reset to position prior to rerun after.
+        @bug If the scroll position is set to the very end, it won't be
+            set to the correct position, for some reason. Note that this
+            worked fine in a test program I wrote using a ListView.
+        @warning This will likely scroll to the wrong line if the number of
+            lines visible changes (which is possible.)
         '''
         Constants.logger.debug("start of TkResultView.reRun()")
-        
-        
-        
+
         if Constants.autoExpand:
+            # get scroll position
+            scrollPos = self.tree.yview()
+            print("DEBUG: scrollPos = %s" % str(scrollPos))
+            
             itemsToExpand = []
             selectedItems = self.tree.selection()
             if len(selectedItems) == 0:
@@ -100,6 +109,9 @@ class TkResultView(Observer.Observer):
         if Constants.autoExpand:
             Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
             self._expandItems(itemsToExpand)
+        
+            # reset scroll position
+            self.tree.yview(tk.MOVETO, scrollPos[0])
         
         Constants.logger.debug("end of TkResultView.reRun()")
         
@@ -167,6 +179,7 @@ class TkResultView(Observer.Observer):
         horizScrollbar.grid(row=1, column=0, sticky=tk.E+tk.W)
         self.tree.config(xscrollcommand=horizScrollbar.set)
         horizScrollbar.config(command=self.tree.xview)
+        
 
 
         
