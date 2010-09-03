@@ -65,11 +65,12 @@ class ViewFactory_Test(unittest.TestCase):
     
     def test_tkinterFramework(self):
         ViewFactory.selectFramework("tkinter")
+        ViewFactory.preViewInit(self.model)
+        ViewFactory.createResultView()
+        ViewFactory.createStatisticView()
         
-        self.assertRaises(NotImplementedError, ViewFactory.preViewInit, self.model)
-        self.assertRaises(NotImplementedError, ViewFactory.createResultView)
-        self.assertRaises(NotImplementedError, ViewFactory.createStatisticView)
-        self.assertRaises(NotImplementedError, ViewFactory.startApplication)
+        # this is where startApplication() would go
+        # but can we really test? We need a way to close/shut it down
     
     
     ## Test exceptions
