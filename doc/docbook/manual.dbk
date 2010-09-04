@@ -278,7 +278,7 @@
 			<title>Requirements</title>
 			<itemizedlist>
 				<listitem><para>python 3.x</para></listitem>
-				<listitem><para>PyQt4 (GUI)</para></listitem>
+				<listitem><para>PyQt4 (QtGuis)</para></listitem>
 				<listitem><para>PLY 3.3 (JUnit)</para></listitem>
 			</itemizedlist>
 			<para> If you do not wish to use the features that depend upon a
