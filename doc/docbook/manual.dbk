@@ -171,48 +171,31 @@
 			</refsect3>
 		</refsect2>
 		<refsect2>
-			<title>Displays / Views</title>
-			<para> Test Parser will eventually have multiple display views
-				implemented in a variety of ui frameworks
-				available to the user. Each framework will either display different
-				data or display it in a different way. You can have multiple views
-				open at the same time, including multiple instances of the same view,
-				should you so desire. In addition to choosing a view
-				you need to select your desired framework (or use the default.)
-				The reasoning behind having different frameworks is that some
-				users may not have neccessary files installed on their system
-				to use some frameworks.
+			<title>Auto Expansion</title>
+			<para> Without auto expand, when you rerun the tests
+				the display tree will collapse. You will then have
+				to manually go through and expand each node to
+				reach your desired node. And if you rerun multiple
+				times, you'll have to go through this process
+				multiple times.
 			</para>
-			<para>For an idea of what I hope
-				to achieve with the GUI's, see Alleyoop (valgrind front end.) 
+			<para> Auto expand seeks to remedy this	problem. There
+				are two ways to use auto expand. First is to select
+				the nodes you want to be expanded/displayed after
+				rerunning all the tests. Second is to simply select
+				no tests. All the nodes that are currently displayed
+				will be redisplayed after rerunning. 
 			</para>
-			<refsect3>
-				<title>Auto Expansion</title>
-				<para> Without auto expand, when you rerun the tests
-					the display tree will collapse. You will then have
-					to manually go through and expand each node to
-					reach your desired node. And if you rerun multiple
-					times, you'll have to go through this process
-					multiple times.
+			<warning> <title>Qt Auto-expand + Threading</title>
+				<para> When used with threading enabled, qt
+					autoexpand has a couple bugs. The biggest bug is that
+					the program	will sometimes seg-fault and crash. 
+					The other bug is that the root node, and sometimes other
+					nodes, will not expand.	Because of these bugs and the fact
+					that threading hasn't been particularly	useful, I suggest
+					leaving threading disabled.
 				</para>
-				<para> Auto expand seeks to remedy this	problem. There
-					are two ways to use auto expand. First is to select
-					the nodes you want to be expanded/displayed after
-					rerunning all the tests. Second is to simply select
-					no tests. All the nodes that are currently displayed
-					will be redisplayed after rerunning. 
-				</para>
-				<warning> <title>Qt Auto-expand + Threading</title>
-					<para> When used with threading enabled, qt
-						autoexpand has a couple bugs. The biggest bug is that
-						the program	will sometimes seg-fault and crash. 
-						The other bug is that the root node, and sometimes other
-						nodes, will not expand.	Because of these bugs and the fact
-						that threading hasn't been particularly	useful, I suggest
-						leaving threading disabled.
-					</para>
-				</warning>
-			</refsect3>
+			</warning>
 		</refsect2>
 	</refsect1>
 	
