@@ -265,6 +265,15 @@
 		</para>
 	</refsect1>
 	
+	<refsect1 id="download_links">
+		<title>Download / Links</title>
+		<para> Test Parser is hosted on github
+			<ulink url="http://github.com/matcatc/Test_Parser">here</ulink>.
+			I will likely upload packaged versions to Sourceforge at some
+			point.
+		</para>
+	</refsect1>
+	
 	<refsect1>
 		<title>Installation</title>
 		<para>Test Parser is packaged via distutils.  To install,
@@ -343,15 +352,6 @@ sudo make install
 				</para>
 			</refsect3>
 		</refsect2>
-	</refsect1>
-	
-	<refsect1 id="download_links">
-		<title>Download / Links</title>
-		<para> Test Parser is hosted on github
-			<ulink url="http://github.com/matcatc/Test_Parser">here</ulink>.
-			I will likely upload packaged versions to Sourceforge at some
-			point.
-		</para>
 	</refsect1>
 	
 	<refsect1>
