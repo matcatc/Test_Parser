@@ -138,6 +138,8 @@ class QtResultView(UiClass, WidgetClass):
         Constants.logger.debug("start of QtResultView.reRun()")
         
         if Constants.autoExpand:
+            scrollPos = self.treeWidget.verticalScrollBar().value()
+            
             itemsToExpand = []
             selectedItems = self.treeWidget.selectedItems()
             if len(selectedItems) > 0:
@@ -151,6 +153,8 @@ class QtResultView(UiClass, WidgetClass):
         if Constants.autoExpand:
             Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
             self._expandItems(itemsToExpand)
+            
+            self.treeWidget.verticalScrollBar().setValue(scrollPos)
         
         Constants.logger.debug("end of QtResultView.reRun()")
 
