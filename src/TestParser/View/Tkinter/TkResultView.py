@@ -89,7 +89,7 @@ class TkResultView(Observer.Observer):
         if Constants.autoExpand:
             # get scroll position
             scrollPos = self.tree.yview()
-            print("DEBUG: scrollPos = %s" % str(scrollPos))
+            Constants.logger.debug("scrollPos = %s" % str(scrollPos))
             
             itemsToExpand = []
             selectedItems = self.tree.selection()
@@ -111,7 +111,9 @@ class TkResultView(Observer.Observer):
             self._expandItems(itemsToExpand)
         
             # reset scroll position
-            self.tree.yview(tk.MOVETO, scrollPos[0])
+            if scrollPos[1] != 1.0:
+                Constants.logger.debug("setting scroll position to %d" % scrollPos[0])
+                self.tree.yview(tk.MOVETO, scrollPos[0])
         
         Constants.logger.debug("end of TkResultView.reRun()")
         

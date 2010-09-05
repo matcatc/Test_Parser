@@ -133,6 +133,8 @@ class QtResultView(UiClass, WidgetClass):
         expanded/displayed. If none selected, then the items 
         expanded/displayed at rerun will be so after.
         
+        Resets scroll position after items auto-expanded
+        
         @date Jun 17, 2010
         '''
         Constants.logger.debug("start of QtResultView.reRun()")
