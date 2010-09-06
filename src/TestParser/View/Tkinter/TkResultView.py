@@ -90,17 +90,15 @@ class TkResultView(Observer.Observer):
             # get scroll position
             scrollPos = self.tree.yview()
             Constants.logger.debug("scrollPos = %s" % str(scrollPos))
-            
-            itemsToExpand = []
+                        
             selectedItems = self.tree.selection()
             if len(selectedItems) == 0:
-                import time
-                t1 = time.time()
-                selectedItems = self._getExpandedItems()
-                t2 = time.time()
-                print("getExpandedItems() took %0.3f" % (t2-t1))  
+                selectedItems = []
+                for root in self.tree.get_children():
+                    selectedItems += self._getExpandedItems(root) 
             Constants.logger.debug("selectedItems = %s" % str(selectedItems))
             
+            itemsToExpand = []
             for item in selectedItems:
                 itemsToExpand.append(self._computeItemPath(item))
 
@@ -169,7 +167,6 @@ class TkResultView(Observer.Observer):
         self.tree.tag_configure('red', background='red')
         
         self.tree.grid(row = 0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
-        self.rootId = None
         
         # scrollbars
         vertScrollbar = tk.Scrollbar(frame)
@@ -196,8 +193,8 @@ class TkResultView(Observer.Observer):
         self._updateTreeWidget(self.controller.getResults())
     
     def _clearTreeWidget(self):
-        if self.rootId is not None:
-            self.tree.delete(self.rootId)
+        for root in self.tree.get_children():
+            self.tree.delete(root)
     
     def _updateTreeWidget(self, results):
         self._clearTreeWidget()
@@ -218,10 +215,6 @@ class TkResultView(Observer.Observer):
         '''
         id = self.tree.insert(parentId, 'end', text=result.type,
                                values=self._getDisplayData(result))
-        
-        # if this is a root item, save its id
-        if parentId == '':
-            self.rootId = id
 
         currItemColor = TkResultView.tagColors[result.type.lower()]
         returnedColors = [currItemColor]
@@ -293,7 +286,7 @@ class TkResultView(Observer.Observer):
             itemId = self.tree.parent(itemId)
         return path
     
-    def _getExpandedItems(self, currId = None, parentId = None):
+    def _getExpandedItems(self, currId, parentId = None):
         '''
         Returns a list of items id's that are open/displayed/expanded.
         Does not include the item's path.
@@ -316,12 +309,10 @@ class TkResultView(Observer.Observer):
         
         In tkinter treeview's leaf items are not considered expanded.
         
+        @return list of items to expand (not paths)
         @date Sep 1, 2010
         '''
         itemsToExpand = []
-        
-        if currId == None:
-            currId = self.rootId
 
         if self._itemExpanded(currId):
             for childId in self.tree.get_children(currId):
@@ -359,9 +350,10 @@ class TkResultView(Observer.Observer):
         
         @date Aug 30, 2010
         '''
-        for path in itemsToExpand:
-            Constants.logger.debug("path = %s" % path)
-            self._expandPath(path, self.rootId)
+        for root in self.tree.get_children():
+            for path in itemsToExpand:
+                Constants.logger.debug("path = %s" % path)
+                self._expandPath(path, root)
             
     def _expandPath(self, path, currId, parentId=None):
         '''
