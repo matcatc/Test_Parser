@@ -51,21 +51,23 @@ def main():
     '''
     usage = "usage: %prog [options] <framework> <test_runner>"
     ui_choices = ("qt", "tkinter", "text")
-    ui_help = "use specified ui framework: " + ", ".join(ui_choices) + ".\nDefault: text"
+    ui_help = "use specified ui framework. Default: text"
+    ui_metavar = "/".join(ui_choices)
     view_choices = ("result", "statistic")
-    view_help = "use specified views: " + ", ".join(view_choices) + ".\nDefault: result"
-
+    view_help = "use specified views. Default: result"
+    view_metavar = "/".join(view_choices)
     
     parser = OptionParser(usage)
     parser.add_option("--ui", dest="ui",
-                      action="store", choices=ui_choices,
+                      action="store", choices=ui_choices, metavar=ui_metavar,
                       default="text", help=ui_help)
     parser.add_option("--view", dest="views",
-                      action="append", choices=view_choices,
+                      action="append", choices=view_choices, metavar=view_metavar,
                       default=[], help=view_help)
     parser.add_option("--autoexpand", dest="auto_expand",
                       action="store", choices=("on", "off"),
-                      default="on",help="enable/disable autoexpand")
+                      default="on",help="enable/disable autoexpand",
+                      metavar="on/off")
     parser.add_option("--threading", dest="threading",
                       action="store_true",
                       default=False, help="enable multi-threading")
