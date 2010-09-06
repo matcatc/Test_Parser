@@ -63,8 +63,7 @@ class TextStatisticView_Test(unittest.TestCase):
         model = Model.setupModel("Boost", computeDataFilepath("../../Model/sample/Boost_Test", __file__))
         
         from TestParser.Common.ViewFactory import ViewFactory
-        ViewFactory.selectFramework("text")
-        ViewFactory.preViewInit(model)
+        ViewFactory.selectFramework("text", model)
         ViewFactory.createResultView()
         ViewFactory.startApplication()
         

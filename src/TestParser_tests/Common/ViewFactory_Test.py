@@ -38,14 +38,13 @@ class ViewFactory_Test(unittest.TestCase):
 
     def test_UndefinedUi(self):
         self.assertRaises(UndefinedViewFramework, ViewFactory.selectFramework,
-                           "nonexistent_framework_that_won't_be_created")
+                           "nonexistent_framework_that_won't_be_created", None)
         
     def test_UndefinedView(self):
         self.assertRaises(UndefinedView, ViewFactory.createViews, ["undefined_view"])
 
     def test_textFramework(self):
-        ViewFactory.selectFramework("text")
-        ViewFactory.preViewInit(self.model)
+        ViewFactory.selectFramework("text", self.model)
         ViewFactory.createViews(["result", "statistic"])
         ViewFactory.startApplication()
 
@@ -55,8 +54,7 @@ class ViewFactory_Test(unittest.TestCase):
         Test the parts that we can. Currently unable to test startApplicaton()
         b/c it would start an event loop which we'd be unable to stop. 
         '''
-        ViewFactory.selectFramework("qt")
-        ViewFactory.preViewInit(self.model)
+        ViewFactory.selectFramework("qt", self.model)
         ViewFactory.createResultView()
         ViewFactory.createStatisticView()
         
@@ -64,8 +62,7 @@ class ViewFactory_Test(unittest.TestCase):
         # but can we really test? We need a way to close/shut it down
     
     def test_tkinterFramework(self):
-        ViewFactory.selectFramework("tkinter")
-        ViewFactory.preViewInit(self.model)
+        ViewFactory.selectFramework("tkinter", self.model)
         ViewFactory.createResultView()
         ViewFactory.createStatisticView()
         

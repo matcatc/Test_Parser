@@ -67,17 +67,17 @@ class ViewFactory():
     factory = None
     
     @classmethod
-    def selectFramework(cls, framework):
+    def selectFramework(cls, framework, model):
         '''
         @return The concrete view factory
         '''
         framework = framework.lower()
         if framework == "qt":
-            cls.factory = _QtFramework()
+            cls.factory = _QtFramework(model)
         elif framework == "tkinter":
-            cls.factory = _TkinterFramework()
+            cls.factory = _TkinterFramework(model)
         elif framework == "text":
-            cls.factory = _TextFramework()
+            cls.factory = _TextFramework(model)
         else:
             raise UndefinedViewFramework(framework)
         
@@ -100,17 +100,6 @@ class ViewFactory():
         cls.factory.createStatisticView()
     
     @classmethod
-    def preViewInit(cls, model):
-        '''
-        Does any necessary initialization.
-        
-        Many frameworks require that the a root/application instance be
-        created before any windows,widgets,etc. are created. This is where
-        the root/application instance will be created
-        '''
-        cls.factory.preViewInit(model)
-    
-    @classmethod
     def startApplication(cls):
         '''
         Starts the actual application.
@@ -125,17 +114,7 @@ class ViewFactory():
 
 
 class _QtFramework():
-    def createResultView(self):
-        from TestParser.View.Qt import QtResultView
-        view = QtResultView.QtResultView(self.model, self.controller)
-        view.show()
-    
-    def createStatisticView(self):
-        from TestParser.View.Qt import QtStasticView
-        view = QtStasticView.QtStatisticView(self.model, self.controller)
-        view.show()
-    
-    def preViewInit(self, model):
+    def __init__(self, model):
         self.model = model
         
         from TestParser.View.Qt import QtViewController
@@ -147,7 +126,17 @@ class _QtFramework():
         except:
             sys.exit("Failed to import PyQt4. QtResultView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
         
-        self.app = QtGui.QApplication(sys.argv)    
+        self.app = QtGui.QApplication(sys.argv)  
+    
+    def createResultView(self):
+        from TestParser.View.Qt import QtResultView
+        view = QtResultView.QtResultView(self.model, self.controller)
+        view.show()
+    
+    def createStatisticView(self):
+        from TestParser.View.Qt import QtStasticView
+        view = QtStasticView.QtStatisticView(self.model, self.controller)
+        view.show()
     
     def startApplication(self):
         import sys
@@ -156,13 +145,18 @@ class _QtFramework():
         
     
 class _TkinterFramework():
-    def __init__(self):
+    def __init__(self, model):
         import tkinter as tk
         
         self._views = []
         self.root = tk.Tk()
         
         self.parentGenerator = self._createParentGenerator()
+        
+        self.model = model
+        
+        from TestParser.View.Tkinter import TkViewController
+        self.controller = TkViewController.TkViewController(self.model)
         
     def _getNextParent(self):
         return next(self.parentGenerator)
@@ -189,17 +183,17 @@ class _TkinterFramework():
         TkStatisticView.TKStatisticView(self._getNextParent(), self.model,
                                          self.controller)
     
-    def preViewInit(self, model):
-        self.model = model
-        
-        from TestParser.View.Tkinter import TkViewController
-        self.controller = TkViewController.TkViewController(self.model)
-    
     def startApplication(self):
         self.controller.run()
         self.root.mainloop()
     
 class _TextFramework():
+    def __init__(self, model):
+        self.model = model
+        
+        from TestParser.View.Text import TextViewController
+        self.controller = TextViewController.TextViewController(self.model)
+    
     def createResultView(self):
         from TestParser.View.Text import TextResultView
         TextResultView.TextResultView(self.model, self.controller)
@@ -207,12 +201,6 @@ class _TextFramework():
     def createStatisticView(self):
         from TestParser.View.Text import TextStatisticView
         TextStatisticView.TextStatisticView(self.model, self.controller)
-    
-    def preViewInit(self, model):
-        self.model = model
-        
-        from TestParser.View.Text import TextViewController
-        self.controller = TextViewController.TextViewController(self.model)
     
     def startApplication(self):
         from TestParser.View.Text import TextViewController

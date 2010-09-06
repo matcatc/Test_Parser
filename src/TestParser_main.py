@@ -94,8 +94,7 @@ def main():
     if len(options.views) == 0:
         options.views = ["result"] 
     
-    ViewFactory.selectFramework(options.ui)
-    ViewFactory.preViewInit(model)
+    ViewFactory.selectFramework(options.ui, model)
     ViewFactory.createViews(options.views)
     ViewFactory.startApplication()
 
