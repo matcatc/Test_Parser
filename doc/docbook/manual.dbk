@@ -199,10 +199,12 @@
 			<para> After auto-expanding, the scroll position will be reset
 				to the position prior to rerunning.
 			</para>
-			<warning> <title>Tk scroll reset</title>
+			<warning> <title>Tk auto-scroll</title>
 				<para> Sometimes TkResultView's scroll position won't be
 					set to the correct position. This is especially noticable
-					when the tree is scrolled to the very end.
+					when the tree is scrolled to the very end. As it turns out,
+					this bug doesn't have anything to do with the auto-scroll,
+					as it is still present even when auto-scroll is disabled.
 				</para>
 			</warning>
 		</refsect2>
