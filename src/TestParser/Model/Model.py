@@ -88,6 +88,12 @@ class Model(Observable.Observable):
     def results(self): #@DuplicatedSignature
         del self._results
         
+    def runnerName(self):
+        '''
+        Returns the runner's "name." Used for setting GUI titlebars
+        '''
+        return ' '.join(self.testRunner.runner)
+        
     def _doParse(self, data):
         '''
         TODO: What if parser is None?

@@ -70,7 +70,7 @@ class TKStatisticView(Observer.Observer):
         frame.grid_rowconfigure(1, weight=1)
             
 
-        self.parent.title("Test Parser Statistic - %s" % ' '.join(self.model.testRunner.runner)) #TODO: refactor
+        self.parent.title("Test Parser Statistic - %s" % self.model.runnerName())
         
         
         # menu

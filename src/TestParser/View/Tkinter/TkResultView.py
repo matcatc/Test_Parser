@@ -132,7 +132,7 @@ class TkResultView(Observer.Observer):
         frame.grid_columnconfigure(0, weight=1)
 
 
-        self.parent.title("Test Parser - %s" % ' '.join(self.model.testRunner.runner)) #TODO: refactor
+        self.parent.title("Test Parser - %s" % self.model.runnerName())
         
         
         # menu
