@@ -24,11 +24,49 @@ from . import TkAbout
 
 class TkViewController(Controller.Controller):
     '''
-    Nothing to override
+    Allows for windows to be closed in any order.
+    
+    Maintains a list of currently open windows. When all windows closed, root
+    is destroyed. 
     
     @date Aug 28, 2010
     @author matcat
     '''
+    
+    def __init__(self, model, root):
+        super().__init__(model)
+        
+        ## the tk root object
+        self.root = root
+        
+        ## a list of Tk Toplevel items
+        self.windows = []
+        
+    def addWindow(self, window):
+        '''
+        add a new Toplevel window to the list.
+        
+        Although accessor functions are non-pythonic, I don't want to go through
+        a lot of trouble if we end up changing the windows data type.
+        '''
+        self.windows.append(window)
+        
+    def closeView(self, view):
+        '''
+        close the view.
+        
+        Removes view from observers. Destroys root if there are no more windows
+        left open.
+        
+        @param view the view class object (TkResultView, TkStatisticView, etc.)
+            We need to access its parent for the actual Toplevel window.
+        '''
+        self.model.removeObserver(view)
+        view.parent.destroy()
+        
+        self.windows.remove(view.parent)
+        if not self.windows:
+            self.root.destroy()
     
     def displayAboutDialog(self, parent):
         TkAbout.TkAbout(parent)

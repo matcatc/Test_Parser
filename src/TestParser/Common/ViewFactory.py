@@ -148,40 +148,31 @@ class _TkinterFramework():
     def __init__(self, model):
         import tkinter as tk
         
-        self._views = []
         self.root = tk.Tk()
-        
-        self.parentGenerator = self._createParentGenerator()
+        self.root.withdraw()
         
         self.model = model
         
         from TestParser.View.Tkinter import TkViewController
-        self.controller = TkViewController.TkViewController(self.model)
+        self.controller = TkViewController.TkViewController(self.model, self.root)
         
-    def _getNextParent(self):
-        return next(self.parentGenerator)
-    
-    def _createParentGenerator(self):
+    def makeToplevel(self):
         '''
-        creates parents for our Views
-        
-        @returns root, TopLevel, TopLevel, TopLevel, ...
+        Makes a toplevel window and adds it to the list of windows maintained by
+        the controller
         '''
         import tkinter as tk
-        
-        yield self.root
-        while True:
-            yield tk.Toplevel(self.root) 
+        wnd = tk.Toplevel(self.root)
+        self.controller.addWindow(wnd)
+        return wnd
     
     def createResultView(self):
         from TestParser.View.Tkinter import TkResultView
-        TkResultView.TkResultView(self._getNextParent(), self.model,
-                                   self.controller)
+        TkResultView.TkResultView(self.makeToplevel(), self.model, self.controller)
     
     def createStatisticView(self):
         from TestParser.View.Tkinter import TkStatisticView
-        TkStatisticView.TKStatisticView(self._getNextParent(), self.model,
-                                         self.controller)
+        TkStatisticView.TKStatisticView(self.makeToplevel(), self.model, self.controller)
     
     def startApplication(self):
         self.controller.run()

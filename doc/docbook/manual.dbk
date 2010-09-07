@@ -71,10 +71,7 @@
 							<screen>--view=V1 --view=V1 --view=V2</screen>
 							Views earlier in the command have a higher priority.
 							This means they are created earlier, thus will be
-							updated earlier as well. Also in some GUI frameworks,
-							a particular window is specified as root and closing
-							this window will close all other windows as well. The
-							first specified view will be this root window.
+							updated earlier as well.
 						</para>
 						<itemizedlist>
 							<listitem><para>result (default)</para></listitem>

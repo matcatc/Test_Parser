@@ -51,9 +51,7 @@ class TKStatisticView(Observer.Observer):
     #
     
     def close(self, data=None):
-        Constants.logger.debug("removing statistic view")
-        self.model.removeObserver(self)
-        self.parent.destroy()
+        self.controller.closeView(self)
         
     def about(self, data=None):
         self.controller.displayAboutDialog(self.parent)

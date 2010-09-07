@@ -62,8 +62,7 @@ class TkResultView(Observer.Observer):
     #
     
     def close(self, data=None):
-        self.model.removeObserver(self)
-        self.parent.destroy()
+        self.controller.closeView(self)
         
     def rerun(self, data=None):
         '''
