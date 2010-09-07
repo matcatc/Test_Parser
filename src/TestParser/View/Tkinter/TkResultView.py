@@ -141,6 +141,7 @@ class TkResultView(Observer.Observer):
         filemenu = tk.Menu(menubar, tearoff=0)
         filemenu.add_command(label="Quit", command=self.close, accelerator="Ctrl+Q")
         self.parent.bind("<Control-q>", self.close)
+        self.parent.protocol('WM_DELETE_WINDOW', self.close)    # call our custom func when (x) button pressed
         menubar.add_cascade(label="File", menu=filemenu)
         
         runmenu = tk.Menu(menubar, tearoff=0)

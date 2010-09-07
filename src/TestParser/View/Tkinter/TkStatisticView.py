@@ -23,6 +23,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from TestParser.Common import Observer, ComputeStatistics
+from TestParser.Common.Constants import Constants
 
 class TKStatisticView(Observer.Observer):
     '''
@@ -50,6 +51,7 @@ class TKStatisticView(Observer.Observer):
     #
     
     def close(self, data=None):
+        Constants.logger.debug("removing statistic view")
         self.model.removeObserver(self)
         self.parent.destroy()
         
@@ -79,6 +81,7 @@ class TKStatisticView(Observer.Observer):
         filemenu = tk.Menu(menubar, tearoff=0)
         filemenu.add_command(label="Quit", command=self.close, accelerator="Ctrl+Q")
         self.parent.bind("<Control-q>", self.close)
+        self.parent.protocol('WM_DELETE_WINDOW', self.close)    # call our custom func when (x) button pressed
         menubar.add_cascade(label="File", menu=filemenu)
         
         helpmenu = tk.Menu(menubar, tearoff=0)
@@ -112,6 +115,7 @@ class TKStatisticView(Observer.Observer):
         '''
         For observer.
         '''
+        Constants.logger.debug("updating Statistic view")
         self._display(self.controller.getResults())
         
     def _display(self, results):
