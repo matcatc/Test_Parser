@@ -357,10 +357,11 @@ sudo make install
 		<title>Change Log</title>
 		<itemizedlist>
 			<listitem>
-				<bridgehead>v 0.1.</bridgehead>
+				<bridgehead>v 0.1.7</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
 					<listitem><para>Added tkinter Result and Statistic views</para></listitem>
+					<listitem><para>Added auto-scroll</para></listitem>
 				</itemizedlist>
 			</listitem>
 			<listitem>
