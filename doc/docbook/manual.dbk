@@ -32,11 +32,11 @@
 			Test Parser is intended for a primarily developer audience,
 			but I can see it being used in other situations.
 		</para>
-		<para> When running, Test Parser will output the runner's stderr output
+		<note><para> When running, Test Parser will output the runner's stderr output
 			to the console (stderr), so you can see what your runner is
 			printing out. Test Parser will also output some stuff to stderr,
 			but I currently have most of it logging to TestParser.log. 
-		</para>
+		</para></note>
 		<refsect2>
 			<title>History</title>
 			<para>I built Test Parser to help me visualize/read the test
@@ -89,14 +89,14 @@
 				</varlistentry>
 				<varlistentry>
 					<term><option>--autoexpand <parameter class="option">on/off</parameter></option></term>
-					<listitem><para>Enable/disable autoexpansion</para></listitem>
+					<listitem><para>Enable/disable auto-expansion</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><option>--threading</option></term>
 					<listitem>
 						<para>Enable threading. Note that threading is
-							likely superfluous in most situations. It also appears
-							to lead to some bugs in auto-expand.
+							superfluous in most situations. It also 
+							leads to some bugs.
 						</para>
 					</listitem>
 				</varlistentry>
@@ -124,8 +124,9 @@
 			</itemizedlist>
 			<note>
 				<title>Version Info</title>
-				<para> Note: that the given versions are what has been
-				 	tested/verified.
+				<para> Note that the Test Parser versions are when particular
+					framework versions were introduced. So it is expected that
+					those framework versions will work in later versions.
 				 </para>
 			</note>
 			<para> I have no plans to support other test formats, unless asked 
@@ -180,7 +181,7 @@
 				are two ways to use auto expand. First is to select
 				the nodes you want to be expanded/displayed after
 				rerunning all the tests. Second is to simply select
-				no tests. All the nodes that are currently displayed
+				no tests and all the nodes that are currently displayed
 				will be redisplayed after rerunning. 
 			</para>
 			<warning> <title>Qt Auto-expand + Threading</title>
@@ -208,61 +209,31 @@
 	</refsect1>
 	
 	<refsect1>
-		<title>Examples</title>
-		<example>
-			<title>Boost</title>
-			<screen>./TestParser_main.py --framework=Boost ~/dir/dir2/Boost_runner</screen>
-		</example>
-		<example>
-			<title>Python</title>
-			<screen>./TestParser_main.py --framework=PyUnittest 'python ~/dir/dir2/python_runner.py'</screen>
-			<para>In the above invocation, we call the python interpreter and pass in
-				our script. But if the script has a
-				<literal>#!/usr/bin/python</literal> declaration, we can just
-				do the following:
-			</para>
-			<screen>./TestParser_main.py --framework=PyUnittest ~/dir/dir2/python_runner2.py</screen>
-		</example>
-		<example>
-			<title>JUnit</title>
-			<para>The following classpaths are set according to where junit is
-				installed from the Ubuntu repositories.
-			</para>
-			<screen>CLASSPATH=.:/usr/share/java/junit4.jar:~/dir/dir2/
-./TestPaser_main.py --framework=JUnit 'java org.junit.runner.JUnitCore junit_runner'
-			</screen>
-			<screen>CLASSPATH=.:/usr/share/java/junit.jar:~/dir/dir2/
-./TestParser_main.py --framework=JUnit 'java junit.textui.TestRunner junit_runner'
-			</screen>
-		</example>
-		<example>
-			<title>Text output</title>
-			<screen>./TestParser_main.py --ui=text --framework=Boost ~/dir/dir2/Boost_runner</screen>
-		</example>
-		<example>
-			<title>Qt output</title>
-			<screen>./TestParser_main.py --ui=qt --framework=Boost ~/dir/dir2/Boost_runner</screen>
-		</example>
-		<example>
-			<title>Views</title>
-			<screen>./TestParser_main.py --ui=qt --view=result --view=statistic --framework=Boost ~/dir/dir2/Boost_runner</screen>
-		</example>
-	</refsect1>
-	
-	<refsect1>
-		<title>Screenshots</title>
+		<title>Screenshots / Examples</title>
 		<para>Go <ulink url="./screenshots.html">here</ulink>
-			for screenshots.
+			for screenshots and examples.
 		</para>
 	</refsect1>
 	
 	<refsect1 id="download_links">
 		<title>Download / Links</title>
-		<para> Test Parser is hosted on github
-			<ulink url="http://github.com/matcatc/Test_Parser">here</ulink>.
-			I will likely upload packaged versions to Sourceforge at some
-			point.
-		</para>
+		<itemizedlist>
+			<listitem><para>Available downloads are located
+				<ulink url="http://github.com/matcatc/Test_Parser/downloads">here</ulink>.
+				</para>
+			</listitem>
+			<listitem><para> Source code is available
+				<ulink url="http://github.com/matcatc/Test_Parser">here</ulink>.
+				Source code can be checked out read-only using:
+				<screen>git clone git://github.com/matcatc/Test_Parser.git</screen>
+				</para>
+			</listitem>
+			<listitem><para> Technical documentation is available 
+				<ulink url="./technical.html">here</ulink>. Warning: technical
+				documentation has a habit of being incomplete.
+				</para>
+			</listitem>
+		</itemizedlist>
 	</refsect1>
 	
 	<refsect1>
@@ -280,13 +251,14 @@
 			edit <literal>setup.cfg</literal> or pass in
 			<literal>--install-data = <replaceable>&lt;new_directory&gt;</replaceable></literal>.
 			Windows users will have to change the directory because the
-			default is designed for *nix users.
+			default is designed for *nix systems.
 		</para>
 		<refsect2>
 			<title>Requirements</title>
 			<itemizedlist>
 				<listitem><para>python 3.x</para></listitem>
-				<listitem><para>PyQt4 (QtGuis)</para></listitem>
+				<listitem><para>PyQt4 (Qt Views)</para></listitem>
+				<listitem><para>Tkinter (TK Views)</para></listitem>
 				<listitem><para>PLY 3.3 (JUnit)</para></listitem>
 			</itemizedlist>
 			<para> If you do not wish to use the features that depend upon a
@@ -329,6 +301,14 @@ make
 sudo make install
 					</screen>
 				</blockquote>
+			</refsect3>
+			<refsect3>
+				<title>Tkinter installation</title>
+				<para>Tkinter is usually packaged with the python distribution.
+					*nix users will probably want to get it from their favorite
+					repository. Windows users will probably install TKinter
+					during their python installation, but I don't know for sure.
+				</para>
 			</refsect3>
 			<refsect3>
 				<title>PLY installation</title>
@@ -428,17 +408,11 @@ sudo make install
 	</refsect1>
 	
 	<refsect1>
-		<title>Road map</title>
+		<title>Road map / issue tracker</title>
 		<para> 
 			Please see <ulink url="http://github.com/matcatc/Test_Parser/issues">here</ulink>
 			for current issues. Feel free to submit your own via github or
-			email (matcatprg@yahoo.com).
-		</para>
-	</refsect1>
-	
-	<refsect1>
-		<title>Technical Documentation</title>
-		<para>Go <ulink url="./technical.html">here</ulink> for the technical documentation.
+			email (<email>matcatprg@yahoo.com</email>).
 		</para>
 	</refsect1>
 </refentry>

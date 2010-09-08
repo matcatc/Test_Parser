@@ -26,23 +26,29 @@
 		<para>On a high level, Test Parser simply runs the tests,
 			parses them, and displays the results. There is more to it than
 			this, mostly because I structured the code so that it is
-			modular and can easily be extended, using MVC and similar
-			patterns. Of course this complicates the details, but the
-			overall idea is the same.</para>
+			modular and can easily be extended.
+			Of course this complicates the details, but the
+			overall idea is the same.
+		</para>
+		<note><para>This technical documentation is likely outdated and
+			incomplete. If it doesn't answer something you would like to
+			know or you think should be added, please let me know
+			(<email>matcatprg@yahoo.com</email>)
+		</para></note>
 		<refsect2>
 			<title>Test Results</title>
 			<para> Test Results is now structured using the Composite Pattern.
 				Parsing code hasn't changed, and I don't think the parsing
 				code will ever deal with the more abstract/generic info.
-				But the ui code is now more generalized, thus allowing it
+				But the UI code is now more generalized, thus allowing it
 				to handle changes that may occur in Test Results in the future
-				without having to change. Ui code just takes an abstract
+				without having to change. UI code just takes an abstract
 				object, and asks for its data and children. It then parses/
 				displays the data and recurses on the children.
 			</para>
-			<para> The net result is that Ui code does not make any assumptions
+			<para> The net result is that UI code does not make any assumptions
 				about the type of object and thus more Test Result classes can
-				be added later without breaking Ui code.
+				be added later without breaking UI code.
 			</para>
 			<para> See TestResults.dia for more information.
 			</para>
@@ -51,7 +57,7 @@
 	
 	<refsect1>
 		<title>Documentation</title>
-		<para>There are two parts to the documentation:</para>
+		<para>There are two main parts to the documentation:</para>
 		<itemizedlist>
 			<listitem><para>doxygen</para></listitem>
 			<listitem><para>docbook</para></listitem>
@@ -66,14 +72,13 @@
 			<ulink url="http://www.joshuascotton.com/main/archives/64">
 			here</ulink>.
 		</para>
-		<para> The docbook is more to end-users, but still contains
-			information for developers. This file is built from
-			said docbook.
+		<para> The docbook is more for end-users, but still contains
+			information for developers. This file is built from docbook.
 		</para>
 		<para> A script was provided in order to build the documentation
 			and is aptly named: <command>build_documentation.sh</command>.
-			While this script can be invoked directly, it is mainly for
-			use by setup.py. Setup.py has been customized so that when
+			While this script can be invoked directly, it is also used
+			by setup.py. Setup.py has been customized so that when
 			sdist is invoked, it will call <command>build_documentation.sh
 			</command> and thus build all the documentation prior to packaging.
 			As of June 10, 2010, all of the documentation is entirely rebuilt
@@ -82,13 +87,21 @@
 			files. At least if it gets to the point where it wastes too much
 			time.
 		</para>
+		<note><para><command>build_documentation.sh</command> needs to be
+			run from the directory in which it is located.
+			</para>
+		</note>
+		<para> Also included in the doc directory are UML diagrams and other
+			miscellaneous and likely outdated documents.
+		</para>
 	</refsect1>
 	
 	<refsect1>
 		<title>Tests</title>
-		<para> The tests used to test this product are packaged along with
+		<para> The tests used to test Test Parser are packaged along with
 			 it. This way anyone, including users, can run them on their
-			 machine. To run all of the tests, run test_runner.py.
+			 machine. To run all of the tests, run
+			 <command>test_runner.py</command>.
 		</para>
 		<para> Possible reasons for a test to fail even though the code
 			is fine:
@@ -105,12 +118,6 @@
 					that the same is true for a normal installation.
 				</para></listitem>
 			</itemizedlist>
-		</para>
-	</refsect1>
-	
-	<refsect1>
-		<title>User Manual</title>
-		<para>Go <ulink url="./manual.html">here</ulink> for the user manual.
 		</para>
 	</refsect1>
 
