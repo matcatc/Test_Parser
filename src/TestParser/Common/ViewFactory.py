@@ -69,7 +69,7 @@ class ViewFactory():
     @classmethod
     def selectFramework(cls, framework, model):
         '''
-        @return The concrete view factory
+        Selects the concrete-singleton view factory
         '''
         framework = framework.lower()
         if framework == "qt":
@@ -156,7 +156,7 @@ class _TkinterFramework():
         from TestParser.View.Tkinter import TkViewController
         self.controller = TkViewController.TkViewController(self.model, self.root)
         
-    def makeToplevel(self):
+    def _makeToplevel(self):
         '''
         Makes a toplevel window and adds it to the list of windows maintained by
         the controller
@@ -168,11 +168,11 @@ class _TkinterFramework():
     
     def createResultView(self):
         from TestParser.View.Tkinter import TkResultView
-        TkResultView.TkResultView(self.makeToplevel(), self.model, self.controller)
+        TkResultView.TkResultView(self._makeToplevel(), self.model, self.controller)
     
     def createStatisticView(self):
         from TestParser.View.Tkinter import TkStatisticView
-        TkStatisticView.TKStatisticView(self.makeToplevel(), self.model, self.controller)
+        TkStatisticView.TKStatisticView(self._makeToplevel(), self.model, self.controller)
     
     def startApplication(self):
         self.controller.run()
