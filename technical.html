@@ -1,21 +1,26 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Test Parser Technical Manual</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Test Parser Technical Manual"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Test Parser Technical Manual</th></tr></table><hr></div><div class="refentry" title="Test Parser Technical Manual"><a name="id2887469"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>Test Parser Technical Manual — Technical details relating to Test Parser.</p></div><div class="refsect1" title="Technical Details"><a name="id2908874"></a><h2>Technical Details</h2><p>On a high level, Test Parser simply runs the tests,
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Test Parser Technical Manual</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Test Parser Technical Manual"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Test Parser Technical Manual</th></tr></table><hr></div><div class="refentry" title="Test Parser Technical Manual"><a name="id2570089"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>Test Parser Technical Manual — Technical details relating to Test Parser.</p></div><div class="refsect1" title="Technical Details"><a name="id2589643"></a><h2>Technical Details</h2><p>On a high level, Test Parser simply runs the tests,
 			parses them, and displays the results. There is more to it than
 			this, mostly because I structured the code so that it is
-			modular and can easily be extended, using MVC and similar
-			patterns. Of course this complicates the details, but the
-			overall idea is the same.</p><div class="refsect2" title="Test Results"><a name="id2944974"></a><h3>Test Results</h3><p> Test Results is now structured using the Composite Pattern.
+			modular and can easily be extended.
+			Of course this complicates the details, but the
+			overall idea is the same.
+		</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>This technical documentation is likely outdated and
+			incomplete. If it doesn't answer something you would like to
+			know or you think should be added, please let me know
+			(<code class="email">&lt;<a class="email" href="mailto:matcatprg@yahoo.com">matcatprg@yahoo.com</a>&gt;</code>)
+		</p></div><div class="refsect2" title="Test Results"><a name="id2593921"></a><h3>Test Results</h3><p> Test Results is now structured using the Composite Pattern.
 				Parsing code hasn't changed, and I don't think the parsing
 				code will ever deal with the more abstract/generic info.
-				But the ui code is now more generalized, thus allowing it
+				But the UI code is now more generalized, thus allowing it
 				to handle changes that may occur in Test Results in the future
-				without having to change. Ui code just takes an abstract
+				without having to change. UI code just takes an abstract
 				object, and asks for its data and children. It then parses/
 				displays the data and recurses on the children.
-			</p><p> The net result is that Ui code does not make any assumptions
+			</p><p> The net result is that UI code does not make any assumptions
 				about the type of object and thus more Test Result classes can
-				be added later without breaking Ui code.
+				be added later without breaking UI code.
 			</p><p> See TestResults.dia for more information.
-			</p></div></div><div class="refsect1" title="Documentation"><a name="id2919254"></a><h2>Documentation</h2><p>There are two parts to the documentation:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>doxygen</p></li><li class="listitem"><p>docbook</p></li></ul></div><p>The doxygen output is built from the documentation
+			</p></div></div><div class="refsect1" title="Documentation"><a name="id2593793"></a><h2>Documentation</h2><p>There are two main parts to the documentation:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>doxygen</p></li><li class="listitem"><p>docbook</p></li></ul></div><p>The doxygen output is built from the documentation
 			inlined in the code. Its more for developers than
 			end users. I setup doxygen to use
 			<a class="ulink" href="http://code.foosel.org/doxypy" target="_top">doxypy</a>
@@ -24,13 +29,12 @@
 			here</a> and
 			<a class="ulink" href="http://www.joshuascotton.com/main/archives/64" target="_top">
 			here</a>.
-		</p><p> The docbook is more to end-users, but still contains
-			information for developers. This file is built from
-			said docbook.
+		</p><p> The docbook is more for end-users, but still contains
+			information for developers. This file is built from docbook.
 		</p><p> A script was provided in order to build the documentation
 			and is aptly named: <span class="command"><strong>build_documentation.sh</strong></span>.
-			While this script can be invoked directly, it is mainly for
-			use by setup.py. Setup.py has been customized so that when
+			While this script can be invoked directly, it is also used
+			by setup.py. Setup.py has been customized so that when
 			sdist is invoked, it will call <span class="command"><strong>build_documentation.sh
 			</strong></span> and thus build all the documentation prior to packaging.
 			As of June 10, 2010, all of the documentation is entirely rebuilt
@@ -38,12 +42,17 @@
 			through make or similar) so that it will only rebuild necessary
 			files. At least if it gets to the point where it wastes too much
 			time.
-		</p></div><div class="refsect1" title="Tests"><a name="id2911398"></a><h2>Tests</h2><p> The tests used to test this product are packaged along with
+		</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p><span class="command"><strong>build_documentation.sh</strong></span> needs to be
+			run from the directory in which it is located.
+			</p></div><p> Also included in the doc directory are UML diagrams and other
+			miscellaneous and likely outdated documents.
+		</p></div><div class="refsect1" title="Tests"><a name="id2581276"></a><h2>Tests</h2><p> The tests used to test Test Parser are packaged along with
 			 it. This way anyone, including users, can run them on their
-			 machine. To run all of the tests, run test_runner.py.
+			 machine. To run all of the tests, run
+			 <span class="command"><strong>test_runner.py</strong></span>.
 		</p><p> Possible reasons for a test to fail even though the code
 			is fine:
-			</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><h4><a name="id2898636"></a>Data files</h4><p>One of the data files used in testing (e.g: 
+			</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><h4><a name="id2581300"></a>Data files</h4><p>One of the data files used in testing (e.g: 
 					Boost_Test, xml) is missing or cannot be accessed.
 					If its missing, its probably b/c we accidentally
 					forgot to package it up with everything else. The
@@ -53,5 +62,4 @@
 					I haven't tried yet, but its also possible/likely
 					that the same is true for a normal installation.
 				</p></li></ul></div><p>
-		</p></div><div class="refsect1" title="User Manual"><a name="id2898660"></a><h2>User Manual</h2><p>Go <a class="ulink" href="./manual.html" target="_top">here</a> for the user manual.
 		</p></div></div><div class="navfooter"><hr></div></body></html>
