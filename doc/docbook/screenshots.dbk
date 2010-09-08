@@ -84,7 +84,7 @@
 		</example>
 		<example>
 			<title>Text Statistic View</title>
-			<screen>./TestParser_main.py --ui=texyt --view=statistic Boost TestParser_tests/Model/sample/Boost_Test
+			<screen>./TestParser_main.py --ui=text --view=statistic Boost TestParser_tests/Model/sample/Boost_Test
 			
 2 pass, 0 fail, 2 error
 			</screen>

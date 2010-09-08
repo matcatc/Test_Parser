@@ -199,7 +199,7 @@
 			</para>
 			<warning> <title>Tk auto-scroll</title>
 				<para> Sometimes TkResultView's scroll position won't be
-					set to the correct position. This is especially noticable
+					set to the correct position. This is especially noticeable
 					when the tree is scrolled to the very end. As it turns out,
 					this bug doesn't have anything to do with the auto-scroll,
 					as it is still present even when auto-scroll is disabled.
@@ -306,7 +306,7 @@ sudo make install
 				<title>Tkinter installation</title>
 				<para>Tkinter is usually packaged with the python distribution.
 					*nix users will probably want to get it from their favorite
-					repository. Windows users will probably install TKinter
+					repository. Windows users will probably install Tkinter
 					during their python installation, but I don't know for sure.
 				</para>
 			</refsect3>
