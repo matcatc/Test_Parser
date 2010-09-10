@@ -100,6 +100,14 @@
 						</para>
 					</listitem>
 				</varlistentry>
+				<varlistentry>
+					<term><option>-f</option></term>
+					<listitem>
+						<para> Read data in from a file instead of running a
+							program.
+						</para>
+					</listitem>
+				</varlistentry>
 			</variablelist>
 		</refsect2>
 		<refsect2>
@@ -336,6 +344,14 @@ sudo make install
 	<refsect1>
 		<title>Change Log</title>
 		<itemizedlist>
+			<listitem>
+				<bridgehead>v 0.1.8</bridgehead>
+				<para>Pre-alpha. No packaged-release.</para>
+				<itemizedlist>
+					<listitem><para>Added file input</para></listitem>
+					<listitem><para>Fixed bug with Python Unittest test names</para></listitem>
+				</itemizedlist>
+			</listitem>
 			<listitem>
 				<bridgehead>v 0.1.7</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
