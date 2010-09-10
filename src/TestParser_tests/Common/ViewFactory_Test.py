@@ -34,7 +34,8 @@ class ViewFactory_Test(unittest.TestCase):
     '''
     def setUp(self):
         self.model = Model.setupModel("Boost",
-                     computeDataFilepath("../Model/sample/Boost_Test", __file__))
+                     computeDataFilepath("../Model/sample/Boost_Test", __file__),
+                     False)
 
     def test_UndefinedUi(self):
         self.assertRaises(UndefinedViewFramework, ViewFactory.selectFramework,

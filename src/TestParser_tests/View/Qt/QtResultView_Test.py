@@ -40,7 +40,8 @@ class QtResultView_Test(unittest.TestCase):
 
     def setUp(self):        
         self.model = Model.setupModel("Boost",
-                            computeDataFilepath('../Model/sample/Boost_Test', __file__))
+                            computeDataFilepath('../Model/sample/Boost_Test', __file__),
+                            False)
 
 
     def tearDown(self):

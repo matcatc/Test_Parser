@@ -60,7 +60,9 @@ class TextStatisticView_Test(unittest.TestCase):
         '''
         Runs the view to make sure nothing explodes.
         '''
-        model = Model.setupModel("Boost", computeDataFilepath("../../Model/sample/Boost_Test", __file__))
+        model = Model.setupModel("Boost",
+                        computeDataFilepath("../../Model/sample/Boost_Test", __file__),
+                        False)
         
         from TestParser.Common.ViewFactory import ViewFactory
         ViewFactory.selectFramework("text", model)

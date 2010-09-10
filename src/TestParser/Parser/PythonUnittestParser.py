@@ -318,6 +318,7 @@ class PythonUnittestParser(IParse.IParse):
         info = data.info
 
         resultTest = TestCase.TestCase(name)
+        # TODO: error when status is None
         resultTest.addNotice(Notice.Notice(file, line, info, status.lower()))
 
         return resultTest

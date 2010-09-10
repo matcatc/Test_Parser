@@ -125,7 +125,8 @@ class Model_test(unittest.TestCase):
         '''
         Test that nothing explodes
         '''
-        Model.setupModel("Boost", "echo")
+        Model.setupModel("Boost", "echo", False)
+        Model.setupModel("PyUnittest", "echo", True)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
