@@ -238,6 +238,8 @@ class PythonUnittestParser(IParse.IParse):
             else:
                 if self._validFailLine(line):
                     words = line.split(' ')
+                    lastStatus = words[0].strip(':').lower()
+                    lastTestName = words[1]
                     lastFailSuiteName = words[2]
 
                 elif self._validFailInfoLine(line):
@@ -245,13 +247,13 @@ class PythonUnittestParser(IParse.IParse):
                     words = line.split(' ')
                     lastFileName = words[1]
                     lastLineNum = words[3]
-                    lastTestName = words[5]
+                    lastExceptionLocation = words[5]
 
                     lineCount = 0
                     lineEncountered = True
                 elif lineCount == 2 and lineEncountered:
                     info = line
-                    self.suiteDict.addData(lastFailSuiteName, lastTestName, file=lastFileName, line=lastLineNum, info=info)
+                    self.suiteDict.addData(lastFailSuiteName, lastTestName, status=lastStatus, file=lastFileName, line=lastLineNum, info=info)
 
                     lineEncountered = False
 
