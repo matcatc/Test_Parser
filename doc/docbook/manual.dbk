@@ -177,6 +177,30 @@
 			</refsect3>
 		</refsect2>
 		<refsect2>
+			<title>Read from file</title>
+			<para>Normally when selecting a test framework, everything is
+				automatically setup so that you can envoke Test Parser
+				with the appriate test runner. If you want to read data
+				in from a file instead, use the <option>-f</option>
+				option and pass in the name of you file where the runner
+				would normally go. This also allows you to read in from
+				stdin by passing <literal>-</literal> as your file.
+			</para>
+			<para>The ability to run the test runner by hand is provided
+				as a feature so that you can make other runners work
+				with Test Parser when the runner isn't supported but
+				the test framework data is still understood.
+				When piping input to stdin instead of running the
+				unittest runner through Test Parser, it is the user's
+				resposibility to ensure that the data is passed in the correct
+				format.
+			</para>
+			<warning><para>When piping in input to stdin, rerunning
+				won't work.
+				</para> 
+			</warning>
+		</refsect2>
+		<refsect2>
 			<title>Auto Expansion</title>
 			<para> Without auto expand, when you rerun the tests
 				the display tree will collapse. You will then have

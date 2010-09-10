@@ -107,6 +107,15 @@
 			</mediaobject>
 			<screen>./TestParser_main.py --ui=tkinter --view=statistic Boost TestParser_tests/Model/sample/Boost_Test</screen>
 		</example>
+		<example>
+			<title>Read from file</title>
+			<screen>./TestParser_main.py -f Boost TestParser_tests/Parser/sample/boost.xml</screen>
+		</example>
+		<example>
+			<title>Read from stdin</title>
+			<screen>./TestParser_unittests.py | ./TestParser_main.py --ui=qt -f PyUnittest -</screen>
+		</example>
+		
 	</refsect1>
 	
 </refentry>
