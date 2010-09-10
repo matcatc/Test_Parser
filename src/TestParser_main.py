@@ -71,6 +71,8 @@ def main():
     parser.add_option("--threading", dest="threading",
                       action="store_true",
                       default=False, help="enable multi-threading")
+    parser.add_option("-f", dest="fileRunner",
+                      action="store_true", default=False, help="use file instead of runner")
     
     (options, args) = parser.parse_args()   
 
@@ -83,7 +85,7 @@ def main():
     initConstants(options)
     
     try:
-        model = Model.setupModel(framework, runner)
+        model = Model.setupModel(framework, runner, options.fileRunner)
     except UndefinedTestFrameworkError as  e:
         import sys
         print("Unknown test framework: %s" % e.framework)

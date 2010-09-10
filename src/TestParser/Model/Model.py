@@ -23,12 +23,12 @@ from ..Common import Observable
 from ..Common.TestFrameworkFactory import TestFrameworkFactory
 import copy, threading
 
-def setupModel(framework, runnerName):
+def setupModel(framework, runnerName, bFileRunner):
     '''
     helper function that sets up the model using given
     Framework factory and runner.
     '''
-    TestFrameworkFactory.selectFramework(framework)
+    TestFrameworkFactory.selectFramework(framework, bFileRunner)
 
     model = Model()
     model.parser = TestFrameworkFactory.createParser()  #@UndefinedVariable
@@ -92,7 +92,7 @@ class Model(Observable.Observable):
         '''
         Returns the runner's "name." Used for setting GUI titlebars
         '''
-        return ' '.join(self.testRunner.runner)
+        return self.testRunner.runnerName
         
     def _doParse(self, data):
         '''
@@ -102,12 +102,11 @@ class Model(Observable.Observable):
         
         @throws AttributeError when parser is None
         '''
-        
         try:
             decodedData = data.decode("utf-8")
         except AttributeError:
             decodedData = data
-        
+            
         self.results = self.parser.parse(stringData=decodedData)
            
     def runAll(self):

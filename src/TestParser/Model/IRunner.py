@@ -64,6 +64,7 @@ class IRunner(object):
         '''
         ## string containing name / path of the test program to be run 
         self.runner = None
+        self.runnerName = None
         self.previousCmd = None
 
     @property
@@ -87,6 +88,8 @@ class IRunner(object):
         if gRunner is None:
             self._runner = None
             return
+        
+        self.runnerName = gRunner
         
         # passing in command with arguments
         if ' ' in gRunner:

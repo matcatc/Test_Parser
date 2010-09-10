@@ -61,9 +61,12 @@ class TestFrameworkFactory(object):
     factory = None
 
     @classmethod
-    def selectFramework(cls, framework):
+    def selectFramework(cls, framework, bFileRunner = False):
         '''
         Select the framework to use.
+        
+        If we're using a fileRunner, we wrap the decorator around the normal
+        factory.
         
         @return the concrete framework factory.
         '''
@@ -75,6 +78,9 @@ class TestFrameworkFactory(object):
             cls.factory = _JUnitFactory()
         else:
             raise UndefinedTestFrameworkError(framework)
+        
+        if bFileRunner:
+            cls.factory = _FileRunnerDecorator(cls.factory)
     
     @classmethod
     def createRunner(cls):
@@ -84,6 +90,22 @@ class TestFrameworkFactory(object):
     def createParser(cls):
         return cls.factory.createParser()
 
+class _FileRunnerDecorator():
+    '''
+    Allows for the file runner to be used by any test framework.
+    
+    @date Sep 10, 2010
+    '''
+    def __init__(self, factory):
+        self.factory = factory
+    
+    def createRunner(self):
+        from TestParser.Model.FileRunner import FileRunner
+        return FileRunner()
+    
+    def createParser(self):
+        return self.factory.createParser()
+    
     
 class _BoostFactory():
     def createRunner(self):
