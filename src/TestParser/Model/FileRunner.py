@@ -68,5 +68,8 @@ class FileRunner():
         return self.run()
         
     def runPrevious(self):
+        '''
+        Log b/c runPrevious with Files can lead to unexpected behavior.
+        '''
         Constants.logger.info("Running previous FileRunner, file = %s" % self._file)
         return self.run()
