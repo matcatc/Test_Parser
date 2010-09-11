@@ -372,6 +372,7 @@ sudo make install
 				<bridgehead>v 0.1.8</bridgehead>
 				<para>Pre-alpha. No packaged-release.</para>
 				<itemizedlist>
+					<listitem><para>Nice message displayed when runner/file can't be opened</para></listitem>
 					<listitem><para>Added file input</para></listitem>
 					<listitem><para>Fixed bug with Python Unittest test names</para></listitem>
 				</itemizedlist>
