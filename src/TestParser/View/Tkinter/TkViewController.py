@@ -70,3 +70,7 @@ class TkViewController(Controller.Controller):
     
     def displayAboutDialog(self, parent):
         TkAbout.TkAbout(parent)
+        
+    def reportException(self, e):
+        from tkinter import messagebox
+        messagebox.showwarning("Open file", str(e))

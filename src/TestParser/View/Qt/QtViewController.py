@@ -21,6 +21,12 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 from .. import Controller
 from . import About
+import sys
+
+try:
+    from PyQt4 import QtGui #@UnresolvedImport
+except:
+    sys.exit("Failed to import PyQt4. QtResultView needs PyQt4 in order to function. Please install PyQt4 or choose another UI.")
 
 class QtViewController(Controller.Controller):
     '''
@@ -36,3 +42,7 @@ class QtViewController(Controller.Controller):
         '''
         widget = About.About()
         widget.exec()
+        
+    def reportException(self, e):
+        msgBox = QtGui.QMessageBox(QtGui.QMessageBox.Warning, "", str(e))
+        msgBox.exec();

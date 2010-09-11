@@ -20,6 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from ..Common import Observer
+from TestParser.Model.IRunner import InvalidRunnerException
 
 class Controller(Observer.Observer):
     '''
@@ -50,7 +51,21 @@ class Controller(Observer.Observer):
         
         @see Model.runAll()
         '''
-        self.model.runAll()
+        try:
+            self.model.runAll()
+        except InvalidRunnerException as e:
+            self.reportException(e)
+            
+    def reportException(self, e):
+        '''
+        Reports an exception to the user
+        
+        This is a template method. Subclasses need to define how to report
+        exceptions to the user. (e.g: GUI use message box while text prints out)
+        
+        @date Sep 11, 2010
+        '''
+        raise NotImplementedError
         
     def runPrevious(self):
         self.model.runPrevious()

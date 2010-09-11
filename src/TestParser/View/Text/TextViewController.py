@@ -32,3 +32,6 @@ class TextViewController(Controller.Controller):
     Nothing to override
     @see Controller.Controller
     '''
+    
+    def reportException(self, e):
+        print(str(e))
