@@ -68,4 +68,5 @@ class FileRunner():
         return self.run()
         
     def runPrevious(self):
+        Constants.logger.info("Running previous FileRunner, file = %s" % self._file)
         return self.run()
