@@ -29,6 +29,20 @@ class NoRunnerException(Exception):
     '''
     pass
 
+class InvalidRunnerException(Exception):
+    '''
+    Raised when the runner is invalid
+    '''
+    def __init__(self, runner):
+        super().__init__()
+        self.runner = runner
+    
+    def __str__(self):
+        return "Could not open runner '%s'" % self.runner 
+        
+    def __repr__(self):
+        return str(self)
+
 class IRunner(object):
     '''
     Runner interface/Template Method.
@@ -137,7 +151,7 @@ class IRunner(object):
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
             Constants.logger.error(IRunner.EXECUTION_FAILURE_MESSAGE)
-            return None
+            raise InvalidRunnerException(self.runnerName)
 
         stdout, stderr = p.communicate()
         if not stderr == "":

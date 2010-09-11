@@ -24,7 +24,7 @@ import unittest
 import sys
 
 from TestParser_tests.Common import Observable_Test, Observer_Test, UpdateJobPool_Test, UpdateThread_Test, TestFrameworkFactory_Test, ViewFactory_Test
-from TestParser_tests.Model import Model_test, IRunner_Test, BoostRunner_test, PythonUnittestRunner_Test, JUnitRunner_Test
+from TestParser_tests.Model import Model_test, IRunner_Test, BoostRunner_test, PythonUnittestRunner_Test, JUnitRunner_Test, FileRunner_Test
 from TestParser_tests.Parser import BoostParser_Test, PythonUnittestParser_Test, JUnitParser_Test, IParse_Test 
 from TestParser_tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test, TestComponent_Test
 from TestParser_tests.View import Controller_Test
@@ -56,6 +56,7 @@ def main():
                       BoostRunner_test.BoostRunner_Test, \
                        PythonUnittestRunner_Test.PythonUnittestRunner_Test, \
                         JUnitRunner_Test.JUnitRunner_Test, \
+                         FileRunner_Test.FileRunner_Test, \
                     BoostParser_Test.BoostParser_Test, \
                      PythonUnittestParser_Test.PythonUnittestParser_Test, \
                       JUnitParser_Test.JUnitParser_Test, \

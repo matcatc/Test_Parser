@@ -21,7 +21,22 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>
 
 #from .IRunner import IRunner
 from TestParser.Common.Constants import Constants
+from .IRunner import InvalidRunnerException
 import sys
+
+class InvalidFileException(InvalidRunnerException):
+    '''
+    Raised when the file is invalid
+    '''
+    def __init__(self, file):
+        super().__init__(None)
+        self.file = file
+    
+    def __str__(self):
+        return "Could not open file '%s'" % self.file 
+        
+    def __repr__(self):
+        return str(self)
 
 class FileRunner():
     '''
@@ -62,7 +77,7 @@ class FileRunner():
                 return f.read()
         except:
             Constants.logger.error("Failed to read file %s" % self._file)
-            return None
+            raise InvalidFileException(self._file)
         
     def runAll(self):
         return self.run()

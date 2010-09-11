@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from TestParser.Model.IRunner import IRunner, NoRunnerException
+from TestParser.Model.IRunner import IRunner, NoRunnerException, InvalidRunnerException
 
 class MockRunner(IRunner):
     '''
@@ -66,7 +66,7 @@ class IRunner_Test(unittest.TestCase):
         crazy happens.
         '''
         self.runner.runner = "invalid_runner_ALSKFJEOIJFDFLKJakjdflakjdfaedf"
-        self.runner.run([])
+        self.assertRaises(InvalidRunnerException ,self.runner.run, [])
 
 
     def test_NoneRunner(self):
@@ -137,6 +137,14 @@ class IRunner_Test(unittest.TestCase):
         '''
         runner = IRunner()
         self.assertRaises(NotImplementedError, runner.computeCmd, None)
+        
+    
+    ## exception tests
+    
+    def test_InvalidRunnerException(self):
+        e = InvalidRunnerException("Nonexistent_runner_baadsflkadf")
+        str(e)
+        repr(e)
 
 
 if __name__ == "__main__":
