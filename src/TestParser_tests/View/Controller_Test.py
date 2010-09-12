@@ -22,6 +22,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 
 from TestParser.View.Controller import Controller
+from TestParser.Model.IRunner import InvalidRunnerException
 
 class Mock_Model(object):
     '''
@@ -47,6 +48,9 @@ class Mock_Model(object):
         '''
         pass
         
+class Mock_Model_Raise(Mock_Model):
+    def runAll(self):
+        raise InvalidRunnerException("bad runner")
 
 class ControllerTest(unittest.TestCase):
 
@@ -77,6 +81,14 @@ class ControllerTest(unittest.TestCase):
         '''
         self.controller.run()
         
+    def test_run_raise(self):
+        '''
+        test that we handle the raised exception. Because reportException
+        is undefined, we need to catch the NotImplementedError
+        '''
+        controller = Controller(Mock_Model_Raise())
+        self.assertRaises(NotImplementedError, controller.run)
+        
     def test_runPrevious(self):
         '''
         tests that nothing explodes
@@ -98,6 +110,9 @@ class ControllerTest(unittest.TestCase):
         Test that nothing explodes.
         '''
         self.controller.getResults()
+        
+    def test_reportException(self):
+        self.assertRaises(NotImplementedError, self.controller.reportException, None)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

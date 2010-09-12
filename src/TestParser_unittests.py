@@ -29,7 +29,7 @@ from TestParser_tests.Parser import BoostParser_Test, PythonUnittestParser_Test,
 from TestParser_tests.TestResults import Notice_Test, Suite_Test, TestCase_Test, TestResults_Test, TestComponent_Test
 from TestParser_tests.View import Controller_Test
 from TestParser_tests.View.Qt import QtResultView_Test
-from TestParser_tests.View.Text import TextResultView_Test, TextStatisticView_Test
+from TestParser_tests.View.Text import TextResultView_Test, TextStatisticView_Test, TextViewController_Test
 
 def runTestSuites(testClasses):
     '''
@@ -69,7 +69,8 @@ def main():
                     Controller_Test.ControllerTest, \
                      TextResultView_Test.TextResultView_Test, \
                       TextStatisticView_Test.TextStatisticView_Test, \
-                       QtResultView_Test.QtResultView_Test])
+                       TextViewController_Test.TextViewController_Test, \
+                        QtResultView_Test.QtResultView_Test])
 
 if __name__ == '__main__':
     main()
