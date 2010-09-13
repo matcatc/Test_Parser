@@ -1,0 +1,27 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Auto Expansion</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Test Parser"><link rel="up" href="index.html" title="Test Parser"><link rel="prev" href="ar01s04.html" title="Read from file"><link rel="next" href="ar01s06.html" title="Misc Details"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Auto Expansion</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s04.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s06.html">Next</a></td></tr></table><hr></div><div class="section" title="Auto Expansion"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2860538"></a>Auto Expansion</h2></div></div></div><p> Without auto expand, when you rerun the tests
+			the display tree will collapse. You will then have
+			to manually go through and expand each node to
+			reach your desired node. And if you rerun multiple
+			times, you'll have to go through this process
+			multiple times.
+		</p><p> Auto expand seeks to remedy this	problem. There
+			are two ways to use auto expand. First is to select
+			the nodes you want to be expanded/displayed after
+			rerunning all the tests. Second is to simply select
+			no tests and all the nodes that are currently displayed
+			will be redisplayed after rerunning. 
+		</p><div class="section" title="Qt Auto-expand + Threading"><div class="titlepage"><div><div><h3 class="title"><a name="id2860561"></a>Qt Auto-expand + Threading</h3></div></div></div><p> When used with threading enabled, qt
+				autoexpand has a couple bugs. The biggest bug is that
+				the program	will sometimes seg-fault and crash. 
+				The other bug is that the root node, and sometimes other
+				nodes, will not expand.	Because of these bugs and the fact
+				that threading hasn't been particularly	useful, I suggest
+				leaving threading disabled.
+			</p></div><div class="section" title="Auto-scroll"><div class="titlepage"><div><div><h3 class="title"><a name="id2860576"></a>Auto-scroll</h3></div></div></div><p> After auto-expanding, the scroll position will be reset
+				to the position prior to rerunning.
+			</p><div class="section" title="Tk auto-scroll"><div class="titlepage"><div><div><h4 class="title"><a name="id2860587"></a>Tk auto-scroll</h4></div></div></div><p> Sometimes TkResultView's scroll position won't be
+					set to the correct position. This is especially noticeable
+					when the tree is scrolled to the very end. As it turns out,
+					this bug doesn't have anything to do with the auto-scroll,
+					as it is still present even when auto-scroll is disabled.
+				</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s04.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Read from file </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Misc Details</td></tr></table></div></body></html>

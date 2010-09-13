@@ -122,10 +122,10 @@ UL, BODY DIR, BODY MENU {
 
 /* Added June 15, 2010 
 *
-* Fix for h4's overlapping dots/dashes in list
+* Fix for h3's overlapping dots/dashes in list
 * @author Matthew A. Todd
 */
-UL H4 {
+UL H4, UL H3, UL H2, UL H1 {
 	margin: .8em 0 0 0%;
 }
 

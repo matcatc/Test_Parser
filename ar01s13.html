@@ -1,0 +1,65 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Technical Details</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Test Parser"><link rel="up" href="index.html" title="Test Parser"><link rel="prev" href="ar01s12.html" title="Road map / issue tracker"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Technical Details</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s12.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr></div><div class="section" title="Technical Details"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2914580"></a>Technical Details</h2></div></div></div><p>On a high level, Test Parser simply runs the tests,
+			parses them, and displays the results. There is more to it than
+			this, mostly because I structured the code so that it is
+			modular and can easily be extended.
+			Of course this complicates the details, but the
+			overall idea is the same.
+		</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>This technical documentation is likely outdated and
+			incomplete. If it doesn't answer something you would like to
+			know or you think should be added, please let me know
+			(<code class="email">&lt;<a class="email" href="mailto:matcatprg@yahoo.com">matcatprg@yahoo.com</a>&gt;</code>)
+		</p></div><div class="section" title="Test Results"><div class="titlepage"><div><div><h3 class="title"><a name="id2907781"></a>Test Results</h3></div></div></div><p> Test Results is now structured using the Composite Pattern.
+				Parsing code hasn't changed, and I don't think the parsing
+				code will ever deal with the more abstract/generic info.
+				But the UI code is now more generalized, thus allowing it
+				to handle changes that may occur in Test Results in the future
+				without having to change. UI code just takes an abstract
+				object, and asks for its data and children. It then parses/
+				displays the data and recurses on the children.
+			</p><p> The net result is that UI code does not make any assumptions
+				about the type of object and thus more Test Result classes can
+				be added later without breaking UI code.
+			</p><p> See TestResults.dia for more information.
+			</p></div><div class="section" title="Documentation"><div class="titlepage"><div><div><h3 class="title"><a name="id2895189"></a>Documentation</h3></div></div></div><p>There are two main parts to the documentation:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>doxygen</p></li><li class="listitem"><p>docbook</p></li></ul></div><p>The doxygen output is built from the documentation
+				inlined in the code. Its more for developers than
+				end users. I setup doxygen to use
+				<a class="ulink" href="http://code.foosel.org/doxypy" target="_top">doxypy</a>
+				according to instructions I found
+				<a class="ulink" href="http://www.joshuascotton.com/main/archives/80" target="_top">
+				here</a> and
+				<a class="ulink" href="http://www.joshuascotton.com/main/archives/64" target="_top">
+				here</a>.
+			</p><p> The docbook is more for end-users, but still contains
+				information for developers. This file is built from docbook.
+			</p><p> A script was provided in order to build the documentation
+				and is aptly named: <span class="command"><strong>build_documentation.sh</strong></span>.
+				While this script can be invoked directly, it is also used
+				by setup.py. Setup.py has been customized so that when
+				sdist is invoked, it will call <span class="command"><strong>build_documentation.sh
+				</strong></span> and thus build all the documentation prior to packaging.
+				As of June 10, 2010, all of the documentation is entirely rebuilt
+				on each sdist invocation. Although I plan on designing it (probably
+				through make or similar) so that it will only rebuild necessary
+				files. At least if it gets to the point where it wastes too much
+				time.
+			</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p><span class="command"><strong>build_documentation.sh</strong></span> needs to be
+				run from the directory in which it is located.
+				</p></div><p> Also included in the doc directory are UML diagrams and other
+				miscellaneous and likely outdated documents.
+			</p></div><div class="section" title="Tests"><div class="titlepage"><div><div><h3 class="title"><a name="id2910404"></a>Tests</h3></div></div></div><p> The tests used to test Test Parser are packaged along with
+				 it. This way anyone, including users, can run them on their
+				 machine. To run all of the tests, run
+				 <span class="command"><strong>test_runner.py</strong></span>.
+			</p><p> Possible reasons for a test to fail even though the code
+				is fine:
+				</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><h4><a name="id2907937"></a>Data files</h4><p>One of the data files used in testing (e.g: 
+						Boost_Test, xml) is missing or cannot be accessed.
+						If its missing, its probably b/c we accidentally
+						forgot to package it up with everything else. The
+						latter, can happen and isn't really worth fixing.
+						For instance, Boost_Test cannot be accessed when
+						the application has been installed in a virtualenv.
+						I haven't tried yet, but its also possible/likely
+						that the same is true for a normal installation.
+					</p></li></ul></div><p>
+			</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s12.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">Road map / issue tracker </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

@@ -1,0 +1,50 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Installation</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Test Parser"><link rel="up" href="index.html" title="Test Parser"><link rel="prev" href="ar01s08.html" title="Download / Links"><link rel="next" href="ar01s10.html" title="Licensing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Installation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s08.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s10.html">Next</a></td></tr></table><hr></div><div class="section" title="Installation"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2899442"></a>Installation</h2></div></div></div><p>Test Parser is packaged via distutils.  To install,
+			run <code class="literal">setup.py install</code>.
+			I'm currently only using source distributions, but I'll try
+			to add installers/packages later (maybe.)
+		</p><p> Test Parser's installation is defaulted to install all
+			documentation to <code class="literal">/usr/share/doc/Test_Parser</code>.
+			Because of the directory location, you'll need to run the install
+			as root. Or you can change the directory to somewhere else.
+			To change the directory, either
+			edit <code class="literal">setup.cfg</code> or pass in
+			<code class="literal">--install-data = <em class="replaceable"><code>&lt;new_directory&gt;</code></em></code>.
+			Windows users will have to change the directory because the
+			default is designed for *nix systems.
+		</p><div class="section" title="Requirements"><div class="titlepage"><div><div><h3 class="title"><a name="id2899456"></a>Requirements</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>python 3.x</p></li><li class="listitem"><p>PyQt4 (Qt Views)</p></li><li class="listitem"><p>Tkinter (TK Views)</p></li><li class="listitem"><p>PLY 3.3 (JUnit)</p></li></ul></div><p> If you do not wish to use the features that depend upon a
+				library, you do not need to install it.
+			</p><div class="section" title="PyQt4 installation"><div class="titlepage"><div><div><h4 class="title"><a name="id2899749"></a>PyQt4 installation</h4></div></div></div><p>Because there wasn't a PyQt package available for
+					python3 when I was developing I had to compile and install
+					PyQt4 manually. If when you're trying to install Test Parser
+					check to see if there is a package available. It'll be
+					something like: python3-Qt4.
+				</p><p>I followed the instructions found
+					<a class="ulink" href="http://osdir.com/ml/leo-editor/2009-12/msg00033.html" target="_top">
+					here</a>. To quote:
+				</p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p>
+						Download sip and pyqt from ... the links on the website:
+						<a class="ulink" href="http://www.riverbankcomputing.co.uk/news" target="_top">
+						http://www.riverbankcomputing.co.uk/news</a>
+					</p><p>
+						Extract the .tar.gz files to, say, your home folder,
+						yielding the following folders:
+					</p><table border="0" summary="Simple list" class="simplelist"><tr><td>PyQt-x11-gpl-4.6.2</td></tr><tr><td>sip-4.9.3</td></tr></table><p>
+						Follow the install directions. That is, in each folder,
+						run:
+					</p><pre class="screen">
+python3.1 configure.py
+make
+sudo make install
+					</pre></td><td width="10%" valign="top"> </td></tr><tr><td width="10%" valign="top"> </td><td colspan="2" align="right" valign="top">--<span class="attribution">Edward</span></td></tr></table></div></div><div class="section" title="Tkinter installation"><div class="titlepage"><div><div><h4 class="title"><a name="id2901535"></a>Tkinter installation</h4></div></div></div><p>Tkinter is usually packaged with the python distribution.
+					*nix users will probably want to get it from their favorite
+					repository. Windows users will probably install Tkinter
+					during their python installation, but I don't know for sure.
+				</p></div><div class="section" title="PLY installation"><div class="titlepage"><div><div><h4 class="title"><a name="id2892932"></a>PLY installation</h4></div></div></div><p><a class="ulink" href="http://www.dabeaz.com/ply/" target="_top">PLY</a>
+					(Python Lex Yacc)
+					is a python package that can be installed in the
+					typical ways. Just download and run
+					<code class="literal">setup.py install</code>.
+					Make sure to install it with the correct python version,
+					the correct version being the one used by TestParser
+					(see above.)
+				</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s08.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s10.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Download / Links </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Licensing</td></tr></table></div></body></html>

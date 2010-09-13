@@ -1,0 +1,18 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Read from file</title><link rel="stylesheet" href="docbook.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Test Parser"><link rel="up" href="index.html" title="Test Parser"><link rel="prev" href="ar01s03.html" title="Supported Test Frameworks"><link rel="next" href="ar01s05.html" title="Auto Expansion"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Read from file</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s03.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s05.html">Next</a></td></tr></table><hr></div><div class="section" title="Read from file"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2860497"></a>Read from file</h2></div></div></div><p>Normally when selecting a test framework, everything is
+			automatically setup so that you can envoke Test Parser
+			with the appriate test runner. If you want to read data
+			in from a file instead, use the <code class="option">-f</code>
+			option and pass in the name of you file where the runner
+			would normally go. This also allows you to read in from
+			stdin by passing <code class="literal">-</code> as your file.
+		</p><p>The ability to run the test runner by hand is provided
+			as a feature so that you can make other runners work
+			with Test Parser when the runner isn't supported but
+			the test framework data is still understood.
+			When piping input to stdin instead of running the
+			unittest runner through Test Parser, it is the user's
+			resposibility to ensure that the data is passed in the correct
+			format.
+		</p><div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Warning</h3><p>When piping in input to stdin, rerunning
+			won't work.
+			</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s03.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Supported Test Frameworks </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Auto Expansion</td></tr></table></div></body></html>
