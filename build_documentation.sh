@@ -25,11 +25,5 @@ doxygen doxygen.Doxyfile
 
 echo "building docbook documentation"
 cd docbook
+rm *.html
 xmlto html -m config.xsl manual.dbk
-mv index.html manual.html
-
-xmlto html -m config.xsl technical.dbk
-mv index.html technical.html
-
-xmlto html -m config.xsl screenshots.dbk
-mv index.html screenshots.html

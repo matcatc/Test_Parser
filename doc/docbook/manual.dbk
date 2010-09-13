@@ -1,253 +1,361 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet href="docbook.css" type="text/css"?>
 
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.docbook.org/xml/4.5/docbookx.dtd">
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+	"http://www.docbook.org/xml/4.5/docbookx.dtd">
 
+<article>
+	<title>Test Parser</title>
 
-<refentry>
-	<refentryinfo>
-		<author>
-		<firstname>Matthew</firstname>
-		<lineage>Todd</lineage>
-		</author>
-		<date>May 2010</date>
-	</refentryinfo>
+	<articleinfo>
+	  <author><firstname>Matthew</firstname><surname>Todd</surname></author>
+	  <authorinitials>Mat</authorinitials>
+	  <title>TestParser Manual</title>
+	</articleinfo>
 
-	<refmeta><refentrytitle>Test Parser</refentrytitle></refmeta>
-	
-	<refnamediv>
-		<refname>Test Parser</refname>
-		<refpurpose>Visualizes a test framework's results.</refpurpose>
-	</refnamediv>
-
-	<refsect1>
-		<title>Description</title>
-		<para> I built Test Parser to help me visualize test results. I
-			designed it to be extensible so that I or someone else could
-			later add new test frameworks and/or user interfaces. This way,
+	<section>
+		<title>Introduction</title>
+		<para> Test Parser is used to help visualize the test results
+			from various test frameworks.
+		</para>
+		<para>
+		    It is designed it to be extensible so that new test frameworks
+		    and/or user interfaces can be easily added at any point in time.
+		    This way,
 			whenever you end up working with a new framework that does not
 			provide a nice-clean interface, you only have to write a parser
 			to utilize what has been already written previously.
 			Test Parser is intended for a primarily developer audience,
 			but I can see it being used in other situations.
 		</para>
-		<note><para> When running, Test Parser will output the runner's stderr output
-			to the console (stderr), so you can see what your runner is
-			printing out. Test Parser will also output some stuff to stderr,
-			but I currently have most of it logging to TestParser.log. 
-		</para></note>
-		<refsect2>
+		<section>
 			<title>History</title>
 			<para>I built Test Parser to help me visualize/read the test
-				results from Boost's Test framework. Before I realized that it
-				could easily be extended to other frameworks, I called it Boost
-				Test Parser. But since there is no affiliation with Boost, I've
-				since changed the name.</para>
-		</refsect2>
-		<refsect2>
-			<title>Options</title>
-			<variablelist>
-				<varlistentry>
-					<term><option>--help</option></term>
-					<listitem><para>Display help information.</para></listitem>
-				</varlistentry>
-				<varlistentry>
-					<term><option>--ui <replaceable>&lt;ui framework&gt;</replaceable></option></term>
-					<listitem>
-						<para>Use specified ui.</para>
-						<itemizedlist>
-							<listitem><para>qt</para></listitem>
-							<listitem><para>tkinter</para></listitem>
-							<listitem><para>text (default)</para></listitem>
-						</itemizedlist>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term><option>--view <replaceable>&lt;view&gt;</replaceable></option></term>
-					<listitem>
-						<para> Use the specified views. Multiple vies can be
-							specified in the following manner:
-							<screen>--view=V1 --view=V1 --view=V2</screen>
-							Views earlier in the command have a higher priority.
-							This means they are created earlier, thus will be
-							updated earlier as well.
-						</para>
-						<itemizedlist>
-							<listitem><para>result (default)</para></listitem>
-							<listitem><para>statistic</para></listitem>
-						</itemizedlist>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term><option>--framework <replaceable>&lt;test framework&gt;</replaceable></option></term>
-					<listitem>
-						<para> Use specified framework. See below for allowed
-							 frameworks.
-						</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term><option>--autoexpand <parameter class="option">on/off</parameter></option></term>
-					<listitem><para>Enable/disable auto-expansion</para></listitem>
-				</varlistentry>
-				<varlistentry>
-					<term><option>--threading</option></term>
-					<listitem>
-						<para>Enable threading. Note that threading is
-							superfluous in most situations. It also 
-							leads to some bugs.
-						</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term><option>-f</option></term>
-					<listitem>
-						<para> Read data in from a file instead of running a
-							program.
-						</para>
-					</listitem>
-				</varlistentry>
-			</variablelist>
-		</refsect2>
-		<refsect2>
-			<title>Supported Test Frameworks</title>
-			<itemizedlist>
-				<listitem><para> Boost Test</para>
-					<simplelist>
-						<member>v0.1.0 - boost 1.40</member>
-					</simplelist>
+				results from Boost's Test framework, hence its original name:
+				Boost Test Parser. But it is no longer limited to just the Boost
+				Test Framework and has never been affiliated with Boost, which
+				is why I changed the name to Test Parser. And yet again I'm
+				considering changing the name.</para>
+		</section>
+	</section>
+	
+
+	<section>
+		<title>Options</title>
+		<variablelist>
+			<varlistentry>
+				<term><option>--help</option></term>
+				<listitem><para>Display help information.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>--ui <replaceable>&lt;ui framework&gt;</replaceable></option></term>
+				<listitem>
+					<para>Use specified ui.</para>
+					<itemizedlist>
+						<listitem><para>qt</para></listitem>
+						<listitem><para>tkinter</para></listitem>
+						<listitem><para>text (default)</para></listitem>
+					</itemizedlist>
 				</listitem>
-				<listitem><para>Python Unittest</para>
-					<simplelist>
-						<member>v0.1.1 - python 3.1.2</member>
-					</simplelist>
+			</varlistentry>
+			<varlistentry>
+				<term><option>--view <replaceable>&lt;view&gt;</replaceable></option></term>
+				<listitem>
+					<para> Use the specified views. Multiple vies can be
+						specified in the following manner:
+						<screen>--view=V1 --view=V1 --view=V2</screen>
+						Views earlier in the command have a higher priority.
+						This means they are created earlier, thus will be
+						updated earlier as well.
+					</para>
+					<itemizedlist>
+						<listitem><para>result (default)</para></listitem>
+						<listitem><para>statistic</para></listitem>
+					</itemizedlist>
 				</listitem>
-				<listitem><para>JUnit</para>
-					<simplelist>
-						<member>v0.1.2 - JUnit 3.8.2</member>
-						<member>v0.1.2 - JUnit 4.8.1</member>
-					</simplelist>
+			</varlistentry>
+			<varlistentry>
+				<term><option>--framework <replaceable>&lt;test framework&gt;</replaceable></option></term>
+				<listitem>
+					<para> Use specified framework. See below for allowed
+						 frameworks.
+					</para>
 				</listitem>
-			</itemizedlist>
-			<note>
-				<title>Version Info</title>
-				<para> Note that the Test Parser versions are when particular
-					framework versions were introduced. So it is expected that
-					those framework versions will work in later versions.
-				 </para>
-			</note>
-			<para> I have no plans to support other test formats, unless asked 
-				or I find the need. So if you desire a particular format,
-				either notify me with the relevant information or feel free to
-				implement yourself (fork the github repository.) If you plan
-				on implementing yourself, you might want to check github issues
-				to see if I have any plans on implementing that framework
-				already or if I plan on making any changes that will complicate
-				matters / break your code.
+			</varlistentry>
+			<varlistentry>
+				<term><option>--autoexpand <parameter class="option">on/off</parameter></option></term>
+				<listitem><para>Enable/disable auto-expansion</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>--threading</option></term>
+				<listitem>
+					<para>Enable threading. Note that threading is
+						superfluous in most situations. It also 
+						leads to some bugs.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>-f</option></term>
+				<listitem>
+					<para> Read data in from a file instead of running a
+						program.
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+		
+
+	<section>
+		<title>Supported Test Frameworks</title>
+		<itemizedlist>
+			<listitem><para> Boost Test</para>
+				<simplelist>
+					<member>v0.1.0 - boost 1.40</member>
+				</simplelist>
+			</listitem>
+			<listitem><para>Python Unittest</para>
+				<simplelist>
+					<member>v0.1.1 - python 3.1.2</member>
+				</simplelist>
+			</listitem>
+			<listitem><para>JUnit</para>
+				<simplelist>
+					<member>v0.1.2 - JUnit 3.8.2</member>
+					<member>v0.1.2 - JUnit 4.8.1</member>
+				</simplelist>
+			</listitem>
+		</itemizedlist>
+		<note>
+			<title>Version Info</title>
+			<para> Note that the Test Parser versions are when particular
+				framework versions were introduced. So it is expected that
+				those framework versions will work in later versions.
+			 </para>
+		</note>
+		<para> I have no plans to support other test formats, unless asked 
+			or I find the need. So if you desire a particular format,
+			either notify me with the relevant information or feel free to
+			implement yourself (fork the github repository.) If you plan
+			on implementing yourself, you might want to check github issues
+			to see if I have any plans on implementing that framework
+			already or if I plan on making any changes that will complicate
+			matters / break your code.
+		</para>
+		<section>
+			<title>Python Unittest</title>
+			<para> Because of how Python Unittest is designed, we require
+    			that the test runner be setup a certain way. For parsing to work,
+    			we need the verbosity level to be set to 2. For running to work,
+    			we need the information all output to stdout. I.e: use the
+    			following command in your test runner.
+    
+    			<screen>unittest.TextTestRunner(verbosity=2, stream=sys.stdout).run(suite)</screen>
 			</para>
-			<refsect3>
-				<title>Python Unittest</title>
-				<para> Because of how Python Unittest is designed, we require
-	    			that the test runner be setup a certain way. For parsing to work,
-	    			we need the verbosity level to be set to 2. For running to work,
-	    			we need the information all output to stdout. I.e: use the
-	    			following command in your test runner.
-	    
-	    			<screen>unittest.TextTestRunner(verbosity=2, stream=sys.stdout).run(suite)</screen>
-				</para>
-			</refsect3>
-			<refsect3>
-				<title>JUnit</title>
-				<para> The JUnit framework is currently just JUnit output, not
-					JUnit through Ant. Because this output doesn't contain
-					more information about the passing tests, you will see
-					'free-floating' test cases in the output will little
-					information. Also, the user needs to setup CLASSPATH
-					and pass in the full java command (in quotes):
-					<screen>java junit.textui.TestRunner className</screen>
-					for JUnit3 and
-					<screen>java org.junit.runner.JUnitCore className</screen>
-					for JUnit4. Its possible to run a JUnit3 program with
-					JUnit4's command, or at least I've seen it work. TestParser
-					doesn't care which you use, as long as it works. If it
-					doesn't work you will likely see JUnit's error message
-					appear in stderr.
-				</para>
-			</refsect3>
-		</refsect2>
-		<refsect2>
-			<title>Read from file</title>
-			<para>Normally when selecting a test framework, everything is
-				automatically setup so that you can envoke Test Parser
-				with the appriate test runner. If you want to read data
-				in from a file instead, use the <option>-f</option>
-				option and pass in the name of you file where the runner
-				would normally go. This also allows you to read in from
-				stdin by passing <literal>-</literal> as your file.
+		</section>
+		<section>
+			<title>JUnit</title>
+			<para> The JUnit framework is currently just JUnit output, not
+				JUnit through Ant. Because this output doesn't contain
+				more information about the passing tests, you will see
+				'free-floating' test cases in the output will little
+				information. Also, the user needs to setup CLASSPATH
+				and pass in the full java command (in quotes):
+				<screen>java junit.textui.TestRunner className</screen>
+				for JUnit3 and
+				<screen>java org.junit.runner.JUnitCore className</screen>
+				for JUnit4. Its possible to run a JUnit3 program with
+				JUnit4's command, or at least I've seen it work. TestParser
+				doesn't care which you use, as long as it works. If it
+				doesn't work you will likely see JUnit's error message
+				appear in stderr.
 			</para>
-			<para>The ability to run the test runner by hand is provided
-				as a feature so that you can make other runners work
-				with Test Parser when the runner isn't supported but
-				the test framework data is still understood.
-				When piping input to stdin instead of running the
-				unittest runner through Test Parser, it is the user's
-				resposibility to ensure that the data is passed in the correct
-				format.
+		</section>
+	</section>
+	
+	
+	<section>
+		<title>Read from file</title>
+		<para>Normally when selecting a test framework, everything is
+			automatically setup so that you can envoke Test Parser
+			with the appriate test runner. If you want to read data
+			in from a file instead, use the <option>-f</option>
+			option and pass in the name of you file where the runner
+			would normally go. This also allows you to read in from
+			stdin by passing <literal>-</literal> as your file.
+		</para>
+		<para>The ability to run the test runner by hand is provided
+			as a feature so that you can make other runners work
+			with Test Parser when the runner isn't supported but
+			the test framework data is still understood.
+			When piping input to stdin instead of running the
+			unittest runner through Test Parser, it is the user's
+			resposibility to ensure that the data is passed in the correct
+			format.
+		</para>
+		<warning><para>When piping in input to stdin, rerunning
+			won't work.
+			</para> 
+		</warning>
+	</section>
+	
+	
+	<section>
+		<title>Auto Expansion</title>
+		<para> Without auto expand, when you rerun the tests
+			the display tree will collapse. You will then have
+			to manually go through and expand each node to
+			reach your desired node. And if you rerun multiple
+			times, you'll have to go through this process
+			multiple times.
+		</para>
+		<para> Auto expand seeks to remedy this	problem. There
+			are two ways to use auto expand. First is to select
+			the nodes you want to be expanded/displayed after
+			rerunning all the tests. Second is to simply select
+			no tests and all the nodes that are currently displayed
+			will be redisplayed after rerunning. 
+		</para>
+		<section>
+			<title>Qt Auto-expand + Threading</title>
+			<para> When used with threading enabled, qt
+				autoexpand has a couple bugs. The biggest bug is that
+				the program	will sometimes seg-fault and crash. 
+				The other bug is that the root node, and sometimes other
+				nodes, will not expand.	Because of these bugs and the fact
+				that threading hasn't been particularly	useful, I suggest
+				leaving threading disabled.
 			</para>
-			<warning><para>When piping in input to stdin, rerunning
-				won't work.
-				</para> 
-			</warning>
-		</refsect2>
-		<refsect2>
-			<title>Auto Expansion</title>
-			<para> Without auto expand, when you rerun the tests
-				the display tree will collapse. You will then have
-				to manually go through and expand each node to
-				reach your desired node. And if you rerun multiple
-				times, you'll have to go through this process
-				multiple times.
-			</para>
-			<para> Auto expand seeks to remedy this	problem. There
-				are two ways to use auto expand. First is to select
-				the nodes you want to be expanded/displayed after
-				rerunning all the tests. Second is to simply select
-				no tests and all the nodes that are currently displayed
-				will be redisplayed after rerunning. 
-			</para>
-			<warning> <title>Qt Auto-expand + Threading</title>
-				<para> When used with threading enabled, qt
-					autoexpand has a couple bugs. The biggest bug is that
-					the program	will sometimes seg-fault and crash. 
-					The other bug is that the root node, and sometimes other
-					nodes, will not expand.	Because of these bugs and the fact
-					that threading hasn't been particularly	useful, I suggest
-					leaving threading disabled.
-				</para>
-			</warning>
+		</section>
+		<section>
+			<title>Auto-scroll</title>
 			<para> After auto-expanding, the scroll position will be reset
 				to the position prior to rerunning.
 			</para>
-			<warning> <title>Tk auto-scroll</title>
+			<section>
+				<title>Tk auto-scroll</title>
 				<para> Sometimes TkResultView's scroll position won't be
 					set to the correct position. This is especially noticeable
 					when the tree is scrolled to the very end. As it turns out,
 					this bug doesn't have anything to do with the auto-scroll,
 					as it is still present even when auto-scroll is disabled.
 				</para>
-			</warning>
-		</refsect2>
-	</refsect1>
+			</section>
+		</section>
+	</section>
+		
+	<section>
+		<title>Misc Details</title>
+		
+		<section>
+			<title>stderr</title>
+			<para> When running, Test Parser will output the runner's stderr output
+				to the console (stderr), so you can see what your runner is
+				printing out. Test Parser will also output some stuff to stderr,
+				but I currently have most of it logging to TestParser.log. 
+			</para>
+		</section>
+	</section>
 	
-	<refsect1>
+	
+	<section>
 		<title>Screenshots / Examples</title>
-		<para>Go <ulink url="./screenshots.html">here</ulink>
-			for screenshots and examples.
-		</para>
-	</refsect1>
+		<example>
+			<title>Boost Qt</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/Boost_Qt.png" format="PNG" width="80%"/>
+				</imageobject>
+			</mediaobject>
+			<screen>./TestParser_main.py --ui=qt Boost TestParser_tests/Model/sample/Boost_Test</screen>
+		</example>
+		<example>
+			<title>Python Qt</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/Python_Qt.png" format="PNG" width="80%"/>
+				</imageobject>
+			</mediaobject>
+			<screen>./TestParser_main.py --ui=qt PyUnittest 'python3 ./TestParser_unittests.py'</screen>
+			<para>In the above invocation, we call the python interpreter and pass in
+				our script. But if the script has a
+				<literal>#!/usr/bin/python3</literal> declaration, we can just
+				do the following:
+			</para>
+			<screen>./TestParser_main.py --ui=qt PyUnittest ./TestParser_unittests.py</screen>
+		</example>
+		<example>
+			<title>JUnit Qt</title>
+			<screenshot><mediaobject>
+				<imageobject>
+					<imagedata fileref="images/JUnit_Qt.png" format="PNG"/>
+				</imageobject>
+			</mediaobject></screenshot>
+			<para>The following classpaths are set according to where junit is
+				installed from the Ubuntu repositories.
+			</para>
+			<screen>CLASSPATH=/usr/share/java/junit4.jar:~/workspace/Test_parser/src/TestParser_tests/Model/sample/
+./TestParser_main.py --ui=qt JUnit 'java org.junit.runner.JUnitCore JUnit4_test'
+			</screen>
+			<screen>CLASSPATH=/usr/share/java/junit.jar:~/workspace/Test_parser/src/TestParser_tests/Model/sample
+./TestParser_main.py --ui=qt JUnit 'java junit.textui.TestRunner JUnit3_test'
+			</screen>
+		</example>
+		<example>
+			<title>Qt Statistic View</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/Qt_Statistic.png" format="PNG"/>
+				</imageobject>
+			</mediaobject>
+			<screen>./TestParser_main.py --ui=qt --view=statistic Boost TestParser_tests/Model/sample/Boost_Test</screen>
+		</example>
+		<example>
+			<title>Text Result View</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/Text_Result.png" format="PNG" width="80%"/>
+				</imageobject>
+			</mediaobject>
+			<screen>./TestParser_main.py --ui=text --view=result Boost TestParser_tests/Model/sample/Boost_Test</screen>
+		</example>
+		<example>
+			<title>Text Statistic View</title>
+			<screen>./TestParser_main.py --ui=text --view=statistic Boost TestParser_tests/Model/sample/Boost_Test
+			
+2 pass, 0 fail, 2 error
+			</screen>
+		</example>
+		<example>
+			<title>Tkinter Result View</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/Tkinter_Result.png" format="PNG" width="80%"/>
+				</imageobject>
+			</mediaobject>
+			<screen>./TestParser_main.py --ui=tkinter --view=result Boost TestParser_tests/Model/sample/Boost_Test</screen>
+		</example>
+		<example>
+			<title>Tkinter Statistic View</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/Tkinter_Statistic.png" format="PNG"/>
+				</imageobject>
+			</mediaobject>
+			<screen>./TestParser_main.py --ui=tkinter --view=statistic Boost TestParser_tests/Model/sample/Boost_Test</screen>
+		</example>
+		<example>
+			<title>Read from file</title>
+			<screen>./TestParser_main.py -f Boost TestParser_tests/Parser/sample/boost.xml</screen>
+		</example>
+		<example>
+			<title>Read from stdin</title>
+			<screen>./TestParser_unittests.py | ./TestParser_main.py --ui=qt -f PyUnittest -</screen>
+		</example>
+	</section>
 	
-	<refsect1 id="download_links">
+	<section id="download_links">
 		<title>Download / Links</title>
 		<itemizedlist>
 			<listitem><para>Available downloads are located
@@ -260,15 +368,10 @@
 				<screen>git clone git://github.com/matcatc/Test_Parser.git</screen>
 				</para>
 			</listitem>
-			<listitem><para> Technical documentation is available 
-				<ulink url="./technical.html">here</ulink>. Warning: technical
-				documentation has a habit of being incomplete.
-				</para>
-			</listitem>
 		</itemizedlist>
-	</refsect1>
+	</section>
 	
-	<refsect1>
+	<section>
 		<title>Installation</title>
 		<para>Test Parser is packaged via distutils.  To install,
 			run <literal>setup.py install</literal>.
@@ -285,7 +388,7 @@
 			Windows users will have to change the directory because the
 			default is designed for *nix systems.
 		</para>
-		<refsect2>
+		<section>
 			<title>Requirements</title>
 			<itemizedlist>
 				<listitem><para>python 3.x</para></listitem>
@@ -296,7 +399,7 @@
 			<para> If you do not wish to use the features that depend upon a
 				library, you do not need to install it.
 			</para>
-			<refsect3>
+			<section>
 				<title>PyQt4 installation</title>
 				<para>Because there wasn't a PyQt package available for
 					python3 when I was developing I had to compile and install
@@ -333,16 +436,16 @@ make
 sudo make install
 					</screen>
 				</blockquote>
-			</refsect3>
-			<refsect3>
+			</section>
+			<section>
 				<title>Tkinter installation</title>
 				<para>Tkinter is usually packaged with the python distribution.
 					*nix users will probably want to get it from their favorite
 					repository. Windows users will probably install Tkinter
 					during their python installation, but I don't know for sure.
 				</para>
-			</refsect3>
-			<refsect3>
+			</section>
+			<section>
 				<title>PLY installation</title>
 				<para><ulink url="http://www.dabeaz.com/ply/">PLY</ulink>
 					(Python Lex Yacc)
@@ -353,19 +456,19 @@ sudo make install
 					the correct version being the one used by TestParser
 					(see above.)
 				</para>
-			</refsect3>
-		</refsect2>
-	</refsect1>
+			</section>
+		</section>
+	</section>
 	
-	<refsect1>
+	<section>
 		<title>Licensing</title>
 		<para> Test Parser is licensed under
 			<ulink url="http://www.gnu.org/licenses/gpl.html">
 			GNU GPL v.3.0</ulink>.
 		</para>
-	</refsect1>
+	</section>
 	
-	<refsect1>
+	<section>
 		<title>Change Log</title>
 		<itemizedlist>
 			<listitem>
@@ -446,14 +549,115 @@ sudo make install
 				</itemizedlist>
 			</listitem>
 		</itemizedlist>
-	</refsect1>
+	</section>
 	
-	<refsect1>
+	<section>
 		<title>Road map / issue tracker</title>
 		<para> 
 			Please see <ulink url="http://github.com/matcatc/Test_Parser/issues">here</ulink>
 			for current issues. Feel free to submit your own via github or
 			email (<email>matcatprg@yahoo.com</email>).
 		</para>
-	</refsect1>
-</refentry>
+	</section>
+	
+	<section>
+		<title>Technical Details</title>
+		<para>On a high level, Test Parser simply runs the tests,
+			parses them, and displays the results. There is more to it than
+			this, mostly because I structured the code so that it is
+			modular and can easily be extended.
+			Of course this complicates the details, but the
+			overall idea is the same.
+		</para>
+		<note><para>This technical documentation is likely outdated and
+			incomplete. If it doesn't answer something you would like to
+			know or you think should be added, please let me know
+			(<email>matcatprg@yahoo.com</email>)
+		</para></note>
+		
+		<section>
+			<title>Test Results</title>
+			<para> Test Results is now structured using the Composite Pattern.
+				Parsing code hasn't changed, and I don't think the parsing
+				code will ever deal with the more abstract/generic info.
+				But the UI code is now more generalized, thus allowing it
+				to handle changes that may occur in Test Results in the future
+				without having to change. UI code just takes an abstract
+				object, and asks for its data and children. It then parses/
+				displays the data and recurses on the children.
+			</para>
+			<para> The net result is that UI code does not make any assumptions
+				about the type of object and thus more Test Result classes can
+				be added later without breaking UI code.
+			</para>
+			<para> See TestResults.dia for more information.
+			</para>
+		</section>
+	
+		<section>
+			<title>Documentation</title>
+			<para>There are two main parts to the documentation:</para>
+			<itemizedlist>
+				<listitem><para>doxygen</para></listitem>
+				<listitem><para>docbook</para></listitem>
+			</itemizedlist>
+			<para>The doxygen output is built from the documentation
+				inlined in the code. Its more for developers than
+				end users. I setup doxygen to use
+				<ulink url="http://code.foosel.org/doxypy">doxypy</ulink>
+				according to instructions I found
+				<ulink url="http://www.joshuascotton.com/main/archives/80">
+				here</ulink> and
+				<ulink url="http://www.joshuascotton.com/main/archives/64">
+				here</ulink>.
+			</para>
+			<para> The docbook is more for end-users, but still contains
+				information for developers. This file is built from docbook.
+			</para>
+			<para> A script was provided in order to build the documentation
+				and is aptly named: <command>build_documentation.sh</command>.
+				While this script can be invoked directly, it is also used
+				by setup.py. Setup.py has been customized so that when
+				sdist is invoked, it will call <command>build_documentation.sh
+				</command> and thus build all the documentation prior to packaging.
+				As of June 10, 2010, all of the documentation is entirely rebuilt
+				on each sdist invocation. Although I plan on designing it (probably
+				through make or similar) so that it will only rebuild necessary
+				files. At least if it gets to the point where it wastes too much
+				time.
+			</para>
+			<note><para><command>build_documentation.sh</command> needs to be
+				run from the directory in which it is located.
+				</para>
+			</note>
+			<para> Also included in the doc directory are UML diagrams and other
+				miscellaneous and likely outdated documents.
+			</para>
+		</section>
+		
+		<section>
+			<title>Tests</title>
+			<para> The tests used to test Test Parser are packaged along with
+				 it. This way anyone, including users, can run them on their
+				 machine. To run all of the tests, run
+				 <command>test_runner.py</command>.
+			</para>
+			<para> Possible reasons for a test to fail even though the code
+				is fine:
+				<itemizedlist>
+					<listitem><bridgehead>Data files</bridgehead>
+						<para>One of the data files used in testing (e.g: 
+						Boost_Test, xml) is missing or cannot be accessed.
+						If its missing, its probably b/c we accidentally
+						forgot to package it up with everything else. The
+						latter, can happen and isn't really worth fixing.
+						For instance, Boost_Test cannot be accessed when
+						the application has been installed in a virtualenv.
+						I haven't tried yet, but its also possible/likely
+						that the same is true for a normal installation.
+					</para></listitem>
+				</itemizedlist>
+			</para>
+		</section>
+	</section>
+</article>
