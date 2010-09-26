@@ -23,7 +23,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from TestParser.Common import Observer, ComputeStatistics
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 
 class TKStatisticView(Observer.Observer):
     '''
@@ -113,7 +113,7 @@ class TKStatisticView(Observer.Observer):
         '''
         For observer.
         '''
-        Constants.logger.debug("updating Statistic view")
+        CONSTANTS.logger.debug("updating Statistic view")
         self._display(self.controller.getResults())
         
     def _display(self, results):

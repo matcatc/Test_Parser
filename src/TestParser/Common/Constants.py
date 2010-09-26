@@ -42,6 +42,7 @@ class Constants_class(object):
     '''
     
     LOG_FILENAME = './TestParser.log'
+    DEFAULT_ERR_STREAM = sys.stderr
 
     
     def __init__(self):
@@ -61,19 +62,10 @@ class Constants_class(object):
         
         self.threading = False
         
-        self.reset()
-    
-    def reset(self):
-        '''
-        reset all the values to their default values.
-        
-        These values are changed during some tests.
-        '''
-        self.errStream = sys.stderr
-        
+        self.errStream = self.DEFAULT_ERR_STREAM
 
+    def resetErrStream(self):
+        self.errStream = self.DEFAULT_ERR_STREAM
         
-
         
-        
-Constants = Constants_class()
+CONSTANTS = Constants_class()

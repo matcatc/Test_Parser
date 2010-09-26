@@ -19,7 +19,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 from . import TestComponent
 
-from ..Common.Constants import Constants
+from ..Common.Constants import CONSTANTS
 
 class TestCase(TestComponent.TestComponent):
     '''
@@ -73,7 +73,7 @@ class TestCase(TestComponent.TestComponent):
     @timeTaken.setter
     def timeTaken(self, time): #@DuplicatedSignature
         if time < 0:
-            Constants.logger.error(TestCase.NEGATIVE_TIME)
+            CONSTANTS.logger.error(TestCase.NEGATIVE_TIME)
             raise ValueError("time is negative")
         self._timeTaken = time        
     @timeTaken.deleter

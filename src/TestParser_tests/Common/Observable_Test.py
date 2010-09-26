@@ -55,8 +55,8 @@ class Observable_Test(unittest.TestCase):
         
 
     def testNotify_unthreaded(self):
-        from TestParser.Common.Constants import Constants
-        Constants.threading = False
+        from TestParser.Common.Constants import CONSTANTS
+        CONSTANTS.threading = False
         
         self.subject.registerObserver(Observable_Test.subscriber)
         self.subject.registerObserver(Observable_Test.subscriber2)
@@ -76,8 +76,8 @@ class Observable_Test(unittest.TestCase):
         Note that its fine during program execution, but needs to be
         done here. 
         '''
-        from TestParser.Common.Constants import Constants
-        Constants.threading = True
+        from TestParser.Common.Constants import CONSTANTS
+        CONSTANTS.threading = True
         self.subject._updateJobPool.createPool(2)
         
         self.subject.registerObserver(Observable_Test.subscriber)

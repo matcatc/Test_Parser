@@ -62,7 +62,8 @@ def main():
                       action="store", choices=ui_choices, metavar=ui_metavar,
                       default="text", help=ui_help)
     parser.add_option("--view", dest="views",
-                      action="append", choices=view_choices, metavar=view_metavar,
+                      action="append", choices=view_choices,
+                      metavar=view_metavar,
                       default=[], help=view_help)
     parser.add_option("--autoexpand", dest="auto_expand",
                       action="store", choices=("on", "off"),
@@ -72,7 +73,8 @@ def main():
                       action="store_true",
                       default=False, help="enable multi-threading")
     parser.add_option("-f", dest="fileRunner",
-                      action="store_true", default=False, help="use file instead of runner")
+                      action="store_true", default=False,
+                      help="use file instead of runner")
     
     (options, args) = parser.parse_args()   
 
@@ -86,9 +88,9 @@ def main():
     
     try:
         model = Model.setupModel(framework, runner, options.fileRunner)
-    except UndefinedTestFrameworkError as  e:
+    except UndefinedTestFrameworkError as error:
         import sys
-        print("Unknown test framework: %s" % e.framework)
+        print("Unknown test framework: %s" % error.framework)
         sys.exit()
     
     ## create views

@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from .UpdateJobPool import UpdateJobPool
-from .Constants import Constants
+from .Constants import CONSTANTS
 
 class Observable(object):
     '''
@@ -44,7 +44,7 @@ class Observable(object):
         '''
         self._observers = set([])
         
-        if Constants.threading:
+        if CONSTANTS.threading:
             Observable._updateJobPool.createPool(Observable._NUMBER_THREADS)
         
     def registerObserver(self, observer):
@@ -54,7 +54,7 @@ class Observable(object):
         self._observers.discard(observer)
     
     def notifyObservers(self):
-        if Constants.threading:
+        if CONSTANTS.threading:
             self._notifyObservers_threaded()
         else:
             self._notifyObservers_unthreaded()

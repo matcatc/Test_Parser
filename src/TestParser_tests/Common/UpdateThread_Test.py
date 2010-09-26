@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 
 from TestParser.Common.UpdateJobPool import UpdateJobPool
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 
 import io
 
@@ -40,11 +40,11 @@ class UpdateThread_Test(unittest.TestCase):
         self.jobPool = UpdateJobPool()
         self.jobPool.createPool(1)
         
-        Constants.errStream = io.StringIO()        
+        CONSTANTS.errStream = io.StringIO()        
 
 
     def tearDown(self):
-        Constants.reset()
+        CONSTANTS.resetErrStream()
         del self.jobPool
     
     

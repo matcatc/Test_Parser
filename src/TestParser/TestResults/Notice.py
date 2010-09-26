@@ -21,7 +21,7 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 from . import TestComponent
 
 class Notice(TestComponent.TestComponent):
@@ -89,7 +89,7 @@ class Notice(TestComponent.TestComponent):
         What if the file info really isn't available for some reason?
         '''
         if file == "":
-            Constants.logger.warning(Notice.EMPTY_FILE)
+            CONSTANTS.logger.warning(Notice.EMPTY_FILE)
         self._file = file
     @file.deleter
     def file(self): #@DuplicatedSignature
@@ -107,7 +107,7 @@ class Notice(TestComponent.TestComponent):
             self._line = None
             return
         if line < 0:
-            Constants.logger.error(Notice.NEGATIVE_LINE)
+            CONSTANTS.logger.error(Notice.NEGATIVE_LINE)
             raise ValueError("line number is negative")
         self._line = line
     @line.deleter
@@ -123,7 +123,7 @@ class Notice(TestComponent.TestComponent):
         Will print warning to log if empty string
         '''
         if info == "":
-            Constants.logger.warning(Notice.EMPTY_INFO)
+            CONSTANTS.logger.warning(Notice.EMPTY_INFO)
         self._info = info
     @info.deleter
     def info(self): #@DuplicatedSignature
@@ -138,7 +138,7 @@ class Notice(TestComponent.TestComponent):
         Will print warning to log if empty string
         '''
         if type == "":
-            Constants.logger.warning(Notice.EMPTY_TYPE)
+            CONSTANTS.logger.warning(Notice.EMPTY_TYPE)
         self._type = type
     @type.deleter
     def type(self): #@DuplicatedSignature

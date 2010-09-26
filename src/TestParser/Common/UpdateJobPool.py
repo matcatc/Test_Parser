@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 import queue, threading
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 
 class NonExistentJobPool_Exception(Exception):
     '''
@@ -63,7 +63,7 @@ class UpdateJobPool(object):
         @pre see addThreads() regarding numThreads
         '''
         if not self._bPoolCreated:
-            Constants.logger.info("Creating thread pool")
+            CONSTANTS.logger.info("Creating thread pool")
             self._bPoolCreated = True
             self.addThreads(numThreads)
 
@@ -78,7 +78,7 @@ class UpdateJobPool(object):
         if self._bPoolCreated == False:
             raise NonExistentJobPool_Exception("cannot add threads to a job pool that hasn't been created")
 
-        Constants.logger.info("adding threads: %d" % numThreads)
+        CONSTANTS.logger.info("adding threads: %d" % numThreads)
         for x in range(numThreads):                         #@UnusedVariable
             self._threadCount += 1
             thread = UpdateThread(self)
@@ -183,9 +183,6 @@ class UpdateThread (threading.Thread):
         Actual work is done here. Gets job (observer) from queue,
         and calls update on it.
         
-        Will print out an error message to Constants.errStream if
-        a job is None.
-        
         @see dieOff() for die off conditions
         '''
         while True:
@@ -195,8 +192,7 @@ class UpdateThread (threading.Thread):
             if observer != None:
                 observer.update()
             else:
-                Constants.logger.warning(UpdateThread.NON_EXISTENT_OBSERVER_MSG)
-                print(UpdateThread.NON_EXISTENT_OBSERVER_MSG, file=Constants.errStream)
+                CONSTANTS.logger.warning(UpdateThread.NON_EXISTENT_OBSERVER_MSG)
 
             # notify queue that job is done
             self.jobPool._jobQueue.task_done()
@@ -205,5 +201,5 @@ class UpdateThread (threading.Thread):
             lock = threading.Lock()
             with lock:
                 if self._dieOff():
-                    Constants.logger.info("Removing thread")
+                    CONSTANTS.logger.info("Removing thread")
                     return

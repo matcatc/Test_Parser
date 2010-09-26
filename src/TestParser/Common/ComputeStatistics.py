@@ -20,6 +20,10 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 def computeStatistics(result):
+    '''
+    @param result the results to compute statistics for
+    @return tuple (passes, fails, errors)
+    '''
     type = result.type.lower()
     if type == "pass" \
             or type == "ok":

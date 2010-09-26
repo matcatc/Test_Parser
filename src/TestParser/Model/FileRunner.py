@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>
 '''
 
 #from .IRunner import IRunner
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 from .IRunner import InvalidRunnerException
 import sys
 
@@ -76,7 +76,7 @@ class FileRunner():
             with open(self._file, 'r') as f:
                 return f.read()
         except:
-            Constants.logger.error("Failed to read file %s" % self._file)
+            CONSTANTS.logger.error("Failed to read file %s" % self._file)
             raise InvalidFileException(self._file)
         
     def runAll(self):
@@ -86,5 +86,5 @@ class FileRunner():
         '''
         Log b/c runPrevious with Files can lead to unexpected behavior.
         '''
-        Constants.logger.info("Running previous FileRunner, file = %s" % self._file)
+        CONSTANTS.logger.info("Running previous FileRunner, file = %s" % self._file)
         return self.run()

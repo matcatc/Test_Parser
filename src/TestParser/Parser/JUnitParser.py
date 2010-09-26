@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from . import IParse
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 from ..TestResults import TestResults, Suite, TestCase, Notice
 from .JUnitYaccer import InvalidLine, yaccer                #@UnresolvedImport
 
@@ -75,7 +75,7 @@ class JUnitParser(IParse.IParse):
         elif file is not None:
             return self._parseData(file.read())
         else:
-            Constants.logger.error("parse() needs data to parse")
+            CONSTANTS.logger.error("parse() needs data to parse")
             raise ValueError("parse() needs data to parse")
 
 
@@ -99,10 +99,10 @@ class JUnitParser(IParse.IParse):
         testCount, errorCount, failCount = self._parseStatus(statusLine)
 
         failInfo = self._parseFailError(lines)
-        Constants.logger.debug(str(failInfo))
+        CONSTANTS.logger.debug(str(failInfo))
         
         suites = self._compileSuites(failInfo)
-        Constants.logger.debug(str(suites))
+        CONSTANTS.logger.debug(str(suites))
         
         return self._compileTestResults(testCount, errorCount, failCount, suites)
 
@@ -121,19 +121,19 @@ class JUnitParser(IParse.IParse):
         # need to use BNF to completely verify,
         # but this is more of a sanity check
         if not re.match(r'^[\.EF]+$', statusLine):
-            Constants.logger.error("statusLine isn't of correct form")
+            CONSTANTS.logger.error("statusLine isn't of correct form")
             # TODO: raise?
 
-        Constants.logger.debug("statusLine = %s" % statusLine)
+        CONSTANTS.logger.debug("statusLine = %s" % statusLine)
 
         testCount = len(re.findall('\.', statusLine))
-        Constants.logger.debug("testCount = %d" % testCount)
+        CONSTANTS.logger.debug("testCount = %d" % testCount)
 
         errorCount = len(re.findall('E', statusLine))
-        Constants.logger.debug("errorCount = %d" % errorCount)
+        CONSTANTS.logger.debug("errorCount = %d" % errorCount)
 
         failCount = len(re.findall('F', statusLine))
-        Constants.logger.debug("failCount = %d" % failCount)
+        CONSTANTS.logger.debug("failCount = %d" % failCount)
 
         return (testCount, errorCount, failCount)
 
@@ -238,7 +238,7 @@ class JUnitParser(IParse.IParse):
                             failInfo.append( (suiteName, testName, fileName, line, info))
                             
                     else:
-                        Constants.logger.error("encountered unknown line type %s" % lineType)
+                        CONSTANTS.logger.error("encountered unknown line type %s" % lineType)
                         raise UnknownLineType(lineType)
                     
             except InvalidLine:

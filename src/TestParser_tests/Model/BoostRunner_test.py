@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 from TestParser.Model.BoostRunner import BoostRunner
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 from TestParser.Common.computeDataFilepath import computeDataFilepath
 import io
 
@@ -49,11 +49,11 @@ class BoostRunner_Test(unittest.TestCase):
 
 
     def setUp(self):
-        Constants.errStream = io.StringIO()
+        CONSTANTS.errStream = io.StringIO()
         self.runner = BoostRunner()
 
     def tearDown(self):
-        Constants.reset()
+        CONSTANTS.resetErrStream()
         del self.runner
 
     def testRunAll(self):

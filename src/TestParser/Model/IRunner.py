@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 import os.path
 from subprocess import Popen, PIPE
 
@@ -136,7 +136,7 @@ class IRunner(object):
         @return stdout from the test program. Or None if program execution failed.
         '''
         if self.runner is None:
-            Constants.logger.warning(IRunner.RUNNER_NONE)
+            CONSTANTS.logger.warning(IRunner.RUNNER_NONE)
             raise NoRunnerException()
 
         try:
@@ -146,16 +146,16 @@ class IRunner(object):
                 cmd = self.computeCmd(params)
                 self.previousCmd = cmd
 
-            Constants.logger.debug("cmd = %s" % repr(cmd))
+            CONSTANTS.logger.debug("cmd = %s" % repr(cmd))
 
             p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         except (OSError, ValueError):
-            Constants.logger.error(IRunner.EXECUTION_FAILURE_MESSAGE)
+            CONSTANTS.logger.error(IRunner.EXECUTION_FAILURE_MESSAGE)
             raise InvalidRunnerException(self.runnerName)
 
         stdout, stderr = p.communicate()
         if not stderr == "":
-            print(stderr.decode("utf-8"), file=Constants.errStream)
+            print(stderr.decode("utf-8"), file=CONSTANTS.errStream)
         return stdout
 
     def computeCmd(self, params):
@@ -179,7 +179,7 @@ class IRunner(object):
         '''
         if self.previousCmd is None:
             # error/raise etc
-            Constants.logger.warning(IRunner.NO_PREVIOUS_CMD_MESSAGE)
+            CONSTANTS.logger.warning(IRunner.NO_PREVIOUS_CMD_MESSAGE)
             return self.runAll()
         return self.run(givenCmd=self.previousCmd)
 

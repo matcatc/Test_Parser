@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 from TestParser.TestResults.Notice import Notice
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 
 import io
 
@@ -38,12 +38,12 @@ class Notice_Test(unittest.TestCase):
     type = "error"
 
     def setUp(self):
-        Constants.errStream = io.StringIO()
+        CONSTANTS.errStream = io.StringIO()
         self.notice = Notice(self.file, self.line, self.info, self.type)
 
 
     def tearDown(self):
-        Constants.reset()
+        CONSTANTS.resetErrStream()
         del self.notice
 
     def test_fileDeleter(self):

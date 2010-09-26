@@ -20,7 +20,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import sys
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 
 try:
     from PyQt4 import uic #@UnresolvedImport
@@ -136,9 +136,9 @@ class QtResultView(UiClass, WidgetClass):
         
         @date Jun 17, 2010
         '''
-        Constants.logger.debug("start of QtResultView.reRun()")
+        CONSTANTS.logger.debug("start of QtResultView.reRun()")
         
-        if Constants.autoExpand:
+        if CONSTANTS.autoExpand:
             scrollPos = self.treeWidget.verticalScrollBar().value()
             
             itemsToExpand = []
@@ -151,13 +151,13 @@ class QtResultView(UiClass, WidgetClass):
 
         self.controller.runPrevious()
 
-        if Constants.autoExpand:
-            Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
+        if CONSTANTS.autoExpand:
+            CONSTANTS.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
             self._expandItems(itemsToExpand)
             
             self.treeWidget.verticalScrollBar().setValue(scrollPos)
         
-        Constants.logger.debug("end of QtResultView.reRun()")
+        CONSTANTS.logger.debug("end of QtResultView.reRun()")
 
 #
 ## auto expand

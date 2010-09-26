@@ -23,7 +23,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from TestParser.Common import Observer
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 
 class TkResultView(Observer.Observer):
     '''
@@ -83,19 +83,19 @@ class TkResultView(Observer.Observer):
         @warning This will likely scroll to the wrong line if the number of
             lines visible changes (which is possible.)
         '''
-        Constants.logger.debug("start of TkResultView.reRun()")
+        CONSTANTS.logger.debug("start of TkResultView.reRun()")
 
-        if Constants.autoExpand:
+        if CONSTANTS.autoExpand:
             # get scroll position
             scrollPos = self.tree.yview()
-            Constants.logger.debug("scrollPos = %s" % str(scrollPos))
+            CONSTANTS.logger.debug("scrollPos = %s" % str(scrollPos))
                         
             selectedItems = self.tree.selection()
             if len(selectedItems) == 0:
                 selectedItems = []
                 for root in self.tree.get_children():
                     selectedItems += self._getExpandedItems(root) 
-            Constants.logger.debug("selectedItems = %s" % str(selectedItems))
+            CONSTANTS.logger.debug("selectedItems = %s" % str(selectedItems))
             
             itemsToExpand = []
             for item in selectedItems:
@@ -103,16 +103,16 @@ class TkResultView(Observer.Observer):
 
         self.controller.runPrevious()
 
-        if Constants.autoExpand:
-            Constants.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
+        if CONSTANTS.autoExpand:
+            CONSTANTS.logger.debug("itemsToExpand:\t %s" % itemsToExpand)
             self._expandItems(itemsToExpand)
         
             # reset scroll position
             if scrollPos[1] != 1.0:
-                Constants.logger.debug("setting scroll position to %d" % scrollPos[0])
+                CONSTANTS.logger.debug("setting scroll position to %d" % scrollPos[0])
                 self.tree.yview(tk.MOVETO, scrollPos[0])
         
-        Constants.logger.debug("end of TkResultView.reRun()")
+        CONSTANTS.logger.debug("end of TkResultView.reRun()")
         
         
     def about(self, data=None):
@@ -352,7 +352,7 @@ class TkResultView(Observer.Observer):
         '''
         for root in self.tree.get_children():
             for path in itemsToExpand:
-                Constants.logger.debug("path = %s" % path)
+                CONSTANTS.logger.debug("path = %s" % path)
                 self._expandPath(path, root)
             
     def _expandPath(self, path, currId, parentId=None):

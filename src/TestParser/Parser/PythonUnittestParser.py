@@ -21,7 +21,7 @@ along with Test Parser.  If not, see <http://www.gnu.org/licenses/>.
 
 from . import IParse
 from ..TestResults import TestResults, Suite, TestCase, Notice
-from TestParser.Common.Constants import Constants
+from TestParser.Common.Constants import CONSTANTS
 import re
 from collections import OrderedDict
 
@@ -201,7 +201,7 @@ class PythonUnittestParser(IParse.IParse):
         elif file is not None:
             self._parseData(file.read())
         else:
-            Constants.logger.error("parse() needs data to parse")
+            CONSTANTS.logger.error("parse() needs data to parse")
             raise ValueError("parse() needs data to parse")
 
 
