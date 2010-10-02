@@ -37,13 +37,13 @@ def initConstants(options):
     
     @date Aug 9, 2010
     '''
-    from TestParser.Common.Constants import Constants
+    from TestParser.Common.Constants import CONSTANTS
     
-    Constants.autoExpand = (False, True)[options.auto_expand == "on"]
-    Constants.logger.info("autoExpand = %s" % options.auto_expand)
+    CONSTANTS.autoExpand = (False, True)[options.auto_expand == "on"]
+    CONSTANTS.logger.info("autoExpand = %s" % options.auto_expand)
 
-    Constants.threading = options.threading
-    Constants.logger.info("threading = %s" % options.threading)
+    CONSTANTS.threading = options.threading
+    CONSTANTS.logger.info("threading = %s" % options.threading)
     
 
 def main():
