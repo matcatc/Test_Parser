@@ -1,3 +1,43 @@
+Feb 27, 2014 UPDATE:
+
+As you may have noticed, this project is a bit chaotic and neglected at the
+moment. Nevertheless, I still fully intend to complete it. More importantly,
+I'd like to clean up the documentation and the project as a whole.
+
+That being said, I'm a little busy finishing up college and working on another
+project at the moment. And I'm sure work will keep me sufficiently busy once I
+start as well. But if you would like me to priortize getting this project into
+a better state, shoot me an email (matcatprg@yahoo.com) so I can do so.
+
+Things I'd like to do right away:
+
+. Cleaning up documentation. On the order of rewriting ALL of it from scratch,
+using the old docs only for the information they contain.
+
+This includes changing this README to be the sole user document, written in
+something human readable (probably asciidoc) rather than straight up docbook
+(live and learn.)
+
+Would also create secondary documents INSTALL and TODO.
+
+. Renaming the project.
+
+I've had an idea for renaming the project for about 2 and a half years now. I
+still like the name, so I probably will when I get the chance.
+
+
+
+As for the code itself, I'd probably just want to refactor and clean up
+functionality for the time being. Fix bugs and the like. Could add features
+farther in the future when I have a better idea of what I'm doing.
+
+As always, feedback is welcome.
+
+Matthew Todd
+
+--------------------
+
+
 This file is a dump of random things I need to keep track of or might need
 later.
 
