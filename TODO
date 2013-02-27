@@ -1,0 +1,85 @@
+TODOs
+=====
+:author: Matthew Todd
+
+
+. Error message for failing to import tkinter wrong
++
+--
+Suggests installing `python-tk`, but this is a python3 program. So it should
+instead suggest installing `python3-tk`.
+--
+
+
+. Switch to pyside?
++
+--
+Switch from PyQt4 to pyside?
+--
+
+
+. Update documentation
++
+--
+Documentation needs to be overhauled altogether.
+
+Returning to the project for the first time in 2 years, it was unclear to me
+exactly how to use it and where to get started. I had to dig through some code
+to figure out how to get it to work (what was going wrong). It should be much
+easier for an user to pick it up and get going.
+
+.. Make it easier to get started with.
+.. Switch to more maintainable document type (asciidoc).
+.. Clean up info regarding installation instructions.
+--
+
+
+. Program help should be more informative (helpful)
++
+--
+Returning to the project for the first time in 2 years, it was unclear exactly
+how to use it.
+--
+
+
+. Mention that some test runners may need to take into account current working directory
++
+--
+Some test runners may assume that they're being run from the directory they're
+in. But there's no gaurantee that an user will run this program from the same
+directory as the test runner is located. So they should handle this edge case.
+
+. Example where this issue occurs
+============
+    loader = unittest.TestLoader()
+    suite = loader.discover('./tests/')
+============
+
+The above example is from another project of mine, where I was using python's
+unittest module to automatically find (discover) and run all of my tests. The
+discovery step is shown above, and as you can see, specifies the current path
+as relative to the test runner script. Except that its actually a path relative
+to the current working directory, and so broke when run by Test Parser.
+
+. Fixed example
+============
+    dir_name = os.path.dirname(__file__)
+    test_dir = os.path.join(dir_name, 'tests')
+
+    loader = unittest.TestLoader()
+    suite = loader.discover(test_dir)
+============
+
+The above solution worked, although I'd be careful to make sure that __file__
+works in all situations. Its not clear if it breaks under some circumstances
+(e.g: py2exe).
+
+--
+
+
+. Change program name
++
+--
+After 2 years of not working on it, I still feel the name should be changed to TeVi.
+--
+
